@@ -15,4 +15,14 @@
         <tag>Blog</tag>
       </tags>
   </entry>
+  <entry>
+    <title>imageTest</title>
+    <url>/2021/05/10/imageTest/</url>
+    <content><![CDATA[<p>测试图片相对路径</p>
+<p><img src="/.io//test.png" alt="test"></p>
+]]></content>
+      <tags>
+        <tag>Test</tag>
+      </tags>
+  </entry>
 </search>
