@@ -1,34 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Ref</title>
-    <url>/2021/05/09/Ref/</url>
-    <content><![CDATA[<h2 id="不同的修改"><a href="#不同的修改" class="headerlink" title="不同的修改"></a>不同的修改</h2><p>版本：从参考地址下载的最新版（NexT 8.4.0 Released）</p>
-<h3 id="圆形旋转头像"><a href="#圆形旋转头像" class="headerlink" title="圆形旋转头像"></a>圆形旋转头像</h3><p>打开<code>Blog\themes\hexo-theme-next-8.4.0\_config.yml</code>文件，将<code>rounded</code>和<code>rotated</code>都改成<code>true</code>即可</p>
-<p><img src="/.io//image-20210510101136415.png" alt="image-20210510101136415"></p>
-<h3 id="添加动态背景"><a href="#添加动态背景" class="headerlink" title="添加动态背景"></a>添加动态背景</h3><p><code>Blog\themes\hexo-theme-next-8.4.0\_config.yml</code>文件，定位<code>canvas</code>然后<code>enable=true</code>即可</p>
-<h3 id="删除强力驱动"><a href="#删除强力驱动" class="headerlink" title="删除强力驱动"></a>删除强力驱动</h3><p>在<code>\Blog\themes\hexo-theme-next-8.4.0\layout\_partials\footer.njk</code>定位<code>powered</code>，将以下代码注释掉（<!-- -->）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;%- if theme.footer.powered %&#125;</span><br><span class="line">  &lt;div class=&quot;powered-by&quot;&gt;</span><br><span class="line">    &#123;%- set next_site = &#x27;https://theme-next.js.org&#x27; if theme.scheme === &#x27;Gemini&#x27; else &#x27;https://theme-next.js.org/&#x27; + theme.scheme | lower + &#x27;/&#x27; %&#125;</span><br><span class="line">    &#123;&#123;- __(&#x27;footer.powered&#x27;, next_url(&#x27;https://hexo.io&#x27;, &#x27;Hexo&#x27;, &#123;class: &#x27;theme-link&#x27;&#125;) + &#x27; &amp; &#x27; + next_url(next_site, &#x27;NexT.&#x27; + theme.scheme, &#123;class: &#x27;theme-link&#x27;&#125;)) &#125;&#125;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&#123;%- endif %&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="修改文章底部带-号的标签"><a href="#修改文章底部带-号的标签" class="headerlink" title="修改文章底部带#号的标签"></a>修改文章底部带#号的标签</h3><p>打开<code>myblog/themes/next/layout/_macro/post.swig</code>文件，搜索<code>post.tags</code>，将 <code>if theme.tag_icon else &#39;#&#39;</code>删除即可</p>
-<p><img src="/.io//image-20210510095812090.png" alt="image-20210510095812090"></p>
-<p>效果：</p>
-<p><img src="/.io//image-20210510095930542.png" alt="image-20210510095930542"></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.qcmoke.site/blog/hexo_next.html">hexo+next打造精美的个人博客网站 | Qcmoke’s Blog</a></p>
-<p><a href="https://www.jianshu.com/p/94b332d22115">hexo+gitee免费搭建个人博客 - 简书 (jianshu.com)</a></p>
-<p>[hexo 下载地址](<a href="https://github.com/next-theme/hexo-theme-next/tree/v8.4.0">next-theme/hexo-theme-next at v8.4.0 (github.com)</a>)</p>
-]]></content>
-      <categories>
-        <category>Tools</category>
-      </categories>
-      <tags>
-        <tag>Ref</tag>
-        <tag>Blog</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>N1BOOK</title>
     <url>/2020/11/11/N1BOOK/</url>
     <content><![CDATA[<p><font face="楷体" size="4">参考《从0到1 CTFer成长之路》</font>  </p>
@@ -164,6 +136,34 @@
       <tags>
         <tag>CTF</tag>
         <tag>N1BOOK</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ref</title>
+    <url>/2021/05/09/Ref/</url>
+    <content><![CDATA[<h2 id="不同的修改"><a href="#不同的修改" class="headerlink" title="不同的修改"></a>不同的修改</h2><p>版本：从参考地址下载的最新版（NexT 8.4.0 Released）</p>
+<h3 id="圆形旋转头像"><a href="#圆形旋转头像" class="headerlink" title="圆形旋转头像"></a>圆形旋转头像</h3><p>打开<code>Blog\themes\hexo-theme-next-8.4.0\_config.yml</code>文件，将<code>rounded</code>和<code>rotated</code>都改成<code>true</code>即可</p>
+<p><img src="/.io//image-20210510101136415.png" alt="image-20210510101136415"></p>
+<h3 id="添加动态背景"><a href="#添加动态背景" class="headerlink" title="添加动态背景"></a>添加动态背景</h3><p><code>Blog\themes\hexo-theme-next-8.4.0\_config.yml</code>文件，定位<code>canvas</code>然后<code>enable=true</code>即可</p>
+<h3 id="删除强力驱动"><a href="#删除强力驱动" class="headerlink" title="删除强力驱动"></a>删除强力驱动</h3><p>在<code>\Blog\themes\hexo-theme-next-8.4.0\layout\_partials\footer.njk</code>定位<code>powered</code>，将以下代码注释掉（<!-- -->）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;%- if theme.footer.powered %&#125;</span><br><span class="line">  &lt;div class=&quot;powered-by&quot;&gt;</span><br><span class="line">    &#123;%- set next_site = &#x27;https://theme-next.js.org&#x27; if theme.scheme === &#x27;Gemini&#x27; else &#x27;https://theme-next.js.org/&#x27; + theme.scheme | lower + &#x27;/&#x27; %&#125;</span><br><span class="line">    &#123;&#123;- __(&#x27;footer.powered&#x27;, next_url(&#x27;https://hexo.io&#x27;, &#x27;Hexo&#x27;, &#123;class: &#x27;theme-link&#x27;&#125;) + &#x27; &amp; &#x27; + next_url(next_site, &#x27;NexT.&#x27; + theme.scheme, &#123;class: &#x27;theme-link&#x27;&#125;)) &#125;&#125;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&#123;%- endif %&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="修改文章底部带-号的标签"><a href="#修改文章底部带-号的标签" class="headerlink" title="修改文章底部带#号的标签"></a>修改文章底部带#号的标签</h3><p>打开<code>myblog/themes/next/layout/_macro/post.swig</code>文件，搜索<code>post.tags</code>，将 <code>if theme.tag_icon else &#39;#&#39;</code>删除即可</p>
+<p><img src="/.io//image-20210510095812090.png" alt="image-20210510095812090"></p>
+<p>效果：</p>
+<p><img src="/.io//image-20210510095930542.png" alt="image-20210510095930542"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.qcmoke.site/blog/hexo_next.html">hexo+next打造精美的个人博客网站 | Qcmoke’s Blog</a></p>
+<p><a href="https://www.jianshu.com/p/94b332d22115">hexo+gitee免费搭建个人博客 - 简书 (jianshu.com)</a></p>
+<p>[hexo 下载地址](<a href="https://github.com/next-theme/hexo-theme-next/tree/v8.4.0">next-theme/hexo-theme-next at v8.4.0 (github.com)</a>)</p>
+]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+      <tags>
+        <tag>Ref</tag>
+        <tag>Blog</tag>
       </tags>
   </entry>
   <entry>
