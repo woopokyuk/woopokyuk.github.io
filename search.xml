@@ -533,4 +533,103 @@
         <tag>WP</tag>
       </tags>
   </entry>
+  <entry>
+    <title>FCM</title>
+    <url>/2020/07/30/FCM/</url>
+    <content><![CDATA[<h2 id="模糊认知图（Fuzzy-Cognitive-Map，FCM）基本结构与原理"><a href="#模糊认知图（Fuzzy-Cognitive-Map，FCM）基本结构与原理" class="headerlink" title="模糊认知图（Fuzzy Cognitive Map，FCM）基本结构与原理"></a>模糊认知图（Fuzzy Cognitive Map，FCM）基本结构与原理</h2><h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
+<li>基本的关系：</li>
+</ol>
+<p>　　模糊认知图(FCM) = 模糊逻辑(Fuzzy logic) + 神经网络(Neural Network)</p>
+<ol start="2">
+<li>组成结构[1]</li>
+</ol>
+<p>　　模糊认知图是有向图，它由表示概念(concept)的节点和带有权值(weight)的弧线组成。模糊认知图中的所有值都是模糊值，比如可以取值：concept value ∈ [0,1]  weight value ∈ [-1,1]。一个concept可以影响其他的concept，同时，可以在构造模糊认知图的过程中不断增减互连关系或concept。一个具有n个概念节点的模糊认知图，可以用一个nxn阶矩阵W唯一确定。</p>
+<p><img src="/2020/07/30/FCM/1931211-20200721105224495-580384554.png" alt="img"></p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>　　每个concept都代表着系统的一项特征，它们可能用于表征系统中事件、行为、目标等。每个concept的值用一个数字Ai表示，这个值由系统变量的真实值转换而成。</p>
+<p>　　两个concept：Ci与Cj之间的关系分三种情况：</p>
+<p>　　　　Wij &gt; 0 　Ci与Cj正相关</p>
+<p>　　　　Wij &lt; 0 　Ci与Cj负相关</p>
+<p>　　　　Wij = 0 　Ci与Cj无因果关系</p>
+<p>　　影响当前concept值(Ai)的因素有：该concept前时刻的值Aiold + 所有与它相连的其它concept值乘以权值后的总和。</p>
+<p><img src="/2020/07/30/FCM/1931211-20200721121621259-1344638528.png" alt="img"></p>
+<p><img src="/2020/07/30/FCM/1931211-20200721132104153-1572744170.png" alt="img"></p>
+<h3 id="基本的应用方法"><a href="#基本的应用方法" class="headerlink" title="基本的应用方法"></a>基本的应用方法</h3><ol>
+<li><p>首先由<strong>若干</strong>专家确定最适合描述该系统的concept（可以是系统的特征、状态、变量、系统的输入或输出等），并给定一个<strong>模糊值</strong>（fuzzy value）来表征concept之间的互连关系（正/负相关）</p>
+</li>
+<li><p>以上提到的模糊值（权值）需要考虑：</p>
+</li>
+</ol>
+<p>　　a. 权重的符号，Ci是否会影响Cj</p>
+<p>　　b. Ci对Cj的影响程度</p>
+<p> 反之亦然。</p>
+<ol start="3">
+<li><p>然后整合这些专家的意见，此时需要给每位专家一个<strong>信誉值（credibility）</strong>，在整合前，给每位专家的FCM乘以他们对应的信誉值。</p>
+</li>
+<li><p>经过初始化后的FCM，其中的concept根据设定会相互影响，直到：</p>
+</li>
+</ol>
+<p>　　a. 到达平衡 或</p>
+<p>　　b. 到达限定周期 或</p>
+<p>　　c. 出现混沌行为</p>
+<p>以上的结果是：构造单个FCM</p>
+<p>但有时，我们还需构造多个FCM去描述系统的不同模块，然后用类似的方法将它们集成到一个<strong>增强的FCM</strong>中。</p>
+<p>tip: 当构造多个不同模块的FCM（如两层FCM）后，其中某个FCM中的部分concept可能会影响其他FCM的concept。</p>
+<p><img src="/2020/07/30/FCM/1931211-20200721174650554-753912085.png" alt="img"></p>
+<h3 id="训练方法"><a href="#训练方法" class="headerlink" title="训练方法"></a>训练方法</h3><p>目的：调整权值weight</p>
+<p>可能的方法：</p>
+<p>　　a. Differential Hebbian learning (DHL，微分Hebbian学习方法)是一种无监督的学习方法，未在实际系统中广泛运用[2]。</p>
+<p>　　b. Nonlinear Hebbian learning (NHL，非线性Hebbian学习方法)[3]</p>
+<p>　　　　非线性 Hebbian 算法是一种无监督权值学习方法，在系统权值学习具有广泛的应用。它利用权值关联的原因节点状态值与结果节点状态值的乘积对连接权值进行无向修正 , 没有其他约束条件来提高学习效率和模型准确度。</p>
+<h4 id="四种非监督学习方法-4"><a href="#四种非监督学习方法-4" class="headerlink" title="四种非监督学习方法[4]"></a>四种非监督学习方法[4]</h4><h5 id="1-Signal-Hebbian"><a href="#1-Signal-Hebbian" class="headerlink" title="1. Signal Hebbian"></a>1. Signal Hebbian</h5><ul>
+<li>关联局部神经元信号。</li>
+<li>如果神经元i和神经元j同步激活，则突触能量增强或突触能量减弱。</li>
+</ul>
+<h5 id="2-Competitive"><a href="#2-Competitive" class="headerlink" title="2. Competitive"></a>2. Competitive</h5><ul>
+<li>用0-1竞争信号（神经元j的信号）调制信号突触差异。</li>
+<li>突触只在突触后神经元获胜时才学习。</li>
+<li>突触后神经元编码突触前信号模式。</li>
+</ul>
+<h5 id="3-Differential-Hebbian"><a href="#3-Differential-Hebbian" class="headerlink" title="3. Differential Hebbian"></a>3. Differential Hebbian</h5><ul>
+<li>关联信号速度和神经元信号。</li>
+<li>通过神经元信号的微分获得信号速度。</li>
+</ul>
+<h5 id="4-Differential-Competitive"><a href="#4-Differential-Competitive" class="headerlink" title="4. Differential Competitive"></a>4. Differential Competitive</h5><ul>
+<li>结合Competitive和Differential Hebbian</li>
+<li>仅在有变化时学习</li>
+</ul>
+<hr>
+<h2 id="神经网络的基本结构与原理"><a href="#神经网络的基本结构与原理" class="headerlink" title="神经网络的基本结构与原理"></a>神经网络的基本结构与原理</h2><h3 id="结构-1"><a href="#结构-1" class="headerlink" title="结构"></a>结构</h3><p><img src="/2020/07/30/FCM/1931211-20200721180819407-385103004.png" alt="img"></p>
+<h3 id="原理-5"><a href="#原理-5" class="headerlink" title="原理[5]"></a>原理[5]</h3><ol>
+<li><p>随机生成神经元间的权值</p>
+</li>
+<li><p>对输入层神经元的数据加权求和再用激励函数激活，得到隐藏层的值</p>
+</li>
+<li><p>用类似的方法加权求和并激活，得到输出层的值</p>
+</li>
+<li><p>计算以上得到的输出层的值，与训练集中数据相比的误差大小（误差趋近于0收敛）</p>
+</li>
+<li><p>根据误差大小，计算残差</p>
+</li>
+<li><p>输出层残差值加权求和，得到隐藏层的残差</p>
+</li>
+<li><p>隐藏层残差加权求和。。。</p>
+</li>
+<li><p>根据残差值调整权值</p>
+</li>
+</ol>
+<h3 id="如何进行训练"><a href="#如何进行训练" class="headerlink" title="如何进行训练"></a>如何进行训练</h3><p>如以上，梯度下降法</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] Stylios C , Georgopoulos V C , Groumpos P P . The Use of Fuzzy Cognitive Maps in Modeling Systems[C]// 5th IEEE Mediterranean Conference on Control and Systems. IEEE, 1997.</p>
+<p>[2] 陈宁, 彭俊洁, 王磊,等. 模糊灰色认知网络的建模方法及应用[J]. 自动化学报, 2018, v.44(07):77-86.</p>
+<p>[3] Elpiniki Papageorgiou, Chrysostomos Stylios, Peter Groumpos. Fuzzy Cognitive Map Learning Based on Nonlinear Hebbian Rule[M]// AI 2003: Advances in Artificial Intelligence. Springer Berlin Heidelberg, 2003.</p>
+<p>[4] Neural Networks and Fuzzy Systems课程ppt</p>
+<p>[5] <a href="https://www.cnblogs.com/cxhzy/p/10891137.html">https://www.cnblogs.com/cxhzy/p/10891137.html</a></p>
+]]></content>
+      <categories>
+        <category>科研</category>
+      </categories>
+      <tags>
+        <tag>FCM</tag>
+        <tag>科研</tag>
+      </tags>
+  </entry>
 </search>
