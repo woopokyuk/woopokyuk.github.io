@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>imageTest</title>
-    <url>/2021/05/10/imageTest/</url>
-    <content><![CDATA[<p>测试图片相对路径<br><img src="/.io//test.png" alt="test"></p>
-]]></content>
-      <tags>
-        <tag>Test</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Ref</title>
     <url>/2021/05/09/Ref/</url>
     <content><![CDATA[<h2 id="不同的修改"><a href="#不同的修改" class="headerlink" title="不同的修改"></a>不同的修改</h2><p>版本：从参考地址下载的最新版（NexT 8.4.0 Released）</p>
@@ -272,6 +263,16 @@
       <tags>
         <tag>CTF</tag>
         <tag>WP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>imageTest</title>
+    <url>/2021/05/10/image/</url>
+    <content><![CDATA[<p>测试图片相对路径</p>
+<p><img src="/.io//test.png"></p>
+]]></content>
+      <tags>
+        <tag>Test</tag>
       </tags>
   </entry>
 </search>
