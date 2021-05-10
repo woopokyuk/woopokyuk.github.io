@@ -443,7 +443,17 @@
       
         
           
-            <h2 id="不同的修改"><a href="#不同的修改" class="headerlink" title="不同的修改"></a>不同的修改</h2><p>版本：从参考地址下载的最新版（NexT 8.4.0 Released）</p>
+            <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>由于 8.4.0 存在很多未知问题（实际上是我太菜，不知道怎么解决），所以还是回到 5.1.4。但是 5.1.4 也存在一些问题，比如 <code>hexo s</code>后查看本地   <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a> 回显</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% extends &#x27;_layout.swig&#x27; %&#125; &#123;% import &#x27;_macro/post.swig&#x27; as post_template %&#125; &#123;% import &#x27;_macro/sidebar.swig&#x27; as sidebar_template %&#125; &#123;% block title %&#125;&#123;&#123; config.title &#125;&#125;&#123;% if theme.index_with_subtitle and config.subtitle %&#125; - &#123;&#123;config.subtitle &#125;&#125;&#123;% endif %&#125;&#123;% endblock %&#125; &#123;% block page_class %&#125; &#123;% if is_home() %&#125;page-home&#123;% endif -%&#125; &#123;% endblock %&#125; &#123;% block content %&#125;</span><br><span class="line">&#123;% for post in page.posts %&#125; &#123;&#123; post_template.render(post, true) &#125;&#125; &#123;% endfor %&#125;</span><br><span class="line">&#123;% include &#x27;_partials/pagination.swig&#x27; %&#125; &#123;% endblock %&#125; &#123;% block sidebar %&#125; &#123;&#123; sidebar_template.render(false) &#125;&#125; &#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个问题的解决方法在该项目 <a target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next">https://github.com/iissnan/hexo-theme-next</a>  issue 中找到：手动安装 swig </p>
+<ul>
+<li><code>npm i hexo-renderer-swig</code></li>
+<li><code>hexo c</code></li>
+<li><code>hexo g</code></li>
+<li><code>hexo c</code></li>
+</ul>
+<h2 id="不同的修改"><a href="#不同的修改" class="headerlink" title="不同的修改"></a>不同的修改</h2><p>版本：从参考地址下载的最新版（NexT 8.4.0 Released）</p>
 <h3 id="圆形旋转头像"><a href="#圆形旋转头像" class="headerlink" title="圆形旋转头像"></a>圆形旋转头像</h3><p>打开<code>Blog\themes\hexo-theme-next-8.4.0\_config.yml</code>文件，将<code>rounded</code>和<code>rotated</code>都改成<code>true</code>即可</p>
 <p><img src="/.io//image-20210510101136415.png" alt="image-20210510101136415"></p>
 <h3 id="添加动态背景"><a href="#添加动态背景" class="headerlink" title="添加动态背景"></a>添加动态背景</h3><p><code>Blog\themes\hexo-theme-next-8.4.0\_config.yml</code>文件，定位<code>canvas</code>然后<code>enable=true</code>即可</p>

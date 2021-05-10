@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="不同的修改版本：从参考地址下载的最新版（NexT 8.4.0 Released） 圆形旋转头像打开Blog\themes\hexo-theme-next-8.4.0\_config.yml文件，将rounded和rotated都改成true即可  添加动态背景Blog\themes\hexo-theme-next-8.4.0\_config.yml文件，定位canvas然后enable&#x3D;true即">
+<meta name="description" content="说明由于 8.4.0 存在很多未知问题（实际上是我太菜，不知道怎么解决），所以还是回到 5.1.4。但是 5.1.4 也存在一些问题，比如 hexo s后查看本地   http:&#x2F;&#x2F;localhost:4000 回显 123&amp;#123;% extends &amp;#x27;_layout.swig&amp;#x27; %&amp;#125; &amp;#123;% import &amp;#x27;_macro&#x2F;post.swig&amp;#">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ref">
 <meta property="og:url" content="https://woopokyuk.github.io/2021/05/09/Ref/index.html">
 <meta property="og:site_name" content="WooPokyuk&#39;s Blog">
-<meta property="og:description" content="不同的修改版本：从参考地址下载的最新版（NexT 8.4.0 Released） 圆形旋转头像打开Blog\themes\hexo-theme-next-8.4.0\_config.yml文件，将rounded和rotated都改成true即可  添加动态背景Blog\themes\hexo-theme-next-8.4.0\_config.yml文件，定位canvas然后enable&#x3D;true即">
+<meta property="og:description" content="说明由于 8.4.0 存在很多未知问题（实际上是我太菜，不知道怎么解决），所以还是回到 5.1.4。但是 5.1.4 也存在一些问题，比如 hexo s后查看本地   http:&#x2F;&#x2F;localhost:4000 回显 123&amp;#123;% extends &amp;#x27;_layout.swig&amp;#x27; %&amp;#125; &amp;#123;% import &amp;#x27;_macro&#x2F;post.swig&amp;#">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://woopokyuk.github.io/.io//image-20210510101136415.png">
 <meta property="og:image" content="https://woopokyuk.github.io/.io//image-20210510095812090.png">
 <meta property="og:image" content="https://woopokyuk.github.io/.io//image-20210510095930542.png">
 <meta property="article:published_time" content="2021-05-08T16:15:03.000Z">
-<meta property="article:modified_time" content="2021-05-10T02:45:14.000Z">
+<meta property="article:modified_time" content="2021-05-10T07:13:14.969Z">
 <meta property="article:author" content="WooPokyuk">
 <meta property="article:tag" content="Ref">
 <meta property="article:tag" content="Blog">
@@ -327,7 +327,17 @@
       
 
       
-        <h2 id="不同的修改"><a href="#不同的修改" class="headerlink" title="不同的修改"></a>不同的修改</h2><p>版本：从参考地址下载的最新版（NexT 8.4.0 Released）</p>
+        <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>由于 8.4.0 存在很多未知问题（实际上是我太菜，不知道怎么解决），所以还是回到 5.1.4。但是 5.1.4 也存在一些问题，比如 <code>hexo s</code>后查看本地   <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a> 回显</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% extends &#x27;_layout.swig&#x27; %&#125; &#123;% import &#x27;_macro/post.swig&#x27; as post_template %&#125; &#123;% import &#x27;_macro/sidebar.swig&#x27; as sidebar_template %&#125; &#123;% block title %&#125;&#123;&#123; config.title &#125;&#125;&#123;% if theme.index_with_subtitle and config.subtitle %&#125; - &#123;&#123;config.subtitle &#125;&#125;&#123;% endif %&#125;&#123;% endblock %&#125; &#123;% block page_class %&#125; &#123;% if is_home() %&#125;page-home&#123;% endif -%&#125; &#123;% endblock %&#125; &#123;% block content %&#125;</span><br><span class="line">&#123;% for post in page.posts %&#125; &#123;&#123; post_template.render(post, true) &#125;&#125; &#123;% endfor %&#125;</span><br><span class="line">&#123;% include &#x27;_partials/pagination.swig&#x27; %&#125; &#123;% endblock %&#125; &#123;% block sidebar %&#125; &#123;&#123; sidebar_template.render(false) &#125;&#125; &#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个问题的解决方法在该项目 <a target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next">https://github.com/iissnan/hexo-theme-next</a>  issue 中找到：手动安装 swig </p>
+<ul>
+<li><code>npm i hexo-renderer-swig</code></li>
+<li><code>hexo c</code></li>
+<li><code>hexo g</code></li>
+<li><code>hexo c</code></li>
+</ul>
+<h2 id="不同的修改"><a href="#不同的修改" class="headerlink" title="不同的修改"></a>不同的修改</h2><p>版本：从参考地址下载的最新版（NexT 8.4.0 Released）</p>
 <h3 id="圆形旋转头像"><a href="#圆形旋转头像" class="headerlink" title="圆形旋转头像"></a>圆形旋转头像</h3><p>打开<code>Blog\themes\hexo-theme-next-8.4.0\_config.yml</code>文件，将<code>rounded</code>和<code>rotated</code>都改成<code>true</code>即可</p>
 <p><img src="/.io//image-20210510101136415.png" alt="image-20210510101136415"></p>
 <h3 id="添加动态背景"><a href="#添加动态背景" class="headerlink" title="添加动态背景"></a>添加动态背景</h3><p><code>Blog\themes\hexo-theme-next-8.4.0\_config.yml</code>文件，定位<code>canvas</code>然后<code>enable=true</code>即可</p>
@@ -519,7 +529,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="nav-number">1.</span> <span class="nav-text">不同的修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%86%E5%BD%A2%E6%97%8B%E8%BD%AC%E5%A4%B4%E5%83%8F"><span class="nav-number">1.1.</span> <span class="nav-text">圆形旋转头像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF"><span class="nav-number">1.2.</span> <span class="nav-text">添加动态背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%BC%BA%E5%8A%9B%E9%A9%B1%E5%8A%A8"><span class="nav-number">1.3.</span> <span class="nav-text">删除强力驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E7%AB%A0%E5%BA%95%E9%83%A8%E5%B8%A6-%E5%8F%B7%E7%9A%84%E6%A0%87%E7%AD%BE"><span class="nav-number">1.4.</span> <span class="nav-text">修改文章底部带#号的标签</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">2.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="nav-number">2.</span> <span class="nav-text">不同的修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%86%E5%BD%A2%E6%97%8B%E8%BD%AC%E5%A4%B4%E5%83%8F"><span class="nav-number">2.1.</span> <span class="nav-text">圆形旋转头像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF"><span class="nav-number">2.2.</span> <span class="nav-text">添加动态背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%BC%BA%E5%8A%9B%E9%A9%B1%E5%8A%A8"><span class="nav-number">2.3.</span> <span class="nav-text">删除强力驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E7%AB%A0%E5%BA%95%E9%83%A8%E5%B8%A6-%E5%8F%B7%E7%9A%84%E6%A0%87%E7%AD%BE"><span class="nav-number">2.4.</span> <span class="nav-text">修改文章底部带#号的标签</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
