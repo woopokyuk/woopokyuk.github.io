@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="主要内容 有限时间异常检测器：负责在预设的有限时间内检测攻击（异常） 系统安全状态观测器：负责状态评估，并在检测到攻击时，调整系统以确保安全状态  参考https:&#x2F;&#x2F;kns.cnki.net&#x2F;kcms&#x2F;detail&#x2F;detail.aspx?dbcode&#x3D;CAPJ&amp;dbname&#x3D;CAPJLAST&amp;filename&#x3D;QHXB20210205002&amp;v&#x3D;w2buZ2%25mmd">
+<meta name="description" content="主要内容 有限时间异常检测器：负责在预设的有限时间内检测攻击（异常） 系统安全状态观测器：负责状态评估，并在检测到攻击时，调整系统以确保安全状态  安全状态估计：是从一组有噪声或被破坏的测量值中估计动态系统状态 本文概要：提出一种有限时间检测器来检测执行器攻击下系统的状态，并设计观测器对系统状态进行安全估计 1 信息物理系统建模1.1 物理进程模型用微分&#x2F;差分方程组进行描述：比如线性系统的状态空间">
 <meta property="og:type" content="article">
 <meta property="og:title" content="信息物理系统的攻击检测与安全状态估计 笔记">
 <meta property="og:url" content="https://woopokyuk.github.io/2021/05/10/%E4%BF%A1%E6%81%AF%E7%89%A9%E7%90%86%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%94%BB%E5%87%BB%E6%A3%80%E6%B5%8B%E4%B8%8E%E5%AE%89%E5%85%A8%E7%8A%B6%E6%80%81%E4%BC%B0%E8%AE%A1/index.html">
 <meta property="og:site_name" content="WooPokyuk&#39;s Blog">
-<meta property="og:description" content="主要内容 有限时间异常检测器：负责在预设的有限时间内检测攻击（异常） 系统安全状态观测器：负责状态评估，并在检测到攻击时，调整系统以确保安全状态  参考https:&#x2F;&#x2F;kns.cnki.net&#x2F;kcms&#x2F;detail&#x2F;detail.aspx?dbcode&#x3D;CAPJ&amp;dbname&#x3D;CAPJLAST&amp;filename&#x3D;QHXB20210205002&amp;v&#x3D;w2buZ2%25mmd">
+<meta property="og:description" content="主要内容 有限时间异常检测器：负责在预设的有限时间内检测攻击（异常） 系统安全状态观测器：负责状态评估，并在检测到攻击时，调整系统以确保安全状态  安全状态估计：是从一组有噪声或被破坏的测量值中估计动态系统状态 本文概要：提出一种有限时间检测器来检测执行器攻击下系统的状态，并设计观测器对系统状态进行安全估计 1 信息物理系统建模1.1 物理进程模型用微分&#x2F;差分方程组进行描述：比如线性系统的状态空间">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-05-10T12:41:49.000Z">
-<meta property="article:modified_time" content="2021-05-10T12:46:06.315Z">
+<meta property="article:modified_time" content="2021-05-11T13:16:34.539Z">
 <meta property="article:author" content="WooPokyuk">
 <meta property="article:tag" content="科研">
 <meta property="article:tag" content="文献">
@@ -376,7 +376,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  89
+                  427
                 </span>
               
 
@@ -417,7 +417,19 @@
 <li>有限时间异常检测器：负责在预设的有限时间内检测攻击（异常）</li>
 <li>系统安全状态观测器：负责状态评估，并在检测到攻击时，调整系统以确保安全状态</li>
 </ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CAPJ&amp;dbname=CAPJLAST&amp;filename=QHXB20210205002&amp;v=w2buZ2%25mmd2FeXYTSHR5oD%25mmd2Bmxbz8x1rI6W%25mmd2F8Z8iZAOvZv8zxIISAv0Xu%25mmd2Fx4BEddWaKYM7">https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CAPJ&amp;dbname=CAPJLAST&amp;filename=QHXB20210205002&amp;v=w2buZ2%25mmd2FeXYTSHR5oD%25mmd2Bmxbz8x1rI6W%25mmd2F8Z8iZAOvZv8zxIISAv0Xu%25mmd2Fx4BEddWaKYM7</a></p>
+<p>安全状态估计：是从一组有噪声或被破坏的测量值中估计动态系统状态</p>
+<p>本文概要：提出一种<strong>有限时间检测器</strong>来检测<strong>执行器</strong>攻击下系统的状态，并设计<strong>观测器</strong>对系统状态进行<strong>安全估计</strong></p>
+<h3 id="1-信息物理系统建模"><a href="#1-信息物理系统建模" class="headerlink" title="1 信息物理系统建模"></a>1 信息物理系统建模</h3><h4 id="1-1-物理进程模型"><a href="#1-1-物理进程模型" class="headerlink" title="1.1 物理进程模型"></a>1.1 物理进程模型</h4><p>用微分/差分方程组进行描述：比如线性系统的状态空间模型</p>
+<h4 id="1-2-信息传输处理进程模型"><a href="#1-2-信息传输处理进程模型" class="headerlink" title="1.2 信息传输处理进程模型"></a>1.2 信息传输处理进程模型</h4><p>用编码解码，加解密进行描述</p>
+<h4 id="1-3-攻击的具象"><a href="#1-3-攻击的具象" class="headerlink" title="1.3 攻击的具象"></a>1.3 攻击的具象</h4><ul>
+<li>作用到进程的未知输入</li>
+<li>对传输过程的破坏</li>
+<li>对传输信息的篡改</li>
+</ul>
+<h4 id="1-4-系统建模"><a href="#1-4-系统建模" class="headerlink" title="1.4 系统建模"></a>1.4 系统建模</h4><p>$$<br>\begin{cases}<br>\dot{x}(t)=Ax(t)+Bu(t)+Dv(t),\<br>y(t)=Cx(t).<br>\end{cases}\tag{1}<br>$$</p>
+<p>x 为系统状态，u 为已知输入，v 为未知攻击，y 为可测量的系统输出</p>
+<h3 id="2-有限时间检测器"><a href="#2-有限时间检测器" class="headerlink" title="2 有限时间检测器"></a>2 有限时间检测器</h3><p>针对公式 (1) 提出检测器<br>$$<br>\begin{cases}<br>\dot{z}=Fz(t)+HBu(t)+Ly(t),\ \ \ \ \ \ \ \ \ \ \ (观测器状态) \<br>\widehat{x}=M[z(t)-F^{\tau}z(t-\tau)] \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (系统估计值)<br>\end{cases}\tag{2}<br>$$<br>由可测量的<strong>系统输出</strong>和<strong>已知输入</strong>获取观测器状态，检测器可以在未知攻击的值不为 0 时将其检测出来</p>
+<h3 id="3-观测器：对有限时间检测器的改进"><a href="#3-观测器：对有限时间检测器的改进" class="headerlink" title="3 观测器：对有限时间检测器的改进"></a>3 观测器：对有限时间检测器的改进</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CAPJ&amp;dbname=CAPJLAST&amp;filename=QHXB20210205002&amp;v=w2buZ2%25mmd2FeXYTSHR5oD%25mmd2Bmxbz8x1rI6W%25mmd2F8Z8iZAOvZv8zxIISAv0Xu%25mmd2Fx4BEddWaKYM7">https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CAPJ&amp;dbname=CAPJLAST&amp;filename=QHXB20210205002&amp;v=w2buZ2%25mmd2FeXYTSHR5oD%25mmd2Bmxbz8x1rI6W%25mmd2F8Z8iZAOvZv8zxIISAv0Xu%25mmd2Fx4BEddWaKYM7</a></p>
 
       
     </div>
@@ -648,7 +660,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%86%85%E5%AE%B9"><span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%86%85%E5%AE%B9"><span class="nav-text">主要内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BF%A1%E6%81%AF%E7%89%A9%E7%90%86%E7%B3%BB%E7%BB%9F%E5%BB%BA%E6%A8%A1"><span class="nav-text">1 信息物理系统建模</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E7%89%A9%E7%90%86%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-text">1.1 物理进程模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E4%BF%A1%E6%81%AF%E4%BC%A0%E8%BE%93%E5%A4%84%E7%90%86%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-text">1.2 信息传输处理进程模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-%E6%94%BB%E5%87%BB%E7%9A%84%E5%85%B7%E8%B1%A1"><span class="nav-text">1.3 攻击的具象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-%E7%B3%BB%E7%BB%9F%E5%BB%BA%E6%A8%A1"><span class="nav-text">1.4 系统建模</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%9C%89%E9%99%90%E6%97%B6%E9%97%B4%E6%A3%80%E6%B5%8B%E5%99%A8"><span class="nav-text">2 有限时间检测器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%A7%82%E6%B5%8B%E5%99%A8%EF%BC%9A%E5%AF%B9%E6%9C%89%E9%99%90%E6%97%B6%E9%97%B4%E6%A3%80%E6%B5%8B%E5%99%A8%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="nav-text">3 观测器：对有限时间检测器的改进</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
