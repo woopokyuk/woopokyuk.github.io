@@ -787,4 +787,187 @@
         <tag>F2FS</tag>
       </tags>
   </entry>
+  <entry>
+    <title>A multi-flow information flow tracking approach for proving quantitative hardware security properties</title>
+    <url>/2020/09/03/A-multi-flow-information-flow-tracking-approach/</url>
+    <content><![CDATA[<h2 id="Key-words"><a href="#Key-words" class="headerlink" title="Key words"></a>Key words</h2><p>hardware security; Information Flow Tracking (IFT); multi-flow IFT; security property</p>
+<h2 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h2><p><img src="/2020/09/03/A-multi-flow-information-flow-tracking-approach/image-20210524202126427.png" alt="image-20210524202126427"></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://ieeexplore.ieee.org/document/9121656">https://ieeexplore.ieee.org/document/9121656</a></p>
+]]></content>
+      <categories>
+        <category>科研</category>
+      </categories>
+      <tags>
+        <tag>文献</tag>
+        <tag>信息流跟踪</tag>
+        <tag>硬件安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Securing Data With Blockchain and AI</title>
+    <url>/2020/09/14/With-Blockchain-and-AI/</url>
+    <content><![CDATA[<h2 id="Key-words"><a href="#Key-words" class="headerlink" title="Key words"></a>Key words</h2><p>Data security, data systems, artificial intelligence, cyberspace</p>
+<h2 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h2><p><img src="/2020/09/14/With-Blockchain-and-AI/image-20210524204351643.png" alt="image-20210524204351643"></p>
+<ul>
+<li>CPS：Cyber Physical Social 信息物理社会融合系统</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://ieeexplore.ieee.org/document/8733072">https://ieeexplore.ieee.org/document/8733072</a></p>
+]]></content>
+      <categories>
+        <category>科研</category>
+      </categories>
+      <tags>
+        <tag>文献</tag>
+        <tag>Blockchain</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于多目标进化算法的变密度模糊认知图学习</title>
+    <url>/2020/09/09/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%9B%AE%E6%A0%87%E8%BF%9B%E5%8C%96%E7%AE%97%E6%B3%95%E7%9A%84%E5%8F%98%E5%AF%86%E5%BA%A6%E6%A8%A1%E7%B3%8A%E8%AE%A4%E7%9F%A5%E5%9B%BE%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h2 id="Key-words"><a href="#Key-words" class="headerlink" title="Key words"></a>Key words</h2><p>Densities, fuzzy cognitive maps, multiobjective evolutionary algorithms (MOEAs), multiobjective optimization problems (MOP)</p>
+<h2 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h2><p><img src="/2020/09/09/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%9B%AE%E6%A0%87%E8%BF%9B%E5%8C%96%E7%AE%97%E6%B3%95%E7%9A%84%E5%8F%98%E5%AF%86%E5%BA%A6%E6%A8%A1%E7%B3%8A%E8%AE%A4%E7%9F%A5%E5%9B%BE%E5%AD%A6%E4%B9%A0/image-20210524203330315.png" alt="image-20210524203330315"></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://ieeexplore.ieee.org/document/7094248">https://ieeexplore.ieee.org/document/7094248</a></p>
+]]></content>
+      <categories>
+        <category>科研</category>
+      </categories>
+      <tags>
+        <tag>文献</tag>
+        <tag>FCM</tag>
+        <tag>多目标优化MOP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>A Practical Approach to Constructing a Knowledge Graph for Cybersecurity</title>
+    <url>/2020/09/07/Knowledge-Graph-for-Cybersecurity/</url>
+    <content><![CDATA[<h2 id="Key-words"><a href="#Key-words" class="headerlink" title="Key words"></a>Key words</h2><p>Cybersecurity; Knowledge graph; Knowledge deduction</p>
+<h2 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h2><p><img src="/2020/09/07/Knowledge-Graph-for-Cybersecurity/image-20210524202713003.png" alt="image-20210524202713003"></p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p><a href="https://www.sciencedirect.com/science/article/pii/S2095809918301097">https://www.sciencedirect.com/science/article/pii/S2095809918301097</a></p>
+]]></content>
+      <categories>
+        <category>科研</category>
+      </categories>
+      <tags>
+        <tag>文献</tag>
+        <tag>知识图谱</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于增量式GHSOM神经网络模型的入侵检测研究</title>
+    <url>/2020/09/08/%E5%9F%BA%E4%BA%8E%E5%A2%9E%E9%87%8F%E5%BC%8FGHSOM%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E7%A0%94%E7%A9%B6/</url>
+    <content><![CDATA[<h2 id="Key-words"><a href="#Key-words" class="headerlink" title="Key words"></a>Key words</h2><p>增量式学习; 生长型分层自组织映射; 入侵检测; 神经网络; 信息安全; 网络安全</p>
+<h2 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h2><ul>
+<li>GHSOM (Growing Hierarchical Self-Organizing Maps)：生长型分层自组织映射</li>
+</ul>
+<p><img src="/2020/09/08/%E5%9F%BA%E4%BA%8E%E5%A2%9E%E9%87%8F%E5%BC%8FGHSOM%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E7%A0%94%E7%A9%B6/image-20210524205136903.png" alt="image-20210524205136903"></p>
+<h3 id="增量式学习"><a href="#增量式学习" class="headerlink" title="增量式学习"></a>增量式学习</h3><ol>
+<li>不断学习新样本</li>
+<li>保留大部分以前学到的知识</li>
+<li>渐进修正/增强以前学过的知识</li>
+<li>更新后的知识可以适应更新后的数据，不必重新学习</li>
+<li>降低了时间、空间需求</li>
+</ol>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&amp;dbname=CJFD2014&amp;filename=JSJX201405021&amp;v=u%25mmd2FXyKNgKblZDXNd1PBDDrj4%25mmd2BkCMAh5GmPm2gysD0h%25mmd2FlNMKEyMtTn3Y1mpOCwBZ1e">https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&amp;dbname=CJFD2014&amp;filename=JSJX201405021&amp;v=u%25mmd2FXyKNgKblZDXNd1PBDDrj4%25mmd2BkCMAh5GmPm2gysD0h%25mmd2FlNMKEyMtTn3Y1mpOCwBZ1e</a></p>
+]]></content>
+      <categories>
+        <category>科研</category>
+      </categories>
+      <tags>
+        <tag>文献</tag>
+        <tag>入侵检测</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>面向智能终端的快捷支付双花攻击检测模型</title>
+    <url>/2020/09/24/%E9%9D%A2%E5%90%91%E6%99%BA%E8%83%BD%E7%BB%88%E7%AB%AF%E7%9A%84%E5%BF%AB%E6%8D%B7%E6%94%AF%E4%BB%98%E5%8F%8C%E8%8A%B1%E6%94%BB%E5%87%BB%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<h2 id="Key-words"><a href="#Key-words" class="headerlink" title="Key words"></a>Key words</h2><p>数字加密货币; 安全交易; 双花攻击; 人工免疫; 异常检测</p>
+<h2 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h2><h3 id="51-攻击"><a href="#51-攻击" class="headerlink" title="51% 攻击"></a>51% 攻击</h3><ul>
+<li>指攻击者利用算力优势（大于50%）强行修改 合法的交易记录，实现一笔虚拟货币两次消费</li>
+<li>对于比特币交易而言，每个用户节点都可参与交易的合法性验证和确认。</li>
+<li>参与交易的节点就是矿工节点，他们用CPU计算资源进行挖矿（利用CPU资源计算随机数），通过工作量证明（POW）机制进行账单记录权的争夺，胜利者将得到一份比特币作为奖励。</li>
+</ul>
+<h4 id="攻击条件说明"><a href="#攻击条件说明" class="headerlink" title="攻击条件说明"></a>攻击条件说明</h4><p>条件一：根据比特币协议，后到的同源交易将被丢弃</p>
+<p>条件三：因为比特币用户是匿名的，而且一个 用户可拥有多个账号，所以当服务结束了，即使卖 主意识到了异常，也很难鉴别出攻击者，导致双花 攻击的可能性增大。</p>
+<h3 id="预防双花攻击"><a href="#预防双花攻击" class="headerlink" title="预防双花攻击"></a>预防双花攻击</h3><p>以比特币为代表的主流数字加密货币，通过工作量证明的机制和一个记录所有确认交易的公共链来预防双花攻击</p>
+<h4 id="工作量证明"><a href="#工作量证明" class="headerlink" title="工作量证明"></a>工作量证明</h4><p>根据比特币白皮书中的说明可知，比特币网络以交易时间为代价来累积确认交易区块的高度从而对抗双花攻击。</p>
+<p><img src="/2020/09/24/%E9%9D%A2%E5%90%91%E6%99%BA%E8%83%BD%E7%BB%88%E7%AB%AF%E7%9A%84%E5%BF%AB%E6%8D%B7%E6%94%AF%E4%BB%98%E5%8F%8C%E8%8A%B1%E6%94%BB%E5%87%BB%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B/image-20210524205529138.png" alt="image-20210524205529138"></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&amp;dbname=CJFDLAST2020&amp;filename=AQJS202005011&amp;v=kzaijASy61IKa9xpiuaF%25mmd2F3Oun4UkM8%25mmd2FZiOCNnR%25mmd2FtVHwErL%25mmd2F7lpKHbL81BNtK%25mmd2FiF1">https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&amp;dbname=CJFDLAST2020&amp;filename=AQJS202005011&amp;v=kzaijASy61IKa9xpiuaF%25mmd2F3Oun4UkM8%25mmd2FZiOCNnR%25mmd2FtVHwErL%25mmd2F7lpKHbL81BNtK%25mmd2FiF1</a></p>
+]]></content>
+      <categories>
+        <category>科研</category>
+      </categories>
+      <tags>
+        <tag>文献</tag>
+        <tag>免疫</tag>
+        <tag>异常检测</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Third Eye Context-Aware Detection for Hidden Terminal Emulation Attacks in Cognitive Radio-Enabled IoT Networks</title>
+    <url>/2020/09/18/%E7%94%A8%E4%BA%8E%E8%AE%A4%E7%9F%A5%E6%97%A0%E7%BA%BF%E7%94%B5IoT%E7%BD%91%E7%BB%9C%E4%B8%AD%E9%9A%90%E8%97%8F%E7%BB%88%E7%AB%AF%E4%BB%BF%E7%9C%9F%E6%94%BB%E5%87%BB%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87%E6%84%9F%E7%9F%A5%E6%A3%80%E6%B5%8B/</url>
+    <content><![CDATA[<h2 id="Key-words"><a href="#Key-words" class="headerlink" title="Key words"></a>Key words</h2><p>IoT security, context-aware detection, Markov chain, hidden Markov model</p>
+<h2 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h2><ul>
+<li>IoT  Internet of Things  物联网</li>
+<li>认知无线电 Cognitive Radio<ul>
+<li>具有学习能力，能与周围环境交互信息，以感知和利用在该空间的可用频谱，并限制和降低冲突的发生。</li>
+</ul>
+</li>
+<li>hidden terminal emulation  隐藏终端仿真</li>
+</ul>
+<p><img src="/2020/09/18/%E7%94%A8%E4%BA%8E%E8%AE%A4%E7%9F%A5%E6%97%A0%E7%BA%BF%E7%94%B5IoT%E7%BD%91%E7%BB%9C%E4%B8%AD%E9%9A%90%E8%97%8F%E7%BB%88%E7%AB%AF%E4%BB%BF%E7%9C%9F%E6%94%BB%E5%87%BB%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87%E6%84%9F%E7%9F%A5%E6%A3%80%E6%B5%8B/image-20210524210542892.png" alt="image-20210524210542892"></p>
+<h3 id="HTE-攻击"><a href="#HTE-攻击" class="headerlink" title="HTE 攻击"></a>HTE 攻击</h3><ul>
+<li><p><strong>方法概要：</strong>攻击者利用天线辐射方向图来模拟隐藏终端(位置伪造攻击的一种形式)。  </p>
+</li>
+<li><p><strong>攻击前提：</strong>在先前的工作中，位置伪造被认为是一个本地化问题，锚设备（专门用于定位任何设备的设备）在检测位置伪造攻击中起着重要的作用。但是在大多数物联网应用中，物联网设备不可能配备复杂的本地化功能，在密集的IoT网络中部署锚设备也不现实。因此，在密集的物联网场景中，现成的位置欺骗检测方法不适用。  </p>
+</li>
+<li><p><strong>攻击过程：</strong></p>
+<ul>
+<li>攻击者通过wardriving等现有技术获取IoT设备的位置（角度、距离等）</li>
+<li>然后根据攻击者的目标或者物理限制，攻击者可能会尝试将其作为被攻击者的所有邻居或者选定邻居的隐藏终端</li>
+<li>HTE攻击者在此阶段的主要任务是成功模拟受害者附近的隐藏终端的辐射特性。  </li>
+</ul>
+</li>
+</ul>
+<p><img src="/2020/09/18/%E7%94%A8%E4%BA%8E%E8%AE%A4%E7%9F%A5%E6%97%A0%E7%BA%BF%E7%94%B5IoT%E7%BD%91%E7%BB%9C%E4%B8%AD%E9%9A%90%E8%97%8F%E7%BB%88%E7%AB%AF%E4%BB%BF%E7%9C%9F%E6%94%BB%E5%87%BB%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87%E6%84%9F%E7%9F%A5%E6%A3%80%E6%B5%8B/00%E9%9A%90%E8%97%8F%E7%BB%88%E7%AB%AF%E4%BB%BF%E7%9C%9F%E6%94%BB%E5%87%BB.png" alt="00隐藏终端仿真攻击"></p>
+<p>图a中，攻击者试图将自己伪装成节点A1，A3，A5的隐藏终端，它们只对A2，A4，A6传输。天线的智能利用使攻击者能够仿真不同的物理场景，如图b，即仿真阶段。 </p>
+<p>在此阶段，HTE攻击者继续通过宽带感知来感测工作频带，并分别嗅探发往或发自受害节点的RTS和CTS消息的频带。它试图故意干扰从节点A1，A3和A5发送到受害节点（即A4）的传输。但是，干扰率的选择取决于攻击者的策略。它可能会干扰每次传输，随机干扰或在良性或恶意行为之间采取间歇性策略。在本文中，我们讨论了这些不同的攻击策略，以及它们针对上下文感知的HTE检测方法保持免疫力的能力。这种检测技术将创建一个上下文模型，以区分良性和恶意行为。因此，攻击者将尝试紧密模仿良性模型的行为，以使其未被检测到，但保持其攻击性能。我们认为攻击者（即HTE-1）采取了一种微妙的随机方法，即通过与其自身网络（即HTE-2）中的邻居继续进行常规通信，将其伪装成合法节点，并且攻击者会智能地干扰仅在攻击者闲置时（即未与HTE-2通信）接收受害者的信息。因此，与常规的反应式干扰攻击相比，它提供了不同的检测挑战。</p>
+<ul>
+<li><strong>攻击结果：</strong>干扰特定的传输  </li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://ieeexplore.ieee.org/document/8964452">https://ieeexplore.ieee.org/document/8964452</a></p>
+<h2 id="Oth"><a href="#Oth" class="headerlink" title="Oth"></a>Oth</h2><h3 id="针对移动终端的攻击方式"><a href="#针对移动终端的攻击方式" class="headerlink" title="针对移动终端的攻击方式"></a>针对移动终端的攻击方式</h3><ul>
+<li><p>中间人攻击拦截网络流量</p>
+</li>
+<li><p>通过操作系统的安全漏洞或者硬件漏洞进行攻击</p>
+</li>
+<li><p>在应用中植入恶意代码</p>
+<ul>
+<li>BOptions sideloading技术<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/40203178">BOption侧载机制</a> </li>
+<li><a href="https://www.securityweek.com/attackers-target-iphones-using-open-source-mdm-solution">其他参考</a>  </li>
+<li>向合法应用程序中添加恶意代码，目的是在应用程序中注入动态库。  </li>
+<li>这些插入应用程序的恶意代码能够收集并盗窃设备中的信息，如电话号码、序列号、位置、联系人、用户照片、短信、邮件、WhatsApp聊天消息等，攻击者可以利用这些信息要挟受害者或实施另外的攻击。  </li>
+<li>在设备上安装附加证书以允许远程管理操作的过程中可能会导致潜在的恶意活动。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>针对电源的Bad Power攻击</p>
+</li>
+</ul>
+<h3 id="针对PC系统"><a href="#针对PC系统" class="headerlink" title="针对PC系统"></a>针对PC系统</h3><ul>
+<li>针对打印机的APT攻击<ul>
+<li><a href="https://www.freebuf.com/articles/terminal/92482.html">打印机APT攻击</a>  通过LDAP提取Windows Active Directory的证书或者滥用“扫描文件”和“扫描电子邮件”功能  </li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>科研</category>
+      </categories>
+      <tags>
+        <tag>文献</tag>
+        <tag>HTE攻击</tag>
+      </tags>
+  </entry>
 </search>
