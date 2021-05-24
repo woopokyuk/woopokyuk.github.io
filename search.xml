@@ -3,7 +3,7 @@
   <entry>
     <title>C-FLAT Control-Flow Attestation for Embedded Systems Software</title>
     <url>/2021/05/19/Control-Flow-Attestation-for-Embedded-Systems-Software/</url>
-    <content><![CDATA[<h3 id="Keywords"><a href="#Keywords" class="headerlink" title="Keywords"></a>Keywords</h3><p>远程认证；控制流攻击；嵌入式系统安全</p>
+    <content><![CDATA[<h2 id="Keywords"><a href="#Keywords" class="headerlink" title="Keywords"></a>Keywords</h2><p>远程认证；控制流攻击；嵌入式系统安全</p>
 <h2 id="Problem-Setting"><a href="#Problem-Setting" class="headerlink" title="Problem Setting"></a>Problem Setting</h2><p><img src="/2021/05/19/Control-Flow-Attestation-for-Embedded-Systems-Software/image-20210519153200738.png" alt="image-20210519153200738"></p>
 <ul>
 <li>如果通过认证，则进入授权路径；否则进入无授权路径<ul>
@@ -291,6 +291,9 @@
 </li>
 </ol>
 ]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
       <tags>
         <tag>CTF</tag>
         <tag>N1BOOK</tag>
