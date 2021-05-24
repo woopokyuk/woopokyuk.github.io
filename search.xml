@@ -349,6 +349,10 @@
 <h3 id="编译时遇到未知路径问题"><a href="#编译时遇到未知路径问题" class="headerlink" title="编译时遇到未知路径问题"></a>编译时遇到未知路径问题</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FATAL &#123;</span><br><span class="line">  err: Template render error: (unknown path)</span><br><span class="line">    Error: unexpected end of comment</span><br><span class="line">      at Object._prettifyError (D:\Document\Blog\node_modules\nunjucks\src\lib.js:36:11)</span><br><span class="line">      at Template.render (D:\Document\Blog\node_modules\nunjucks\src\environment.js:538:21)</span><br><span class="line">      at Environment.renderString (D:\Document\Blog\node_modules\nunjucks\src\environment.js:380:17)</span><br><span class="line">      at D:\Document\Blog\node_modules\hexo\lib\extend\tag.js:236:16</span><br><span class="line">      at tryCatcher (D:\Document\Blog\node_modules\bluebird\js\release\util.js:16:23)</span><br><span class="line">      at Function.Promise.fromNode.Promise.fromCallback (D:\Document\Blog\node_modules\bluebird\js\release\promise.js:209:30)</span><br></pre></td></tr></table></figure>
 
 <p>这种是文章中出现未转义的括号造成的，尽量用 ` 进行转移，将其包裹成文本或代码形式</p>
+<h3 id="页面下方翻页不正常显示"><a href="#页面下方翻页不正常显示" class="headerlink" title="页面下方翻页不正常显示"></a>页面下方翻页不正常显示</h3><p><code>&lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt;</code>不显示为<code>&gt;</code>，解决方法是在<code>Blog\themes\next\layout\_partials\pagination.swig</code>文件中，添加参数<code>escape: false</code></p>
+<p><img src="/2021/05/09/Ref/image-20210524231854084.png" alt="image-20210524231854084"></p>
+<p>然后重新编译即可正常显示了，如下图</p>
+<p><img src="/2021/05/09/Ref/image-20210524231934515.png" alt="image-20210524231934515"></p>
 <h2 id="不同的修改"><a href="#不同的修改" class="headerlink" title="不同的修改"></a>不同的修改</h2><p>版本：从参考地址下载的最新版（NexT 8.4.0 Released）</p>
 <h3 id="圆形旋转头像"><a href="#圆形旋转头像" class="headerlink" title="圆形旋转头像"></a>圆形旋转头像</h3><p>打开<code>Blog\themes\hexo-theme-next-8.4.0\_config.yml</code>文件，将<code>rounded</code>和<code>rotated</code>都改成<code>true</code>即可</p>
 <p><img src="/2021/05/09/Ref/image-20210510101136415.png" alt="image-20210510101136415"></p>
