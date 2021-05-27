@@ -1419,4 +1419,206 @@
         <tag>读书笔记</tag>
       </tags>
   </entry>
+  <entry>
+    <title>MySQL的安装与重新安装</title>
+    <url>/2021/05/27/MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h2 id="1-下载安装-MySQL-1"><a href="#1-下载安装-MySQL-1" class="headerlink" title="1 下载安装 MySQL[1]"></a>1 下载安装 MySQL[1]</h2><ul>
+<li><a href="https://dev.mysql.com/downloads/mysql/">下载地址</a> </li>
+<li>解压缩，并进入目录，新建 my.ini 配置文件，内容如下</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[client]</span><br><span class="line"># 设置mysql客户端默认字符集</span><br><span class="line">default-character-set=utf8</span><br><span class="line"> </span><br><span class="line">[mysqld]</span><br><span class="line"># 设置3306端口</span><br><span class="line">port = 3306</span><br><span class="line"># 设置mysql的安装目录</span><br><span class="line">basedir=D:\mysql-8.0.24-winx64</span><br><span class="line"># 允许最大连接数</span><br><span class="line">max_connections=20</span><br><span class="line"># 服务端使用的字符集默认为8比特编码的latin1字符集</span><br><span class="line">character-set-server=utf8</span><br><span class="line"># 创建新表时将使用的默认存储引擎</span><br><span class="line">default-storage-engine=INNODB</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>进入 bin 目录，初始化数据库 <code>mysqld --initialize --console</code> ，完成后得到初始密码 <code>Jm&gt;)=CuKn2ss</code> </li>
+</ul>
+<p><img src="/2021/05/27/MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%85/1618907983989-09269ece-956b-4449-96df-9dc4ffc0eeba.png" alt="img"></p>
+<ul>
+<li><strong>安装：</strong> <code>mysqld install</code>（ 注意需要以管理员身份打开 cmd，否则执行该命令时会报 <code>Install/Remove of the Service Denied!</code> ）</li>
+</ul>
+<p><img src="/2021/05/27/MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%85/1618908295769-1dc4acc4-da15-4405-85e5-cb105662c403.png" alt="img"></p>
+<h2 id="2-启动与登录"><a href="#2-启动与登录" class="headerlink" title="2 启动与登录"></a>2 启动与登录</h2><ul>
+<li><strong>启动：</strong><code>net start mysql</code> （同理 <code>net stop mysql</code> 可停止服务）（管理员身份）</li>
+</ul>
+<p><img src="/2021/05/27/MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%85/1618908335828-17e2ab74-3c3f-4e23-be53-b53b206daf38.png" alt="img"></p>
+<ul>
+<li><p><strong>登录</strong></p>
+<ul>
+<li>登录本地：<code>mysql -u root -p</code> 然后输入上文得到的初始密码即可</li>
+</ul>
+</li>
+<li><p><strong>注意：</strong>个人经验，最好在服务中将 MySQL 设置为手动（先命令行 net stop mysql 再将服务调整为手动）</p>
+</li>
+</ul>
+<p><img src="/2021/05/27/MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%85/1621566205760-ead873af-6ad2-4029-b595-34f75f0a1c7b.png" alt="img"></p>
+<h2 id="3-修改登录密码-2"><a href="#3-修改登录密码-2" class="headerlink" title="3 修改登录密码[2]"></a>3 修改登录密码[2]</h2><ul>
+<li><strong>注意：这里在配置文件中添加的参数可能会导致关闭服务后就无法再启动服务了。所以不要按以下步骤修改密码</strong><ul>
+<li><strong>启动服务 net start mysql (不能先停止服务再修改 ini 配置，否则会无法启动)</strong></li>
+<li><strong>修改 ini</strong></li>
+<li><strong>登录本地 MySQL</strong></li>
+<li><strong>修改密码，退出登录</strong></li>
+<li><strong>关闭服务 net stop mysql</strong></li>
+<li><strong>删除此前添加的有关密码</strong></li>
+</ul>
+</li>
+</ul>
+<p>以上步骤完成后，启动服务发现修改后的密码可以使用了。更具体的部分细节如下</p>
+<ul>
+<li>修改配置文件 my.ini：在文件末尾追加两行参数</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 添加密码验证插件</span><br><span class="line">plugin-load-add=validate_password.so</span><br><span class="line">#服务器在启动时加载插件，并防止在服务器运行时删除插件</span><br><span class="line">validate-password=FORCE_PLUS_PERMANENT</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>root 登录本地 MySQL <code>mysql -u root -p</code> </li>
+<li>将密码修改为 0000 </li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">alter user &#x27;root&#x27;@&#x27;localhost&#x27; identified by &#x27;0000&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/05/27/MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%85/1618910278709-526302e4-0e37-452c-a7ce-7c55df2a3c7e.png" alt="img"></p>
+<ul>
+<li>修改成功</li>
+</ul>
+<h2 id="4-关于重新安装"><a href="#4-关于重新安装" class="headerlink" title="4  关于重新安装"></a>4  关于重新安装</h2><ul>
+<li>删除 MySQL 服务 <code>sc delete mysql</code></li>
+<li>删除原先的 MySQL 目录，解压缩 zip 文件重新安装（上文步骤）</li>
+</ul>
+<p>如果还不能正常安装，参考下文方法</p>
+<ul>
+<li>某日发现不能正常启动 MySQL 服务，遂前往服务查看，当手动启动 MySQL 服务时会报错。故只得将<a href="https://blog.csdn.net/weixin_45450428/article/details/104643956?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_baidulandingword-0&spm=1001.2101.3001.4242">原有 MySQL 文件和注册表中信息删除</a></li>
+<li>但重新解压安装包，进行初始化时，会报错。解决方案也在其中，遂将 ini 文件中相关信息进行修改</li>
+</ul>
+<p><img src="/2021/05/27/MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%85/1619596939296-f8a921ef-80f3-4095-9d81-bda8ca98900b.png" alt="img"></p>
+<p><img src="/2021/05/27/MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%85/1619597004542-fd7661f2-7bf7-4b59-89a0-d53475b7e85b.png" alt="img"></p>
+<ul>
+<li>然后<strong>将 data 目录删除</strong>，即可正常初始化</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://www.runoob.com/mysql/mysql-install.html">https://www.runoob.com/mysql/mysql-install.html</a></li>
+<li><a href="https://blog.csdn.net/qq_44792624/article/details/107426590">https://blog.csdn.net/qq_44792624/article/details/107426590</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>解决方案</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Qt 连接 MySQL</title>
+    <url>/2021/05/27/Qt%E8%BF%9E%E6%8E%A5MySQL/</url>
+    <content><![CDATA[<h2 id="1-Qt-连接本地-MySQL-的方法-（Win）"><a href="#1-Qt-连接本地-MySQL-的方法-（Win）" class="headerlink" title="1 Qt 连接本地 MySQL 的方法 （Win）"></a>1 Qt 连接本地 MySQL 的方法 （Win）</h2><h3 id="1-1-前期准备"><a href="#1-1-前期准备" class="headerlink" title="1.1 前期准备"></a>1.1 前期准备</h3><h4 id="1-1-1-MySQL-安装"><a href="#1-1-1-MySQL-安装" class="headerlink" title="1.1.1 MySQL 安装"></a>1.1.1 MySQL 安装</h4><p><a href>MySQL的安装</a></p>
+<h4 id="1-1-2-新建试验用的数据库和表"><a href="#1-1-2-新建试验用的数据库和表" class="headerlink" title="1.1.2 新建试验用的数据库和表"></a>1.1.2 新建试验用的数据库和表</h4><p>根据需要，自行新建数据库并添加数据</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">create database neuralinfo;</span><br><span class="line">use neuralinfo;</span><br><span class="line">create table users(user_name char(50), user_passwd char(50), primary key(user_name))engine=InnoDB;</span><br><span class="line">insert into users values(&#x27;info&#x27;,&#x27;123456&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/05/27/Qt%E8%BF%9E%E6%8E%A5MySQL/image-20210527104152754.png" alt="image-20210527104152754"></p>
+<h4 id="1-1-3-ODBC-安装"><a href="#1-1-3-ODBC-安装" class="headerlink" title="1.1.3 ODBC 安装"></a>1.1.3 ODBC 安装</h4><p><a href="https://blog.csdn.net/joey_ro/article/details/105411135">ODBC安装 参考</a></p>
+<ul>
+<li><a href="https://dev.mysql.com/downloads/connector/odbc/">官网下载</a> 根据指示安装即可</li>
+</ul>
+<p><img src="/2021/05/27/Qt%E8%BF%9E%E6%8E%A5MySQL/image-20210527103810926.png" alt="image-20210527103810926"></p>
+<ul>
+<li><p>打开 ODBC 64</p>
+<p><img src="/2021/05/27/Qt%E8%BF%9E%E6%8E%A5MySQL/image-20210527103907632.png" alt="image-20210527103907632"></p>
+</li>
+<li><p>添加用户 DSN，根据实际情况填写即可</p>
+<p><img src="/2021/05/27/Qt%E8%BF%9E%E6%8E%A5MySQL/image-20210527104308974.png" alt="image-20210527104308974"></p>
+<p><img src="/2021/05/27/Qt%E8%BF%9E%E6%8E%A5MySQL/image-20210527104415956.png" alt="image-20210527104415956"></p>
+</li>
+</ul>
+<h3 id="1-2-Qt-连接数据库"><a href="#1-2-Qt-连接数据库" class="headerlink" title="1.2 Qt 连接数据库"></a>1.2 Qt 连接数据库</h3><p>这里，我们写了一个登录页面来试验 MySQL 的连接</p>
+<h4 id="1-2-1-UI"><a href="#1-2-1-UI" class="headerlink" title="1.2.1 UI"></a>1.2.1 UI</h4><ul>
+<li>主窗口如图，输入框均为 LineEdit</li>
+</ul>
+<p><img src="/2021/05/27/Qt%E8%BF%9E%E6%8E%A5MySQL/image-20210527104746481.png" alt="image-20210527104746481"></p>
+<ul>
+<li><p>用户名和口令正确，点击 Login 会进入子窗口，子窗口为空白窗口</p>
+<p><img src="/2021/05/27/Qt%E8%BF%9E%E6%8E%A5MySQL/image-20210527105011886.png" alt="image-20210527105011886"></p>
+</li>
+</ul>
+<h4 id="1-2-2-源码逻辑"><a href="#1-2-2-源码逻辑" class="headerlink" title="1.2.2 源码逻辑"></a>1.2.2 源码逻辑</h4><p><a href="https://github.com/woopokyuk/qtLogin">https://github.com/woopokyuk/qtLogin</a></p>
+<p>pro 文件中需要 <code>QT+=sql</code></p>
+<ul>
+<li><p>必要头文件</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QSqlDatabase&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QSqlQuery&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br></pre></td></tr></table></figure></li>
+<li><p>连接与语句执行方法</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">qDebug</span>() &lt;&lt; QSqlDatabase::<span class="built_in">drivers</span>();</span><br><span class="line">ui-&gt;passwdLineEdit-&gt;<span class="built_in">setEchoMode</span>(QLineEdit::Password);</span><br><span class="line">QSqlDatabase db = QSqlDatabase::<span class="built_in">addDatabase</span>(<span class="string">&quot;QODBC&quot;</span>);</span><br><span class="line">db.<span class="built_in">setHostName</span>(<span class="string">&quot;127.0.0.1&quot;</span>);</span><br><span class="line">db.<span class="built_in">setPort</span>(<span class="number">3306</span>);</span><br><span class="line">db.<span class="built_in">setDatabaseName</span>(<span class="string">&quot;Neural&quot;</span>);  <span class="comment">// ODBC 中数据源的名称，不是 MySQL 中数据库的名称</span></span><br><span class="line">db.<span class="built_in">setUserName</span>(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">db.<span class="built_in">setPassword</span>(<span class="string">&quot;0000&quot;</span>);  <span class="comment">// 数据库登录密码</span></span><br><span class="line">db.<span class="built_in">open</span>();</span><br><span class="line"><span class="keyword">if</span> (!db.<span class="built_in">open</span>()) &#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;db not open&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">QString passwd = ui-&gt;passwdLineEdit-&gt;<span class="built_in">text</span>();</span><br><span class="line">QString sqlLine = <span class="string">&quot;SELECT * FROM users WHERE user_passwd=&quot;</span> + passwd;</span><br><span class="line">QSqlQuery result = db.<span class="built_in">exec</span>(sqlLine);  <span class="comment">// 执行 MySQL 语句</span></span><br><span class="line">QString userNameInSql = <span class="string">&quot;&quot;</span>;</span><br><span class="line"><span class="keyword">while</span> (result.<span class="built_in">next</span>()) &#123;</span><br><span class="line">    userNameInSql = result.<span class="built_in">value</span>(<span class="string">&quot;user_name&quot;</span>).<span class="built_in">toString</span>();</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; userNameInSql;</span><br><span class="line">&#125;</span><br><span class="line">QString inputUserName = ui-&gt;userLineEdit-&gt;<span class="built_in">text</span>();</span><br><span class="line"><span class="keyword">if</span>(userNameInSql == inputUserName &amp;&amp; inputUserName != <span class="string">&quot;&quot;</span>) &#123;  <span class="comment">// 验证用户名口令是否一致</span></span><br><span class="line">    test-&gt;<span class="built_in">show</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;User name or Password is wrong!&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="2-Linux-Qt-连接远程-MySQL（Win）"><a href="#2-Linux-Qt-连接远程-MySQL（Win）" class="headerlink" title="2 Linux Qt 连接远程 MySQL（Win）"></a>2 Linux Qt 连接远程 MySQL（Win）</h2><hr>
+<h3 id="2-1-Linux-下载安装-ODBC"><a href="#2-1-Linux-下载安装-ODBC" class="headerlink" title="2.1 Linux 下载安装 ODBC"></a>2.1 Linux 下载安装 ODBC</h3><h4 id="2-1-1-安装-unixODBC-和-ODBC"><a href="#2-1-1-安装-unixODBC-和-ODBC" class="headerlink" title="2.1.1 安装 unixODBC 和 ODBC"></a>2.1.1 安装 unixODBC 和 ODBC</h4><p>主要参考 <a href="https://blog.csdn.net/seakingx/article/details/87879164">https://blog.csdn.net/seakingx/article/details/87879164</a></p>
+<ul>
+<li><p>进行到 <code>sudo myodbc-installer -a -d -n &quot;MySQL ODBC 8.0 Driver&quot; -t &quot;Driver=/usr/local/lib/libmyodbc8w.so</code> 时，报错</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">myodbc-installer: error while loading shared libraries: libodbc.so.2: cannot open shared object file: No such file or directory</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>原因：未按步骤安装 unixODBC，按以上参考顺序安装即可，若遇权限问题 sudo 无法解决 (如安装 unixODBC 过程中需要 make 但有权限问题 sudo 无法解决)，就 su 转 root 用户再执行指令</p>
+<ul>
+<li><p><strong>正确步骤：</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> unixODBC 安装</span></span><br><span class="line">sudo wget ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-2.3.4.tar.gz</span><br><span class="line">tar -xvzf unixODBC-2.3.4.tar.gz </span><br><span class="line">cd unixODBC-2.3.4/</span><br><span class="line">sudo ./configure --sysconfdir=/etc</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 检验是否安装成功</span></span><br><span class="line">odbcinst -j </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> odbc 安装</span></span><br><span class="line">sudo tar zxvf mysql-connector-odbc-8.0.15-linux-ubuntu18.04-x86-64bit.tar.gz </span><br><span class="line">cd mysql-connector-odbc-8.0.15-linux-ubuntu18.04-x86-64bit/</span><br><span class="line">sudo cp bin/* /usr/local/bin</span><br><span class="line">sudo cp lib/* /usr/local/lib</span><br><span class="line"></span><br><span class="line">sudo myodbc-installer -a -d -n &quot;MySQL ODBC 8.0 Driver&quot; -t &quot;Driver=/usr/local/lib/libmyodbc8w.so&quot;</span><br><span class="line">sudo myodbc-installer -a -d -n &quot;MySQL ODBC 8.0&quot; -t &quot;Driver=/usr/local/lib/libmyodbc8a.so&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 验证是否安装成功</span></span><br><span class="line">myodbc-installer -d -l</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置ODBC 参数</span></span><br><span class="line">sudo vi /etc/odbc.ini</span><br></pre></td></tr></table></figure></li>
+<li><p>最终的 <code>/etc/odbc.ini</code> </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[Neural]</span><br><span class="line">Description     = Data source MySQL</span><br><span class="line">Driver          = MySQL ODBC 8.0 Driver</span><br><span class="line">Server          = x.x.x.x</span><br><span class="line">Host            = x.x.x.x</span><br><span class="line">Database        = xxxx</span><br><span class="line">Port            = 3306</span><br><span class="line">User            = root</span><br><span class="line">Password        = 0000</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>其中方括号内的是数据源名称，可以任意</li>
+<li>Description 描述根据自己需要，任意填写</li>
+<li>Driver 确定是 MySQL ODBC 8.0 Driver</li>
+<li>Server 和 Host 均为 MySQL 的 IP</li>
+<li>Database 为需要在 Linux 端使用的数据库</li>
+</ul>
+</li>
+<li><p>以上步骤走完后，<code>isql Neural</code> 还是无法连接</p>
+<p><img src="/2021/05/27/Qt%E8%BF%9E%E6%8E%A5MySQL/image-20210527160249814.png" alt="image-20210527160249814"></p>
+</li>
+<li><p>参考 <a href="https://blog.csdn.net/m0_37210884/article/details/114287684">https://blog.csdn.net/m0_37210884/article/details/114287684</a> 应该 <code>isql -v Neural root 0000</code> 指明数据库，用户名，密码</p>
+<p><img src="/2021/05/27/Qt%E8%BF%9E%E6%8E%A5MySQL/image-20210527160522927.png" alt="image-20210527160522927"></p>
+<p>结果报错不太一样了，其中指出机器不允许连接</p>
+</li>
+</ul>
+<h4 id="2-1-2-解决上文的-S1000-连接问题"><a href="#2-1-2-解决上文的-S1000-连接问题" class="headerlink" title="2.1.2 解决上文的 S1000 连接问题"></a>2.1.2 解决上文的 S1000 连接问题</h4><p><a href="https://blog.csdn.net/weixin_42096620/article/details/110798766">参考</a></p>
+<ul>
+<li><p><strong>原因：</strong>root 用户只允许本地登录，细节如下</p>
+<ul>
+<li><p><code>use mysql;</code></p>
+</li>
+<li><p><code>SELECT user,host FROM user;</code></p>
+<p><img src="/2021/05/27/Qt%E8%BF%9E%E6%8E%A5MySQL/image-20210527162519904.png" alt="image-20210527162519904"></p>
+</li>
+</ul>
+</li>
+<li><p><strong>解决方法：</strong>将 root 对应的 host 改为 %，意即所有地址可访问。细节如下</p>
+<ul>
+<li><code>update user set host = &#39;%&#39; where user = &#39;root&#39;;</code> 更新访问权限</li>
+<li><code>flush privileges;</code> 刷新访问权限表</li>
+<li><code>select user,host from user;</code> 再查看 host 发现已经修改好了</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/05/27/Qt%E8%BF%9E%E6%8E%A5MySQL/image-20210527162802153.png" alt="image-20210527162802153"></p>
+<ul>
+<li><p>结果：</p>
+<ul>
+<li><p>在 Linux 端 <code>isql -v Neural root 0000</code> 直接进入连接，并使用在 odbc.ini 中我们预先指定的数据库了</p>
+<p><img src="/2021/05/27/Qt%E8%BF%9E%E6%8E%A5MySQL/image-20210527162938228.png" alt="image-20210527162938228"></p>
+</li>
+<li><p><code>show tables;</code></p>
+<p><img src="/2021/05/27/Qt%E8%BF%9E%E6%8E%A5MySQL/image-20210527163038271.png" alt="image-20210527163038271"></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>大功告成！</p>
+<h3 id="2-2-Qt-中使用"><a href="#2-2-Qt-中使用" class="headerlink" title="2.2 Qt 中使用"></a>2.2 Qt 中使用</h3><p>上文已经可以在命令行中使用 ODBC 连接远程 MySQL 了，如何在 Qt 中连接呢</p>
+<p>根据第 1 节的代码，类似的，我们在 Linux 环境下进行试验，当我们运行程序后，Qt 会报错 <code>QSqlDatabase: QODBC driver not loaded</code> 说明在连接 ODBC 驱动的数据库时，缺少了libqt4-sql-odbc驱动包</p>
+<p><a href="https://blog.csdn.net/u012444155/article/details/16944393">解决方法参考</a></p>
+<ul>
+<li><code>sudo apt-get install libqt4-sql-odbc</code></li>
+</ul>
+<p>然后就可以成功连接啦！</p>
+]]></content>
+      <categories>
+        <category>解决方案</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+        <tag>Qt</tag>
+      </tags>
+  </entry>
 </search>
