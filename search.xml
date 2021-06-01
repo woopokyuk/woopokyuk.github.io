@@ -496,9 +496,9 @@
 <li>对传输过程的破坏</li>
 <li>对传输信息的篡改</li>
 </ul>
-<h4 id="1-4-系统建模"><a href="#1-4-系统建模" class="headerlink" title="1.4 系统建模"></a>1.4 系统建模</h4><p>$$<br>\begin{cases}<br>\dot{x}(t)=Ax(t)+Bu(t)+Dv(t),\<br>y(t)=Cx(t).<br>\end{cases}\tag{1}<br>$$</p>
+<h4 id="1-4-系统建模"><a href="#1-4-系统建模" class="headerlink" title="1.4 系统建模"></a>1.4 系统建模</h4><p>$$<br>\begin{cases}<br>\dot{x}(t)=Ax(t)+Bu(t)+Dv(t),\\<br>y(t)=Cx(t).<br>\end{cases}\tag{1}<br>$$</p>
 <p>x 为系统状态，u 为已知输入，v 为未知攻击，y 为可测量的系统输出</p>
-<h3 id="2-有限时间检测器"><a href="#2-有限时间检测器" class="headerlink" title="2 有限时间检测器"></a>2 有限时间检测器</h3><p>针对公式 (1) 提出检测器<br>$$<br>\begin{cases}<br>\dot{z}=Fz(t)+HBu(t)+Ly(t),\ \ \ \ \ \ \ \ \ \ \ (观测器状态) \<br>\widehat{x}=M[z(t)-F^{\tau}z(t-\tau)] \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (系统估计值)<br>\end{cases}\tag{2}<br>$$<br>由可测量的<strong>系统输出</strong>和<strong>已知输入</strong>获取观测器状态，检测器可以在未知攻击的值不为 0 时将其检测出来</p>
+<h3 id="2-有限时间检测器"><a href="#2-有限时间检测器" class="headerlink" title="2 有限时间检测器"></a>2 有限时间检测器</h3><p>针对公式 (1) 提出检测器<br>$$<br>\begin{cases}<br>\dot{z}=Fz(t)+HBu(t)+Ly(t),\ \ \ \ \ \ \ \ \ \ \ (观测器状态) \\<br>\widehat{x}=M[z(t)-F^{\tau}z(t-\tau)] \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (系统估计值)<br>\end{cases}\tag{2}<br>$$<br>由可测量的<strong>系统输出</strong>和<strong>已知输入</strong>获取观测器状态，检测器可以在未知攻击的值不为 0 时将其检测出来</p>
 <h3 id="3-观测器：对有限时间检测器的改进"><a href="#3-观测器：对有限时间检测器的改进" class="headerlink" title="3 观测器：对有限时间检测器的改进"></a>3 观测器：对有限时间检测器的改进</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CAPJ&amp;dbname=CAPJLAST&amp;filename=QHXB20210205002&amp;v=w2buZ2%25mmd2FeXYTSHR5oD%25mmd2Bmxbz8x1rI6W%25mmd2F8Z8iZAOvZv8zxIISAv0Xu%25mmd2Fx4BEddWaKYM7">https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CAPJ&amp;dbname=CAPJLAST&amp;filename=QHXB20210205002&amp;v=w2buZ2%25mmd2FeXYTSHR5oD%25mmd2Bmxbz8x1rI6W%25mmd2F8Z8iZAOvZv8zxIISAv0Xu%25mmd2Fx4BEddWaKYM7</a></p>
 ]]></content>
       <categories>

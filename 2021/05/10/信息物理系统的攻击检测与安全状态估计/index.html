@@ -87,7 +87,7 @@
 <meta property="og:description" content="主要内容 有限时间异常检测器：负责在预设的有限时间内检测攻击（异常） 系统安全状态观测器：负责状态评估，并在检测到攻击时，调整系统以确保安全状态  安全状态估计：是从一组有噪声或被破坏的测量值中估计动态系统状态 本文概要：提出一种有限时间检测器来检测执行器攻击下系统的状态，并设计观测器对系统状态进行安全估计 1 信息物理系统建模1.1 物理进程模型用微分&#x2F;差分方程组进行描述：比如线性系统的状态空间">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-05-10T12:41:49.000Z">
-<meta property="article:modified_time" content="2021-05-11T13:16:34.539Z">
+<meta property="article:modified_time" content="2021-06-01T13:04:18.329Z">
 <meta property="article:author" content="WooPokyuk">
 <meta property="article:tag" content="文献">
 <meta property="article:tag" content="科研">
@@ -426,9 +426,9 @@
 <li>对传输过程的破坏</li>
 <li>对传输信息的篡改</li>
 </ul>
-<h4 id="1-4-系统建模"><a href="#1-4-系统建模" class="headerlink" title="1.4 系统建模"></a>1.4 系统建模</h4><p>$$<br>\begin{cases}<br>\dot{x}(t)=Ax(t)+Bu(t)+Dv(t),\<br>y(t)=Cx(t).<br>\end{cases}\tag{1}<br>$$</p>
+<h4 id="1-4-系统建模"><a href="#1-4-系统建模" class="headerlink" title="1.4 系统建模"></a>1.4 系统建模</h4><p>$$<br>\begin{cases}<br>\dot{x}(t)=Ax(t)+Bu(t)+Dv(t),\\<br>y(t)=Cx(t).<br>\end{cases}\tag{1}<br>$$</p>
 <p>x 为系统状态，u 为已知输入，v 为未知攻击，y 为可测量的系统输出</p>
-<h3 id="2-有限时间检测器"><a href="#2-有限时间检测器" class="headerlink" title="2 有限时间检测器"></a>2 有限时间检测器</h3><p>针对公式 (1) 提出检测器<br>$$<br>\begin{cases}<br>\dot{z}=Fz(t)+HBu(t)+Ly(t),\ \ \ \ \ \ \ \ \ \ \ (观测器状态) \<br>\widehat{x}=M[z(t)-F^{\tau}z(t-\tau)] \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (系统估计值)<br>\end{cases}\tag{2}<br>$$<br>由可测量的<strong>系统输出</strong>和<strong>已知输入</strong>获取观测器状态，检测器可以在未知攻击的值不为 0 时将其检测出来</p>
+<h3 id="2-有限时间检测器"><a href="#2-有限时间检测器" class="headerlink" title="2 有限时间检测器"></a>2 有限时间检测器</h3><p>针对公式 (1) 提出检测器<br>$$<br>\begin{cases}<br>\dot{z}=Fz(t)+HBu(t)+Ly(t),\ \ \ \ \ \ \ \ \ \ \ (观测器状态) \\<br>\widehat{x}=M[z(t)-F^{\tau}z(t-\tau)] \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (系统估计值)<br>\end{cases}\tag{2}<br>$$<br>由可测量的<strong>系统输出</strong>和<strong>已知输入</strong>获取观测器状态，检测器可以在未知攻击的值不为 0 时将其检测出来</p>
 <h3 id="3-观测器：对有限时间检测器的改进"><a href="#3-观测器：对有限时间检测器的改进" class="headerlink" title="3 观测器：对有限时间检测器的改进"></a>3 观测器：对有限时间检测器的改进</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CAPJ&amp;dbname=CAPJLAST&amp;filename=QHXB20210205002&amp;v=w2buZ2%25mmd2FeXYTSHR5oD%25mmd2Bmxbz8x1rI6W%25mmd2F8Z8iZAOvZv8zxIISAv0Xu%25mmd2Fx4BEddWaKYM7">https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CAPJ&amp;dbname=CAPJLAST&amp;filename=QHXB20210205002&amp;v=w2buZ2%25mmd2FeXYTSHR5oD%25mmd2Bmxbz8x1rI6W%25mmd2F8Z8iZAOvZv8zxIISAv0Xu%25mmd2Fx4BEddWaKYM7</a></p>
 
       
