@@ -353,6 +353,7 @@
 <p>然后重新编译即可正常显示了，如下图</p>
 <p><img src="/2021/05/09/Ref/image-20210524231934515.png" alt="image-20210524231934515"></p>
 <h3 id="显示公式"><a href="#显示公式" class="headerlink" title="显示公式"></a>显示公式</h3><p><a href="https://www.dazhuanlan.com/2019/12/19/5dfb3c4dae9ca/">hexo中数学公式不能正常显示问题解决 | 大专栏 (dazhuanlan.com)</a></p>
+<h4 id="公式换行无效的问题"><a href="#公式换行无效的问题" class="headerlink" title="公式换行无效的问题"></a>公式换行无效的问题</h4><p><a href="https://lanlan2017.github.io/blog/eb86e892/">Hexo Mathjax双斜线换行失效 | 蓝蓝博客 (lanlan2017.github.io)</a></p>
 <h3 id="npm-警告"><a href="#npm-警告" class="headerlink" title="npm 警告"></a>npm 警告</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@2.3.2 (node_modules\fsevents):</span><br><span class="line">npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@2.3.2: wanted &#123;&quot;os&quot;:&quot;darwin&quot;,&quot;arch&quot;:&quot;any&quot;&#125; (current: &#123;&quot;os&quot;:&quot;win32&quot;,&quot;arch&quot;:&quot;x64&quot;&#125;)</span><br></pre></td></tr></table></figure>
 <p><a href="https://blog.csdn.net/m0_46256147/article/details/104725439">npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@2.1.2 (node_modules\fsevents):_m0_46256147的博客-CSDN博客</a></p>
 <h2 id="不同的修改"><a href="#不同的修改" class="headerlink" title="不同的修改"></a>不同的修改</h2><p>版本：从参考地址下载的最新版（NexT 8.4.0 Released）</p>
