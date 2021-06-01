@@ -1893,4 +1893,34 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>Crypto</tag>
       </tags>
   </entry>
+  <entry>
+    <title>利用Ubuntu虚拟机制作F2FS文件系统镜像</title>
+    <url>/2021/06/01/%E5%88%A9%E7%94%A8Ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%88%B6%E4%BD%9CF2FS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%83%8F/</url>
+    <content><![CDATA[<h2 id="新建一个1G磁盘并分区"><a href="#新建一个1G磁盘并分区" class="headerlink" title="新建一个1G磁盘并分区"></a>新建一个1G磁盘并分区</h2><ol>
+<li>关闭虚拟机</li>
+<li>虚拟机添加硬盘<br><img src="/2021/06/01/%E5%88%A9%E7%94%A8Ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%88%B6%E4%BD%9CF2FS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%83%8F/1931211-20201030103009721-2101269955.png" alt="img"><br><img src="/2021/06/01/%E5%88%A9%E7%94%A8Ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%88%B6%E4%BD%9CF2FS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%83%8F/1931211-20201030103043318-115915093.png" alt="img"><br><img src="/2021/06/01/%E5%88%A9%E7%94%A8Ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%88%B6%E4%BD%9CF2FS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%83%8F/1931211-20201030103049223-412645221.png" alt="img"></li>
+<li>开启虚拟机</li>
+<li><code>sudo fdisk -l</code>查看磁盘信息可以找到刚添加的磁盘<br><img src="/2021/06/01/%E5%88%A9%E7%94%A8Ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%88%B6%E4%BD%9CF2FS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%83%8F/1931211-20201030103329865-51741236.png" alt="img"></li>
+<li>所以新磁盘是/dev/sdb</li>
+</ol>
+<h2 id="安装F2FS工具"><a href="#安装F2FS工具" class="headerlink" title="安装F2FS工具"></a>安装F2FS工具</h2><p><a href="https://blog.csdn.net/sweeneil/article/details/91897016">参考</a><br><code>sudo apt install f2fs-tools</code></p>
+<h2 id="格式化并挂载磁盘"><a href="#格式化并挂载磁盘" class="headerlink" title="格式化并挂载磁盘"></a>格式化并挂载磁盘</h2><ol>
+<li>先<code>sudo su</code>进入root</li>
+<li>然后<code>mkfs.f2fs -l f2fs /dev/sdb -f</code>即可将设备格式化为F2FS</li>
+<li><code>mount -t f2fs /dev/sdb /mnt/f2fs</code>挂载磁盘到目录/mnt/f2fs，到此就可以使用sdb设备</li>
+<li>重启后，即可看到挂载成功</li>
+</ol>
+<h2 id="制作镜像"><a href="#制作镜像" class="headerlink" title="制作镜像"></a>制作镜像</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo dd if=/dev/sdb of=/home/username/Desktop/f2fs.img</span><br></pre></td></tr></table></figure>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>如果对文件系统有改动，在导出镜像时，最好先用<code>umount /dev/sdb</code>解除挂载后，再重新挂载，然后生成img。</p>
+<h2 id="如何以root用户登录ubuntu"><a href="#如何以root用户登录ubuntu" class="headerlink" title="如何以root用户登录ubuntu"></a>如何以root用户登录ubuntu</h2><p><a href="https://www.cnblogs.com/atoman/p/13537856.html">参考</a></p>
+]]></content>
+      <categories>
+        <category>解决方案</category>
+      </categories>
+      <tags>
+        <tag>F2FS</tag>
+        <tag>Linux</tag>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
 </search>
