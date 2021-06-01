@@ -354,6 +354,7 @@
 <p><img src="/2021/05/09/Ref/image-20210524231854084.png" alt="image-20210524231854084"></p>
 <p>然后重新编译即可正常显示了，如下图</p>
 <p><img src="/2021/05/09/Ref/image-20210524231934515.png" alt="image-20210524231934515"></p>
+<h3 id="显示公式"><a href="#显示公式" class="headerlink" title="显示公式"></a>显示公式</h3><p><a href="https://www.dazhuanlan.com/2019/12/19/5dfb3c4dae9ca/">hexo中数学公式不能正常显示问题解决 | 大专栏 (dazhuanlan.com)</a></p>
 <h2 id="不同的修改"><a href="#不同的修改" class="headerlink" title="不同的修改"></a>不同的修改</h2><p>版本：从参考地址下载的最新版（NexT 8.4.0 Released）</p>
 <h3 id="圆形旋转头像"><a href="#圆形旋转头像" class="headerlink" title="圆形旋转头像"></a>圆形旋转头像</h3><p>打开<code>Blog\themes\hexo-theme-next-8.4.0\_config.yml</code>文件，将<code>rounded</code>和<code>rotated</code>都改成<code>true</code>即可</p>
 <p><img src="/2021/05/09/Ref/image-20210510101136415.png" alt="image-20210510101136415"></p>
