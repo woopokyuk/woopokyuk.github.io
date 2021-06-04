@@ -1923,4 +1923,51 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>Ubuntu</tag>
       </tags>
   </entry>
+  <entry>
+    <title>XAMPP安装后无法启动Apache和MySQL</title>
+    <url>/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/</url>
+    <content><![CDATA[<p><a href="https://blog.csdn.net/qq_41664447/article/details/81202740">参考</a></p>
+<h2 id="1-启动-Apache"><a href="#1-启动-Apache" class="headerlink" title="1 启动 Apache"></a>1 启动 Apache</h2><h3 id="1-1-修改端口号"><a href="#1-1-修改端口号" class="headerlink" title="1.1 修改端口号"></a>1.1 修改端口号</h3><ul>
+<li><p>需要修改配置中的端口号，以避免与其他服务冲突</p>
+<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604103954352.png" alt="image-20210604103954352"></p>
+<ul>
+<li><p>其中右上角整体的配置</p>
+<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604104053107.png" alt="image-20210604104053107"></p>
+<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604104115988.png" alt="image-20210604104115988"></p>
+</li>
+<li><p>Apache 服务对应的配置也需要同步修改：将 httpd.conf 中所有 80 替换为以上的8081 及 httpd-ssl.conf 中所有 443 替换为 4433，与以上配置相同。</p>
+<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604104214321.png" alt="image-20210604104214321"></p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>实际上我走到这一步是没有成功的，点击 start 没有报错，仅提示正在试图启动 Apache 服务，没有其他动静</li>
+</ul>
+<h3 id="1-2-修改注册表路径"><a href="#1-2-修改注册表路径" class="headerlink" title="1.2 修改注册表路径"></a>1.2 修改注册表路径</h3><ul>
+<li>win + R，regedit 进入注册表编辑器</li>
+<li><p><code>\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Apache2.4</code></p>
+</li>
+<li><p>找到 ImagePath 将其路径修改为 xampp 目录的 apache 底下 httpd.exe 的绝对路径，根据自己安装情况修改即可 <code>..\xampp\apache\bin\httpd.exe</code></p>
+</li>
+<li><p>修改完成后即可正常启动</p>
+<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604104813087.png" alt="image-20210604104813087"></p>
+</li>
+</ul>
+<h2 id="2-启动-MySQL"><a href="#2-启动-MySQL" class="headerlink" title="2 启动 MySQL"></a>2 启动 MySQL</h2><h3 id="2-1-修改端口"><a href="#2-1-修改端口" class="headerlink" title="2.1 修改端口"></a>2.1 修改端口</h3><p>同上，将配置文件中的 3306 改为 3316</p>
+<h3 id="2-2-重启服务"><a href="#2-2-重启服务" class="headerlink" title="2.2 重启服务"></a>2.2 重启服务</h3><ul>
+<li>删除MySQL服务<code>sc delete mysql</code></li>
+<li>按 Apache 以上提到注册表信息的内容，找到 MySQL相关并全部删除</li>
+<li>找到<code>xampp\mysql</code>目录下的 mysql_start.bat 并启动</li>
+<li>关闭 XAMPP 重新以管理员身份打开，并启动 MySQL 服务即可</li>
+</ul>
+<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604112516623.png" alt="image-20210604112516623"></p>
+]]></content>
+      <categories>
+        <category>解决方案</category>
+      </categories>
+      <tags>
+        <tag>XAMPP</tag>
+      </tags>
+  </entry>
 </search>
