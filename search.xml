@@ -1962,6 +1962,22 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <li>关闭 XAMPP 重新以管理员身份打开，并启动 MySQL 服务即可</li>
 </ul>
 <p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604112516623.png" alt="image-20210604112516623"></p>
+<h2 id="3-pikachu-环境"><a href="#3-pikachu-环境" class="headerlink" title="3 pikachu 环境"></a>3 pikachu 环境</h2><p><a href="https://blog.csdn.net/jomos/article/details/106881756">搭建pikachu的环境_jomos的博客-CSDN博客_pikachu搭建</a></p>
+<ul>
+<li><p>下载 <a href="https://github.com/zhuifengshaonianhanlu/pikachu">https://github.com/zhuifengshaonianhanlu/pikachu</a> 压缩包</p>
+</li>
+<li><p>解压到 <code>\xampp\htdocs</code> 下，并将 pikachu-master 改名为 pikachu</p>
+<ul>
+<li>原因：<code>\xampp\htdocs\pikachu\inc\config.inc.php</code> 中 <code>define(&#39;DBNAME&#39;, &#39;pikachu&#39;);//自定义，建议不修改</code></li>
+</ul>
+</li>
+<li><p>修改上述配置文件 config.inc.php 中端口为 XAMPP 中 MySQL 配置的端口，完成！</p>
+<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604203010242.png" alt="image-20210604203010242"></p>
+</li>
+<li><p>启动 XAMPP，打开 Apache 和 MySQL 服务，访问 <code>http://localhost:8081/pikachu/</code></p>
+</li>
+</ul>
+<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604203143811.png" alt="image-20210604203143811"></p>
 ]]></content>
       <categories>
         <category>解决方案</category>
