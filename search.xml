@@ -1927,7 +1927,8 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
     <title>解决XAMPP安装后无法启动Apache和MySQL的问题并搭建pikachu环境</title>
     <url>/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/</url>
     <content><![CDATA[<p><a href="https://blog.csdn.net/qq_41664447/article/details/81202740">参考</a></p>
-<h2 id="1-启动-Apache"><a href="#1-启动-Apache" class="headerlink" title="1 启动 Apache"></a>1 启动 Apache</h2><h3 id="1-1-修改端口号"><a href="#1-1-修改端口号" class="headerlink" title="1.1 修改端口号"></a>1.1 修改端口号</h3><ul>
+<h2 id="1-启动-Apache"><a href="#1-启动-Apache" class="headerlink" title="1 启动 Apache"></a>1 启动 Apache</h2><p>注意这里修改端口号的目的是避免与现存服务冲突，如果原有默认的端口可用，实际上不需要修改</p>
+<h3 id="1-1-修改端口号"><a href="#1-1-修改端口号" class="headerlink" title="1.1 修改端口号"></a>1.1 修改端口号</h3><ul>
 <li><p>需要修改配置中的端口号，以避免与其他服务冲突</p>
 <p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604103954352.png" alt="image-20210604103954352"></p>
 <ul>
@@ -1962,7 +1963,7 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <li>关闭 XAMPP 重新以管理员身份打开，并启动 MySQL 服务即可</li>
 </ul>
 <p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604112516623.png" alt="image-20210604112516623"></p>
-<h2 id="3-pikachu-环境"><a href="#3-pikachu-环境" class="headerlink" title="3 pikachu 环境"></a>3 pikachu 环境</h2><p><a href="https://blog.csdn.net/jomos/article/details/106881756">搭建pikachu的环境_jomos的博客-CSDN博客_pikachu搭建</a></p>
+<h2 id="3-pikachu-环境"><a href="#3-pikachu-环境" class="headerlink" title="3 pikachu 环境"></a>3 pikachu 环境</h2><p><a href="https://blog.csdn.net/jomos/article/details/106881756">搭建pikachu的环境_jomos的博客-CSDN博客_pikachu搭建</a> 需要修改 MySQL 账户密码，若修改后连不上了则参考下一条</p>
 <ul>
 <li><p>下载 <a href="https://github.com/zhuifengshaonianhanlu/pikachu">https://github.com/zhuifengshaonianhanlu/pikachu</a> 压缩包</p>
 </li>
@@ -1978,6 +1979,9 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </li>
 </ul>
 <p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604203143811.png" alt="image-20210604203143811"></p>
+<ul>
+<li><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604212056271.png" alt="image-20210604212056271"></li>
+</ul>
 <h2 id="4-XAMPP-通过-PHPADMIN-修改密码后连不上了"><a href="#4-XAMPP-通过-PHPADMIN-修改密码后连不上了" class="headerlink" title="4 XAMPP 通过 PHPADMIN 修改密码后连不上了"></a>4 XAMPP 通过 PHPADMIN 修改密码后连不上了</h2><p><a href="https://blog.csdn.net/m0_37468234/article/details/80047785">xampp修改mysql密码后不能登陆_honyliu-CSDN博客</a></p>
 <ul>
 <li><code>\xampp\phpMyAdmin\config.inc.php</code> 中 <code>$cfg[&#39;Servers&#39;][$i][&#39;password&#39;] = &#39;&#39;;</code> 添加密码</li>
