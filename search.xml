@@ -1924,7 +1924,7 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
       </tags>
   </entry>
   <entry>
-    <title>XAMPP安装后无法启动Apache和MySQL</title>
+    <title>解决XAMPP安装后无法启动Apache和MySQL的问题并搭建pikachu环境</title>
     <url>/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/</url>
     <content><![CDATA[<p><a href="https://blog.csdn.net/qq_41664447/article/details/81202740">参考</a></p>
 <h2 id="1-启动-Apache"><a href="#1-启动-Apache" class="headerlink" title="1 启动 Apache"></a>1 启动 Apache</h2><h3 id="1-1-修改端口号"><a href="#1-1-修改端口号" class="headerlink" title="1.1 修改端口号"></a>1.1 修改端口号</h3><ul>
@@ -1981,9 +1981,11 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 ]]></content>
       <categories>
         <category>解决方案</category>
+        <category>环境搭建</category>
       </categories>
       <tags>
         <tag>XAMPP</tag>
+        <tag>pikachu</tag>
       </tags>
   </entry>
   <entry>
