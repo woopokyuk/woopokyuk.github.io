@@ -2215,7 +2215,32 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </ul>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27;&gt;&lt;input id=&quot;hh&quot; name=&quot;hh&quot; type=&quot;button&quot; value=&quot;hh&quot;&gt;</span></span><br></pre></td></tr></table></figure>
 <p><img src="/2021/06/07/pikachuRecord/image-20210607212537663.png" alt="image-20210607212537663" style="zoom:80%;"></p>
-]]></content>
+<h3 id="2-5-DOM型xss-x"><a href="#2-5-DOM型xss-x" class="headerlink" title="2.5 DOM型xss-x"></a>2.5 DOM型xss-x</h3><ul>
+<li>点击按钮后出现一个超链接</li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210607233707959.png" alt="image-20210607233707959" style="zoom:80%;"></p>
+<ul>
+<li>点击该链接，发现 dom 节点</li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210607233836115.png" alt="image-20210607233836115" style="zoom:80%;"></p>
+<ul>
+<li>再往前看看源码，所以首先会从输入框获取字符串，然后以 “text=” 进行分割后，选第二个元素；再将这个元素中的加号换成空格，然后再送给 <code>getElementById</code> 处理。</li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210607233913956.png" alt="image-20210607233913956"></p>
+<ul>
+<li>可以输入字符串后，直接在浏览器控制台跑一下代码，看看其变化</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27;&gt;&lt;img src=&quot;#&quot; onmouseover=&quot;alert(&#x27;</span>xss<span class="string">&#x27;)&quot;&gt;</span></span><br><span class="line"><span class="string">或</span></span><br><span class="line"><span class="string">&#x27;</span> onclick=<span class="string">&quot;alert(&#x27;xss&#x27;)&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/06/07/pikachuRecord/image-20210607234252072.png" alt="image-20210607234252072"></p>
+<p><img src="/2021/06/07/pikachuRecord/image-20210607234312425.png" alt="image-20210607234312425"></p>
+<ul>
+<li>所以道理是一样的，只不过受影响的节点是点击按钮后的第二条链接处</li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210607234438728.png" alt="image-20210607234438728" style="zoom:80%;"></p>
+<ul>
+<li>DONE!</li>
+</ul>
+<h3 id="2-6-xss盲打"><a href="#2-6-xss盲打" class="headerlink" title="2.6 xss盲打"></a>2.6 xss盲打</h3>]]></content>
       <categories>
         <category>笔记</category>
       </categories>
