@@ -2100,13 +2100,51 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </li>
 </ul>
 <p><img src="/2021/06/07/pikachuRecord/image-20210607145749921.png" alt="image-20210607145749921" style="zoom:67%;"> </p>
-<h3 id="1-4-token防爆破"><a href="#1-4-token防爆破" class="headerlink" title="1.4 token防爆破?"></a>1.4 token防爆破?</h3><ul>
-<li>使用相同的 token POST 数据会提示 csrf token error </li>
+<h3 id="1-4-token防爆破"><a href="#1-4-token防爆破" class="headerlink" title="1.4 token防爆破?"></a>1.4 token防爆破?</h3><h4 id="先验知识"><a href="#先验知识" class="headerlink" title="先验知识"></a>先验知识</h4><ul>
+<li><p><a href="https://www.jianshu.com/p/24825a2683e6"><strong>什么是 Token：</strong></a> 第一次登录后，服务器生成一个 Token 并返回给客户端，客户端需要带着这个 Token请求数据</p>
+</li>
+<li><p>使用相同的 token POST 数据会提示 csrf token error </p>
+</li>
 </ul>
 <p><img src="/2021/06/07/pikachuRecord/image-20210607161120581.png" alt="image-20210607161120581"></p>
 <ul>
 <li>重新获取一个新的 token （重来一次）</li>
 </ul>
+<hr>
+<p><strong><a href="https://blog.csdn.net/qq_38632151/article/details/102600053">BurpSuite Intruder模块的四种攻击类型</a></strong></p>
+<ul>
+<li>Sniper：（一个 payload）根据字典中数据，依次对标记的变量进行替换。相当于将标记的 n 个变量当作一整块，每次从字典中拿出 n 个数据依次分给这 n 个变量，直到字典用尽。</li>
+<li>Battering Ram: （一个 payload）被标记的 n 个变量的变化是同步的。从字典中取出的一个数据会被同步给到这 n 个变量。</li>
+<li>Pitchfork: （多个 payload）交叉替换，比如 n 个变量，会对应有 n 个 payload，每个变量的取值只能从它自己的 payload 中获得，当最少 payload 被遍历完，整个攻击过程就结束。</li>
+<li>Cluster bomb: （多个 payload）n 个变量就是O(N^n) 的穷举。</li>
+</ul>
+<hr>
+<h4 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h4><ul>
+<li>前面的步骤跟上文同理，直到发送到 Intruder</li>
+<li>由于 Token 需要从上一次响应中取值，所以攻击类型和线程是需要注意的。攻击类型需为 Pitchfork 交叉替换，线程数只能为 1</li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210607174112388.png" alt="image-20210607174112388"></p>
+<p><img src="/2021/06/07/pikachuRecord/image-20210607174059309.png" alt="image-20210607174059309"></p>
+<ul>
+<li>因为交叉替换会同步遍历 payload，所以如果标记用户名、口令、token 三个变量，那有可能可登录的账号密码不能被遍历到，所以这里的实验只标记了口令和 token，用户名直接猜测是 admin</li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210607173823435.png" alt="image-20210607173823435"></p>
+<ul>
+<li>payload 1 选择口令字典；payload 2 由于需要从上一个响应中获取，所以选择 Recursive grep 通过递归搜索</li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210607174135371.png" alt="image-20210607174135371"></p>
+<ul>
+<li>Options 中需要添加数据提取</li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210607174304560.png" alt="image-20210607174304560"></p>
+<ul>
+<li>点击 Refetch response，搜索 token 选中后点击 ok</li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210607174356418.png" alt="image-20210607174356418"></p>
+<ul>
+<li>start attack, Done!</li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210607174606081.png" alt="image-20210607174606081"></p>
 ]]></content>
       <categories>
         <category>笔记</category>
