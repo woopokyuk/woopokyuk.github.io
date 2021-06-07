@@ -2059,7 +2059,7 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </li>
 </ul>
 <p><img src="/2021/06/07/pikachuRecord/image-20210607122844889.png" alt="image-20210607122844889"></p>
-<h2 id="暴力破解"><a href="#暴力破解" class="headerlink" title="暴力破解"></a>暴力破解</h2><h3 id="基于表单的暴力破解"><a href="#基于表单的暴力破解" class="headerlink" title="基于表单的暴力破解"></a>基于表单的暴力破解</h3><ul>
+<h2 id="1-暴力破解"><a href="#1-暴力破解" class="headerlink" title="1 暴力破解"></a>1 暴力破解</h2><h3 id="1-1-基于表单的暴力破解"><a href="#1-1-基于表单的暴力破解" class="headerlink" title="1.1 基于表单的暴力破解"></a>1.1 基于表单的暴力破解</h3><ul>
 <li>打开Bp，先进入登录页，任意输入用户名及口令，更换为本地代理，然后将 network.proxy.allow_hijacking_localhost 改为 true，点击 Login</li>
 </ul>
 <p><img src="/2021/06/07/pikachuRecord/image-20210607123202666.png" alt="image-20210607123202666" style="zoom:67%;"></p>
@@ -2071,7 +2071,7 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <li>start attack，根据响应包长度找到两个成功登录的用户名及口令，Done！</li>
 </ul>
 <p><img src="/2021/06/07/pikachuRecord/image-20210607123835691.png" alt="image-20210607123835691"></p>
-<h3 id="验证码绕过-on-server"><a href="#验证码绕过-on-server" class="headerlink" title="验证码绕过(on server)"></a>验证码绕过(on server)</h3><p><img src="/2021/06/07/pikachuRecord/image-20210607144107445.png" alt="image-20210607144107445" style="zoom:67%;"></p>
+<h3 id="1-2-验证码绕过-on-server"><a href="#1-2-验证码绕过-on-server" class="headerlink" title="1.2 验证码绕过(on server)"></a>1.2 验证码绕过(on server)</h3><p><img src="/2021/06/07/pikachuRecord/image-20210607144107445.png" alt="image-20210607144107445" style="zoom:67%;"></p>
 <ul>
 <li>打开 Bp，在输入框中填写任意用户名和口令，然后输入相应的验证码，选择本地代理并将 network.proxy.allow_hijacking_localhost 改为 true，用 Bp 截获请求。CTRL + R 发送到 Repeater，Go，试试验证码</li>
 <li>当我们输入页面显示的验证码会提示，用户名或密码不存在</li>
@@ -2086,7 +2086,7 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <li>与上文同理可得两个账号</li>
 </ul>
 <p><img src="/2021/06/07/pikachuRecord/image-20210607144425800.png" alt="image-20210607144425800"></p>
-<h3 id="验证码绕过-on-client"><a href="#验证码绕过-on-client" class="headerlink" title="验证码绕过(on client)"></a>验证码绕过(on client)</h3><p><img src="/2021/06/07/pikachuRecord/image-20210607150116727.png" alt="image-20210607150116727" style="zoom: 67%;"></p>
+<h3 id="1-3-验证码绕过-on-client"><a href="#1-3-验证码绕过-on-client" class="headerlink" title="1.3 验证码绕过(on client)"></a>1.3 验证码绕过(on client)</h3><p><img src="/2021/06/07/pikachuRecord/image-20210607150116727.png" alt="image-20210607150116727" style="zoom: 67%;"></p>
 <ul>
 <li>操作步骤同上一节服务端绕过</li>
 <li>与之不同之处，从 Repeater 开始，本次实验即使输错验证码，甚至删除验证码参数都不会提示验证码错误或验证码为空，均提示</li>
@@ -2100,7 +2100,7 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </li>
 </ul>
 <p><img src="/2021/06/07/pikachuRecord/image-20210607145749921.png" alt="image-20210607145749921" style="zoom:67%;"> </p>
-<h3 id="token防爆破"><a href="#token防爆破" class="headerlink" title="token防爆破?"></a>token防爆破?</h3><ul>
+<h3 id="1-4-token防爆破"><a href="#1-4-token防爆破" class="headerlink" title="1.4 token防爆破?"></a>1.4 token防爆破?</h3><ul>
 <li>使用相同的 token POST 数据会提示 csrf token error </li>
 </ul>
 <p><img src="/2021/06/07/pikachuRecord/image-20210607161120581.png" alt="image-20210607161120581"></p>
