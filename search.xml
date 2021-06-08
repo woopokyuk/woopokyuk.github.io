@@ -2249,4 +2249,94 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>漏洞练习</tag>
       </tags>
   </entry>
+  <entry>
+    <title>打包Qt项目</title>
+    <url>/2021/03/14/%E6%89%93%E5%8C%85Qt%E9%A1%B9%E7%9B%AE/</url>
+    <content><![CDATA[<h2 id="1-Linux环境"><a href="#1-Linux环境" class="headerlink" title="1 Linux环境"></a>1 Linux环境</h2><h3 id="1-1-构建-Release-版本"><a href="#1-1-构建-Release-版本" class="headerlink" title="1.1 构建 Release 版本"></a>1.1 构建 Release 版本</h3><ul>
+<li>Projects - Add Release - 添加版本名称并确定 - Build</li>
+</ul>
+<p><img src="/2021/03/14/%E6%89%93%E5%8C%85Qt%E9%A1%B9%E7%9B%AE/image-20210608094704865.png" alt="image-20210608094704865"></p>
+<h3 id="1-2-脚本文件"><a href="#1-2-脚本文件" class="headerlink" title="1.2 脚本文件"></a>1.2 脚本文件</h3><ul>
+<li>进入上文构建的 Release 目录</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi copylib.sh</span><br></pre></td></tr></table></figure>
+<ul>
+<li>copylib.sh 内容如下（此处无需修改）</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">LibDir=$PWD&quot;/lib&quot;</span><br><span class="line">Target=$1</span><br><span class="line"></span><br><span class="line">lib_array=($(ldd $Target | grep -o &quot;/.*&quot; | grep -o &quot;/.*/[^[:space:]]*&quot;))</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash">(mkdir <span class="variable">$LibDir</span>)</span></span><br><span class="line"></span><br><span class="line">for Variable in $&#123;lib_array[@]&#125;</span><br><span class="line">do</span><br><span class="line">    cp &quot;$Variable&quot; $LibDir</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<h3 id="1-3-生成项目的库文件"><a href="#1-3-生成项目的库文件" class="headerlink" title="1. 3 生成项目的库文件"></a>1. 3 生成项目的库文件</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chmod 777 copylib.sh</span><br><span class="line">./copylib.sh projectName</span><br></pre></td></tr></table></figure>
+<ul>
+<li>projectName 为项目名，我的是 Client，根据自己项目自行修改。随即在同目录生成了 lib 文件夹</li>
+</ul>
+<p><img src="/2021/03/14/%E6%89%93%E5%8C%85Qt%E9%A1%B9%E7%9B%AE/image-20210608100547153.png" alt="image-20210608100547153"></p>
+<ul>
+<li>桌面新建空文件夹，这里命名为 new</li>
+<li>将上文中构建的 Release 版本的二进制文件及库文件全部复制到新建的这个 new 中来，（不保留 lib 目录，将其中文件均复制过来）</li>
+</ul>
+<h3 id="1-4-Qt-安装目录的插件中提取-platforms"><a href="#1-4-Qt-安装目录的插件中提取-platforms" class="headerlink" title="1. 4 Qt 安装目录的插件中提取 platforms"></a>1. 4 Qt 安装目录的插件中提取 platforms</h3><ul>
+<li>进入 <code>/opt/Qt5.14.2/5.14.2/gcc_64/plugins/platforms</code></li>
+<li>将 copylib.sh 复制到的platforms</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ./copylib.sh libqxcb.so</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这会生成一个新的 lib 文件夹，将此文件夹所有文件均复制到 new 目录中，删除这个 lib 文件夹</li>
+<li>遇到同名文件则跳过，将整个 platforms 复制到 new 目录中</li>
+<li>在 new 目录新建与项目同名的脚本，这里是 Client.sh</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi projectName.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line">appname=`basename $0 | sed s,\.sh$,,`</span><br><span class="line"></span><br><span class="line">dirname=`dirname $0`</span><br><span class="line">tmp=&quot;$&#123;dirname#?&#125;&quot;</span><br><span class="line"></span><br><span class="line">if [ &quot;$&#123;dirname%$tmp&#125;&quot; != &quot;/&quot; ]; then</span><br><span class="line">dirname=$PWD/$dirname</span><br><span class="line">fi</span><br><span class="line">LD_LIBRARY_PATH=$dirname</span><br><span class="line">export LD_LIBRARY_PATH</span><br><span class="line"><span class="meta">$</span><span class="bash">dirname/<span class="variable">$appname</span> <span class="string">&quot;<span class="variable">$@</span>&quot;</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chmod 777 projectName.sh</span><br></pre></td></tr></table></figure>
+<ul>
+<li>到这里按说是完成了，但是执行这个 projectName.sh 时，会报错，遇到了xcb的问题，这个问题可以通过 ldd 和 Qt 的调试设置来查明</li>
+</ul>
+<p><img src="/2021/03/14/%E6%89%93%E5%8C%85Qt%E9%A1%B9%E7%9B%AE/image-20210608102722541.png" alt="image-20210608102722541"></p>
+<h3 id="1-5-解决-xcb-问题"><a href="#1-5-解决-xcb-问题" class="headerlink" title="1. 5 解决 xcb 问题"></a>1. 5 解决 xcb 问题</h3><ul>
+<li>设置环境变量，以便于看到 Qt 加载的过程，看到详细的报错信息。然后执行上文中的 projectName.sh</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export QT_DEBUG_PLUGINS=1</span><br><span class="line">./projectName.sh</span><br></pre></td></tr></table></figure>
+<ul>
+<li>根据标准输出找问题</li>
+</ul>
+<p><img src="/2021/03/14/%E6%89%93%E5%8C%85Qt%E9%A1%B9%E7%9B%AE/image-20210608103812082.png" alt="image-20210608103812082"></p>
+<ul>
+<li>这里的问题是找不到 libQt5XcbQpa.so.5</li>
+<li>可以去 Qt 安装目录的 platforms 目录找（出现 xcb 问题一般是因为以上 platforms 中执行 copylib 的顺序有问题，如果先将 platforms 复制到新目录再执行 copylib 就会缺失一部分库，因此需要在 Qt 安装目录中执行）</li>
+</ul>
+<h3 id="1-6-移植到其他机器的注意事项"><a href="#1-6-移植到其他机器的注意事项" class="headerlink" title="1. 6 移植到其他机器的注意事项"></a>1. 6 移植到其他机器的注意事项</h3><ul>
+<li>打包后，启动程序应该使用 <code>projectName.sh</code> 而不是直接运行 projectName 的二进制文件</li>
+<li>执行上述 sh 文件可能会提示权限不够，这时需要给 projectName 二进制文件以及 projectName.sh 脚本 777 权限</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chmod 777 projectName</span><br><span class="line">chmod 777 projectName.sh </span><br></pre></td></tr></table></figure>
+<h3 id="1-7-Reference"><a href="#1-7-Reference" class="headerlink" title="1.7 Reference"></a>1.7 Reference</h3><ol>
+<li><p>打包 <a href="https://blog.csdn.net/z3512498/article/details/64922180?utm_medium=distribute.pc_relevant.none-task-blog-searchFromBaidu-12.control&amp;dist_request_id=1328603.71798.16152866709520987&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-searchFromBaidu-12.control">https://blog.csdn.net/z3512498/article/details/64922180?utm_medium=distribute.pc_relevant.none-task-blog-searchFromBaidu-12.control&amp;dist_request_id=1328603.71798.16152866709520987&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-searchFromBaidu-12.control</a></p>
+</li>
+<li><p>xcb <a href="https://www.cnblogs.com/ldxn/p/11791810.html">https://www.cnblogs.com/ldxn/p/11791810.html</a></p>
+</li>
+<li><p>xcb <a href="https://blog.csdn.net/sinat_26106275/article/details/82778951">https://blog.csdn.net/sinat_26106275/article/details/82778951</a></p>
+</li>
+</ol>
+<h2 id="2-Windows环境"><a href="#2-Windows环境" class="headerlink" title="2 Windows环境"></a>2 Windows环境</h2><h3 id="2-1-构建-Release-版本"><a href="#2-1-构建-Release-版本" class="headerlink" title="2.1 构建 Release 版本"></a>2.1 构建 Release 版本</h3><p>与 Linux 环境同理</p>
+<h3 id="2-2-windeployqt-工具拷贝库文件"><a href="#2-2-windeployqt-工具拷贝库文件" class="headerlink" title="2.2 windeployqt 工具拷贝库文件"></a>2.2 windeployqt 工具拷贝库文件</h3><ul>
+<li><p>新建文件夹，将 Release 目录中的 exe 文件拷贝到新文件夹下</p>
+</li>
+<li><p>命令行工具</p>
+</li>
+</ul>
+<p><img src="/2021/03/14/%E6%89%93%E5%8C%85Qt%E9%A1%B9%E7%9B%AE/image-20210608173440728.png" alt="image-20210608173440728"></p>
+<ul>
+<li>在命令行中，进入以上新建的目录，并执行命令 <code>windeployqt Server.exe</code>，其中 Server.exe 为 Release 拷过来的可执行文件</li>
+</ul>
+<p><img src="/2021/03/14/%E6%89%93%E5%8C%85Qt%E9%A1%B9%E7%9B%AE/image-20210608173846947.png" alt="image-20210608173846947"></p>
+<ul>
+<li>执行完后，文件夹中会多出很多 dll 以及其他一些依赖，Server.exe 也可以正常运行了</li>
+</ul>
+<h3 id="2-3-Reference"><a href="#2-3-Reference" class="headerlink" title="2.3 Reference"></a>2.3 Reference</h3><p><a href="https://blog.csdn.net/u014453443/article/details/85837138">https://blog.csdn.net/u014453443/article/details/85837138</a></p>
+]]></content>
+      <categories>
+        <category>解决方案</category>
+      </categories>
+      <tags>
+        <tag>Qt</tag>
+      </tags>
+  </entry>
 </search>
