@@ -2240,7 +2240,33 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <ul>
 <li>DONE!</li>
 </ul>
-<h3 id="2-6-xss盲打"><a href="#2-6-xss盲打" class="headerlink" title="2.6 xss盲打"></a>2.6 xss盲打</h3>]]></content>
+<h3 id="2-6-xss盲打"><a href="#2-6-xss盲打" class="headerlink" title="2.6 xss盲打"></a>2.6 xss盲打</h3><p>核心就是<strong>尝试</strong></p>
+<ul>
+<li>提示登录后台 <a href="http://localhost:8081/pikachu/vul/xss/xssblind/admin_login.php">http://localhost:8081/pikachu/vul/xss/xssblind/admin_login.php</a></li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210608234642882.png" alt="image-20210608234642882" style="zoom:80%;"></p>
+<p><img src="/2021/06/07/pikachuRecord/image-20210608234739069.png" alt="image-20210608234739069" style="zoom:80%;"></p>
+<ul>
+<li>弱口令爆破可以得到 admin/123456，进入后台可以看到已有的留言</li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210608234837073.png" alt="image-20210608234837073" style="zoom:80%;"></p>
+<ul>
+<li>尝试在留言框写入</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;alert(<span class="number">1</span>)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>管理员重新进入后台时，就会触发 xss</li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210608235226651.png" alt="image-20210608235226651"></p>
+<hr>
+<p>当然姓名框也可以进行 xss</p>
+<p><img src="/2021/06/07/pikachuRecord/image-20210608235355873.png" alt="image-20210608235355873"></p>
+<hr>
+<h3 id="2-7-xss之过滤"><a href="#2-7-xss之过滤" class="headerlink" title="2.7 xss之过滤"></a>2.7 xss之过滤</h3><ul>
+<li>大小写绕过</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;Script&gt;alert(<span class="number">1</span>)&lt;/Script&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="2-8-xss之htmlspecialchars"><a href="#2-8-xss之htmlspecialchars" class="headerlink" title="2.8 xss之htmlspecialchars"></a>2.8 xss之htmlspecialchars</h3>]]></content>
       <categories>
         <category>笔记</category>
       </categories>
