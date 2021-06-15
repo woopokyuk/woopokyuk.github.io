@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="C++," />
 
 
 
@@ -79,12 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="WooPokyuk&#39;s Blog">
-<meta property="og:url" content="https://woopokyuk.github.io/tags/PWN/index.html">
+<meta name="description" content="最简单的直接测试12345678910111213141516#include &lt;iostream&gt;using namespace std;void test() &amp;#123;    cout &lt;&lt; &quot;DONE!&quot; &lt;&lt; endl;&amp;#125;int main() &amp;#123;    cout &lt;&lt; test &lt;&lt; e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="获取函数地址并调用函数">
+<meta property="og:url" content="https://woopokyuk.github.io/2021/06/08/%E8%8E%B7%E5%8F%96%E5%87%BD%E6%95%B0%E5%9C%B0%E5%9D%80%E5%B9%B6%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0/index.html">
 <meta property="og:site_name" content="WooPokyuk&#39;s Blog">
+<meta property="og:description" content="最简单的直接测试12345678910111213141516#include &lt;iostream&gt;using namespace std;void test() &amp;#123;    cout &lt;&lt; &quot;DONE!&quot; &lt;&lt; endl;&amp;#125;int main() &amp;#123;    cout &lt;&lt; test &lt;&lt; e">
 <meta property="og:locale">
+<meta property="article:published_time" content="2021-06-08T03:40:02.000Z">
+<meta property="article:modified_time" content="2021-06-15T12:46:34.738Z">
 <meta property="article:author" content="WooPokyuk">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://woopokyuk.github.io/tags/PWN/"/>
+  <link rel="canonical" href="https://woopokyuk.github.io/2021/06/08/获取函数地址并调用函数/"/>
 
 
 
 
 
-  <title>标签: PWN | WooPokyuk's Blog</title>
+  <title>获取函数地址并调用函数 | WooPokyuk's Blog</title>
   
 
 
@@ -140,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -268,54 +273,234 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>PWN<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woopokyuk.github.io/2021/06/08/%E8%8E%B7%E5%8F%96%E5%87%BD%E6%95%B0%E5%9C%B0%E5%9D%80%E5%B9%B6%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WooPokyuk's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2021/05/31/PWN%E5%88%86%E6%9E%90%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" itemprop="url">
-              
-                <span itemprop="name">PWN分析环境搭建</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">获取函数地址并调用函数</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2021-05-31T14:47:45+08:00"
-              content="2021-05-31" >
-          05-31
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-08T11:40:02+08:00">
+                2021-06-08
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" itemprop="url" rel="index">
+                    <span itemprop="name">解决方案</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  320
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="最简单的直接测试"><a href="#最简单的直接测试" class="headerlink" title="最简单的直接测试"></a>最简单的直接测试</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;DONE!&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; test &lt;&lt; endl;</span><br><span class="line">    <span class="built_in"><span class="keyword">void</span></span> (*myCALL)();</span><br><span class="line">    myCALL = test;</span><br><span class="line">    (*myCALL)();</span><br><span class="line">    cout &lt;&lt; *myCALL &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="从数组中获取地址并调用"><a href="#从数组中获取地址并调用" class="headerlink" title="从数组中获取地址并调用"></a>从数组中获取地址并调用</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;DONE!&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">callFunc</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="built_in"><span class="keyword">void</span></span> (*pro)();</span><br><span class="line">    pro = (<span class="built_in"><span class="keyword">void</span></span> (*)()) x;</span><br><span class="line">    (*pro)();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; address;</span><br><span class="line">    address.<span class="built_in">push_back</span>(<span class="built_in"><span class="keyword">int</span></span>(test));</span><br><span class="line">    cout &lt;&lt; test &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">callFunc</span>(address[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="获取类成员函数地址并调用-1"><a href="#获取类成员函数地址并调用-1" class="headerlink" title="获取类成员函数地址并调用$^{1}$"></a>获取类成员函数地址并调用$^{1}$</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fn</span><span class="params">()</span> </span>&#123; </span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;myCallFunc is Done~&quot;</span> &lt;&lt; endl; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> dst_type, <span class="keyword">typename</span> src_type&gt;</span></span><br><span class="line"><span class="function">dst_type <span class="title">pointer_cast</span><span class="params">(src_type src)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">static_cast</span>&lt;dst_type*&gt;(<span class="keyword">static_cast</span>&lt;<span class="keyword">void</span>*&gt;(&amp;src));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">getAddress</span><span class="params">(<span class="keyword">decltype</span> (&amp;A::fn) x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span>* ptr = pointer_cast&lt;<span class="keyword">void</span>*&gt;(x);</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">long</span>)ptr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">callFunc</span><span class="params">(<span class="keyword">long</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="built_in"><span class="keyword">void</span></span> (*pro)();</span><br><span class="line">    pro = (<span class="built_in"><span class="keyword">void</span></span>(*)()) x;</span><br><span class="line">    (*pro)();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> address = <span class="built_in">getAddress</span>(&amp;A::fn);</span><br><span class="line">    <span class="built_in">callFunc</span>(address);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="对应的函数模板与使用方法"><a href="#对应的函数模板与使用方法" class="headerlink" title="对应的函数模板与使用方法"></a>对应的函数模板与使用方法</h3><h4 id="getAddress"><a href="#getAddress" class="headerlink" title="getAddress"></a>getAddress</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> dst_type, <span class="keyword">typename</span> src_type&gt;</span></span><br><span class="line"><span class="function">dst_type <span class="title">getAddress</span><span class="params">(src_type x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span>* ptr = pointer_cast&lt;<span class="keyword">void</span>*&gt;(x);</span><br><span class="line">    <span class="keyword">return</span> (dst_type)ptr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> address = (<span class="keyword">long</span>)getAddress&lt;<span class="keyword">void</span>*&gt;(&amp;FuncFlowT::funcA);</span><br></pre></td></tr></table></figure>
+<h4 id="callFunc"><a href="#callFunc" class="headerlink" title="callFunc"></a>callFunc</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> src_type&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">callFunc</span><span class="params">(src_type x)</span> </span>&#123;</span><br><span class="line">    <span class="built_in"><span class="keyword">void</span></span> (*pro)();</span><br><span class="line">    pro = (<span class="built_in"><span class="keyword">void</span></span>(*)()) x;</span><br><span class="line">    (*pro)();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">callFunc&lt;<span class="keyword">long</span>&gt;(address);</span><br></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/memset/p/get_member_function_address_cpp.html">https://www.cnblogs.com/memset/p/get_member_function_address_cpp.html</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://bbs.csdn.net/topics/80149694">https://bbs.csdn.net/topics/80149694</a></p>
+</li>
+</ol>
 
       
     </div>
 
+    <div>
+      
+      <div>
+    
+        <br />
+        <br />
+        <div style="text-align:center;color: #ccc;font-size:14px;">----------- 本文结束 -----------</div>
+        <br />
+        <br />
+        <br />
+        <br />
+    
+</div>
+      
+    </div>
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/06/07/pikachuRecord/" rel="next" title="pikachu RECORD">
+                <i class="fa fa-chevron-left"></i> pikachu RECORD
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -323,6 +508,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -343,8 +532,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -445,6 +643,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E7%9B%B4%E6%8E%A5%E6%B5%8B%E8%AF%95"><span class="nav-text">最简单的直接测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E6%95%B0%E7%BB%84%E4%B8%AD%E8%8E%B7%E5%8F%96%E5%9C%B0%E5%9D%80%E5%B9%B6%E8%B0%83%E7%94%A8"><span class="nav-text">从数组中获取地址并调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%B1%BB%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E5%9C%B0%E5%9D%80%E5%B9%B6%E8%B0%83%E7%94%A8-1"><span class="nav-text">获取类成员函数地址并调用$^{1}$</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E5%BA%94%E7%9A%84%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-text">对应的函数模板与使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#getAddress"><span class="nav-text">getAddress</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#callFunc"><span class="nav-text">callFunc</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-text">Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -609,6 +823,13 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+<!-- 代码块包裹面板=mac面板+代码块全选复制按钮 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/highlight-wrap.js?v=5.1.4"></script>
+
 
   
 
