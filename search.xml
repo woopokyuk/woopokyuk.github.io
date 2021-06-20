@@ -2559,4 +2559,56 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>C++</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Unix/Linux系统编程</title>
+    <url>/2021/06/20/Unix%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="2-编程背景"><a href="#2-编程背景" class="headerlink" title="2 编程背景"></a>2 编程背景</h2><h3 id="2-3-程序开发"><a href="#2-3-程序开发" class="headerlink" title="2.3 程序开发"></a>2.3 程序开发</h3><h4 id="2-3-1-C-语言变量"><a href="#2-3-1-C-语言变量" class="headerlink" title="2.3.1 C 语言变量"></a>2.3.1 C 语言变量</h4><p><img src="/2021/06/20/Unix%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/image-20210620220047647.png" alt="image-20210620220047647"></p>
+<ul>
+<li><strong>静态全局变量</strong>只对定义它们的文件可见，<strong>非静态全局变量</strong>对同一程序的所有文件可见。</li>
+</ul>
+<h4 id="2-3-2-程序开发步骤"><a href="#2-3-2-程序开发步骤" class="headerlink" title="2.3.2 程序开发步骤"></a>2.3.2 程序开发步骤</h4><p>预处理、编译（.s）、汇编（.o）、链接（.out）</p>
+<h5 id="o-文件的组成"><a href="#o-文件的组成" class="headerlink" title=".o 文件的组成"></a>.o 文件的组成</h5><ul>
+<li>文件头 + 代码段 + 数据段 + BSS + 重定位信息 + 符号表</li>
+</ul>
+<h5 id="链接的主要操作"><a href="#链接的主要操作" class="headerlink" title="链接的主要操作"></a>链接的主要操作</h5><ul>
+<li>合成各段（代码段、数据段、BSS段）</li>
+<li>根据重定位信息调整各段偏移量</li>
+<li>用符号表解析各 .o 文件的交叉引用</li>
+</ul>
+<h4 id="2-3-2-静态与动态链接"><a href="#2-3-2-静态与动态链接" class="headerlink" title="2.3.2 静态与动态链接"></a>2.3.2 静态与动态链接</h4><ul>
+<li>静态：所有库函数都加入 a.out</li>
+<li>动态：库函数不存入 a.out，a.out 存放调用指令，然后执行期间按需加载</li>
+</ul>
+<h4 id="2-3-3-可执行文件格式"><a href="#2-3-3-可执行文件格式" class="headerlink" title="2.3.3 可执行文件格式"></a>2.3.3 可执行文件格式</h4><ul>
+<li>二进制可执行平面文件：仅包含可执行代码和初始化数据。（比如，可启动操作系统映像（简化了引导装载程序））</li>
+<li>a.out 可执行文件</li>
+<li>ELF 文件</li>
+</ul>
+<h4 id="2-3-4-a-out-的内容"><a href="#2-3-4-a-out-的内容" class="headerlink" title="2.3.4 a.out 的内容"></a>2.3.4 a.out 的内容</h4><ul>
+<li>文件头（各段大小） + 代码段 + 数据段 + 符号表</li>
+</ul>
+<p><strong>注意：</strong>BSS 段不在 a.out 中，只有 BSS 段的大小记录在 a.out 文件头中</p>
+<h4 id="2-3-5-程序终止过程"><a href="#2-3-5-程序终止过程" class="headerlink" title="2.3.5 程序终止过程"></a>2.3.5 程序终止过程</h4><h5 id="a-正常终止"><a href="#a-正常终止" class="headerlink" title="a. 正常终止"></a>a. 正常终止</h5><ol>
+<li>清理工作 <code>exit(value)</code>：刷新 stdout，关闭 I/O 流</li>
+<li>系统调用 <code>__exit(value)</code>：<ul>
+<li>记录退出状态</li>
+<li>通知父进程，并使该进程称为僵尸进程</li>
+<li>父进程 wait 僵尸进程，清空僵尸子进程结构体</li>
+</ul>
+</li>
+</ol>
+<h5 id="b-异常终止"><a href="#b-异常终止" class="headerlink" title="b. 异常终止"></a>b. 异常终止</h5><ol>
+<li>陷入操作系统内核</li>
+<li>内核的陷入处理程序将陷入错误类型转换成一个<strong>幻数</strong>（信号）</li>
+<li>将信号传递给进程，使进程终止 </li>
+</ol>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
 </search>
