@@ -3216,7 +3216,7 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <thead>
 <tr>
 <th>系统调用</th>
-<th></th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
@@ -3235,6 +3235,66 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </tbody>
 </table>
 </div>
+<h2 id="第-5-章-系统调用"><a href="#第-5-章-系统调用" class="headerlink" title="第 5 章 - 系统调用"></a>第 5 章 - 系统调用</h2><h3 id="5-1-系统调用的作用"><a href="#5-1-系统调用的作用" class="headerlink" title="5.1 系统调用的作用"></a>5.1 系统调用的作用</h3><p>系统调用相当于在用户进程和硬件设备之间加了中间层。其作用包括：</p>
+<ol>
+<li>为用户空间提供一种硬件的抽象接口。</li>
+<li>保证系统稳定和安全。</li>
+<li>为了实现多任务和虚拟内存。</li>
+</ol>
+<font color="blue">**系统调用**是用户空间**访问内核的唯一手段**；除异常和陷入外，系统调用是内核的唯一合法入口。</font>Linux 中，每个系统调用都被赋予一个系统调用号，系统调用号一旦分配就不会变，内核记录了系统调用表中的所有已注册的系统调用的列表 `sys_call_table`。
+
+### 5.2 如何通知内核，自己要执行系统调用？
+
+<font color="blue">通知内核</font>的机制靠<font color="blue">软中断</font>实现：引发一个异常促使系统切换到内核态，然后去执行异常处理程序（此时实际上就是**系统调用处理程序 system_call()**）。
+
+* <font face="楷体">知识点 一：如何触发软中断？</font>
+
+<p>x86 系统预定义的软中断是<strong>中断号 128</strong> ，通过 <code>int &amp;0x80</code> 或 <code>sysenter</code> 指令触发，后者更快。</p>
+<ul>
+<li><font face="楷体">知识点 二：通过软中断陷入内核空间（执行系统调用处理程序）后，如何指定恰当的系统调用？</font>
+
+</li>
+</ul>
+<p>x86 系统通过 <strong>eax 寄存器</strong>将<strong>系统调用号</strong>传给内核。</p>
+<h3 id="5-3-系统调用的实现"><a href="#5-3-系统调用的实现" class="headerlink" title="5.3 系统调用的实现"></a>5.3 系统调用的实现</h3><p>虚构一个系统调用 <code>foo()</code> 来观察系统调用的实现步骤</p>
+<ol>
+<li><p>首先，把新的系统调用 <code>sys_foo()</code> 加入<font color="blue">系统调用表</font>的末尾。</p>
+<p>大多数体系结构的系统调用表位于 <code>entry.s</code>，<strong>Linux 2.6 的系统调用表在 <code>linux-2.6.26/arch/x86/kernel/syscall_table_32.S</code> 中</strong></p>
+<ul>
+<li>查找方法及结果</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep &quot;ENTRY(sys_call_table)&quot; -R .</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210629173934526.png" alt="image-20210629173934526" style="zoom:80%;"></p>
+<p><img src="/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210629173436618.png" alt="image-20210629173436618" style="zoom:80%;"></p>
+<ul>
+<li>在末尾添加</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">.<span class="keyword">long</span> sys_foo 			<span class="comment">/* my_sys_call */</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210629174223271.png" alt="image-20210629174223271" style="zoom:80%;"></p>
+<p>所以我们新添加的系统调用的调用号为 327</p>
+<ol>
+<li><p>把系统调用号加入 <code>asm/unistd.h</code>，<strong>Linux 2.6 对应的文件为 <code>linux-2.6.26/include/asm-x86/unistd_32.h</code></strong></p>
+<ul>
+<li>查找方法</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep &quot;#define __NR_restart_syscall&quot; -R .</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210629174858689.png" alt="image-20210629174858689" style="zoom:80%;"></p>
+</li>
+</ol>
+<ul>
+<li>在该列表中加入下面这行</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __NR_foo		327</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210629175039385.png" alt="image-20210629175039385" style="zoom:80%;"></p>
+<ol>
+<li>实现 <code>foo()</code> 系统调用。该系统调用必须编译到核心的内核映像中，所以该例我们将其放到 <code>kernel/sys.c</code> 中。当然，如果其功能与调度相关，也可以放到 <code>kernel/sched.c</code> 中<ul>
+<li>具体代码如下</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>笔记</category>
