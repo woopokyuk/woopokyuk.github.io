@@ -3286,12 +3286,36 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __NR_foo		327</span></span><br></pre></td></tr></table></figure>
 <p><img src="/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210629175039385.png" alt="image-20210629175039385" style="zoom:80%;"></p>
 <ol>
-<li>实现 <code>foo()</code> 系统调用。该系统调用必须编译到核心的内核映像中，所以该例我们将其放到 <code>kernel/sys.c</code> 中。当然，如果其功能与调度相关，也可以放到 <code>kernel/sched.c</code> 中<ul>
-<li>具体代码如下</li>
-</ul>
-</li>
+<li><strong>实现 <code>foo()</code> 系统调用。</strong>该系统调用必须编译到核心的内核映像中，所以该例我们将其放到 <code>kernel/sys.c</code> 中。当然，如果其功能与调度相关，也可以放到 <code>kernel/sched.c</code> 中，类比书中 P66 的代码</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find . | grep page.h</span><br></pre></td></tr></table></figure>
+<p>有</p>
+<p><img src="/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210629193023117.png" alt="image-20210629193023117" style="zoom:80%;"></p>
+<ul>
+<li>修改代码如下，将代码添加到 <code>linux-2.6.26/kernel/sys.c</code> 中</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;asm-x86/page.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回每个进程的内核栈大小</span></span><br><span class="line"><span class="function">asmlinkage <span class="keyword">long</span> <span class="title">sys_foo</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> THREAD_SIZE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-4-从用户空间访问系统调用"><a href="#5-4-从用户空间访问系统调用" class="headerlink" title="5.4 从用户空间访问系统调用"></a>5.4 从用户空间访问系统调用</h3><p>参考 <a href="https://blog.csdn.net/pleasecallmekaige/article/details/82954775">基于ubuntu14.04下编译linux2.6内核_pleasecallmekaige的博客-CSDN博客</a></p>
+<ul>
+<li>编译修改后的内核代码 </li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">make menuconfig</span><br></pre></td></tr></table></figure>
+<p>报错</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Makefile:434: *** mixed implicit and normal rules: deprecated syntax</span><br><span class="line">Makefile:1550: *** mixed implicit and normal rules: deprecated syntax</span><br><span class="line">make: *** No rule to make target &#x27;menuconfig&#x27;.  Stop.</span><br></pre></td></tr></table></figure>
+<p>解决报错<a href="https://blog.csdn.net/whatday/article/details/101792006">参考</a></p>
+<p>首先，将 434 行的 </p>
+<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">config %config: scripts_basic outputmakefile FORCE</span><br></pre></td></tr></table></figure>
+<p>改为</p>
+<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">%config %config: scripts_basic outputmakefile FORCE</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210629202320129.png" alt="image-20210629202320129" style="zoom:80%;"></p>
+<p>再将 1550 行的</p>
+<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">/ %/: prepare scripts FORCE</span><br></pre></td></tr></table></figure>
+<p>改为</p>
+<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="section">%/: prepare scripts FORCE</span></span><br></pre></td></tr></table></figure>
+<p>然后重新 <code>make menuconfig</code></p>
+<ul>
+<li></li>
+</ul>
 ]]></content>
       <categories>
         <category>笔记</category>
