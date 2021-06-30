@@ -3348,4 +3348,56 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>算法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>如何编译内核源码</title>
+    <url>/2021/06/30/%E5%A6%82%E4%BD%95%E7%BC%96%E8%AF%91%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81/</url>
+    <content><![CDATA[<ol>
+<li><a href="https://www.kernel.org/">https://www.kernel.org/</a> 下载内核源码 linux-5.4.128</li>
+</ol>
+<p><img src="/2021/06/30/%E5%A6%82%E4%BD%95%E7%BC%96%E8%AF%91%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81/image-20210630105003356.png" alt="image-20210630105003356"></p>
+<ol>
+<li><code>sudo su</code> 切换成 root，将内核源码解压到 <code>/usr/src</code> 目录</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">xz -d linux-5.4.128.tar.xz</span><br><span class="line">tar xvf linux-5.4.128.tar -C /usr/src</span><br></pre></td></tr></table></figure>
+<ol>
+<li>进入源码目录 <code>/usr/src/linux-5.4.128</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">make menuconfig</span><br></pre></td></tr></table></figure>
+<ul>
+<li>报错 1</li>
+</ul>
+<p><img src="/2021/06/30/%E5%A6%82%E4%BD%95%E7%BC%96%E8%AF%91%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81/image-20210630105059693.png" alt="image-20210630105059693"></p>
+<p>解决方法 <a href="https://blog.csdn.net/zhangbaoxiang/article/details/114288159">https://blog.csdn.net/zhangbaoxiang/article/details/114288159</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt install flex</span><br><span class="line">apt install bison</span><br></pre></td></tr></table></figure>
+<p>重新来一次就可以成功配置</p>
+<ul>
+<li>报错 2</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libncurses5-dev</span><br></pre></td></tr></table></figure>
+<p>解决方法 <a href="https://blog.csdn.net/bhniunan/article/details/104039373">https://blog.csdn.net/bhniunan/article/details/104039373</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt install libncurses5-dev</span><br></pre></td></tr></table></figure>
+<ol>
+<li>编译</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
+<p>报错</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">scripts/sign-file.c:25:10: fatal error: openssl/opensslv.h: No such file or directory</span><br></pre></td></tr></table></figure>
+<p>解决方法</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt install libssl-dev</span><br></pre></td></tr></table></figure>
+<p>重新执行 make，产生报错 2</p>
+<p>解决方法 <a href="https://blog.csdn.net/u010629326/article/details/73196311">参考评论</a>：<code>vi .config</code>，将 CONFIG_SYSTEM_TRUSTED_KEYS 设为空串</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CONFIG_SYSTEM_TRUSTED_KEYS=&quot;&quot;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/06/30/%E5%A6%82%E4%BD%95%E7%BC%96%E8%AF%91%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81/image-20210630111334911.png" alt="image-20210630111334911"></p>
+<p><img src="/2021/06/30/%E5%A6%82%E4%BD%95%E7%BC%96%E8%AF%91%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81/image-20210630111531298.png" alt="image-20210630111531298"></p>
+<p>重新执行 make，有警告</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">warning: Cannot use CONFIG_STACK_VALIDATION=y, please install libelf-dev, libelf-devel or elfutils-libelf-devel</span><br></pre></td></tr></table></figure>
+<p>但无报错</p>
+]]></content>
+      <categories>
+        <category>解决方案</category>
+      </categories>
+      <tags>
+        <tag>Linux内核</tag>
+      </tags>
+  </entry>
 </search>
