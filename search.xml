@@ -3314,7 +3314,81 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="section">%/: prepare scripts FORCE</span></span><br></pre></td></tr></table></figure>
 <p>然后重新 <code>make menuconfig</code></p>
 <ul>
-<li></li>
+<li><font face="楷体" color="pink">未完待更新</font>
+
+</li>
+</ul>
+<h2 id="第-6-章-内核数据结构"><a href="#第-6-章-内核数据结构" class="headerlink" title="第 6 章 - 内核数据结构"></a>第 6 章 - 内核数据结构</h2><h3 id="6-1-链表"><a href="#6-1-链表" class="headerlink" title="6.1 链表"></a>6.1 链表</h3><p>内核链表代码在 <code>include/linux/list.h</code> （如 <code>linux-2.6.26/include/linux/list.h</code>）</p>
+<p><img src="/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210630175047243.png" alt="image-20210630175047243" style="zoom:80%;"></p>
+<p>内核提供了一组函数来操作链表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>list_add(struct list_head <em>new, struct list_head </em>head);</td>
+<td>在 head 后插入 new 节点</td>
+</tr>
+<tr>
+<td>list_del(struct list_head *entry);</td>
+<td>在链表中删除 entry 元素<br>注意：这个操作并不会释放 entry 或 包含 entry 的数据结构占用的内存，只是将 entry 移除链表。</td>
+</tr>
+<tr>
+<td>list_move(struct list_head <em>list, struct list_head </em>head)</td>
+<td>从一个链表中移除 list，并将其加入另一个链表的 head 节点后面</td>
+</tr>
+<tr>
+<td>list_move_tail(struct list_head <em>list, struct list_head </em>head)</td>
+<td>移到 head 前（链表的末尾）</td>
+</tr>
+<tr>
+<td>list_empty(struct list_head *head)</td>
+<td>检查链表是否为空</td>
+</tr>
+<tr>
+<td>list_splice(struct list_head <em>list, struct list_head </em>head)</td>
+<td>将 list 指向的链表插入到指定链表的 head 元素后面</td>
+</tr>
+<tr>
+<td>list_splice_init(struct list_head <em>list, struct list_head </em>head)</td>
+<td>同上，唯一区别是：由 list 指向的链表要被重新初始化</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="6-2-队列"><a href="#6-2-队列" class="headerlink" title="6.2 队列"></a>6.2 队列</h3><p>Linux 内核通用队列实现称为 kfifo。其实现在 <code>kernel/kfifo.c</code> ，声明在 <code>include/linux/kfifo.h</code> 中。</p>
+<h3 id="6-3-映射"><a href="#6-3-映射" class="headerlink" title="6.3 映射"></a>6.3 映射</h3><h3 id="6-4-红黑树"><a href="#6-4-红黑树" class="headerlink" title="6.4 红黑树"></a>6.4 红黑树</h3><h4 id="红黑树的属性"><a href="#红黑树的属性" class="headerlink" title="红黑树的属性"></a>红黑树的属性</h4><ol>
+<li>所有节点非黑即红</li>
+<li>叶子节点都是黑色</li>
+<li>叶子节点不包含数据</li>
+<li>所有非叶子节点都有两个子节点</li>
+<li>如果一个节点是红色，则它的子节点都是黑色</li>
+<li>在一个节点到其叶子节点的路径中，如果总包含相同数目的黑色节点，那该路径是最短的</li>
+</ol>
+<p>所以，<font color="blue">最深的叶子节点的深度不会大于两倍的最浅叶子节点的深度。</font></p>
+<p>Linux 实现的红黑树称为 rbtree，定义在 <code>lib/rbtree.c</code> ，声明在文件 <code>include/linux/rbtree.h</code></p>
+<h2 id="第-7-章-中断和中断处理"><a href="#第-7-章-中断和中断处理" class="headerlink" title="第 7 章 - 中断和中断处理"></a>第 7 章 - 中断和中断处理</h2><h3 id="7-1-中断的分类"><a href="#7-1-中断的分类" class="headerlink" title="7.1 中断的分类"></a>7.1 中断的分类</h3><ol>
+<li>同步中断（也即异常）：由处理器本身产生</li>
+<li>异步中断：由硬件产生</li>
+</ol>
+<h3 id="7-2-中断处理程序的特点"><a href="#7-2-中断处理程序的特点" class="headerlink" title="7.2 中断处理程序的特点"></a>7.2 中断处理程序的特点</h3><ul>
+<li><p>中断处理程序与其他内核函数的区别？</p>
+<p>中断处理程序被内核调用来响应中断，它运行在<font color="blue">中断上下文</font>（原子上下文）中，该上下文中的<strong>执行代码不可阻塞</strong>。</p>
+</li>
+</ul>
+<h3 id="7-3-中断处理的上半部与下半部"><a href="#7-3-中断处理的上半部与下半部" class="headerlink" title="7.3 中断处理的上半部与下半部"></a>7.3 中断处理的上半部与下半部</h3><ul>
+<li><p><strong>中断处理程序</strong>是<strong>上半部</strong>（top half）：接收到一个中断就立即执行，但只做有严格实现的工作（比如对接受的中断进行应答或复位硬件）。</p>
+</li>
+<li><p><strong>下半部</strong>是一些能够被允许稍后完成的工作。</p>
+</li>
 </ul>
 ]]></content>
       <categories>
