@@ -3474,4 +3474,36 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>Linux内核</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Nessus安装</title>
+    <url>/2021/01/20/Nessus%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><a href="https://blog.csdn.net/nex1less/article/details/88407590">参考</a>  </p>
+<ol>
+<li>从<a href="http://www.tenable.com/products/nessus/select-your-operating-system">官网</a>下载对应版本的Nessus，这里下载的是Nessus-8.13.1-debian6_amd64.deb  </li>
+<li><code>dpkg -i Nessus-8.13.1-debian6_amd64.deb</code>  </li>
+<li>安装完成后提示<br><img src="/2021/01/20/Nessus%E5%AE%89%E8%A3%85/000Nessus_install_finished.png" alt>  </li>
+<li>故通过<code>/bin/systemctl start nessusd.service</code>启动  </li>
+<li>查看Nessus启动状态（下图为启动成功）<code>netstat -ntpl | grep nessus</code><br><img src="/2021/01/20/Nessus%E5%AE%89%E8%A3%85/002netstat.png" alt>  </li>
+</ol>
+<h2 id="注册与初始化"><a href="#注册与初始化" class="headerlink" title="注册与初始化"></a>注册与初始化</h2><ol>
+<li><a href="http://www.tenable.com/products/nessus/nessus-plugins/obtain-an-activation-code">http://www.tenable.com/products/nessus/nessus-plugins/obtain-an-activation-code</a>  </li>
+<li>这里注册免费的Nessus Essential  </li>
+<li>获取邮箱收到的激活码  </li>
+<li>启动页通过浏览器查看<a href="https://kali:8834/">https://kali:8834/</a><br><img src="/2021/01/20/Nessus%E5%AE%89%E8%A3%85/001Nessus_browser_ui.png" alt>  </li>
+<li>选择注册版本，并填写激活码<br><img src="/2021/01/20/Nessus%E5%AE%89%E8%A3%85/003license.png" alt>  </li>
+<li>这里遇到了一个问题，网络断开，重启网络<code>systemctl restart networking</code>不管用。<code>ifconfig</code>发现ip地址只有127.0.0.1，于是<code>sudo dhclient eth0</code>，随即恢复 <a href="https://unix.stackexchange.com/questions/178399/no-longer-able-to-reach-the-internet-on-kali-linux">参考</a>  </li>
+<li>随后要求注册账号，填写用户名和密码，即可开始初始化过程<br><img src="/2021/01/20/Nessus%E5%AE%89%E8%A3%85/004initialing.png" alt>  </li>
+<li>在线下载很慢，于是<a href="https://blog.csdn.net/robacco/article/details/89575849">离线下载</a>  </li>
+</ol>
+<h2 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h2><p><a href="https://blog.csdn.net/Fish_cyy/article/details/105797084">参考</a>  </p>
+<h2 id="切换root用户"><a href="#切换root用户" class="headerlink" title="切换root用户"></a>切换root用户</h2><p><code>sudo passwd root</code>给root添加密码即可</p>
+]]></content>
+      <categories>
+        <category>Tools</category>
+        <category>环境搭建</category>
+      </categories>
+      <tags>
+        <tag>Nessus</tag>
+      </tags>
+  </entry>
 </search>
