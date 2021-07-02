@@ -3393,7 +3393,7 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <h3 id="7-4-注册中断处理程序"><a href="#7-4-注册中断处理程序" class="headerlink" title="7.4 注册中断处理程序"></a>7.4 注册中断处理程序</h3><ul>
 <li>设备使用中断时，会发生什么？</li>
 </ul>
-<p>如果设备使用中断，那相应的驱动程序就通过 <code>request_irq()</code> 函数注册一个中断处理程序，并激活给定的中断线以处理中断。（该函数声明位于 <code>&lt;linux/interrupt.h&gt;</code>，具体如下）</p>
+<p>如果设备使用中断，那相应的驱动程序就通过 <code>request_irq()</code> 函数<strong>注册一个中断处理程序</strong>，并<strong>激活给定的中断线</strong>以处理中断。（该函数声明位于 <code>&lt;linux/interrupt.h&gt;</code>，具体如下）</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* request_irq 注册函数，分配一条给定的中断线，若成功执行则返回 0</span></span><br><span class="line"><span class="comment"> * irq       - 要分配的中断号</span></span><br><span class="line"><span class="comment"> * handler   - 指向实际处理这个中断的中断处理程序的指针</span></span><br><span class="line"><span class="comment"> * flags     - 中断处理程序标志位</span></span><br><span class="line"><span class="comment"> * name      - 中断相关的设备名称 ASCII 表示</span></span><br><span class="line"><span class="comment"> * dev       - 用于共享中断线</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">request_irq</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> irq,</span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="keyword">irq_handler_t</span> handler,</span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="keyword">unsigned</span> <span class="keyword">long</span> flags,</span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="keyword">const</span> <span class="keyword">char</span> *name,</span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="keyword">void</span> *dev)</span></span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>中断处理程序标志</li>
@@ -3455,7 +3455,136 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <li>中断上下文的代码应当迅速，简洁（同上）</li>
 <li>尽量把工作分离出来，放到下半部执行，因为下半部可以在更适合的时间运行</li>
 </ul>
-]]></content>
+<h3 id="7-7-中断处理机制的实现（中断从硬件到内核的路由）"><a href="#7-7-中断处理机制的实现（中断从硬件到内核的路由）" class="headerlink" title="7.7 中断处理机制的实现（中断从硬件到内核的路由）"></a>7.7 中断处理机制的实现（中断从硬件到内核的路由）</h3><p><img src="/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210702151130093.png" alt="image-20210702151130093"></p>
+<ol>
+<li>硬件产生中断，通过总线把电信号传给中断控制器</li>
+<li>如果中断线是激活的，中断就会被传给处理器</li>
+</ol>
+<p>中断处理机制中，内核调用的函数涉及：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>do_IRQ()</td>
+<td>提取中断的值，对接收的中断进行应答</td>
+</tr>
+<tr>
+<td>handle_IRQ_event()</td>
+<td>运行当前中断线所安装的中断处理程序（定义在 <code>kernel/irq/handler.c</code>）</td>
+</tr>
+<tr>
+<td>ret_from_intr()</td>
+<td>1. 如果重新调度正在被挂起，<br>&emsp;a. 且内核正在返回用户空间（即中断了用户进程），则调用 schedule()<br>&emsp;b. 且内核正在返回内核空间（即中断了内核本身），则只有在 preempt_count 为 0 时，才调用 schedule()<br>2. 未被挂起，则恢复原来的寄存器，内核恢复到曾经中断的点</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="拓展-procfs-虚拟文件系统"><a href="#拓展-procfs-虚拟文件系统" class="headerlink" title="拓展 - procfs 虚拟文件系统"></a>拓展 - procfs 虚拟文件系统</h4><p>procfs 只存在于内核内存，一般位于 <code>/proc</code> 目录，procfs 中读写文件都要调用内核函数。<code>/proc/interrupts</code> 存放的是系统中与中断相关的统计信息</p>
+<p>具体如下图示</p>
+<p>注意因为这里试验机有两个处理器，所以部分列会多一列出来</p>
+<ul>
+<li>第一列：中断线</li>
+<li>第二列：一个接收中断数目的计数器</li>
+<li>第三列：中断控制器</li>
+<li>第四列：设备名</li>
+</ul>
+<p><img src="/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210702152502338.png" alt="image-20210702152502338" style="zoom:80%;"></p>
+<h3 id="7-8-中断控制方法"><a href="#7-8-中断控制方法" class="headerlink" title="7.8 中断控制方法"></a>7.8 中断控制方法</h3><p>可以禁止当前处理器的中断系统或屏蔽一条中断线。具体接口可以在 <code>&lt;asm/system.h&gt;</code> 和 <code>&lt;asm/irq.h&gt;</code> 找到。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>local_irq_disable()</td>
+<td>禁止本地中断传递</td>
+</tr>
+<tr>
+<td>local_irq_enable()</td>
+<td>激活本地中断传递</td>
+</tr>
+<tr>
+<td>local_irq_save()</td>
+<td>保存本地中断传递的当前状态，然后禁止本地中断传递</td>
+</tr>
+<tr>
+<td>local_irq_resotre()</td>
+<td>恢复本地中断传递到给定状态</td>
+</tr>
+<tr>
+<td>disable_irq()</td>
+<td>禁止给定中断线，并确保该函数返回之前在该中断线上并没有处理程序在运行</td>
+</tr>
+<tr>
+<td>disable_irq_nosync()</td>
+<td>禁止给定中断线</td>
+</tr>
+<tr>
+<td>enable_irq()</td>
+<td>激活给定中断线</td>
+</tr>
+<tr>
+<td>irqs_disabled()</td>
+<td>本地中断传递被禁止，则返回 0；否则非 0</td>
+</tr>
+<tr>
+<td>in_interrupt()</td>
+<td>1. 在中断上下文，则返回非 0<br>2. 在进程上下文，则返回 0</td>
+</tr>
+<tr>
+<td>in_irq()</td>
+<td>1. 当前正在执行中断处理程序，返回非 0<br>2. 不在执行，返回 0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="第-8-章-中断处理的下半部工作"><a href="#第-8-章-中断处理的下半部工作" class="headerlink" title="第 8 章 - 中断处理的下半部工作"></a>第 8 章 - 中断处理的下半部工作</h2><h3 id="8-1-为什么将中断处理流程分成上下两个部分？"><a href="#8-1-为什么将中断处理流程分成上下两个部分？" class="headerlink" title="8.1 为什么将中断处理流程分成上下两个部分？"></a>8.1 为什么将中断处理流程分成上下两个部分？</h3><p>因为<strong>中断处理程序</strong>本身是有<font color="blue">局限</font>的。</p>
+<ol>
+<li><p><font color="blue">中断处理程序越快越好</font></p>
+<ul>
+<li>中断处理程序<strong>异步执行</strong>，有可能会打断某些重要代码，为避免被打断的代码停止时间过长，就需要中断处理程序越快越好</li>
+<li>为防止太多其他中断被屏蔽，而导致硬件与操作系统无法通信，中断处理程序需要越快越好</li>
+<li>中断处理程序往往要操作硬件，所以有很高的时限要求</li>
+</ul>
+</li>
+<li><p>中断处理程序不在进程上下文中运行，所以<font color="blue">不能阻塞</font>。</p>
+</li>
+</ol>
+<p>所以，中断处理程序只能实现那些时间要求很严格的操作，其他操作就被退后到中断被激活以后再运行。</p>
+<h3 id="8-2-下半部做哪些工作？"><a href="#8-2-下半部做哪些工作？" class="headerlink" title="8.2 下半部做哪些工作？"></a>8.2 下半部做哪些工作？</h3><font color="blue">中断处理程序以外的工作</font>。那先大致捋一下**中断处理程序工作范畴**：
+
+* 对时间非常敏感的
+* 跟硬件相关的
+* 要保证不被其他中断打断的
+
+### 8.3 下半部的实现机制
+
+上半部的实现机制只有一种，那就是中断处理程序。下半部的实现机制包括：
+
+1. <font color="blue">软中断 softirqs</font> （编译期间静态分配）
+2. <font color="blue">tasklet</font> （最常用，通过软中断实现。动态注册）
+3. <font color="blue">工作队列 work queues</font>
+
+<h4 id="8-3-1-软中断的实现"><a href="#8-3-1-软中断的实现" class="headerlink" title="8.3.1 软中断的实现"></a>8.3.1 软中断的实现</h4><p><code>kernel/sofrirq.c</code> 中实现</p>
+<ol>
+<li>软中断处理程序 action 的函数原型：</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">softirq_handler</span><span class="params">(struct softirq_action *)</span></span></span><br></pre></td></tr></table></figure>
+<p>一个软中断不会被另一个软中断抢占，只会被中断处理程序抢占。不过其他软中断可以在其他处理器同时执行</p>
+<ol>
+<li>执行软中断</li>
+</ol>
+<h4 id="8-3-2-软中断的使用"><a href="#8-3-2-软中断的使用" class="headerlink" title="8.3.2 软中断的使用"></a>8.3.2 软中断的使用</h4>]]></content>
       <categories>
         <category>笔记</category>
       </categories>
