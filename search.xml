@@ -2207,7 +2207,7 @@ y(t)=Cx(t).
 2. <font color="blue">tasklet</font> （最常用，通过软中断实现。动态注册）
 3. <font color="blue">工作队列 work queues</font>
 
-<h4 id="8-3-1-软中断的实现"><a href="#8-3-1-软中断的实现" class="headerlink" title="8.3.1 软中断的实现"></a>8.3.1 软中断的实现</h4><p><code>kernel/sofrirq.c</code> 中实现</p>
+<h4 id="8-3-1-软中断的实现与使用"><a href="#8-3-1-软中断的实现与使用" class="headerlink" title="8.3.1 软中断的实现与使用"></a>8.3.1 软中断的实现与使用</h4><h5 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h5><p><code>kernel/sofrirq.c</code> 中实现</p>
 <ol>
 <li>软中断处理程序 action 的函数原型：</li>
 </ol>
@@ -2216,7 +2216,84 @@ y(t)=Cx(t).
 <ol>
 <li>执行软中断</li>
 </ol>
-<h4 id="8-3-2-软中断的使用"><a href="#8-3-2-软中断的使用" class="headerlink" title="8.3.2 软中断的使用"></a>8.3.2 软中断的使用</h4>]]></content>
+<h5 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h5><ol>
+<li><font color="blue">分配索引</font>
+
+<p>内核用从 0 开始的索引表示优先级，索引值越小，优先级越高。如果想自己建立新的软中断，就要在这个表示索引的<font color="blue">枚举类型</font>中加入对应的项，由于索引值与优先级相关，所以还不能随便加，应根据优先级确定加入的位置。（这个枚举类型在 <code>&lt;linux/interrupt.h</code>）习惯上，HI_SOFTIRQ 在第一项，RCU_SOFTIRQ 在最后一项，新加入的软中断对应索引一般在 BLOCK_SOFTIRQ 和 TASKLET_SOFTIRQ 之间。</p>
+<ul>
+<li>tasklet 类型列表</li>
+</ul>
+</li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>tasklet</th>
+<th>优先级</th>
+<th>软中断描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HI_SOFTIRQ</td>
+<td>0</td>
+<td>优先级高的 tasklets</td>
+</tr>
+<tr>
+<td>TIMER_SOFTIRQ</td>
+<td>1</td>
+<td>定时器的下半部</td>
+</tr>
+<tr>
+<td>NET_TX_SOFTIRQ</td>
+<td>2</td>
+<td>发送网络数据包</td>
+</tr>
+<tr>
+<td>NET_RX_SOFTIRQ</td>
+<td>3</td>
+<td>接收网络数据包</td>
+</tr>
+<tr>
+<td>BLOCK_SOFTIRQ</td>
+<td>4</td>
+<td>BLOCK 装置</td>
+</tr>
+<tr>
+<td>TASKLET_SOFTIRQ</td>
+<td>5</td>
+<td>正常优先级的 tasklets</td>
+</tr>
+<tr>
+<td>SCHED_SOFTIRQ</td>
+<td>6</td>
+<td>调度程度</td>
+</tr>
+<tr>
+<td>HRTIMER_SOFTIRQ</td>
+<td>7</td>
+<td>高分辨率定时器</td>
+</tr>
+<tr>
+<td>RCU_SOFTIRQ</td>
+<td>8</td>
+<td>RCU 锁定</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol>
+<li><p>通过 <code>open_softirq()</code> <font color="blue">注册软中断处理程序</font>。</p>
+<p>这个函数有两个参数：软中断的索引号，处理函数</p>
+</li>
+<li><font color="blue">触发软中断</font>
+
+<p>经过枚举类型添加新项和注册，新的软中断处理程序就可以运行了。<code>raise_softirq()</code> 可以将一个软中断设置为<font color="blue">挂起</font>状态，让它下次调用 <code>do_softirq()</code> 即可投入使用。</p>
+</li>
+</ol>
+<h4 id="8-3-2-tasklet"><a href="#8-3-2-tasklet" class="headerlink" title="8.3.2 tasklet"></a>8.3.2 tasklet</h4><p>tasklet 由软中断实现，本质相似，但<strong>接口更简单，锁保护要求更低</strong>。</p>
+]]></content>
       <categories>
         <category>笔记</category>
       </categories>
