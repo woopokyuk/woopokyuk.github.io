@@ -3735,4 +3735,24 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>想法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>RASP技术</title>
+    <url>/2021/07/04/RASP%E6%8A%80%E6%9C%AF/</url>
+    <content><![CDATA[<h2 id="1-什么是-RASP"><a href="#1-什么是-RASP" class="headerlink" title="1 什么是 RASP"></a>1 什么是 RASP</h2><p>Runtime application self-protection，运行时应用自我保护技术，与应用程序融为一体，实时监测和阻断攻击，注入到被保护应用的服务中提供函数级别的实时防护，可以在不更新策略以及不升级被保护应用代码的情况下检测/防护未知漏洞。具备自我保护功能，不需要人为干涉。</p>
+<h2 id="2-RASP-的原理"><a href="#2-RASP-的原理" class="headerlink" title="2 RASP 的原理"></a>2 RASP 的原理</h2><p>在 Java 技术栈下，RASP 引擎以 javaagent 的形式实现，并运行在 JVM 之上。在应⽤服务器启动的时候，RASP 引擎借助 JVM 自身提供的 instrumentation 技术，通过替换字节码的方式对关键类方法进行挂钩，结合上下文、参数污染、语义引擎等方式检测攻击。比如：数据库操作、文件读写、命令执行等，当服务器发生攻击，就会触发这些 HOOK 点，然后 RASP agent 就可以获取到函数的参数（文件名、要执行的命令等）</p>
+<p>RASP 的技术原理与 APM是⼀样的，只是挂钩的函数要少很多。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://rasp.baidu.com/#section-intro">开源应用运行时自我保护解决方案 - OpenRASP - 百度安全 (baidu.com)</a></li>
+<li><a href="https://paper.seebug.org/330/">Rasp 技术介绍与实现 (seebug.org)</a></li>
+<li><a href="https://www.freebuf.com/articles/web/197823.html">https://www.freebuf.com/articles/web/197823.html</a></li>
+<li><a href="https://rasp.baidu.com/doc/hacking/architect/java.html">Java 版本 - OpenRASP 官方文档 - 开源自适应安全产品 (baidu.com)</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>科研</tag>
+      </tags>
+  </entry>
 </search>
