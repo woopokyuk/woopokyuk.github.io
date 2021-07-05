@@ -3777,4 +3777,46 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>剑指Offer</tag>
       </tags>
   </entry>
+  <entry>
+    <title>在Word中插入伪码</title>
+    <url>/2021/07/05/%E5%9C%A8Word%E4%B8%AD%E6%8F%92%E5%85%A5%E4%BC%AA%E7%A0%81/</url>
+    <content><![CDATA[<h2 id="1-texlive-下载安装"><a href="#1-texlive-下载安装" class="headerlink" title="1 texlive 下载安装"></a>1 texlive 下载安装</h2><ol>
+<li>下载 texlive2021 <a href="https://mirrors.ustc.edu.cn/CTAN/systems/texlive/Images/">https://mirrors.ustc.edu.cn/CTAN/systems/texlive/Images/</a></li>
+</ol>
+<p><img src="/2021/07/05/%E5%9C%A8Word%E4%B8%AD%E6%8F%92%E5%85%A5%E4%BC%AA%E7%A0%81/image-20210705190359766.png" alt="image-20210705190359766" style="zoom:80%;"></p>
+<ol>
+<li>用资源管理器打开，这样就会装载到 DVD 驱动器</li>
+</ol>
+<p><img src="/2021/07/05/%E5%9C%A8Word%E4%B8%AD%E6%8F%92%E5%85%A5%E4%BC%AA%E7%A0%81/image-20210705190808453.png" alt="image-20210705190808453"></p>
+<ol>
+<li>以管理员方式运行 install-tl-windows.bat，等待安装完毕</li>
+</ol>
+<h2 id="2-texsword-下载安装"><a href="#2-texsword-下载安装" class="headerlink" title="2 texsword 下载安装"></a>2 texsword 下载安装</h2><ol>
+<li><p>下载地址 <a href="https://sourceforge.net/projects/texsword/，解压后将其中的四个文件都复制到">https://sourceforge.net/projects/texsword/，解压后将其中的四个文件都复制到</a> <code>C:\Users\自己的用户名\AppData\Roaming\Microsoft\Word\STARTUP</code> 中</p>
+<p><img src="/2021/07/05/%E5%9C%A8Word%E4%B8%AD%E6%8F%92%E5%85%A5%E4%BC%AA%E7%A0%81/image-20210705193329388.png" alt="image-20210705193329388"></p>
+</li>
+<li><p>重启 Word，在加载项中可以找到 texsword 相关选项</p>
+</li>
+<li><p>点击 TEX，在源码区输入伪码（TeX 语法），然后运行即可</p>
+<p><img src="/2021/07/05/%E5%9C%A8Word%E4%B8%AD%E6%8F%92%E5%85%A5%E4%BC%AA%E7%A0%81/image-20210705193441934.png" alt="image-20210705193441934"></p>
+</li>
+<li><p>效果如下</p>
+</li>
+</ol>
+<p><img src="/2021/07/05/%E5%9C%A8Word%E4%B8%AD%E6%8F%92%E5%85%A5%E4%BC%AA%E7%A0%81/image-20210705193618881.png" alt="image-20210705193618881" style="zoom:80%;"></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>注意一定要安装 texlive，texsword 才可正常使用</p>
+<ol>
+<li><p><a href="https://blog.csdn.net/aiwei169/article/details/81431363">https://blog.csdn.net/aiwei169/article/details/81431363</a></p>
+</li>
+<li><p><a href="https://www.neusncp.com/user/blog?id=151">https://www.neusncp.com/user/blog?id=151</a></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>解决方案</category>
+      </categories>
+      <tags>
+        <tag>tex</tag>
+      </tags>
+  </entry>
 </search>
