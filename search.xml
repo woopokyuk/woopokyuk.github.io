@@ -3755,4 +3755,26 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>科研</tag>
       </tags>
   </entry>
+  <entry>
+    <title>剑指Offer打卡</title>
+    <url>/2021/07/05/%E5%89%91%E6%8C%87Offer%E6%89%93%E5%8D%A1/</url>
+    <content><![CDATA[<h2 id="Group1"><a href="#Group1" class="headerlink" title="Group1"></a>Group1</h2><h3 id="03-数组中重复的数字"><a href="#03-数组中重复的数字" class="headerlink" title="03. 数组中重复的数字"></a>03. 数组中重复的数字</h3><ol>
+<li>先遍历数组，若有超过区间 [0, n-1] 的数值，就直接返回 -1</li>
+<li>再遍历一次数组，如果当前位置的数值与下标不一样。<ul>
+<li>且数值对应的那个下标与当前位置的值不同，就交换它们的位置。</li>
+<li>若一样，则说明找到了重复元素了</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findRepeatNumber</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x : nums) </span><br><span class="line">            <span class="keyword">if</span> (x &lt; <span class="number">0</span> || x &gt;= n)</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i != nums[i]) &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[i] != nums[nums[i]]) <span class="built_in">swap</span>(nums[i], nums[nums[i]]);</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">return</span> nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Group2"><a href="#Group2" class="headerlink" title="Group2"></a>Group2</h2>]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法与数据结构</tag>
+        <tag>剑指Offer</tag>
+      </tags>
+  </entry>
 </search>
