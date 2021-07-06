@@ -2201,11 +2201,11 @@ y(t)=Cx(t).
 
 ### 8.3 下半部的实现机制
 
-上半部的实现机制只有一种，那就是中断处理程序。下半部的实现机制包括：
+上半部的实现机制只有一种，那就是中断处理程序。下半部的实现机制包括：  
 
-1. <font color="blue">软中断 softirqs</font> （编译期间静态分配）
-2. <font color="blue">tasklet</font> （最常用，通过软中断实现。动态注册）
-3. <font color="blue">工作队列 work queues</font>
+1. <font color="blue">软中断 softirqs</font> （编译期间静态分配）  
+2. <font color="blue">tasklet</font> （最常用，通过软中断实现。动态注册）  
+3. <font color="blue">工作队列 work queues</font>  
 
 <div class="table-container">
 <table>
@@ -2377,50 +2377,70 @@ y(t)=Cx(t).
 </tbody>
 </table>
 </div>
-<font color="blue">所有的 tasklet 都通过重复运用 `HI_SOFTIRQ` 和 `TASKLET_SOFTIRQ` 这两个软中断实现。</font>一个 tasklet 被调度，内核就会唤醒这两个软中断中的一个
+<font color="blue">所有的 tasklet 都通过重复运用 HI_SOFTIRQ 和 TASKLET_SOFTIRQ 这两个软中断实现。</font>  
 
-##### 使用 tasklet
-
-1. 声明
-   * 静态声明
-
+<p>一个 tasklet 被调度，内核就会唤醒这两个软中断中的一个  </p>
+<h5 id="使用-tasklet"><a href="#使用-tasklet" class="headerlink" title="使用 tasklet"></a>使用 tasklet</h5><ol>
+<li><p>声明</p>
+<p>静态声明</p>
+</li>
+</ol>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">DECLARE_TASKLET(my_tasklet, my_tasklet_handler, dev);</span><br></pre></td></tr></table></figure>
-
-等价于
-
+<p>等价于</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tasklet_struct</span> <span class="title">my_tasklet</span> =</span> &#123;<span class="literal">NULL</span>, <span class="number">0</span>, ATOMIC_INIT(<span class="number">0</span>),</span><br><span class="line">                                   	my_tasklet_handler, dev&#125;;</span><br></pre></td></tr></table></figure>
-
-* 动态声明
-
+<p>​    动态声明</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">tasklet_init(t, tasklet_handler, dev);</span><br></pre></td></tr></table></figure>
-
-2. 编写自己的 tasklet 处理程序
-
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tasklet_handler</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> data)</span></span></span><br></pre></td></tr></table></figure>
-
-3. 调度自己的 tasklet
-
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">tasklet_schedule(&amp;my_tasklet);  <span class="comment">/* 把 my_tasklet 标记为挂起 */</span> </span><br></pre></td></tr></table></figure>
-
-##### 内核是如何处理软中断的？
-
-| 方案 | 说明                                                         | 优                                                       | 缺                                                           |
-| ---- | ------------------------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------ |
-| 一   | **本次执行全部处理**（只要还有被触发并等待处理的软中断，本次执行就要负责处理，重新触发的软中断也在本次执行返回前被处理） | 可以**即时**处理内核的软中断                             | 负载较高时，会有大量重复触发的软中断，用户空间的任务就会被忽略（**用户空间处于饥饿状态**） |
-| 二   | **不处理重新触发的软中断**（等下一个软中断执行去处理）       | 用户不饥饿了                                             | 软中断可能饥饿                                               |
-| 三   | 折中。<br>1. 不立即处理重新触发的软中断<br>2. 大量软中断出现时，内核唤醒一组低优先级的内核线程来处理这些负载。 | 1. 负载高，用户也不会饥饿<br>2. 空闲时，软中断处理也很快 |                                                              |
-
-#### 8.3.3 工作队列 work queue
-
-1. 特点
-
-   * 靠内核线程实现
-
-   * 可以<font color="blue">将工作推后执行</font>，交由一个内核线程去执行
-
-   * 工作队列<font color="blue">允许重新调度，甚至睡眠</font>
-
 <ol>
+<li>编写自己的 tasklet 处理程序</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tasklet_handler</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> data)</span></span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>调度自己的 tasklet</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">tasklet_schedule(&amp;my_tasklet);  <span class="comment">/* 把 my_tasklet 标记为挂起 */</span> </span><br></pre></td></tr></table></figure>
+<h5 id="内核是如何处理软中断的？"><a href="#内核是如何处理软中断的？" class="headerlink" title="内核是如何处理软中断的？"></a>内核是如何处理软中断的？</h5><p>方案说明  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>说明</th>
+<th>优</th>
+<th>缺</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一</td>
+<td><strong>本次执行全部处理</strong>（只要还有被触发并等待处理的软中断，本次执行就要负责处理，重新触发的软中断也在本次执行返回前被处理）</td>
+<td>可以<strong>即时</strong>处理内核的软中断</td>
+<td>负载较高时，会有大量重复触发的软中断，用户空间的任务就会被忽略（<strong>用户空间处于饥饿状态</strong>）</td>
+</tr>
+<tr>
+<td>二</td>
+<td><strong>不处理重新触发的软中断</strong>（等下一个软中断执行去处理）</td>
+<td>用户不饥饿了</td>
+<td>软中断可能饥饿</td>
+</tr>
+<tr>
+<td>三</td>
+<td>折中。<br>1. 不立即处理重新触发的软中断<br>2. 大量软中断出现时，内核唤醒一组低优先级的内核线程来处理这些负载。</td>
+<td>1. 负载高，用户也不会饥饿<br>2. 空闲时，软中断处理也很快</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="8-3-3-工作队列-work-queue"><a href="#8-3-3-工作队列-work-queue" class="headerlink" title="8.3.3 工作队列 work queue"></a>8.3.3 工作队列 work queue</h4><ol>
+<li><p>特点</p>
+<ul>
+<li><p>靠内核线程实现</p>
+</li>
+<li><p>可以<font color="blue">将工作推后执行</font>，交由一个内核线程去执行</p>
+</li>
+<li><p>工作队列<font color="blue">允许重新调度，甚至睡眠</font></p>
+</li>
+</ul>
+</li>
 <li><p>怎么在工作队列和软中断/tasklet 中做选择？</p>
 <ul>
 <li><p>看推后执行的任务，<strong>是否需要睡眠</strong>。要睡眠就工作队列。</p>
