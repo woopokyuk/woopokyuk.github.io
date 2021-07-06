@@ -81,7 +81,7 @@
 
 <meta name="description" content="第 1 章 - Linux 内核简介1.1 单内核与微内核     概念 优点 缺点     单内核 所有内核服务在一个大内核地址空间运行 1. 简单2. 高效（内核之间的通信没什么开销，内核可以直接调用函数） 可用性不好（一个服务影响其他服务）   微内核 1. 微内核的功能被划分成多个独立过程2. 所有过程运行在自己的地址空间。 1. 可用性高（一个服务失效并不影响其他服务）2. 模块化（互换">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux内核设计与实现">
+<meta property="og:title" content="Linux内核设计与实现笔记">
 <meta property="og:url" content="https://woopokyuk.github.io/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="WooPokyuk&#39;s Blog">
 <meta property="og:description" content="第 1 章 - Linux 内核简介1.1 单内核与微内核     概念 优点 缺点     单内核 所有内核服务在一个大内核地址空间运行 1. 简单2. 高效（内核之间的通信没什么开销，内核可以直接调用函数） 可用性不好（一个服务影响其他服务）   微内核 1. 微内核的功能被划分成多个独立过程2. 所有过程运行在自己的地址空间。 1. 可用性高（一个服务失效并不影响其他服务）2. 模块化（互换">
@@ -98,8 +98,10 @@
 <meta property="og:image" content="https://woopokyuk.github.io/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210630175047243.png">
 <meta property="og:image" content="https://woopokyuk.github.io/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210702151130093.png">
 <meta property="og:image" content="https://woopokyuk.github.io/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210702152502338.png">
+<meta property="og:image" content="https://woopokyuk.github.io/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210706155926907.png">
+<meta property="og:image" content="https://woopokyuk.github.io/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210706164827753.png">
 <meta property="article:published_time" content="2021-06-28T12:24:23.000Z">
-<meta property="article:modified_time" content="2021-07-02T12:37:01.139Z">
+<meta property="article:modified_time" content="2021-07-06T09:07:54.965Z">
 <meta property="article:author" content="WooPokyuk">
 <meta property="article:tag" content="Linux内核">
 <meta name="twitter:card" content="summary">
@@ -139,7 +141,7 @@
 
 
 
-  <title>Linux内核设计与实现 | WooPokyuk's Blog</title>
+  <title>Linux内核设计与实现笔记 | WooPokyuk's Blog</title>
   
 
 
@@ -317,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Linux内核设计与实现</h1>
+          <h1 class="post-title" itemprop="name headline">Linux内核设计与实现笔记</h1>
         
 
         <div class="post-meta">
@@ -388,7 +390,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  6k
+                  7.6k
                 </span>
               
 
@@ -404,7 +406,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  21
+                  27
                 </span>
               
             </div>
@@ -1134,6 +1136,42 @@
 2. <font color="blue">tasklet</font> （最常用，通过软中断实现。动态注册）
 3. <font color="blue">工作队列 work queues</font>
 
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>下半部机制</th>
+<th>上下文</th>
+<th>顺序执行保障</th>
+<th>复杂程度</th>
+<th>性能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>软中断</td>
+<td>中断</td>
+<td>没有</td>
+<td>高</td>
+<td>好</td>
+</tr>
+<tr>
+<td>tasklet</td>
+<td>中断</td>
+<td>同类型不能同时执行</td>
+<td>中等</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>工作队列</td>
+<td>进程</td>
+<td>没有（和进程上下文一样被调度）</td>
+<td>简单</td>
+<td>差（开销最大）</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h4 id="8-3-1-软中断的实现与使用"><a href="#8-3-1-软中断的实现与使用" class="headerlink" title="8.3.1 软中断的实现与使用"></a>8.3.1 软中断的实现与使用</h4><h5 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h5><p><code>kernel/sofrirq.c</code> 中实现</p>
 <ol>
 <li>软中断处理程序 action 的函数原型：</li>
@@ -1219,8 +1257,231 @@
 <p>经过枚举类型添加新项和注册，新的软中断处理程序就可以运行了。<code>raise_softirq()</code> 可以将一个软中断设置为<font color="blue">挂起</font>状态，让它下次调用 <code>do_softirq()</code> 即可投入使用。</p>
 </li>
 </ol>
-<h4 id="8-3-2-tasklet"><a href="#8-3-2-tasklet" class="headerlink" title="8.3.2 tasklet"></a>8.3.2 tasklet</h4><p>tasklet 由软中断实现，本质相似，但<strong>接口更简单，锁保护要求更低</strong>。</p>
+<h4 id="8-3-2-tasklet"><a href="#8-3-2-tasklet" class="headerlink" title="8.3.2 tasklet"></a>8.3.2 tasklet</h4><h5 id="结构体及值的说明"><a href="#结构体及值的说明" class="headerlink" title="结构体及值的说明"></a>结构体及值的说明</h5><p>tasklet 由软中断实现，本质相似，但<strong>接口更简单，锁保护要求更低</strong>。</p>
+<p><strong>tasklet 结构体</strong>定义在 <code>&lt;linux/interrupt.h&gt;</code> </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tasklet_struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">tasklet_struct</span> *<span class="title">next</span>;</span>  <span class="comment">// 链表中的下一个 tasklet</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> state;  <span class="comment">// tasklet 状态</span></span><br><span class="line">	<span class="keyword">atomic_t</span> count;  <span class="comment">// tasklet 引用的计数武器</span></span><br><span class="line">	<span class="keyword">void</span> (*func)(<span class="keyword">unsigned</span> <span class="keyword">long</span>);  <span class="comment">// tasklet 处理函数</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> data;  <span class="comment">// 给 tasklet 处理函数的参数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>tasklet 状态值（state）：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>状态值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>未被调度</td>
+</tr>
+<tr>
+<td>TASKLET_STATE_SCHED</td>
+<td>tasklet 已调度，正准备投入运行</td>
+</tr>
+<tr>
+<td>TASKLET_STATE_RUN</td>
+<td>tasklet 正在运行</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>计数器值（count）：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>计数器值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>非 0</td>
+<td>tasklet 被禁止，不允许执行</td>
+</tr>
+<tr>
+<td>0</td>
+<td>tasklet 被激活，并被设为挂起状态，可执行</td>
+</tr>
+</tbody>
+</table>
+</div>
+<font color="blue">所有的 tasklet 都通过重复运用 `HI_SOFTIRQ` 和 `TASKLET_SOFTIRQ` 这两个软中断实现。</font>一个 tasklet 被调度，内核就会唤醒这两个软中断中的一个
 
+##### 使用 tasklet
+
+1. 声明
+   * 静态声明
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DECLARE_TASKLET(my_tasklet, my_tasklet_handler, dev);</span><br></pre></td></tr></table></figure>
+
+等价于
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tasklet_struct</span> <span class="title">my_tasklet</span> =</span> &#123;<span class="literal">NULL</span>, <span class="number">0</span>, ATOMIC_INIT(<span class="number">0</span>),</span><br><span class="line">                                   	my_tasklet_handler, dev&#125;;</span><br></pre></td></tr></table></figure>
+
+* 动态声明
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tasklet_init(t, tasklet_handler, dev);</span><br></pre></td></tr></table></figure>
+
+2. 编写自己的 tasklet 处理程序
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tasklet_handler</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> data)</span></span></span><br></pre></td></tr></table></figure>
+
+3. 调度自己的 tasklet
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tasklet_schedule(&amp;my_tasklet);  <span class="comment">/* 把 my_tasklet 标记为挂起 */</span> </span><br></pre></td></tr></table></figure>
+
+##### 内核是如何处理软中断的？
+
+| 方案 | 说明                                                         | 优                                                       | 缺                                                           |
+| ---- | ------------------------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------ |
+| 一   | **本次执行全部处理**（只要还有被触发并等待处理的软中断，本次执行就要负责处理，重新触发的软中断也在本次执行返回前被处理） | 可以**即时**处理内核的软中断                             | 负载较高时，会有大量重复触发的软中断，用户空间的任务就会被忽略（**用户空间处于饥饿状态**） |
+| 二   | **不处理重新触发的软中断**（等下一个软中断执行去处理）       | 用户不饥饿了                                             | 软中断可能饥饿                                               |
+| 三   | 折中。<br>1. 不立即处理重新触发的软中断<br>2. 大量软中断出现时，内核唤醒一组低优先级的内核线程来处理这些负载。 | 1. 负载高，用户也不会饥饿<br>2. 空闲时，软中断处理也很快 |                                                              |
+
+#### 8.3.3 工作队列 work queue
+
+1. 特点
+
+   * 靠内核线程实现
+
+   * 可以<font color="blue">将工作推后执行</font>，交由一个内核线程去执行
+
+   * 工作队列<font color="blue">允许重新调度，甚至睡眠</font>
+
+<ol>
+<li><p>怎么在工作队列和软中断/tasklet 中做选择？</p>
+<ul>
+<li><p>看推后执行的任务，<strong>是否需要睡眠</strong>。要睡眠就工作队列。</p>
+</li>
+<li><p><strong>是否需要重新调度</strong>，需要则工作队列</p>
+</li>
+</ul>
+<p>如果不需要用一个内核线程来推后执行工作，就还是选 tasklet</p>
+</li>
+</ol>
+<h2 id="第-9-章-内核同步介绍"><a href="#第-9-章-内核同步介绍" class="headerlink" title="第 9 章 - 内核同步介绍"></a>第 9 章 - 内核同步介绍</h2><ul>
+<li><p>为什么要做内核同步？</p>
+<p>防止共享资源并发访问。（并发访问，可能会发生各线程间相互覆盖共享数据的情况。这会导致系统不稳定，且问题不好定位）</p>
+</li>
+</ul>
+<h3 id="9-1-临界区和竞争条件"><a href="#9-1-临界区和竞争条件" class="headerlink" title="9.1 临界区和竞争条件"></a>9.1 临界区和竞争条件</h3><ul>
+<li><p>临界区：临界段，就是访问和操作共享数据的<strong>代码段</strong>。</p>
+</li>
+<li><p>竞争条件：两个线程在同一临界区同时执行，就存在竞争。</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">同步=避免并发+防止竞争条件</script><h3 id="9-2-锁机制"><a href="#9-2-锁机制" class="headerlink" title="9.2 锁机制"></a>9.2 锁机制</h3><ul>
+<li>本质：给临界区加锁，保证临界区只存在一个执行线程。</li>
+</ul>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210706155926907.png" alt="image-20210706155926907" style="zoom:67%;"></p>
+<ul>
+<li><p>锁机制之间的主要区别</p>
+<p>一些锁被争用时，就简单执行<strong>忙等待</strong>；另外一些锁会<strong>使当前任务睡眠</strong>直到锁可用。</p>
+</li>
+<li><p>造成并发执行的原因</p>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>竞争条件成因</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>中断</td>
+<td>中断随时可能发生，可能随时打断正在执行的代码</td>
+</tr>
+<tr>
+<td>软中断和 tasklet</td>
+<td>内核能随时可能唤醒或调度软中断和 tasklet，也就随时可能打断正在执行的代码</td>
+</tr>
+<tr>
+<td>内核抢占</td>
+<td>内核具有抢占性，内核中的任务可能会被另一个任务抢占</td>
+</tr>
+<tr>
+<td>睡眠及与用户空间的同步</td>
+<td>在内核执行的进程可能会睡眠，这就会唤醒调度程序，从而导致调度一个新的用户进程执行</td>
+</tr>
+<tr>
+<td>对称多处理</td>
+<td>多个处理器同时执行代码</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="编写内核代码时需要考虑的问题"><a href="#编写内核代码时需要考虑的问题" class="headerlink" title="编写内核代码时需要考虑的问题"></a>编写内核代码时需要考虑的问题</h4><ol>
+<li>这个数据是不是全局的？除了当前线程外，其他线程能不能访问它？</li>
+<li>这个数据会不会在进程上下文和中断上下文中共享？它是不是要在两个不同的中断处理程序中共享？</li>
+<li>进程在访问数据时有没有可能被抢占？被调度的新程序会不会访问同一数据？</li>
+<li>当前进程会不会睡眠（阻塞）在某些资源上，如果会，它会让共享数据处于何种状态？</li>
+<li>怎样防止数据失控？</li>
+<li>如果这个函数又在另一个处理器上被调度将会发生什么？</li>
+<li>如何确保代码远离并发威胁？</li>
+</ol>
+<h3 id="9-3-死锁"><a href="#9-3-死锁" class="headerlink" title="9.3 死锁"></a>9.3 死锁</h3><ul>
+<li><p>发生死锁的原因</p>
+<p>每个线程都在相互等待，但是所有资源都被占用了，它们也不释放已经占用的资源，导致任何线程都无法继续，因此产生死锁。</p>
+</li>
+</ul>
+<h4 id="9-3-1-实例"><a href="#9-3-1-实例" class="headerlink" title="9.3.1 实例"></a>9.3.1 实例</h4><ul>
+<li>最简单的死锁：<strong>自死锁</strong></li>
+</ul>
+<p>一个执行线程想获得自己已经拥有的锁，它就等待这个锁，但是自己又不会释放这个锁，最终导致死锁。</p>
+<ul>
+<li>常见的 ABBA 锁</li>
+</ul>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210706164827753.png" alt="image-20210706164827753" style="zoom: 50%;"></p>
+<h4 id="9-3-2-如何避免死锁"><a href="#9-3-2-如何避免死锁" class="headerlink" title="9.3.2 如何避免死锁"></a>9.3.2 如何避免死锁</h4><ol>
+<li><strong>按顺序加锁</strong>（最重要）</li>
+<li>防止发生饥饿</li>
+<li>不重复请求同一个锁</li>
+<li>设计力求简单（越复杂的加锁方案越容易死锁）</li>
+</ol>
+<h3 id="9-4-加锁粒度"><a href="#9-4-加锁粒度" class="headerlink" title="9.4 加锁粒度"></a>9.4 加锁粒度</h3><ul>
+<li><p>加锁机制发展到细粒度（fine-grained）加锁后，有什么好处？</p>
+<p>Linux 从 2.0 版内核，刚加入对多处理器支持的时候，一个时刻只能有一个任务在内核中执行。2.2 版本加锁机制发展到细粒度加锁后，不再有这样的限制。</p>
+</li>
+<li><p>粒度的粗细，有什么影响？</p>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>加锁粒度</th>
+<th>扩展性</th>
+<th>复杂度</th>
+<th>开销</th>
+<th>加锁保护的数据规模</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>粗</td>
+<td>差</td>
+<td>低</td>
+<td>小</td>
+<td>大</td>
+</tr>
+<tr>
+<td>细</td>
+<td>好</td>
+<td>高</td>
+<td>大</td>
+<td>小</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>锁的争用：锁正被占用时，有其他线程试图获得该锁。</li>
+</ul>
+<h2 id="第-10-章-内核同步方法"><a href="#第-10-章-内核同步方法" class="headerlink" title="第 10 章 - 内核同步方法"></a>第 10 章 - 内核同步方法</h2><h3 id="10-1-原子操作"><a href="#10-1-原子操作" class="headerlink" title="10.1 原子操作"></a>10.1 原子操作</h3>
       
     </div>
 
@@ -1452,7 +1713,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-1-%E7%AB%A0-Linux-%E5%86%85%E6%A0%B8%E7%AE%80%E4%BB%8B"><span class="nav-text">第 1 章 - Linux 内核简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%8D%95%E5%86%85%E6%A0%B8%E4%B8%8E%E5%BE%AE%E5%86%85%E6%A0%B8"><span class="nav-text">1.1 单内核与微内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Linux-%E5%86%85%E6%A0%B8%E4%B8%8E%E4%BC%A0%E7%BB%9F-Unix-%E7%B3%BB%E7%BB%9F%E4%B9%8B%E9%97%B4%E7%9A%84%E5%B7%AE%E5%BC%82"><span class="nav-text">1.2 Linux 内核与传统 Unix 系统之间的差异</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Linux-%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC"><span class="nav-text">1.3 Linux 内核版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-2-%E7%AB%A0-%E4%BB%8E%E5%86%85%E6%A0%B8%E5%87%BA%E5%8F%91"><span class="nav-text">第 2 章 - 从内核出发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E8%8E%B7%E5%8F%96%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81"><span class="nav-text">2.1 获取内核源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81%E6%A0%91"><span class="nav-text">2.2 内核源码树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E7%BC%96%E8%AF%91%E5%86%85%E6%A0%B8"><span class="nav-text">2.3 编译内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-text">2.4 内核开发的特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-3-%E7%AB%A0-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-text">第 3 章 - 进程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E8%BF%9B%E7%A8%8B%EF%BC%88%E4%B9%9F%E5%8D%B3%EF%BC%9A%E4%BB%BB%E5%8A%A1-task%EF%BC%89"><span class="nav-text">3.1 进程（也即：任务 task）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E8%BF%9B%E7%A8%8B%E6%8F%8F%E8%BF%B0%E7%AC%A6%E5%92%8C%E4%BB%BB%E5%8A%A1%E7%BB%93%E6%9E%84"><span class="nav-text">3.2 进程描述符和任务结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-%E8%BF%9B%E7%A8%8B%E6%8F%8F%E8%BF%B0%E7%AC%A6%E7%9A%84%E7%BB%84%E6%88%90"><span class="nav-text">3.2.1 进程描述符的组成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-%E4%BA%94%E7%A7%8D%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="nav-text">3.2.2 五种进程状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-3-%E8%BF%9B%E7%A8%8B%E5%AE%B6%E6%97%8F%E6%A0%91"><span class="nav-text">3.2.3 进程家族树</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA"><span class="nav-text">3.3 进程创建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-%E4%B8%BB%E8%A6%81%E5%87%BD%E6%95%B0"><span class="nav-text">3.3.1 主要函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8B%93%E5%B1%95"><span class="nav-text">拓展</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fork-%E7%9A%84%E5%85%B7%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="nav-text">fork 的具体流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8B%93%E5%B1%95-1"><span class="nav-text">拓展</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-Linux-%E7%9A%84%E5%86%85%E6%A0%B8%E7%BA%BF%E7%A8%8B"><span class="nav-text">3.4 Linux 的内核线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%88%E6%AD%A2"><span class="nav-text">3.5 进程的终止</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-1-%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B"><span class="nav-text">3.5.1 孤儿进程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-4-%E7%AB%A0-%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6"><span class="nav-text">第 4 章 - 进程调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%A4%9A%E4%BB%BB%E5%8A%A1%E7%B3%BB%E7%BB%9F"><span class="nav-text">4.1 多任务系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5"><span class="nav-text">4.2 调度策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-%E5%9F%BA%E4%BA%8E%E4%BC%98%E5%85%88%E7%BA%A7%E7%9A%84%E8%B0%83%E5%BA%A6"><span class="nav-text">4.2.1 基于优先级的调度</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7%E8%8C%83%E5%9B%B4"><span class="nav-text">两种不同的优先级范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E7%89%87%E7%9A%84%E9%95%BF%E4%B8%8E%E7%9F%AD"><span class="nav-text">时间片的长与短</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-Linux-%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-text">4.3 Linux 调度算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-1-%E5%AE%8C%E5%85%A8%E5%85%AC%E5%B9%B3%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95-CFS"><span class="nav-text">4.3.1 完全公平调度算法 CFS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-CFS-%E7%9A%84%E5%85%AC%E5%B9%B3%E4%BD%93%E7%8E%B0%E5%9C%A8%E5%93%AA"><span class="nav-text">a. CFS 的公平体现在哪</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-CFS-%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-text">b. CFS 的实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-%E6%8A%A2%E5%8D%A0"><span class="nav-text">4.4 抢占</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-1-%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%BA%A7%E7%94%9F%E7%94%A8%E6%88%B7%E6%8A%A2%E5%8D%A0"><span class="nav-text">4.4.1 什么情况产生用户抢占</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-2-%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E5%8F%91%E7%94%9F%E5%86%85%E6%A0%B8%E6%8A%A2%E5%8D%A0"><span class="nav-text">4.4.2 什么情况发生内核抢占</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-%E4%B8%8E%E8%B0%83%E5%BA%A6%E7%9B%B8%E5%85%B3%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">4.5 与调度相关的系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-1-%E4%B8%8E%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5%E5%92%8C%E4%BC%98%E5%85%88%E7%BA%A7%E7%9B%B8%E5%85%B3%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">4.5.1 与调度策略和优先级相关的系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-2-%E4%B8%8E%E5%A4%84%E7%90%86%E5%99%A8%E7%BB%91%E5%AE%9A%E7%9B%B8%E5%85%B3%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">4.5.2 与处理器绑定相关的系统调用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-5-%E7%AB%A0-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">第 5 章 - 系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-text">5.1 系统调用的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-%E5%A6%82%E4%BD%95%E9%80%9A%E7%9F%A5%E5%86%85%E6%A0%B8%EF%BC%8C%E8%87%AA%E5%B7%B1%E8%A6%81%E6%89%A7%E8%A1%8C%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%EF%BC%9F"><span class="nav-text">5.2 如何通知内核，自己要执行系统调用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-text">5.3 系统调用的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-%E4%BB%8E%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4%E8%AE%BF%E9%97%AE%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">5.4 从用户空间访问系统调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-6-%E7%AB%A0-%E5%86%85%E6%A0%B8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-text">第 6 章 - 内核数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-%E9%93%BE%E8%A1%A8"><span class="nav-text">6.1 链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-%E9%98%9F%E5%88%97"><span class="nav-text">6.2 队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-%E6%98%A0%E5%B0%84"><span class="nav-text">6.3 映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-%E7%BA%A2%E9%BB%91%E6%A0%91"><span class="nav-text">6.4 红黑树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-text">红黑树的属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-7-%E7%AB%A0-%E4%B8%AD%E6%96%AD%E5%92%8C%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86"><span class="nav-text">第 7 章 - 中断和中断处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-%E4%B8%AD%E6%96%AD%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-text">7.1 中断的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-text">7.2 中断处理程序的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E4%B8%8A%E5%8D%8A%E9%83%A8%E4%B8%8E%E4%B8%8B%E5%8D%8A%E9%83%A8"><span class="nav-text">7.3 中断处理的上半部与下半部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-%E6%B3%A8%E5%86%8C%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F"><span class="nav-text">7.4 注册中断处理程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-5-%E9%87%8A%E6%94%BE%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F"><span class="nav-text">7.5 释放中断处理程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-6-%E4%B8%AD%E6%96%AD%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-text">7.6 中断上下文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-7-%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E4%B8%AD%E6%96%AD%E4%BB%8E%E7%A1%AC%E4%BB%B6%E5%88%B0%E5%86%85%E6%A0%B8%E7%9A%84%E8%B7%AF%E7%94%B1%EF%BC%89"><span class="nav-text">7.7 中断处理机制的实现（中断从硬件到内核的路由）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%93%E5%B1%95-procfs-%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-text">拓展 - procfs 虚拟文件系统</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-8-%E4%B8%AD%E6%96%AD%E6%8E%A7%E5%88%B6%E6%96%B9%E6%B3%95"><span class="nav-text">7.8 中断控制方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-8-%E7%AB%A0-%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E4%B8%8B%E5%8D%8A%E9%83%A8%E5%B7%A5%E4%BD%9C"><span class="nav-text">第 8 章 - 中断处理的下半部工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%B0%86%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B%E5%88%86%E6%88%90%E4%B8%8A%E4%B8%8B%E4%B8%A4%E4%B8%AA%E9%83%A8%E5%88%86%EF%BC%9F"><span class="nav-text">8.1 为什么将中断处理流程分成上下两个部分？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-%E4%B8%8B%E5%8D%8A%E9%83%A8%E5%81%9A%E5%93%AA%E4%BA%9B%E5%B7%A5%E4%BD%9C%EF%BC%9F"><span class="nav-text">8.2 下半部做哪些工作？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-3-1-%E8%BD%AF%E4%B8%AD%E6%96%AD%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="nav-text">8.3.1 软中断的实现与使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-text">实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-3-2-tasklet"><span class="nav-text">8.3.2 tasklet</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-1-%E7%AB%A0-Linux-%E5%86%85%E6%A0%B8%E7%AE%80%E4%BB%8B"><span class="nav-text">第 1 章 - Linux 内核简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%8D%95%E5%86%85%E6%A0%B8%E4%B8%8E%E5%BE%AE%E5%86%85%E6%A0%B8"><span class="nav-text">1.1 单内核与微内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Linux-%E5%86%85%E6%A0%B8%E4%B8%8E%E4%BC%A0%E7%BB%9F-Unix-%E7%B3%BB%E7%BB%9F%E4%B9%8B%E9%97%B4%E7%9A%84%E5%B7%AE%E5%BC%82"><span class="nav-text">1.2 Linux 内核与传统 Unix 系统之间的差异</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Linux-%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC"><span class="nav-text">1.3 Linux 内核版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-2-%E7%AB%A0-%E4%BB%8E%E5%86%85%E6%A0%B8%E5%87%BA%E5%8F%91"><span class="nav-text">第 2 章 - 从内核出发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E8%8E%B7%E5%8F%96%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81"><span class="nav-text">2.1 获取内核源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81%E6%A0%91"><span class="nav-text">2.2 内核源码树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E7%BC%96%E8%AF%91%E5%86%85%E6%A0%B8"><span class="nav-text">2.3 编译内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-text">2.4 内核开发的特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-3-%E7%AB%A0-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-text">第 3 章 - 进程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E8%BF%9B%E7%A8%8B%EF%BC%88%E4%B9%9F%E5%8D%B3%EF%BC%9A%E4%BB%BB%E5%8A%A1-task%EF%BC%89"><span class="nav-text">3.1 进程（也即：任务 task）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E8%BF%9B%E7%A8%8B%E6%8F%8F%E8%BF%B0%E7%AC%A6%E5%92%8C%E4%BB%BB%E5%8A%A1%E7%BB%93%E6%9E%84"><span class="nav-text">3.2 进程描述符和任务结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-%E8%BF%9B%E7%A8%8B%E6%8F%8F%E8%BF%B0%E7%AC%A6%E7%9A%84%E7%BB%84%E6%88%90"><span class="nav-text">3.2.1 进程描述符的组成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-%E4%BA%94%E7%A7%8D%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="nav-text">3.2.2 五种进程状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-3-%E8%BF%9B%E7%A8%8B%E5%AE%B6%E6%97%8F%E6%A0%91"><span class="nav-text">3.2.3 进程家族树</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA"><span class="nav-text">3.3 进程创建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-%E4%B8%BB%E8%A6%81%E5%87%BD%E6%95%B0"><span class="nav-text">3.3.1 主要函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8B%93%E5%B1%95"><span class="nav-text">拓展</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fork-%E7%9A%84%E5%85%B7%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="nav-text">fork 的具体流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8B%93%E5%B1%95-1"><span class="nav-text">拓展</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-Linux-%E7%9A%84%E5%86%85%E6%A0%B8%E7%BA%BF%E7%A8%8B"><span class="nav-text">3.4 Linux 的内核线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%88%E6%AD%A2"><span class="nav-text">3.5 进程的终止</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-1-%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B"><span class="nav-text">3.5.1 孤儿进程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-4-%E7%AB%A0-%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6"><span class="nav-text">第 4 章 - 进程调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%A4%9A%E4%BB%BB%E5%8A%A1%E7%B3%BB%E7%BB%9F"><span class="nav-text">4.1 多任务系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5"><span class="nav-text">4.2 调度策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-%E5%9F%BA%E4%BA%8E%E4%BC%98%E5%85%88%E7%BA%A7%E7%9A%84%E8%B0%83%E5%BA%A6"><span class="nav-text">4.2.1 基于优先级的调度</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7%E8%8C%83%E5%9B%B4"><span class="nav-text">两种不同的优先级范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E7%89%87%E7%9A%84%E9%95%BF%E4%B8%8E%E7%9F%AD"><span class="nav-text">时间片的长与短</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-Linux-%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-text">4.3 Linux 调度算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-1-%E5%AE%8C%E5%85%A8%E5%85%AC%E5%B9%B3%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95-CFS"><span class="nav-text">4.3.1 完全公平调度算法 CFS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-CFS-%E7%9A%84%E5%85%AC%E5%B9%B3%E4%BD%93%E7%8E%B0%E5%9C%A8%E5%93%AA"><span class="nav-text">a. CFS 的公平体现在哪</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-CFS-%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-text">b. CFS 的实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-%E6%8A%A2%E5%8D%A0"><span class="nav-text">4.4 抢占</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-1-%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%BA%A7%E7%94%9F%E7%94%A8%E6%88%B7%E6%8A%A2%E5%8D%A0"><span class="nav-text">4.4.1 什么情况产生用户抢占</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-2-%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E5%8F%91%E7%94%9F%E5%86%85%E6%A0%B8%E6%8A%A2%E5%8D%A0"><span class="nav-text">4.4.2 什么情况发生内核抢占</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-%E4%B8%8E%E8%B0%83%E5%BA%A6%E7%9B%B8%E5%85%B3%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">4.5 与调度相关的系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-1-%E4%B8%8E%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5%E5%92%8C%E4%BC%98%E5%85%88%E7%BA%A7%E7%9B%B8%E5%85%B3%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">4.5.1 与调度策略和优先级相关的系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-2-%E4%B8%8E%E5%A4%84%E7%90%86%E5%99%A8%E7%BB%91%E5%AE%9A%E7%9B%B8%E5%85%B3%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">4.5.2 与处理器绑定相关的系统调用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-5-%E7%AB%A0-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">第 5 章 - 系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-text">5.1 系统调用的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-%E5%A6%82%E4%BD%95%E9%80%9A%E7%9F%A5%E5%86%85%E6%A0%B8%EF%BC%8C%E8%87%AA%E5%B7%B1%E8%A6%81%E6%89%A7%E8%A1%8C%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%EF%BC%9F"><span class="nav-text">5.2 如何通知内核，自己要执行系统调用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-text">5.3 系统调用的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-%E4%BB%8E%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4%E8%AE%BF%E9%97%AE%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">5.4 从用户空间访问系统调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-6-%E7%AB%A0-%E5%86%85%E6%A0%B8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-text">第 6 章 - 内核数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-%E9%93%BE%E8%A1%A8"><span class="nav-text">6.1 链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-%E9%98%9F%E5%88%97"><span class="nav-text">6.2 队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-%E6%98%A0%E5%B0%84"><span class="nav-text">6.3 映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-%E7%BA%A2%E9%BB%91%E6%A0%91"><span class="nav-text">6.4 红黑树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-text">红黑树的属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-7-%E7%AB%A0-%E4%B8%AD%E6%96%AD%E5%92%8C%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86"><span class="nav-text">第 7 章 - 中断和中断处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-%E4%B8%AD%E6%96%AD%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-text">7.1 中断的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-text">7.2 中断处理程序的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E4%B8%8A%E5%8D%8A%E9%83%A8%E4%B8%8E%E4%B8%8B%E5%8D%8A%E9%83%A8"><span class="nav-text">7.3 中断处理的上半部与下半部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-%E6%B3%A8%E5%86%8C%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F"><span class="nav-text">7.4 注册中断处理程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-5-%E9%87%8A%E6%94%BE%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F"><span class="nav-text">7.5 释放中断处理程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-6-%E4%B8%AD%E6%96%AD%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-text">7.6 中断上下文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-7-%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E4%B8%AD%E6%96%AD%E4%BB%8E%E7%A1%AC%E4%BB%B6%E5%88%B0%E5%86%85%E6%A0%B8%E7%9A%84%E8%B7%AF%E7%94%B1%EF%BC%89"><span class="nav-text">7.7 中断处理机制的实现（中断从硬件到内核的路由）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%93%E5%B1%95-procfs-%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-text">拓展 - procfs 虚拟文件系统</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-8-%E4%B8%AD%E6%96%AD%E6%8E%A7%E5%88%B6%E6%96%B9%E6%B3%95"><span class="nav-text">7.8 中断控制方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-8-%E7%AB%A0-%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%9A%84%E4%B8%8B%E5%8D%8A%E9%83%A8%E5%B7%A5%E4%BD%9C"><span class="nav-text">第 8 章 - 中断处理的下半部工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%B0%86%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B%E5%88%86%E6%88%90%E4%B8%8A%E4%B8%8B%E4%B8%A4%E4%B8%AA%E9%83%A8%E5%88%86%EF%BC%9F"><span class="nav-text">8.1 为什么将中断处理流程分成上下两个部分？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-%E4%B8%8B%E5%8D%8A%E9%83%A8%E5%81%9A%E5%93%AA%E4%BA%9B%E5%B7%A5%E4%BD%9C%EF%BC%9F"><span class="nav-text">8.2 下半部做哪些工作？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-3-1-%E8%BD%AF%E4%B8%AD%E6%96%AD%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="nav-text">8.3.1 软中断的实现与使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-text">实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-3-2-tasklet"><span class="nav-text">8.3.2 tasklet</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E5%8F%8A%E5%80%BC%E7%9A%84%E8%AF%B4%E6%98%8E"><span class="nav-text">结构体及值的说明</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-9-%E7%AB%A0-%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5%E4%BB%8B%E7%BB%8D"><span class="nav-text">第 9 章 - 内核同步介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-%E4%B8%B4%E7%95%8C%E5%8C%BA%E5%92%8C%E7%AB%9E%E4%BA%89%E6%9D%A1%E4%BB%B6"><span class="nav-text">9.1 临界区和竞争条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-%E9%94%81%E6%9C%BA%E5%88%B6"><span class="nav-text">9.2 锁机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E5%86%85%E6%A0%B8%E4%BB%A3%E7%A0%81%E6%97%B6%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">编写内核代码时需要考虑的问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-3-%E6%AD%BB%E9%94%81"><span class="nav-text">9.3 死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#9-3-1-%E5%AE%9E%E4%BE%8B"><span class="nav-text">9.3.1 实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-3-2-%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81"><span class="nav-text">9.3.2 如何避免死锁</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-4-%E5%8A%A0%E9%94%81%E7%B2%92%E5%BA%A6"><span class="nav-text">9.4 加锁粒度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-10-%E7%AB%A0-%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%95"><span class="nav-text">第 10 章 - 内核同步方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C"><span class="nav-text">10.1 原子操作</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -1496,7 +1496,7 @@ y(t)=Cx(t).
       </tags>
   </entry>
   <entry>
-    <title>Linux内核设计与实现</title>
+    <title>Linux内核设计与实现笔记</title>
     <url>/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<h2 id="第-1-章-Linux-内核简介"><a href="#第-1-章-Linux-内核简介" class="headerlink" title="第 1 章 - Linux 内核简介"></a>第 1 章 - Linux 内核简介</h2><h3 id="1-1-单内核与微内核"><a href="#1-1-单内核与微内核" class="headerlink" title="1.1 单内核与微内核"></a>1.1 单内核与微内核</h3><div class="table-container">
 <table>
@@ -2207,6 +2207,42 @@ y(t)=Cx(t).
 2. <font color="blue">tasklet</font> （最常用，通过软中断实现。动态注册）
 3. <font color="blue">工作队列 work queues</font>
 
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>下半部机制</th>
+<th>上下文</th>
+<th>顺序执行保障</th>
+<th>复杂程度</th>
+<th>性能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>软中断</td>
+<td>中断</td>
+<td>没有</td>
+<td>高</td>
+<td>好</td>
+</tr>
+<tr>
+<td>tasklet</td>
+<td>中断</td>
+<td>同类型不能同时执行</td>
+<td>中等</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>工作队列</td>
+<td>进程</td>
+<td>没有（和进程上下文一样被调度）</td>
+<td>简单</td>
+<td>差（开销最大）</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h4 id="8-3-1-软中断的实现与使用"><a href="#8-3-1-软中断的实现与使用" class="headerlink" title="8.3.1 软中断的实现与使用"></a>8.3.1 软中断的实现与使用</h4><h5 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h5><p><code>kernel/sofrirq.c</code> 中实现</p>
 <ol>
 <li>软中断处理程序 action 的函数原型：</li>
@@ -2292,8 +2328,231 @@ y(t)=Cx(t).
 <p>经过枚举类型添加新项和注册，新的软中断处理程序就可以运行了。<code>raise_softirq()</code> 可以将一个软中断设置为<font color="blue">挂起</font>状态，让它下次调用 <code>do_softirq()</code> 即可投入使用。</p>
 </li>
 </ol>
-<h4 id="8-3-2-tasklet"><a href="#8-3-2-tasklet" class="headerlink" title="8.3.2 tasklet"></a>8.3.2 tasklet</h4><p>tasklet 由软中断实现，本质相似，但<strong>接口更简单，锁保护要求更低</strong>。</p>
-]]></content>
+<h4 id="8-3-2-tasklet"><a href="#8-3-2-tasklet" class="headerlink" title="8.3.2 tasklet"></a>8.3.2 tasklet</h4><h5 id="结构体及值的说明"><a href="#结构体及值的说明" class="headerlink" title="结构体及值的说明"></a>结构体及值的说明</h5><p>tasklet 由软中断实现，本质相似，但<strong>接口更简单，锁保护要求更低</strong>。</p>
+<p><strong>tasklet 结构体</strong>定义在 <code>&lt;linux/interrupt.h&gt;</code> </p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tasklet_struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">tasklet_struct</span> *<span class="title">next</span>;</span>  <span class="comment">// 链表中的下一个 tasklet</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> state;  <span class="comment">// tasklet 状态</span></span><br><span class="line">	<span class="keyword">atomic_t</span> count;  <span class="comment">// tasklet 引用的计数武器</span></span><br><span class="line">	<span class="keyword">void</span> (*func)(<span class="keyword">unsigned</span> <span class="keyword">long</span>);  <span class="comment">// tasklet 处理函数</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> data;  <span class="comment">// 给 tasklet 处理函数的参数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>tasklet 状态值（state）：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>状态值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>未被调度</td>
+</tr>
+<tr>
+<td>TASKLET_STATE_SCHED</td>
+<td>tasklet 已调度，正准备投入运行</td>
+</tr>
+<tr>
+<td>TASKLET_STATE_RUN</td>
+<td>tasklet 正在运行</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>计数器值（count）：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>计数器值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>非 0</td>
+<td>tasklet 被禁止，不允许执行</td>
+</tr>
+<tr>
+<td>0</td>
+<td>tasklet 被激活，并被设为挂起状态，可执行</td>
+</tr>
+</tbody>
+</table>
+</div>
+<font color="blue">所有的 tasklet 都通过重复运用 `HI_SOFTIRQ` 和 `TASKLET_SOFTIRQ` 这两个软中断实现。</font>一个 tasklet 被调度，内核就会唤醒这两个软中断中的一个
+
+##### 使用 tasklet
+
+1. 声明
+   * 静态声明
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">DECLARE_TASKLET(my_tasklet, my_tasklet_handler, dev);</span><br></pre></td></tr></table></figure>
+
+等价于
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tasklet_struct</span> <span class="title">my_tasklet</span> =</span> &#123;<span class="literal">NULL</span>, <span class="number">0</span>, ATOMIC_INIT(<span class="number">0</span>),</span><br><span class="line">                                   	my_tasklet_handler, dev&#125;;</span><br></pre></td></tr></table></figure>
+
+* 动态声明
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">tasklet_init(t, tasklet_handler, dev);</span><br></pre></td></tr></table></figure>
+
+2. 编写自己的 tasklet 处理程序
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tasklet_handler</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> data)</span></span></span><br></pre></td></tr></table></figure>
+
+3. 调度自己的 tasklet
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">tasklet_schedule(&amp;my_tasklet);  <span class="comment">/* 把 my_tasklet 标记为挂起 */</span> </span><br></pre></td></tr></table></figure>
+
+##### 内核是如何处理软中断的？
+
+| 方案 | 说明                                                         | 优                                                       | 缺                                                           |
+| ---- | ------------------------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------ |
+| 一   | **本次执行全部处理**（只要还有被触发并等待处理的软中断，本次执行就要负责处理，重新触发的软中断也在本次执行返回前被处理） | 可以**即时**处理内核的软中断                             | 负载较高时，会有大量重复触发的软中断，用户空间的任务就会被忽略（**用户空间处于饥饿状态**） |
+| 二   | **不处理重新触发的软中断**（等下一个软中断执行去处理）       | 用户不饥饿了                                             | 软中断可能饥饿                                               |
+| 三   | 折中。<br>1. 不立即处理重新触发的软中断<br>2. 大量软中断出现时，内核唤醒一组低优先级的内核线程来处理这些负载。 | 1. 负载高，用户也不会饥饿<br>2. 空闲时，软中断处理也很快 |                                                              |
+
+#### 8.3.3 工作队列 work queue
+
+1. 特点
+
+   * 靠内核线程实现
+
+   * 可以<font color="blue">将工作推后执行</font>，交由一个内核线程去执行
+
+   * 工作队列<font color="blue">允许重新调度，甚至睡眠</font>
+
+<ol>
+<li><p>怎么在工作队列和软中断/tasklet 中做选择？</p>
+<ul>
+<li><p>看推后执行的任务，<strong>是否需要睡眠</strong>。要睡眠就工作队列。</p>
+</li>
+<li><p><strong>是否需要重新调度</strong>，需要则工作队列</p>
+</li>
+</ul>
+<p>如果不需要用一个内核线程来推后执行工作，就还是选 tasklet</p>
+</li>
+</ol>
+<h2 id="第-9-章-内核同步介绍"><a href="#第-9-章-内核同步介绍" class="headerlink" title="第 9 章 - 内核同步介绍"></a>第 9 章 - 内核同步介绍</h2><ul>
+<li><p>为什么要做内核同步？</p>
+<p>防止共享资源并发访问。（并发访问，可能会发生各线程间相互覆盖共享数据的情况。这会导致系统不稳定，且问题不好定位）</p>
+</li>
+</ul>
+<h3 id="9-1-临界区和竞争条件"><a href="#9-1-临界区和竞争条件" class="headerlink" title="9.1 临界区和竞争条件"></a>9.1 临界区和竞争条件</h3><ul>
+<li><p>临界区：临界段，就是访问和操作共享数据的<strong>代码段</strong>。</p>
+</li>
+<li><p>竞争条件：两个线程在同一临界区同时执行，就存在竞争。</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">同步=避免并发+防止竞争条件</script><h3 id="9-2-锁机制"><a href="#9-2-锁机制" class="headerlink" title="9.2 锁机制"></a>9.2 锁机制</h3><ul>
+<li>本质：给临界区加锁，保证临界区只存在一个执行线程。</li>
+</ul>
+<p><img src="/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210706155926907.png" alt="image-20210706155926907" style="zoom:67%;"></p>
+<ul>
+<li><p>锁机制之间的主要区别</p>
+<p>一些锁被争用时，就简单执行<strong>忙等待</strong>；另外一些锁会<strong>使当前任务睡眠</strong>直到锁可用。</p>
+</li>
+<li><p>造成并发执行的原因</p>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>竞争条件成因</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>中断</td>
+<td>中断随时可能发生，可能随时打断正在执行的代码</td>
+</tr>
+<tr>
+<td>软中断和 tasklet</td>
+<td>内核能随时可能唤醒或调度软中断和 tasklet，也就随时可能打断正在执行的代码</td>
+</tr>
+<tr>
+<td>内核抢占</td>
+<td>内核具有抢占性，内核中的任务可能会被另一个任务抢占</td>
+</tr>
+<tr>
+<td>睡眠及与用户空间的同步</td>
+<td>在内核执行的进程可能会睡眠，这就会唤醒调度程序，从而导致调度一个新的用户进程执行</td>
+</tr>
+<tr>
+<td>对称多处理</td>
+<td>多个处理器同时执行代码</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="编写内核代码时需要考虑的问题"><a href="#编写内核代码时需要考虑的问题" class="headerlink" title="编写内核代码时需要考虑的问题"></a>编写内核代码时需要考虑的问题</h4><ol>
+<li>这个数据是不是全局的？除了当前线程外，其他线程能不能访问它？</li>
+<li>这个数据会不会在进程上下文和中断上下文中共享？它是不是要在两个不同的中断处理程序中共享？</li>
+<li>进程在访问数据时有没有可能被抢占？被调度的新程序会不会访问同一数据？</li>
+<li>当前进程会不会睡眠（阻塞）在某些资源上，如果会，它会让共享数据处于何种状态？</li>
+<li>怎样防止数据失控？</li>
+<li>如果这个函数又在另一个处理器上被调度将会发生什么？</li>
+<li>如何确保代码远离并发威胁？</li>
+</ol>
+<h3 id="9-3-死锁"><a href="#9-3-死锁" class="headerlink" title="9.3 死锁"></a>9.3 死锁</h3><ul>
+<li><p>发生死锁的原因</p>
+<p>每个线程都在相互等待，但是所有资源都被占用了，它们也不释放已经占用的资源，导致任何线程都无法继续，因此产生死锁。</p>
+</li>
+</ul>
+<h4 id="9-3-1-实例"><a href="#9-3-1-实例" class="headerlink" title="9.3.1 实例"></a>9.3.1 实例</h4><ul>
+<li>最简单的死锁：<strong>自死锁</strong></li>
+</ul>
+<p>一个执行线程想获得自己已经拥有的锁，它就等待这个锁，但是自己又不会释放这个锁，最终导致死锁。</p>
+<ul>
+<li>常见的 ABBA 锁</li>
+</ul>
+<p><img src="/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210706164827753.png" alt="image-20210706164827753" style="zoom: 50%;"></p>
+<h4 id="9-3-2-如何避免死锁"><a href="#9-3-2-如何避免死锁" class="headerlink" title="9.3.2 如何避免死锁"></a>9.3.2 如何避免死锁</h4><ol>
+<li><strong>按顺序加锁</strong>（最重要）</li>
+<li>防止发生饥饿</li>
+<li>不重复请求同一个锁</li>
+<li>设计力求简单（越复杂的加锁方案越容易死锁）</li>
+</ol>
+<h3 id="9-4-加锁粒度"><a href="#9-4-加锁粒度" class="headerlink" title="9.4 加锁粒度"></a>9.4 加锁粒度</h3><ul>
+<li><p>加锁机制发展到细粒度（fine-grained）加锁后，有什么好处？</p>
+<p>Linux 从 2.0 版内核，刚加入对多处理器支持的时候，一个时刻只能有一个任务在内核中执行。2.2 版本加锁机制发展到细粒度加锁后，不再有这样的限制。</p>
+</li>
+<li><p>粒度的粗细，有什么影响？</p>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>加锁粒度</th>
+<th>扩展性</th>
+<th>复杂度</th>
+<th>开销</th>
+<th>加锁保护的数据规模</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>粗</td>
+<td>差</td>
+<td>低</td>
+<td>小</td>
+<td>大</td>
+</tr>
+<tr>
+<td>细</td>
+<td>好</td>
+<td>高</td>
+<td>大</td>
+<td>小</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>锁的争用：锁正被占用时，有其他线程试图获得该锁。</li>
+</ul>
+<h2 id="第-10-章-内核同步方法"><a href="#第-10-章-内核同步方法" class="headerlink" title="第 10 章 - 内核同步方法"></a>第 10 章 - 内核同步方法</h2><h3 id="10-1-原子操作"><a href="#10-1-原子操作" class="headerlink" title="10.1 原子操作"></a>10.1 原子操作</h3>]]></content>
       <categories>
         <category>笔记</category>
       </categories>
