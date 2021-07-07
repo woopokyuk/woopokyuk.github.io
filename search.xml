@@ -2572,7 +2572,90 @@ y(t)=Cx(t).
 <ul>
 <li>锁的争用：锁正被占用时，有其他线程试图获得该锁。</li>
 </ul>
-<h2 id="第-10-章-内核同步方法"><a href="#第-10-章-内核同步方法" class="headerlink" title="第 10 章 - 内核同步方法"></a>第 10 章 - 内核同步方法</h2><h3 id="10-1-原子操作"><a href="#10-1-原子操作" class="headerlink" title="10.1 原子操作"></a>10.1 原子操作</h3>]]></content>
+<h2 id="第-10-章-内核同步方法"><a href="#第-10-章-内核同步方法" class="headerlink" title="第 10 章 - 内核同步方法"></a>第 10 章 - 内核同步方法</h2><p>简单场景：临界区只有一个变量 - 原子操作</p>
+<p>复杂场景 - 锁机制</p>
+<h3 id="10-1-原子操作"><a href="#10-1-原子操作" class="headerlink" title="10.1 原子操作"></a>10.1 原子操作</h3><ul>
+<li><p>原子操作可以保证指令以原子的方式执行（执行过程不被打断）。</p>
+</li>
+<li><p>原子操作通常是内联函数，往往通过内联汇编指令来实现。</p>
+</li>
+</ul>
+<p>原子整数操作的声明在 <code>&lt;asm/atomic.h&gt;</code> 中。</p>
+<p>原子位操作定义在 <code>&lt;asm/bitops.h&gt;</code> 中</p>
+<h3 id="10-2-自旋锁"><a href="#10-2-自旋锁" class="headerlink" title="10.2 自旋锁"></a>10.2 自旋锁</h3><p>Linux 内核最常见的锁。  </p>
+<h4 id="10-2-1-特点"><a href="#10-2-1-特点" class="headerlink" title="10.2.1 特点"></a>10.2.1 特点</h4><ol>
+<li><p>自旋锁最多只能被一个可执行线程持有（如果一个执行线程试图获得一个被占用的自旋锁，该线程就会一直循环-旋转-等待锁重新可用）</p>
+</li>
+<li><p>一个被争用的自旋锁，会让<strong>请求它的线程在等待锁重新可用时自旋</strong>，特别浪费处理器时间，这是自旋锁的<strong>要点</strong>  </p>
+<p>所以，自旋锁不应该被长时间持有。自旋锁的初衷就是：在短期内进行轻量级加锁。  </p>
+</li>
+</ol>
+<h4 id="10-2-2-自旋锁方法"><a href="#10-2-2-自旋锁方法" class="headerlink" title="10.2.2 自旋锁方法"></a>10.2.2 自旋锁方法</h4><p>自旋锁与体系结构相关的代码定义在 <code>&lt;asm/spinlock.h&gt;</code> 中，接口定义在 <code>&lt;linux/spinlock.h&gt;</code> 中。</p>
+<hr>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><ol>
+<li><p>自旋锁不能递归，否则自死锁</p>
+</li>
+<li><p>在中断处理程序中使用自旋锁时，一定要在获取锁之前，首先禁止本地（当前处理器的）中断（否则造成 ABBA 锁）</p>
+<p>解释一下为什么会造成 ABBA 锁：中断处理程序试图获得这个已经被持有的锁，就会自旋，等待锁重新可用，但这个锁的持有者在中断处理程序执行完以前不可能运行，自然不会释放锁。</p>
+</li>
+</ol>
+<hr>
+<ul>
+<li>自旋锁方法列表</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>spin_lock()</td>
+<td>获取指定的自旋锁</td>
+</tr>
+<tr>
+<td>spin_lock_irq()</td>
+<td>禁止本地中断并获取指定的锁</td>
+</tr>
+<tr>
+<td>spin_lock_irqsave()</td>
+<td>保存本地中断的当前状态，禁止中断，获取指定的锁</td>
+</tr>
+<tr>
+<td>spin_unlock()</td>
+<td>释放指定的锁</td>
+</tr>
+<tr>
+<td>spin_unlock_irq()</td>
+<td>释放指定的锁，并激活本地中断</td>
+</tr>
+<tr>
+<td>spin_lock_init()</td>
+<td>动态初始化指定的 spinlock_t</td>
+</tr>
+<tr>
+<td>spin_trylock()</td>
+<td>试图获取指定的锁，未获取则返回非 0</td>
+</tr>
+<tr>
+<td>spin_is_lock()</td>
+<td>如果指定的锁当前正在被获取，则返回非 0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="10-2-3-自旋锁与下半部的配合使用"><a href="#10-2-3-自旋锁与下半部的配合使用" class="headerlink" title="10.2.3 自旋锁与下半部的配合使用"></a>10.2.3 自旋锁与下半部的配合使用</h4><ol>
+<li><p>因为下半部可以抢占进程上下文中的代码，所以<font color="blue">下半部和进程上下文共享数据时</font>，要保护进程上下文中的数据：<font color="blue">加锁并禁止下半部执行</font></p>
+</li>
+<li><p>中断处理程序可以抢占下半部，所以<font color="blue">中断处理程序和下半部共享数据时，在获取锁的同时还要禁止中断</font></p>
+</li>
+<li>同类的 tasklet 不可能同时运行，所以同类 tasklet 的共享数据不需要保护。但<font color="blue">不同类的 tasklet 共享时，访问下半部数据前要先获得一个普通的自旋锁</font> （这里不用禁止下半部，因为同一处理器不存在 tasklet 相互抢占的情况）</li>
+<li><font color="blue">数据被软中断共享，必须加锁保护，但不必禁止下半部</font>（无论软中断是否同类型，因为同一处理器的软中断不会相互抢占）</li>
+</ol>
+<h3 id="10-3-读-写自旋锁"><a href="#10-3-读-写自旋锁" class="headerlink" title="10.3 读-写自旋锁"></a>10.3 读-写自旋锁</h3>]]></content>
       <categories>
         <category>笔记</category>
       </categories>
