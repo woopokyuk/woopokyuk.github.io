@@ -2655,7 +2655,114 @@ y(t)=Cx(t).
 <li>同类的 tasklet 不可能同时运行，所以同类 tasklet 的共享数据不需要保护。但<font color="blue">不同类的 tasklet 共享时，访问下半部数据前要先获得一个普通的自旋锁</font> （这里不用禁止下半部，因为同一处理器不存在 tasklet 相互抢占的情况）</li>
 <li><font color="blue">数据被软中断共享，必须加锁保护，但不必禁止下半部</font>（无论软中断是否同类型，因为同一处理器的软中断不会相互抢占）</li>
 </ol>
-<h3 id="10-3-读-写自旋锁"><a href="#10-3-读-写自旋锁" class="headerlink" title="10.3 读-写自旋锁"></a>10.3 读-写自旋锁</h3>]]></content>
+<h3 id="10-3-读-写自旋锁"><a href="#10-3-读-写自旋锁" class="headerlink" title="10.3 读-写自旋锁"></a>10.3 读-写自旋锁</h3><p><strong>多个读任务可以并发持有读者锁，但用于写的锁只能被一个写任务持有</strong>。读锁被持有时，写操作只能等待；而读者可以继续成功占用锁。读/写锁也叫共享/排斥锁，或者并发/排斥锁。通常情况下，读锁和写锁位于完全分隔开的代码分支中。</p>
+<ul>
+<li>读-写锁方法  </li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>read_lock()</td>
+<td>获得指定的读锁</td>
+</tr>
+<tr>
+<td>read_lock_irq()</td>
+<td>禁止本地中断并获得指定读锁</td>
+</tr>
+<tr>
+<td>read_lock_irqsave()</td>
+<td>存储本地中断的当前状态，禁止本地中断并获得指定读锁</td>
+</tr>
+<tr>
+<td>read_unlock()</td>
+<td>释放指定的读锁</td>
+</tr>
+<tr>
+<td>read_unlock_irq()</td>
+<td>释放指定的读锁，并激活本地中断</td>
+</tr>
+<tr>
+<td>read_unlock_irqstore()</td>
+<td>释放指定的读锁，并将本地中断恢复到指定的前状态</td>
+</tr>
+<tr>
+<td>write_lock()</td>
+<td>获得指定的写锁</td>
+</tr>
+<tr>
+<td>write_lock_irq()</td>
+<td>禁止本地中断并获得指定写锁</td>
+</tr>
+<tr>
+<td>write_lock_irqsave()</td>
+<td>存储本地中断的当前状态，禁止本地中断并获得指定写锁</td>
+</tr>
+<tr>
+<td>write_unlock()</td>
+<td>释放指定的写锁</td>
+</tr>
+<tr>
+<td>write_unlock_irq()</td>
+<td>释放指定的写锁，并激活本地中断</td>
+</tr>
+<tr>
+<td>write_unlock_irqstore()</td>
+<td>释放指定的写锁，并将本地中断恢复到指定的前状态</td>
+</tr>
+<tr>
+<td>write_trylock()</td>
+<td>试图获得指定的写锁；如果写锁不可用，返回非 0 值</td>
+</tr>
+<tr>
+<td>rwlock_init()</td>
+<td>初始化指定的 rwlock_t</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>自旋锁与信号量的<strong>使用场景</strong>有何不同？</li>
+</ul>
+<p>自旋锁：加锁时间不长，且代码不会睡眠（比如中断处理程序）</p>
+<p>信号量：加锁时间很长，代码在持有锁时可能睡眠</p>
+<h3 id="10-4-信号量"><a href="#10-4-信号量" class="headerlink" title="10.4 信号量"></a>10.4 信号量</h3><p>Linux 中的信号量是一种<font color="blue">睡眠锁</font>。原理：任务试图获得一个被占用的信号量，信号量将其推进一个等待序列并让其睡眠，这样处理器就可以空闲并执行其他代码，当那个信号量可用的时候，等待序列中的那个任务就会被唤醒并获得该信号量。</p>
+<ul>
+<li>自旋锁与信号量区别</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>锁</th>
+<th>处理器利用率</th>
+<th>开销</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>自旋锁</td>
+<td>低</td>
+<td>小</td>
+</tr>
+<tr>
+<td>信号量</td>
+<td>高</td>
+<td>大</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>信号量有关的一些结论</li>
+</ul>
+]]></content>
       <categories>
         <category>笔记</category>
       </categories>
