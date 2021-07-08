@@ -2759,9 +2759,71 @@ y(t)=Cx(t).
 </tbody>
 </table>
 </div>
+<h4 id="10-4-1-信号量的分类"><a href="#10-4-1-信号量的分类" class="headerlink" title="10.4.1 信号量的分类"></a>10.4.1 信号量的分类</h4><p>信号量同时允许的持有者数量可以在声明信号量时指定，根据这个数量，可分为二值信号量和计数信号量。  </p>
 <ul>
-<li>信号量有关的一些结论</li>
+<li><p>二值信号量（也即互斥信号量）：只有 0 和 1 两种情况  </p>
+</li>
+<li><p>计数信号量：数量可以大于 1，也就是说，允许同一时刻允许多个持有者，也即允许多个执行线程同时访问临界区。</p>
+</li>
 </ul>
+<font color="blue">内核使用信号量时，基本都是用互斥信号量</font>  
+
+<h4 id="10-4-2-信号量的创建与使用"><a href="#10-4-2-信号量的创建与使用" class="headerlink" title="10.4.2 信号量的创建与使用"></a>10.4.2 信号量的创建与使用</h4><p>信号量的实现与体系结构相关，在 <code>&lt;asm/semaphore.h&gt;</code> 中。</p>
+<h5 id="几种创建方法"><a href="#几种创建方法" class="headerlink" title="几种创建方法"></a>几种创建方法</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * name     - 信号量变量名</span></span><br><span class="line"><span class="comment"> * count    - 信号量的使用数量</span></span><br><span class="line"><span class="comment"> * sem      - 指向动态创建的信号量的间接指针</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">// 静态声明计数信号量</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">semaphore</span> <span class="title">name</span>;</span></span><br><span class="line">sema_init(&amp;name, count);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 静态创建互斥信号量</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="title">DECLARE_MUTEX</span><span class="params">(name)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 更常见的情况，信号量作为一个大数据结构的一部分，动态创建</span></span><br><span class="line">sema_init(sem, count);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 与上一条类似，初始化一个动态创建的互斥信号量</span></span><br><span class="line">init_MUTEX(sem);</span><br></pre></td></tr></table></figure>
+<h5 id="常规使用方法"><a href="#常规使用方法" class="headerlink" title="常规使用方法"></a>常规使用方法</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 定义并声明一个信号量，名为 mr_sem，用于信号量计数 */</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="title">DECLARE_MUTEX</span><span class="params">(mr_sem)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 试图获取信号量 */</span></span><br><span class="line"><span class="keyword">if</span> (down_interruptible(&amp;mr_sem))</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 临界区... */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 释放给定的信号量 */</span></span><br><span class="line">up(&amp;mr_sem);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>信号量方法列表</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sema_init(struct semaphore *, int)</td>
+<td>以指定的计数值初始化动态创建的信号量</td>
+</tr>
+<tr>
+<td>init_MUTEX(struct semaphore *)</td>
+<td>以计数值 1 初始化动态创建的信号量</td>
+</tr>
+<tr>
+<td>init_MUTEX_LOCKED(struct semaphore *)</td>
+<td>以计数值 0 初始化动态创建的信号量（初始为加锁状态）</td>
+</tr>
+<tr>
+<td>down_interruptible(struct semaphore *)</td>
+<td>试图获得指定的信号量，若被占用，则进入可中断睡眠状态</td>
+</tr>
+<tr>
+<td>down(struct semaphore *)</td>
+<td>试图获得指定的信号量，但是如果被占用，会进入不可中断睡眠</td>
+</tr>
+<tr>
+<td>down_trylock(struct semaphore *)</td>
+<td>试图获得指定的信号量，被占用，则返回非 0 值</td>
+</tr>
+<tr>
+<td>up(struct semaphore *)</td>
+<td>释放指定信号量，如果睡眠队列不空，则唤醒其中一个任务</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="10-5-读-写信号量"><a href="#10-5-读-写信号量" class="headerlink" title="10.5 读-写信号量"></a>10.5 读-写信号量</h3><p>读写信号量与信号量的关系类似读写自旋锁与自旋锁的关系。  </p>
+<h4 id="10-5-1-读-写信号量的特点"><a href="#10-5-1-读-写信号量的特点" class="headerlink" title="10.5.1 读-写信号量的特点"></a>10.5.1 读-写信号量的特点</h4><ol>
+<li><p><font color="blue">所有的读-写信号量都是互斥信号量</font>（当然只对写者互斥，不对读者）  </p>
+</li>
+<li><p>不会被信号打断</p>
+</li>
+<li>读-写信号量比读-写自旋锁多一种特有操作: <code>downgrade_write()</code> ，可以将动态获取的写锁转换成读锁  </li>
+</ol>
+<p>需要注意，除非代码中读和写可以清楚地分开，否则最好不使用。</p>
+<h3 id="10-6-互斥体-mutex"><a href="#10-6-互斥体-mutex" class="headerlink" title="10.6 互斥体 mutex"></a>10.6 互斥体 mutex</h3><p>☞任何可以睡眠地强制互斥锁。</p>
 ]]></content>
       <categories>
         <category>笔记</category>
