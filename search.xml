@@ -2823,8 +2823,116 @@ y(t)=Cx(t).
 <li>读-写信号量比读-写自旋锁多一种特有操作: <code>downgrade_write()</code> ，可以将动态获取的写锁转换成读锁  </li>
 </ol>
 <p>需要注意，除非代码中读和写可以清楚地分开，否则最好不使用。</p>
-<h3 id="10-6-互斥体-mutex"><a href="#10-6-互斥体-mutex" class="headerlink" title="10.6 互斥体 mutex"></a>10.6 互斥体 mutex</h3><p>☞任何可以睡眠地强制互斥锁。</p>
-]]></content>
+<h3 id="10-6-互斥体-mutex"><a href="#10-6-互斥体-mutex" class="headerlink" title="10.6 互斥体 mutex"></a>10.6 互斥体 mutex</h3><p>☞<font color="blue">任何可以睡眠的强制互斥锁</font>。mutex 的使用场景更严格  </p>
+<ol>
+<li>mutex 的使用计数永远是 1</li>
+<li>需在同一个上下文加解锁</li>
+<li>不允许递归上锁和解锁</li>
+<li>持有 mutex 的进程不能退出</li>
+<li>mutex 不能在中断或者下半部使用</li>
+<li>mutex 只能通过官方 API 管理</li>
+</ol>
+<h4 id="Mutex-方法"><a href="#Mutex-方法" class="headerlink" title="Mutex 方法"></a>Mutex 方法</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mutex_lock(struct mutex *)</td>
+<td>为指定的mutex上锁，如果锁不可用则睡眠</td>
+</tr>
+<tr>
+<td>mutex_unlock(struct mutex *)</td>
+<td>为指定的mutex解锁</td>
+</tr>
+<tr>
+<td>mutex_trylock(struct mutex *)</td>
+<td>试图获取指定的mutex，如果成功则返回1；否则锁被获取，返回0</td>
+</tr>
+<tr>
+<td>mutex_is_locked(struct mutex *)</td>
+<td>如果锁已被争用，则返回1；否则返回0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="10-6-1-信号量与互斥体怎么选？"><a href="#10-6-1-信号量与互斥体怎么选？" class="headerlink" title="10.6.1 信号量与互斥体怎么选？"></a>10.6.1 信号量与互斥体怎么选？</h4><p>优先使用 mutex，如果不能满足某些约束条件，再考虑信号量</p>
+<h4 id="10-6-2-自旋锁与互斥体怎么选？"><a href="#10-6-2-自旋锁与互斥体怎么选？" class="headerlink" title="10.6.2 自旋锁与互斥体怎么选？"></a>10.6.2 自旋锁与互斥体怎么选？</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>加锁方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>低开销加锁</td>
+<td>优先自旋锁</td>
+</tr>
+<tr>
+<td>短期锁定</td>
+<td>优先自旋锁</td>
+</tr>
+<tr>
+<td>中断上下文加锁</td>
+<td>只能自旋锁</td>
+</tr>
+<tr>
+<td>长期加锁</td>
+<td>优先互斥体</td>
+</tr>
+<tr>
+<td>持有锁需要睡眠</td>
+<td>只能互斥体</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="10-7-完成变量"><a href="#10-7-完成变量" class="headerlink" title="10.7 完成变量"></a>10.7 完成变量</h3><p>completion variable，提供了代替信号量的一种简单方法。如果在内核中一个任务需要发出信号通知另一个任务发生了某个特定事件，<strong>完成变量</strong>是使两个任务同步的简单方法。  </p>
+<p>完成变量由 completion 结构表示，定义在 <code>&lt;linux/completion.h&gt;</code> 中，完成变量方法有：  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>init_completion(struct completion *)</td>
+<td>初始化指定的动态创建的完成变量</td>
+</tr>
+<tr>
+<td>wait_for_completion(struct completion *)</td>
+<td>等待指定的完成变量接受信号</td>
+</tr>
+<tr>
+<td>complete(struct completion *)</td>
+<td>发信号唤醒任何等待任务</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>使用完成变量的例子可以参考 <code>kernel/sched.c</code> 和 <code>kernel/fork.c</code></p>
+<h3 id="10-8-BLK-大内核锁"><a href="#10-8-BLK-大内核锁" class="headerlink" title="10.8 BLK 大内核锁"></a>10.8 BLK 大内核锁</h3><p>是一个全局自旋锁，它的目的是实现从最初的 Linux SMP 过渡到细粒度加锁机制。但是目前它已经成为内核可扩展性的障碍，所有新代码中不再使用 BLK 了。</p>
+<h3 id="10-9-顺序锁"><a href="#10-9-顺序锁" class="headerlink" title="10.9 顺序锁"></a>10.9 顺序锁</h3><p>seq 锁，为读写共享数据提供了一种简单机制。主要靠一个序列计数器实现。当有疑义的数据被写入，会得到一个锁，并且序列值增加。读取数据之前和之后，序列号都会被读取。  </p>
+<ul>
+<li>如果读取的序列值相同，说明读操作没有被写操作打断过。  </li>
+<li>如果读取的是偶数，说明，写操作没有发生。（因为锁的初始值是 0，写锁会让锁变成奇数，释放的时候变成偶数）  </li>
+</ul>
+<h4 id="10-9-1-顺序锁的理想使用场景"><a href="#10-9-1-顺序锁的理想使用场景" class="headerlink" title="10.9.1 顺序锁的理想使用场景"></a>10.9.1 顺序锁的理想使用场景</h4><ol>
+<li>数据存在很多读者</li>
+<li>数据写者很少</li>
+<li>写优先于读，且读者不能让写者饥饿</li>
+<li>数据很简单，甚至是简单的整型</li>
+</ol>
+<h3 id="10-10-禁止抢占"><a href="#10-10-禁止抢占" class="headerlink" title="10.10 禁止抢占"></a>10.10 禁止抢占</h3><h2 id="第-11-章-定时器和时间管理"><a href="#第-11-章-定时器和时间管理" class="headerlink" title="第 11 章 - 定时器和时间管理"></a>第 11 章 - 定时器和时间管理</h2><h2 id="第-12-章-内存管理"><a href="#第-12-章-内存管理" class="headerlink" title="第 12 章 - 内存管理"></a>第 12 章 - 内存管理</h2><h2 id="第-13-章-虚拟文件系统"><a href="#第-13-章-虚拟文件系统" class="headerlink" title="第 13 章 - 虚拟文件系统"></a>第 13 章 - 虚拟文件系统</h2><h2 id="第-14-章-块-I-O-层"><a href="#第-14-章-块-I-O-层" class="headerlink" title="第 14 章 - 块 I/O 层"></a>第 14 章 - 块 I/O 层</h2><h2 id="第-15-章-进程地址空间"><a href="#第-15-章-进程地址空间" class="headerlink" title="第 15 章 - 进程地址空间"></a>第 15 章 - 进程地址空间</h2><h2 id="第-16-章-页高速缓存和页回写"><a href="#第-16-章-页高速缓存和页回写" class="headerlink" title="第 16 章 - 页高速缓存和页回写"></a>第 16 章 - 页高速缓存和页回写</h2><h2 id="第-17-章-设备与模块"><a href="#第-17-章-设备与模块" class="headerlink" title="第 17 章 - 设备与模块"></a>第 17 章 - 设备与模块</h2><h2 id="第-18-章-调试"><a href="#第-18-章-调试" class="headerlink" title="第 18 章 - 调试"></a>第 18 章 - 调试</h2><h2 id="第-19-章-可移植性"><a href="#第-19-章-可移植性" class="headerlink" title="第 19 章 - 可移植性"></a>第 19 章 - 可移植性</h2><h2 id="第-20-章-补丁、开发和社区"><a href="#第-20-章-补丁、开发和社区" class="headerlink" title="第 20 章 - 补丁、开发和社区"></a>第 20 章 - 补丁、开发和社区</h2>]]></content>
       <categories>
         <category>笔记</category>
       </categories>
