@@ -2932,7 +2932,45 @@ y(t)=Cx(t).
 <li>写优先于读，且读者不能让写者饥饿</li>
 <li>数据很简单，甚至是简单的整型</li>
 </ol>
-<h3 id="10-10-禁止抢占"><a href="#10-10-禁止抢占" class="headerlink" title="10.10 禁止抢占"></a>10.10 禁止抢占</h3><h2 id="第-11-章-定时器和时间管理"><a href="#第-11-章-定时器和时间管理" class="headerlink" title="第 11 章 - 定时器和时间管理"></a>第 11 章 - 定时器和时间管理</h2><h2 id="第-12-章-内存管理"><a href="#第-12-章-内存管理" class="headerlink" title="第 12 章 - 内存管理"></a>第 12 章 - 内存管理</h2><h2 id="第-13-章-虚拟文件系统"><a href="#第-13-章-虚拟文件系统" class="headerlink" title="第 13 章 - 虚拟文件系统"></a>第 13 章 - 虚拟文件系统</h2><h2 id="第-14-章-块-I-O-层"><a href="#第-14-章-块-I-O-层" class="headerlink" title="第 14 章 - 块 I/O 层"></a>第 14 章 - 块 I/O 层</h2><h2 id="第-15-章-进程地址空间"><a href="#第-15-章-进程地址空间" class="headerlink" title="第 15 章 - 进程地址空间"></a>第 15 章 - 进程地址空间</h2><h2 id="第-16-章-页高速缓存和页回写"><a href="#第-16-章-页高速缓存和页回写" class="headerlink" title="第 16 章 - 页高速缓存和页回写"></a>第 16 章 - 页高速缓存和页回写</h2><h2 id="第-17-章-设备与模块"><a href="#第-17-章-设备与模块" class="headerlink" title="第 17 章 - 设备与模块"></a>第 17 章 - 设备与模块</h2><h2 id="第-18-章-调试"><a href="#第-18-章-调试" class="headerlink" title="第 18 章 - 调试"></a>第 18 章 - 调试</h2><h2 id="第-19-章-可移植性"><a href="#第-19-章-可移植性" class="headerlink" title="第 19 章 - 可移植性"></a>第 19 章 - 可移植性</h2><h2 id="第-20-章-补丁、开发和社区"><a href="#第-20-章-补丁、开发和社区" class="headerlink" title="第 20 章 - 补丁、开发和社区"></a>第 20 章 - 补丁、开发和社区</h2>]]></content>
+<h3 id="10-10-禁止抢占"><a href="#10-10-禁止抢占" class="headerlink" title="10.10 禁止抢占"></a>10.10 禁止抢占</h3><p>内核是抢占性的，所以一个任务与被抢占的任务可能会在同一个临界区内运行。为了避免这种情况，内核抢占代码使用自旋锁作为非抢占区域的标记，如果一个自旋锁被持有，内核就不能进行抢占。内核抢占相关函数：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>preempt_disable()</td>
+<td>增加抢占计数值，从而禁止内核抢占</td>
+</tr>
+<tr>
+<td>preempt_enable()</td>
+<td>减少抢占计数值，并当该值降为 0 时检查和执行被挂起的需调度的任务</td>
+</tr>
+<tr>
+<td>preempt_enable_no_resched()</td>
+<td>激活内核抢占但不再检查任何被挂起的需调度任务</td>
+</tr>
+<tr>
+<td>preempt_count()</td>
+<td>返回抢占计数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="10-11-顺序与屏障"><a href="#10-11-顺序与屏障" class="headerlink" title="10.11 顺序与屏障"></a>10.11 顺序与屏障</h3><h4 id="10-11-1-顺序存在的意义"><a href="#10-11-1-顺序存在的意义" class="headerlink" title="10.11.1 顺序存在的意义"></a>10.11.1 顺序存在的意义</h4><p>处理多处理器或硬件设备的同步问题时，需要以一定的顺序进行读写操作。所有可能重新排序或写的处理器提供了机器指令来确保顺序要求，这些<strong>确保顺序</strong>的指令称作<strong>屏障</strong>。</p>
+<h2 id="第-11-章-定时器和时间管理"><a href="#第-11-章-定时器和时间管理" class="headerlink" title="第 11 章 - 定时器和时间管理"></a>第 11 章 - 定时器和时间管理</h2><h2 id="第-12-章-内存管理"><a href="#第-12-章-内存管理" class="headerlink" title="第 12 章 - 内存管理"></a>第 12 章 - 内存管理</h2><h3 id="12-1-页"><a href="#12-1-页" class="headerlink" title="12.1 页"></a>12.1 页</h3><p>物理页是内存管理的基本单位。大多 32 位体系结构支持 4 KB 的页，64 位支持 8 KB 的页。</p>
+<ul>
+<li>为什么处理器最小可寻址单位是字节，但内存管理基本单位却是页？</li>
+</ul>
+<p>因为内存管理单元 MMU 通常以页为单位进行处理。（MMU ：管理内存并将虚拟地址转化为物理地址的硬件）所以从虚拟内存的角度看，页是最小单位。</p>
+<ul>
+<li>页的结构体表示位于 <code>&lt;linux/mm_types.h&gt;</code> 中</li>
+</ul>
+<h2 id="第-13-章-虚拟文件系统"><a href="#第-13-章-虚拟文件系统" class="headerlink" title="第 13 章 - 虚拟文件系统"></a>第 13 章 - 虚拟文件系统</h2><h2 id="第-14-章-块-I-O-层"><a href="#第-14-章-块-I-O-层" class="headerlink" title="第 14 章 - 块 I/O 层"></a>第 14 章 - 块 I/O 层</h2><h2 id="第-15-章-进程地址空间"><a href="#第-15-章-进程地址空间" class="headerlink" title="第 15 章 - 进程地址空间"></a>第 15 章 - 进程地址空间</h2><h2 id="第-16-章-页高速缓存和页回写"><a href="#第-16-章-页高速缓存和页回写" class="headerlink" title="第 16 章 - 页高速缓存和页回写"></a>第 16 章 - 页高速缓存和页回写</h2><h2 id="第-17-章-设备与模块"><a href="#第-17-章-设备与模块" class="headerlink" title="第 17 章 - 设备与模块"></a>第 17 章 - 设备与模块</h2><h2 id="第-18-章-调试"><a href="#第-18-章-调试" class="headerlink" title="第 18 章 - 调试"></a>第 18 章 - 调试</h2><h2 id="第-19-章-可移植性"><a href="#第-19-章-可移植性" class="headerlink" title="第 19 章 - 可移植性"></a>第 19 章 - 可移植性</h2><h2 id="第-20-章-补丁、开发和社区"><a href="#第-20-章-补丁、开发和社区" class="headerlink" title="第 20 章 - 补丁、开发和社区"></a>第 20 章 - 补丁、开发和社区</h2>]]></content>
       <categories>
         <category>笔记</category>
       </categories>
@@ -4478,6 +4516,24 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 计算一个数字的各位之和</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get_single_sum</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> s = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(x) s += x%<span class="number">10</span>, x/=<span class="number">10</span>;</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算坐标数位之和</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get_sum</span><span class="params">(pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">get_single_sum</span>(p.first) + <span class="built_in">get_single_sum</span>(p.second);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 注意参数顺序，acwing 和 leetcode 参数顺序不同</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">movingCount</span><span class="params">(<span class="keyword">int</span> threshold, <span class="keyword">int</span> rows, <span class="keyword">int</span> cols)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (!rows || !cols) <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// 行列为0就返回0</span></span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">bool</span>&gt;&gt; <span class="built_in">st</span>(rows, vector&lt;<span class="keyword">bool</span>&gt;(cols));  <span class="comment">// 判断某个格子是否已经走过</span></span><br><span class="line">        queue&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt; q; <span class="comment">// 记录坐标</span></span><br><span class="line">        q.<span class="built_in">push</span>(&#123;<span class="number">0</span>,<span class="number">0</span>&#125;); </span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>()) &#123;</span><br><span class="line">            <span class="keyword">auto</span> t = q.<span class="built_in">front</span>();</span><br><span class="line">            q.<span class="built_in">pop</span>();</span><br><span class="line">            <span class="comment">// 如果大于阈值或者已经走过，就 continue</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">get_sum</span>(t) &gt; threshold || st[t.first][t.second]) <span class="keyword">continue</span>;</span><br><span class="line">            res++;</span><br><span class="line">            st[t.first][t.second] = <span class="literal">true</span>; <span class="comment">// 标记一下，走过了</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 因为从 0,0 开始，所以需要扩展移动，可能向上下左右移动</span></span><br><span class="line">            <span class="comment">// 可以定义两个一维数组，表示向量，以对应横纵坐标，dx和dy分别表示横纵坐标</span></span><br><span class="line">            <span class="comment">// &#123;右,下&#125;</span></span><br><span class="line">            <span class="keyword">int</span>  dx[<span class="number">2</span>] = &#123;<span class="number">0</span>,<span class="number">1</span>&#125; , dy[<span class="number">2</span>] = &#123;<span class="number">1</span>,<span class="number">0</span>&#125;;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) &#123;</span><br><span class="line">                <span class="keyword">int</span> x = t.first + dx[i], y = t.second + dy[i];</span><br><span class="line">                <span class="keyword">if</span> (x &gt;= <span class="number">0</span> &amp;&amp; x &lt; rows &amp;&amp; y &gt;= <span class="number">0</span> &amp;&amp; y &lt; cols) &#123;</span><br><span class="line">                    q.<span class="built_in">push</span>(&#123;x,y&#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="剪绳子"><a href="#剪绳子" class="headerlink" title="剪绳子"></a>剪绳子</h3><p><a href="https://www.acwing.com/problem/content/24/">https://www.acwing.com/problem/content/24/</a></p>
+<p><a href="https://leetcode-cn.com/problems/jian-sheng-zi-lcof/">https://leetcode-cn.com/problems/jian-sheng-zi-lcof/</a></p>
+<p>我们假设 $N&gt;0$，可以将 $N$ 分隔成若干份，有 $N=n_1+n_2+n_3+…+n_k$  </p>
+<ol>
+<li><p>假设存在其中一个数值 $n_i&gt;=5$，但是如果我们从这个数值中分出一个 3 来，再构造乘积，其结果一定是大于等于 $n_i$ 的，也即有 $3*(n_i-3)\geq n_i$。证明如下：  </p>
+<p>由上式可得 $3n_i-9\geq n_i$  </p>
+<p>则 $n_i\geq 4.5$ 这是满足假设条件的，所以 $3*(n_i-3)\geq n_i$ 一定成立，因此分割后的值一定不会存在大于等于 5 的情况</p>
+</li>
+<li><p>假设存在一个数值等于 4，而 4 可以分为 $2*2$，没有影响，所以也可以不存在 4</p>
+</li>
+<li>假设存在三个 2，也即 $2<em>2</em>2$，但是这个被分割的值原本为 6，可以分成 $3*3$ 显然比分成三个 2 要大。</li>
+</ol>
+<p>所以，综上，数值最终由 2 和 3 组成，2 的个数不超过 3 个。如果 2 的个数为 2，实际上就对应假设二，这个时候将结果乘以 4 并将值减去 4，就排除了这种情况，剩下只有一个 2 和若干 3 的情况。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">cuttingRope</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">3</span>) <span class="keyword">return</span> n<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (n % <span class="number">3</span> == <span class="number">1</span>) res *= <span class="number">4</span>, n-=<span class="number">4</span>;  <span class="comment">// 两个 2 的情况</span></span><br><span class="line">        <span class="keyword">if</span> (n % <span class="number">3</span> == <span class="number">2</span>) res *= <span class="number">2</span>, n-=<span class="number">2</span>;  <span class="comment">// 一个 2 的情况</span></span><br><span class="line">        <span class="keyword">while</span> (n) res *= <span class="number">3</span>, n-=<span class="number">3</span>;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="二进制中-1-的个数"><a href="#二进制中-1-的个数" class="headerlink" title="二进制中 1 的个数"></a>二进制中 1 的个数</h3><p><a href="https://www.acwing.com/problem/content/25/">https://www.acwing.com/problem/content/25/</a></p>
+<p><a href="https://leetcode-cn.com/problems/er-jin-zhi-zhong-1de-ge-shu-lcof/">https://leetcode-cn.com/problems/er-jin-zhi-zhong-1de-ge-shu-lcof/</a></p>
+<p>这里需要对无符号数进行移位，否则，右移会补符号位。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">NumberOf1</span><span class="params">(<span class="keyword">int</span> _n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> n = _n;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (n &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (n &amp; <span class="number">1</span>) ans += <span class="number">1</span>;</span><br><span class="line">            n &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>编程</category>
