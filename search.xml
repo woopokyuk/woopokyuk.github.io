@@ -4520,13 +4520,13 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <p><a href="https://leetcode-cn.com/problems/jian-sheng-zi-lcof/">https://leetcode-cn.com/problems/jian-sheng-zi-lcof/</a></p>
 <p>我们假设 $N&gt;0$，可以将 $N$ 分隔成若干份，有 $N=n_1+n_2+n_3+…+n_k$  </p>
 <ol>
-<li><p>假设存在其中一个数值 $n_i&gt;=5$，但是如果我们从这个数值中分出一个 3 来，再构造乘积，其结果一定是大于等于 $n_i$ 的，也即有 $3*(n_i-3)\geq n_i$。证明如下：  </p>
-<p>由上式可得 $3n_i-9\geq n_i$  </p>
-<p>则 $n_i\geq 4.5$ 这是满足假设条件的，所以 $3*(n_i-3)\geq n_i$ 一定成立，因此分割后的值一定不会存在大于等于 5 的情况</p>
+<li><p>假设存在其中一个数值 $n_i&gt;=5$，但是如果我们从这个数值中分出一个 3 来，再构造乘积，其结果一定是大于等于 $n_i$ 的，也即有 $3\times(n_i-3)\geq n_i$。证明如下：  </p>
+<p>由上式可得 $3\times n_i-9\geq n_i$  </p>
+<p>则 $n_i\geq 4.5$ 这是满足假设条件的，所以 $3\times(n_i-3)\geq n_i$ 一定成立，因此分割后的值一定不会存在大于等于 5 的情况</p>
 </li>
-<li><p>假设存在一个数值等于 4，而 4 可以分为 $2*2$，没有影响，所以也可以不存在 4</p>
+<li><p>假设存在一个数值等于 4，而 4 可以分为 $2\times2$，没有影响，所以也可以不存在 4</p>
 </li>
-<li>假设存在三个 2，也即 $2<em>2</em>2$，但是这个被分割的值原本为 6，可以分成 $3*3$ 显然比分成三个 2 要大。</li>
+<li>假设存在三个 2，也即 $2\times2\times2$，但是这个被分割的值原本为 6，可以分成 $3\times3$ 显然比分成三个 2 要大。</li>
 </ol>
 <p>所以，综上，数值最终由 2 和 3 组成，2 的个数不超过 3 个。如果 2 的个数为 2，实际上就对应假设二，这个时候将结果乘以 4 并将值减去 4，就排除了这种情况，剩下只有一个 2 和若干 3 的情况。</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">cuttingRope</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">3</span>) <span class="keyword">return</span> n<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (n % <span class="number">3</span> == <span class="number">1</span>) res *= <span class="number">4</span>, n-=<span class="number">4</span>;  <span class="comment">// 两个 2 的情况</span></span><br><span class="line">        <span class="keyword">if</span> (n % <span class="number">3</span> == <span class="number">2</span>) res *= <span class="number">2</span>, n-=<span class="number">2</span>;  <span class="comment">// 一个 2 的情况</span></span><br><span class="line">        <span class="keyword">while</span> (n) res *= <span class="number">3</span>, n-=<span class="number">3</span>;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
