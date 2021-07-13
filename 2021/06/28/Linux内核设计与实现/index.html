@@ -101,7 +101,7 @@
 <meta property="og:image" content="https://woopokyuk.github.io/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210706155926907.png">
 <meta property="og:image" content="https://woopokyuk.github.io/2021/06/28/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210706164827753.png">
 <meta property="article:published_time" content="2021-06-28T12:24:23.000Z">
-<meta property="article:modified_time" content="2021-07-13T11:54:37.262Z">
+<meta property="article:modified_time" content="2021-07-13T11:55:56.333Z">
 <meta property="article:author" content="WooPokyuk">
 <meta property="article:tag" content="Linux内核">
 <meta name="twitter:card" content="summary">
@@ -2090,8 +2090,7 @@
 </tr>
 <tr>
 <td>GFP_NOFS</td>
-<td>`__GFP_WAIT</td>
-<td>__GFP_IO`</td>
+<td><code>__GFP_WAIT或__GFP_IO</code></td>
 <td>这种分配在必要时可能阻塞，也可能启动磁盘I/O，但不会启动文件系统操作。 这个标志在你不能再启动另一个文件系统的操作时，用在文件系统部分的代码中</td>
 </tr>
 <tr>
