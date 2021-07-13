@@ -3161,8 +3161,8 @@ y(t)=Cx(t).
 </tr>
 <tr>
 <td>GFP_NOFS</td>
-<td>`(__GFP_WAIT</td>
-<td>__GFP_IO)`</td>
+<td>`__GFP_WAIT</td>
+<td>__GFP_IO`</td>
 <td>这种分配在必要时可能阻塞，也可能启动磁盘I/O，但不会启动文件系统操作。 这个标志在你不能再启动另一个文件系统的操作时，用在文件系统部分的代码中</td>
 </tr>
 <tr>
