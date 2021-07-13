@@ -2962,14 +2962,273 @@ y(t)=Cx(t).
 </table>
 </div>
 <h3 id="10-11-顺序与屏障"><a href="#10-11-顺序与屏障" class="headerlink" title="10.11 顺序与屏障"></a>10.11 顺序与屏障</h3><h4 id="10-11-1-顺序存在的意义"><a href="#10-11-1-顺序存在的意义" class="headerlink" title="10.11.1 顺序存在的意义"></a>10.11.1 顺序存在的意义</h4><p>处理多处理器或硬件设备的同步问题时，需要以一定的顺序进行读写操作。所有可能重新排序或写的处理器提供了机器指令来确保顺序要求，这些<strong>确保顺序</strong>的指令称作<strong>屏障</strong>。</p>
-<h2 id="第-11-章-定时器和时间管理"><a href="#第-11-章-定时器和时间管理" class="headerlink" title="第 11 章 - 定时器和时间管理"></a>第 11 章 - 定时器和时间管理</h2><h2 id="第-12-章-内存管理"><a href="#第-12-章-内存管理" class="headerlink" title="第 12 章 - 内存管理"></a>第 12 章 - 内存管理</h2><h3 id="12-1-页"><a href="#12-1-页" class="headerlink" title="12.1 页"></a>12.1 页</h3><p>物理页是内存管理的基本单位。大多 32 位体系结构支持 4 KB 的页，64 位支持 8 KB 的页。</p>
+<h2 id="第-11-章-定时器和时间管理"><a href="#第-11-章-定时器和时间管理" class="headerlink" title="第 11 章 - 定时器和时间管理"></a>第 11 章 - 定时器和时间管理</h2><h2 id="第-12-章-内存管理"><a href="#第-12-章-内存管理" class="headerlink" title="第 12 章 - 内存管理"></a>第 12 章 - 内存管理</h2><h3 id="12-1-页"><a href="#12-1-页" class="headerlink" title="12.1 页"></a>12.1 页</h3><p><font color="blue">物理页是内存管理的基本单位。</font>大多 32 位体系结构支持 4 KB 的页，64 位支持 8 KB 的页。</p>
 <ul>
-<li>为什么处理器最小可寻址单位是字节，但内存管理基本单位却是页？</li>
-</ul>
+<li><p>为什么处理器最小可寻址单位是字节，但内存管理基本单位却是页？</p>
 <p>因为内存管理单元 MMU 通常以页为单位进行处理。（MMU ：管理内存并将虚拟地址转化为物理地址的硬件）所以从虚拟内存的角度看，页是最小单位。</p>
-<ul>
-<li>页的结构体表示位于 <code>&lt;linux/mm_types.h&gt;</code> 中</li>
+</li>
+<li><p>页的结构体表示位于 <code>&lt;linux/mm_types.h&gt;</code> 中</p>
+</li>
+<li><p>页会消耗多少内存？</p>
+<p>一 struct page 按 40 字节（根据具体结构体占位计算）算，假设系统的物理页大小为 8 KB，系统有 4 GB 物理内存，那么系统中共有页面  </p>
+<script type="math/tex; mode=display">\frac{4\times 1024\times 1024\ KB}{8\ KB} = 524288个</script><p>而描述这么多页面的 page 结构体消耗的内存只不过 20 MB，代价不算太高。  </p>
+</li>
 </ul>
+<h3 id="12-2-区"><a href="#12-2-区" class="headerlink" title="12.2 区"></a>12.2 区</h3><p> 页可以划分为不同的区（zone），这么划分的原因：有些页位于内存中特定的物理地址上，所以不能将其用于一些特定的任务。  </p>
+<h4 id="12-2-2-Linux-中由于硬件缺陷而引起的内存寻址问题"><a href="#12-2-2-Linux-中由于硬件缺陷而引起的内存寻址问题" class="headerlink" title="12.2.2 Linux 中由于硬件缺陷而引起的内存寻址问题"></a>12.2.2 Linux 中由于硬件缺陷而引起的内存寻址问题</h4><ol>
+<li>某些硬件只能用特定内存地址访问 DMA（直接内存访问）</li>
+<li>一些体系结构的内存的物理寻址范围比虚拟寻址范围大得多。所以有一些内存不能永久映射到内核空间。</li>
+</ol>
+<h4 id="12-2-3-Linux-中主要使用的区"><a href="#12-2-3-Linux-中主要使用的区" class="headerlink" title="12.2.3 Linux 中主要使用的区"></a>12.2.3 Linux 中主要使用的区</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>区</th>
+<th>描述</th>
+<th>物理内存</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ZONE_DMA</td>
+<td>DMA 使用的页</td>
+<td>$&lt;16\ MB$</td>
+</tr>
+<tr>
+<td>ZONE_NORMAL</td>
+<td>正常可寻址的页</td>
+<td>$16\sim896\ MB$</td>
+</tr>
+<tr>
+<td>ZONE_HIGHMEM(所在内存时高端内存)</td>
+<td>动态映射的页</td>
+<td>$&gt;896\ MB$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>ZONE_HIGHMEM 区中的页并不能永久映射到内核地址空间</li>
+</ul>
+<h3 id="12-3-低级页分配方法"><a href="#12-3-低级页分配方法" class="headerlink" title="12.3 低级页分配方法"></a>12.3 低级页分配方法</h3><p>具体可以参考 <code>&lt;linux/gfp.h&gt;</code>  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alloc_page(gfp_mask)</td>
+<td>只分配一页，返回指向页结构的指针</td>
+</tr>
+<tr>
+<td>alloc_pages(gfp_mask, order)</td>
+<td>分配$2^{order}$个页，返回指向第一页页结构的指针</td>
+</tr>
+<tr>
+<td>__get_free_page(gfp_mask)</td>
+<td>只分配一页，返回指向其逻辑地址的指针</td>
+</tr>
+<tr>
+<td>__get_free_pages(gfp_mask, order)</td>
+<td>分配$2^{order}$页，返回指向第一页逻辑地址的指针</td>
+</tr>
+<tr>
+<td>get_zeroed_page(gfp_mask)</td>
+<td>只分配一页，让其内容填充0，返回指向其逻辑地址的指针</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>可以通过<code>void free_pages(unsigned long addr, unsigned int order)</code>等方法释放页，谨慎使用，如果传递错误addr或者order会导致系统崩溃。  </p>
+<h3 id="12-4-gfp-mask-标志"><a href="#12-4-gfp-mask-标志" class="headerlink" title="12.4 gfp_mask 标志"></a>12.4 gfp_mask 标志</h3><p>均在 <code>&lt;linux/gfp.h&gt;</code> 中声明</p>
+<ol>
+<li>行为修饰符：指定分配器行为  </li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>标志</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>__GFP_WAIT</td>
+<td>分配器可以睡眠</td>
+</tr>
+<tr>
+<td>__GFP_HIGH</td>
+<td>分配器可以访问紧急事件缓冲池</td>
+</tr>
+<tr>
+<td>__GFP_IO</td>
+<td>分配器可以启动磁盘I/O</td>
+</tr>
+<tr>
+<td>__GFP_FS</td>
+<td>分配器可以启动文件系统I/O</td>
+</tr>
+<tr>
+<td>__GFP_COLD</td>
+<td>分配器应该使用高速缓存中快要淘汰出去的页</td>
+</tr>
+<tr>
+<td>__GFP_NOWARN</td>
+<td>分配器将不打印失败警告</td>
+</tr>
+<tr>
+<td>__GFP_REPEAT</td>
+<td>分配器在分配失败时重复进行分配，但是这次分配还存在失败的可能</td>
+</tr>
+<tr>
+<td>__GFP_NOFALL</td>
+<td>分配器将无限的重复进行分配。分配不能失败</td>
+</tr>
+<tr>
+<td>__GFP_NORETRY</td>
+<td>分配器在分配失败时不会重新分配</td>
+</tr>
+<tr>
+<td>__GFP_NO_GROW</td>
+<td>由 slab 层内部使用</td>
+</tr>
+<tr>
+<td>__GFP_COMP</td>
+<td>添加混合页元数据，在 hugetlb 的代码内部使用</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol>
+<li>区修饰符：指定内存分配在哪个区  </li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>标志</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>__GFP_DMA</td>
+<td>从 ZONE_DMA 分配</td>
+</tr>
+<tr>
+<td>__GFP_DMA32</td>
+<td>只在 ZONE_DMA32 分配</td>
+</tr>
+<tr>
+<td>__GFP_HIGHMEM</td>
+<td>从 ZONE_HIGHMEM（优先） 或者 ZONE_NORMAL 分配</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol>
+<li>类型标志：指定行为和区描述符  </li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>标志</th>
+<th>关联的修饰符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GFP_ATOMIC</td>
+<td>__GFP_HIGH</td>
+<td>这个标志用在中断处理程序、下半部、持有自旋锁以及其他<strong>不能睡眠</strong>的地方</td>
+</tr>
+<tr>
+<td>GFP_NOWAIT</td>
+<td>0</td>
+<td>与 GFP_ATOMIC 类似，不同之处在于，调用不会退给紧急内存池。 这就增加了内存分配失败的可能性。</td>
+</tr>
+<tr>
+<td>GFP_NOIO</td>
+<td>__GFP_WAIT</td>
+<td>这种分配可以阻塞，但不会启动磁盘I/O。 这个标志在不能引发更多磁盘I/O时能阻塞I/O代码，可能导致递归</td>
+</tr>
+<tr>
+<td>GFP_NOFS</td>
+<td>`(__GFP_WAIT</td>
+<td>__GFP_IO)`</td>
+<td>这种分配在必要时可能阻塞，也可能启动磁盘I/O，但不会启动文件系统操作。 这个标志在你不能再启动另一个文件系统的操作时，用在文件系统部分的代码中</td>
+</tr>
+<tr>
+<td>GFP_KERNEL</td>
+<td><code>(__GFP_WAIT ｜ __GFP_IO ｜ __GFP_FS )</code></td>
+<td>这是常规的分配方式，可能会阻塞。这个标志在睡眠安全时用在进程上下文代码中。 为了获得调用者所需的内存，内核会尽力而为。这个标志应当是首选标志</td>
+</tr>
+<tr>
+<td>GFP_USER</td>
+<td><code>(__GFP_WAIT ｜ __GFP_IO ｜ __GFP_FS )</code></td>
+<td>这是常规的分配方式，可能会阻塞。这个标志用于为用户空间进程分配内存时</td>
+</tr>
+<tr>
+<td>GFP_HIGHUSER</td>
+<td><code>(__GFP_WAIT ｜ __GFP_IO ｜ __GFP_FS )｜__GFP_HIGHMEM)</code></td>
+<td>从 ZONE_HIGHMEM 进行分配，可能会阻塞。用于为用户空间进程分配内存</td>
+</tr>
+<tr>
+<td>GFP_DMA</td>
+<td>__GFP_DMA</td>
+<td>从 ZONE_DMA 进行分配。需要获取能供 DMA 使用的内存的设备驱动程序使用这个标志。通常与以上的某个标志组合在一起使用。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="12-4-1-什么时候用什么标志？"><a href="#12-4-1-什么时候用什么标志？" class="headerlink" title="12.4.1 什么时候用什么标志？"></a>12.4.1 什么时候用什么标志？</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>情形</th>
+<th>标志</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>进程上下文，可以睡眠</td>
+<td>使用 GFP_KERNEL</td>
+</tr>
+<tr>
+<td>进程上下文，不可以睡眠</td>
+<td>使用 GFP_ATOMIC，在睡眠之前或之后以 GFP_KERNEL 执行内存分配</td>
+</tr>
+<tr>
+<td>中断处理程序/软中断/tasklet</td>
+<td>使用 GFP_ATOMIC</td>
+</tr>
+<tr>
+<td>需要用于DMA的内存，可以睡眠</td>
+<td>使用 (GFP_DMA｜GFP_KERNEL)</td>
+</tr>
+<tr>
+<td>需要用于DMA的内存，不可以睡眠</td>
+<td>使用 (GFP_DMA｜GFP_ATOMIC)，或者在睡眠之前执行内存分配</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="12-5-malloc、kmalloc、vmalloc-区别"><a href="#12-5-malloc、kmalloc、vmalloc-区别" class="headerlink" title="12.5 malloc、kmalloc、vmalloc 区别"></a>12.5 malloc、kmalloc、vmalloc 区别</h3><ol>
+<li>malloc 返回的页在进程的虚拟地址空间是连续的，但物理空间不一定是连续的  </li>
+<li>kmalloc 确保物理地址也是连续的（虚拟地址自然也是连续的）  </li>
+<li>vmalloc 只确保页在虚拟地址空间是连续的</li>
+</ol>
+<p>出于性能考虑，很多内核代码使用 kmalloc 获取内存。因为 <font color="blue">vmalloc</font> 为了把物理地址空间不连续的页转换为虚拟地址空间连续的页，会专门建立页表项，并一个一个进行映射，这会导致比直接内存映射有更大的 <font color="blue">TLB 抖动</font>。  </p>
+<h3 id="12-6-slab-层"><a href="#12-6-slab-层" class="headerlink" title="12.6 slab 层"></a>12.6 slab 层</h3><hr>
+<h4 id="TLB"><a href="#TLB" class="headerlink" title="TLB"></a>TLB</h4><p>TLB（Translation lookaside buffer）是一种硬件缓冲区，用于缓存虚拟地址到物理地址的映射关系，可以极大提高系统性能。</p>
+<hr>
 <h2 id="第-13-章-虚拟文件系统"><a href="#第-13-章-虚拟文件系统" class="headerlink" title="第 13 章 - 虚拟文件系统"></a>第 13 章 - 虚拟文件系统</h2><h2 id="第-14-章-块-I-O-层"><a href="#第-14-章-块-I-O-层" class="headerlink" title="第 14 章 - 块 I/O 层"></a>第 14 章 - 块 I/O 层</h2><h2 id="第-15-章-进程地址空间"><a href="#第-15-章-进程地址空间" class="headerlink" title="第 15 章 - 进程地址空间"></a>第 15 章 - 进程地址空间</h2><h2 id="第-16-章-页高速缓存和页回写"><a href="#第-16-章-页高速缓存和页回写" class="headerlink" title="第 16 章 - 页高速缓存和页回写"></a>第 16 章 - 页高速缓存和页回写</h2><h2 id="第-17-章-设备与模块"><a href="#第-17-章-设备与模块" class="headerlink" title="第 17 章 - 设备与模块"></a>第 17 章 - 设备与模块</h2><h2 id="第-18-章-调试"><a href="#第-18-章-调试" class="headerlink" title="第 18 章 - 调试"></a>第 18 章 - 调试</h2><h2 id="第-19-章-可移植性"><a href="#第-19-章-可移植性" class="headerlink" title="第 19 章 - 可移植性"></a>第 19 章 - 可移植性</h2><h2 id="第-20-章-补丁、开发和社区"><a href="#第-20-章-补丁、开发和社区" class="headerlink" title="第 20 章 - 补丁、开发和社区"></a>第 20 章 - 补丁、开发和社区</h2>]]></content>
       <categories>
         <category>笔记</category>
