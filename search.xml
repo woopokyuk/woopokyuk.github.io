@@ -5111,6 +5111,9 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <p>在应用程序运行时，利用钩子函数监控统计调用信息文件MAP文件中所有函数的函数头在预设时间内各自的调用次数及调用时刻，然后利用钩子函数监控统计</p>
 <p>函数尾的调用时刻。基于MAP文件中所述函数头和函数尾的调用时刻，确定所有函数在所述预设时间内的调用时间。</p>
 <p>MAP文件：map文件是通过编译器编译之后，集程序、数据及IO空间的一种映射文件。<a href="https://www.pianshen.com/article/1727600516/">关于_map文件的全面解析 - 程序员大本营 (pianshen.com)</a></p>
+<h2 id="3-基于虚拟化的安全监控"><a href="#3-基于虚拟化的安全监控" class="headerlink" title="3 基于虚拟化的安全监控"></a>3 基于虚拟化的安全监控</h2><p><a href="https://d.wanfangdata.com.cn/periodical/rjxb201208019">https://d.wanfangdata.com.cn/periodical/rjxb201208019</a></p>
+<p>[期刊论文全文] 项国富 , 金海 , 邹德清 , 陈学广 , XIANG Guo-Fu , JIN Hai , ZOU De-Qing , CHEN Xue-Guang - 《软件学报》 - 2012年8期</p>
+<p>虚拟机管理器具有更高的权限和更小的可信计算基，其位于操作系统与真实硬件平台之间，比操作系统的特权级更高，代码量更小。</p>
 ]]></content>
       <categories>
         <category>科研</category>
