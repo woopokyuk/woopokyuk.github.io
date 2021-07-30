@@ -4775,8 +4775,37 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
     <content><![CDATA[<h2 id="1-什么是-RASP"><a href="#1-什么是-RASP" class="headerlink" title="1 什么是 RASP"></a>1 什么是 RASP</h2><p>Runtime application self-protection，运行时应用自我保护技术，与应用程序融为一体，实时监测和阻断攻击，注入到被保护应用的服务中提供函数级别的实时防护，可以在不更新策略以及不升级被保护应用代码的情况下检测/防护未知漏洞。具备自我保护功能，不需要人为干涉。</p>
 <h2 id="2-RASP-的原理"><a href="#2-RASP-的原理" class="headerlink" title="2 RASP 的原理"></a>2 RASP 的原理</h2><p>在 Java 技术栈下，RASP 引擎以 javaagent 的形式实现，并运行在 JVM 之上。在应⽤服务器启动的时候，RASP 引擎借助 JVM 自身提供的 instrumentation 技术，通过替换字节码的方式对关键类方法进行挂钩，结合上下文、参数污染、语义引擎等方式检测攻击。比如：数据库操作、文件读写、命令执行等，当服务器发生攻击，就会触发这些 HOOK 点，然后 RASP agent 就可以获取到函数的参数（文件名、要执行的命令等）</p>
 <p>RASP 的技术原理与 APM是⼀样的，只是挂钩的函数要少很多。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="https://rasp.baidu.com/#section-intro">开源应用运行时自我保护解决方案 - OpenRASP - 百度安全 (baidu.com)</a></li>
+<h2 id="3-环境搭建"><a href="#3-环境搭建" class="headerlink" title="3 环境搭建"></a>3 环境搭建</h2><h3 id="3-1-Tomcat-安装"><a href="#3-1-Tomcat-安装" class="headerlink" title="3.1 Tomcat 安装"></a>3.1 Tomcat 安装</h3><p>参考 <a href="https://www.cnblogs.com/yocichen/p/10478431.html">https://www.cnblogs.com/yocichen/p/10478431.html</a></p>
+<h3 id="3-2-安装RASP客户端"><a href="#3-2-安装RASP客户端" class="headerlink" title="3.2 安装RASP客户端"></a>3.2 安装RASP客户端</h3><p>参考 <a href="https://rasp.baidu.com/doc/install/manual/tomcat.html">https://rasp.baidu.com/doc/install/manual/tomcat.html</a></p>
+<ol>
+<li>进入 rasp 目录</li>
+<li>执行 <code>java -jar RaspInstall.jar -install C:\Program&quot; &quot;Files\Apache&quot; &quot;Software&quot; &quot;Foundation\Tomcat&quot; &quot;8.5</code> </li>
+<li>注意以上指令中的双引号是为了防止空格导致的出错</li>
+<li>随后自动安装完成</li>
+</ol>
+<p><img src="/2021/07/04/RASP%E6%8A%80%E6%9C%AF/image-20210730162617832.png" alt="image-20210730162617832"></p>
+<ol>
+<li>重启 Tomcat 服务即可生效</li>
+</ol>
+<h3 id="3-3-安装测试用例"><a href="#3-3-安装测试用例" class="headerlink" title="3.3 安装测试用例"></a>3.3 安装测试用例</h3><p>参考 <a href="https://rasp.baidu.com/doc/install/testcase.html">https://rasp.baidu.com/doc/install/testcase.html</a></p>
+<ol>
+<li><p>这里下载 vulns.war</p>
+</li>
+<li><p>将下载后的 war 包复制到 <code>webapps</code> 目录如 <code>C:\Program Files\Apache Software Foundation\Tomcat 8.5\webapps</code></p>
+</li>
+<li>随后会在 <code>webapps</code> 目录自动生成 <code>vulns</code> 目录，通过浏览器访问 <code>http://localhost:8080/vulns/</code></li>
+</ol>
+<p><img src="/2021/07/04/RASP%E6%8A%80%E6%9C%AF/image-20210730163254941.png" alt="image-20210730163254941" style="zoom: 80%;"></p>
+<h3 id="3-4-开启拦截（单机）"><a href="#3-4-开启拦截（单机）" class="headerlink" title="3.4 开启拦截（单机）"></a>3.4 开启拦截（单机）</h3><p>参考 <a href="https://rasp.baidu.com/doc/setup/standalone.html#block-malicious">https://rasp.baidu.com/doc/setup/standalone.html#block-malicious</a></p>
+<ol>
+<li>修改官方插件 <code>D:\Software\App\rasp-java\rasp-2021-02-07\rasp\plugins</code></li>
+<li>将 all_log 改为 false</li>
+</ol>
+<p><img src="/2021/07/04/RASP%E6%8A%80%E6%9C%AF/image-20210730164219455.png" alt="image-20210730164219455" style="zoom:67%;"></p>
+<ol>
+<li><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2></li>
+<li><p><a href="https://rasp.baidu.com/#section-intro">开源应用运行时自我保护解决方案 - OpenRASP - 百度安全 (baidu.com)</a></p>
+</li>
 <li><a href="https://paper.seebug.org/330/">Rasp 技术介绍与实现 (seebug.org)</a></li>
 <li><a href="https://www.freebuf.com/articles/web/197823.html">https://www.freebuf.com/articles/web/197823.html</a></li>
 <li><a href="https://rasp.baidu.com/doc/hacking/architect/java.html">Java 版本 - OpenRASP 官方文档 - 开源自适应安全产品 (baidu.com)</a></li>
@@ -4787,6 +4816,7 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
       </categories>
       <tags>
         <tag>科研</tag>
+        <tag>RASP</tag>
       </tags>
   </entry>
   <entry>
