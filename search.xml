@@ -5114,6 +5114,10 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <h2 id="3-基于虚拟化的安全监控"><a href="#3-基于虚拟化的安全监控" class="headerlink" title="3 基于虚拟化的安全监控"></a>3 基于虚拟化的安全监控</h2><p><a href="https://d.wanfangdata.com.cn/periodical/rjxb201208019">https://d.wanfangdata.com.cn/periodical/rjxb201208019</a></p>
 <p>[期刊论文全文] 项国富 , 金海 , 邹德清 , 陈学广 , XIANG Guo-Fu , JIN Hai , ZOU De-Qing , CHEN Xue-Guang - 《软件学报》 - 2012年8期</p>
 <p>虚拟机管理器具有更高的权限和更小的可信计算基，其位于操作系统与真实硬件平台之间，比操作系统的特权级更高，代码量更小。</p>
+<ol>
+<li>内部监控：在虚拟机中加载内核模块来拦截目标虚拟机的内部事件，而内核模块的安全通过<strong>虚拟机管理器</strong>来进行保护</li>
+<li>外部监控：通过在虚拟机管理器中对虚拟机中事件进行拦截，从而在虚拟机外部进行检测</li>
+</ol>
 ]]></content>
       <categories>
         <category>科研</category>
