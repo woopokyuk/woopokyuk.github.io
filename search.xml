@@ -1414,6 +1414,11 @@ y(t)=Cx(t).
 <li>内部监控：在虚拟机中加载内核模块来拦截目标虚拟机的内部事件，而内核模块的安全通过<strong>虚拟机管理器</strong>来进行保护</li>
 <li>外部监控：通过在虚拟机管理器中对虚拟机中事件进行拦截，从而在虚拟机外部进行检测</li>
 </ol>
+<h2 id="4-Kprobe"><a href="#4-Kprobe" class="headerlink" title="4 Kprobe"></a>4 Kprobe</h2><p>1）注册kprobe。注册的每个kprobe对应一个kprobe结构体，该结构体记录着插入点（位置），以及该插入点本来对应的指令original_opcode；</p>
+<p>2）替换原有指令。使能kprobe的时候，将插入点位置的指令替换为一条异常（BRK）指令，这样当CPU执行到插入点位置时会陷入到异常态；</p>
+<p>3）执行pre_handler。进入异常态后，首先执行pre_handler，然后利用CPU提供的单步调试（single-step）功能，设置好相应的寄存器，将下一条指令设置为插入点处本来的指令，从异常态返回；</p>
+<p>4）再次陷入异常态。上一步骤中设置了single-step相关的寄存器，所以original_opcode刚一执行，便会二进宫：再次陷入异常态，此时将signle-step清楚，并且执行post_handler，然后从异常态安全返回。</p>
+<p>步骤2），3），4）便是一次kprobe工作的过程，它的一个基本思路就是将本来执行一条指令扩展成执行kprobe-&gt;pre_handler—-&gt;指令—-&gt;kprobe—&gt;post_handler这样三个过程。下面详细解释每个过程</p>
 ]]></content>
       <categories>
         <category>科研</category>
