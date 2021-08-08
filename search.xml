@@ -823,7 +823,7 @@
 <li>修改NexT主题的配置文件（themes/next/_config.yml文件）的Home菜单指向的链接。将<code>menu</code>项下的<code>home</code>项的值修改为<code>/ || fa fa-home</code>。使得点击页面中的Home菜单时，可以返回自定义主页。</li>
 </ol>
 <p><img src="/2021/05/09/Ref/image-20210808164317319.png" alt="image-20210808164317319"></p>
-<h3 id="方法二（采用）"><a href="#方法二（采用）" class="headerlink" title="方法二（采用）"></a>方法二（采用）</h3><p>参考 <a href="https://www.liaofuzhan.com/posts/1123041323.html">https://www.liaofuzhan.com/posts/1123041323.html</a></p>
+<h3 id="方法二（未成功）"><a href="#方法二（未成功）" class="headerlink" title="方法二（未成功）"></a>方法二（未成功）</h3><p>参考 <a href="https://www.liaofuzhan.com/posts/1123041323.html">https://www.liaofuzhan.com/posts/1123041323.html</a></p>
 <ol>
 <li>新建页面</li>
 </ol>
