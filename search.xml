@@ -839,11 +839,14 @@
 <ol>
 <li><code>\themes\next\languages\zh-Hans.yml</code>在menu下添加 <code>myindexpage: 主页</code></li>
 <li>在 <code>themes\next\layout</code> 新增myindexpage.swig页</li>
+<li>在page.swig添加</li>
 </ol>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 主页 --&gt;</span></span><br><span class="line">  #&#125;&#123;% elif page.type === &#x27;myindexpage&#x27; and not page.title %&#125;&#123;#</span><br><span class="line">    #&#125;&#123;&#123; __(&#x27;title.myindexpage&#x27;) + page_title_suffix &#125;&#125;&#123;#</span><br></pre></td></tr></table></figure>
 <ol>
-<li><h2 id="不同的修改"><a href="#不同的修改" class="headerlink" title="不同的修改"></a>不同的修改</h2></li>
+<li>以及</li>
 </ol>
-<p>版本：从参考地址下载的最新版（NexT 8.4.0 Released）</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 主页 --&gt;</span></span><br><span class="line">&#123;% elif page.type === &#x27;myindexpage&#x27; %&#125;</span><br><span class="line">	&#123;% include &#x27;myindexpage.swig&#x27; %&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="不同的修改"><a href="#不同的修改" class="headerlink" title="不同的修改"></a>不同的修改</h2><p>版本：从参考地址下载的最新版（NexT 8.4.0 Released）</p>
 <h3 id="圆形旋转头像"><a href="#圆形旋转头像" class="headerlink" title="圆形旋转头像"></a>圆形旋转头像</h3><p>打开<code>Blog\themes\hexo-theme-next-8.4.0\_config.yml</code>文件，将<code>rounded</code>和<code>rotated</code>都改成<code>true</code>即可</p>
 <p><img src="/2021/05/09/Ref/image-20210510101136415.png" alt="image-20210510101136415"></p>
 <h3 id="添加动态背景"><a href="#添加动态背景" class="headerlink" title="添加动态背景"></a>添加动态背景</h3><p><code>Blog\themes\hexo-theme-next-8.4.0\_config.yml</code>文件，定位<code>canvas</code>然后<code>enable=true</code>即可</p>
