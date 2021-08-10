@@ -846,8 +846,10 @@
 <li>以及</li>
 </ol>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 主页 --&gt;</span></span><br><span class="line">&#123;% elif page.type === &#x27;myindexpage&#x27; %&#125;</span><br><span class="line">	&#123;% include &#x27;myindexpage.swig&#x27; %&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="换字体"><a href="#换字体" class="headerlink" title="换字体"></a>换字体</h3><p>参考 <a href="https://theme-next.iissnan.com/theme-settings.html#fonts-customization">https://theme-next.iissnan.com/theme-settings.html#fonts-customization</a></p>
+<h2 id="换字体"><a href="#换字体" class="headerlink" title="换字体"></a>换字体</h2><p>参考 <a href="https://theme-next.iissnan.com/theme-settings.html#fonts-customization">https://theme-next.iissnan.com/theme-settings.html#fonts-customization</a></p>
 <p>字体参考 <a href="https://www.heson10.com/posts/19246.html">https://www.heson10.com/posts/19246.html</a></p>
+<h2 id="修改后，本地可以成功显示，远端并没有改"><a href="#修改后，本地可以成功显示，远端并没有改" class="headerlink" title="修改后，本地可以成功显示，远端并没有改"></a>修改后，本地可以成功显示，远端并没有改</h2><p>重启电脑</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
 <h2 id="不同的修改"><a href="#不同的修改" class="headerlink" title="不同的修改"></a>不同的修改</h2><p>版本：从参考地址下载的最新版（NexT 8.4.0 Released）</p>
 <h3 id="圆形旋转头像"><a href="#圆形旋转头像" class="headerlink" title="圆形旋转头像"></a>圆形旋转头像</h3><p>打开<code>Blog\themes\hexo-theme-next-8.4.0\_config.yml</code>文件，将<code>rounded</code>和<code>rotated</code>都改成<code>true</code>即可</p>
 <p><img src="/2021/05/09/Ref/image-20210510101136415.png" alt="image-20210510101136415"></p>
