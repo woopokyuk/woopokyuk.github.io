@@ -108,7 +108,11 @@
 <p>提供的参数可以<strong>移动（move）</strong>但不能<strong>拷贝（copy）</strong></p>
 <p>move：原始对象中的数据转移给另一个对象，原始对象不在保存这些数据，相当于<strong>剪切</strong>了</p>
 <hr>
-<h3 id="2-3-转移线程所有权"><a href="#2-3-转移线程所有权" class="headerlink" title="2.3 转移线程所有权"></a>2.3 转移线程所有权</h3>]]></content>
+<h3 id="2-3-转移线程所有权"><a href="#2-3-转移线程所有权" class="headerlink" title="2.3 转移线程所有权"></a>2.3 转移线程所有权</h3><p><code>std::thread</code> 可转移（move）但不可拷贝（copy）。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">some_function</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">some_other_function</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function">std::thread <span class="title">t1</span><span class="params">(some_function)</span></span>;</span><br><span class="line">std::thread t2 = std::<span class="built_in">move</span>(t1); <span class="comment">// 将 t1 的所有权转移给 t2，然后 t1 和执行线程就不再有关联，some_function 与 t2 关联在一起</span></span><br><span class="line">t1 = std::<span class="built_in">thread</span>(some_other_function);</span><br><span class="line">std::thread t3;</span><br><span class="line">t3 = std::<span class="built_in">move</span>(t2); <span class="comment">// 将与 t2 关联的线程的所有权转移给 t3</span></span><br><span class="line">t1 = std::<span class="built_in">move</span>(t3); <span class="comment">// 将 some_function 的所有权转移给 t1，但是 t1 已经与 some_other_function 关联，赋值操作将使程序崩溃</span></span><br></pre></td></tr></table></figure>
+<p>因此，不能将执行某个函数的线程的所有权转移给一个已经关联某个线程的实例（如第 8 行）</p>
+<h3 id="2-4-运行时决定线程数量"><a href="#2-4-运行时决定线程数量" class="headerlink" title="2.4 运行时决定线程数量"></a>2.4 运行时决定线程数量</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::thread::<span class="built_in">hardware_concurrency</span>();  <span class="comment">// 返回能同时并发在一个程序中的线程数量</span></span><br></pre></td></tr></table></figure>
+]]></content>
       <categories>
         <category>笔记</category>
       </categories>
