@@ -454,7 +454,11 @@
           程序运行模型函数运行模型
 将程序分解为每一个函数的状态的组合
 函数内部运行一个独立的自动机
-每一个函
+每一个函数的自动机组合在一起形成整个程序的自动机
+
+自动机构建
+静态生成：链表存放函数状态转移
+动态生成：函
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -646,7 +650,9 @@
           
           主要内容
 有限时间异常检测器：负责在预设的有限时间内检测攻击（异常）
-系统安全状态观测器：负责状态评
+系统安全状态观测器：负责状态评估，并在检测到攻击时，调整系统以确保安全状态
+
+安全状态估计：是从一组有噪声或被破坏的测量值中估计动
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -841,6 +847,8 @@
         
           
           5.1.4 主题安装安装参考hexo+next打造精美的个人博客网站 | Qcmoke’s Blog
+hexo+gitee免费搭建个人博客 - 简书 (jianshu.com)
+hexo s 的问题解
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1035,7 +1043,7 @@
         
           
           分数：3319排名：2
-[Web] easycmd解题思路123456789101112131415
+[Web] easycmd解题思路12345678910111213141516171819202122232425262728&lt;?php error_reporting
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1227,7 +1235,7 @@
           
           第一部分 简介第一章 温故而知新硬件结构相关
 计算机的核心： CPU，内存，I/O控制芯片
-北桥芯片
+北桥芯片 （PCI Bridge） 协调高速设备 连接CPU，内存，PCI总线南桥芯片 （ISA Bridg
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1418,7 +1426,12 @@
         
           
           1 Linux环境1.1 构建 Release 版本
-Projects - Add Release 
+Projects - Add Release - 添加版本名称并确定 - Build
+
+
+1.2 脚本文件
+进入上文构建的 Release 目录
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1611,7 +1624,7 @@ Projects - Add Release
           Repypy
 题目所给的时Python字节码，如下
 
-12345678910111213141516
+1234567891011121314151617181920212223242526272829303132333435363738394041
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1803,7 +1816,8 @@ Projects - Add Release
           
           安装参考  
 
-从官网下载对应版本的Nessus，这里下载的是Nessus-8.13.1-debia
+从官网下载对应版本的Nessus，这里下载的是Nessus-8.13.1-debian6_amd64.deb  
+dpkg -i Nessus-8.13.1-debian6_amd64
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1996,6 +2010,8 @@ Projects - Add Release
           参考《从0到1 CTFer成长之路》  
 
 [第一章 web入门]常见的搜集先验知识：常见的敏感文件
+gedit备份文件，格式为filename~，比如index.php~  
+vim备份文件，格式为
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -2189,7 +2205,10 @@ Projects - Add Release
 关闭虚拟机
 虚拟机添加硬盘
 开启虚拟机
-sudo fdisk -l查看磁盘信
+sudo fdisk -l查看磁盘信息可以找到刚添加的磁盘
+所以新磁盘是/dev/sdb
+
+安装F2FS工具参考sudo apt ins
           ...
           <!--noindex-->
           <div class="post-button text-center">

@@ -138,7 +138,23 @@
 <li><p>保护共享数据结构的<strong>最基本的方式</strong>，是使用C++标准库提供的<strong>互斥量(mutex)</strong>。</p>
 </li>
 </ol>
-<h3 id="3-2-使用互斥量保护共享数据"><a href="#3-2-使用互斥量保护共享数据" class="headerlink" title="3.2 使用互斥量保护共享数据"></a>3.2 使用互斥量保护共享数据</h3>]]></content>
+<h3 id="3-2-使用互斥量保护共享数据"><a href="#3-2-使用互斥量保护共享数据" class="headerlink" title="3.2 使用互斥量保护共享数据"></a>3.2 使用互斥量保护共享数据</h3><ul>
+<li>如何在多线程程序中，使用 <code>std::mutex</code> 构造的 <code>std::lock_guard</code> 实例，创建互斥量，通过调用成员函数 <code>lock()</code> 上锁，<code>unlock()</code> 解锁，从而对一个列表进行<strong>访问保护</strong>。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;list&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mutex&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line">std::list&lt;<span class="keyword">int</span>&gt; some_list;  <span class="comment">// 全局变量</span></span><br><span class="line">std::mutex some_mutex; <span class="comment">// 全局互斥量，用于保护全局变量</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_to_list</span><span class="params">(<span class="keyword">int</span> new_value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">std::lock_guard&lt;std::mutex&gt; <span class="title">guard</span><span class="params">(some_mutex)</span></span>; <span class="comment">// 3</span></span><br><span class="line">    some_list.<span class="built_in">push_back</span>(new_value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">list_contains</span><span class="params">(<span class="keyword">int</span> value_to_find)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">std::lock_guard&lt;std::mutex&gt; <span class="title">guard</span><span class="params">(some_mutex)</span></span>; <span class="comment">// 4</span></span><br><span class="line">    <span class="keyword">return</span> std::<span class="built_in">find</span>(some_list.<span class="built_in">begin</span>(), some_list.<span class="built_in">end</span>(), value_to_find) != some_list.<span class="built_in">end</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码的标注$^{3}$和标注$^{4}$，使用 <code>std::lock_guard&lt;std::mutex&gt;</code> 使这两个函数对数据的访问是<strong>互斥</strong>的。（<code>list_contains</code> 不可能看到正在被 <code>add_to_list</code> 修改的列表）。</p>
+<p>其实大多数的情况是这样的：互斥量和要保护的数据放在同一个类，这时，上述的两个函数都作为类的成员函数， 互斥量和要保护的数据都要定义成 <code>private</code> 成员。</p>
+<h4 id="3-2-1-在成员函数中加入-std-lock-guard-一定可以保护数据吗？"><a href="#3-2-1-在成员函数中加入-std-lock-guard-一定可以保护数据吗？" class="headerlink" title="3.2.1 在成员函数中加入 std::lock_guard 一定可以保护数据吗？"></a>3.2.1 在成员函数中加入 <code>std::lock_guard</code> 一定可以保护数据吗？</h4><p>不一定。可能存在<strong>迷失指针或引用</strong>。 </p>
+<ul>
+<li><p>如何避免这样的问题？</p>
+<p>在确保成员函数不会传出指针或引用的同时，检查成员函数是否通过指针或引用的方式来调用也是很重要。</p>
+</li>
+</ul>
+<hr>
+<p>只要成员函数的返回值或者输出参数没有指向被保护数据的指针或引用，数据就是安全的。</p>
+<p>如果用 <code>std::lock_guard</code> 保护数据，但在同一个函数中，又将保护数据传给某个用户提供的函数，就麻烦了，因为这个函数可能是恶意的，能绕过保护机制。 </p>
+<hr>
+]]></content>
       <categories>
         <category>笔记</category>
       </categories>
