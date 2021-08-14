@@ -451,7 +451,7 @@
         <!-- 自定义摘要描述结束 -->
         
           
-          gets 参考 CSAPP P1951234567891011121314151617181920212223242526272829#include &lt;iostream&gt;using na
+          gets 参考 CSAPP P1951234567891011121314151617181920212223242526272829#include &lt;iostream&gt;using namespace std;extern &quot;C&quot; int shell();char*
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -646,7 +646,9 @@ GCC：GNU 编译器集，它包括 GNU C 编译器
 G++：C++ 编译器，是 GCC 的一部分
 C 语言编译器被简称为 cc
 
-1.2 一些标准路
+1.2 一些标准路径
+/bin：二进制文件目录，用于存放启动系统时用到的程序
+/usr/bin：用户二进制文件目录，用
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -840,7 +842,9 @@ C 语言编译器被简称为 cc
 
 静态全局变量只对定义它们的文件可见，非静态全局变量对同一程序的所有文件可见。
 
-2.3.2 程序开发步骤预处理、编译（.s）、汇编（.o）、链接
+2.3.2 程序开发步骤预处理、编译（.s）、汇编（.o）、链接（.out）
+.o 文件的组成
+文件头 + 代码段 + 数据段 + BSS + 重定位信息 + 符号
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1030,7 +1034,7 @@ C 语言编译器被简称为 cc
         <!-- 自定义摘要描述结束 -->
         
           
-          最简单的直接测试12345678910111213141516#include &lt;iostream&gt;using namespace std;void test() &#123;    co
+          最简单的直接测试12345678910111213141516#include &lt;iostream&gt;using namespace std;void test() &#123;    cout &lt;&lt; &quot;DONE!&quot; &lt;&lt; endl;&#125;
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1220,7 +1224,10 @@ C 语言编译器被简称为 cc
         <!-- 自定义摘要描述结束 -->
         
           
-          前提pikachu平台搭建https://woopokyuk.github.io/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%
+          前提pikachu平台搭建https://woopokyuk.github.io/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/
+BurpSuite 抓本地包的方法参考)
+
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1416,7 +1423,11 @@ C 语言编译器被简称为 cc
 需要修改配置中的端口号，以避免与其他服务冲突
 
 
-其中右上角整体
+其中右上角整体的配置
+
+
+
+Apache 服务对应的配置也需要同步修改：将 httpd.conf 中所有 80 替
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1612,7 +1623,13 @@ C 语言编译器被简称为 cc
 
 
 
+建好后再通过设置，添加 ISO 映像文件
 
+
+然后再启动虚拟机开始安装
+
+
+二进制安全研究工具123
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1804,7 +1821,7 @@ C 语言编译器被简称为 cc
           
           1 Qt 连接本地 MySQL 的方法 （Win）1.1 前期准备1.1.1 MySQL 安装MySQL的安装
 1.1.2 新建试验用的数据库和表根据需要，自行新建数据库并添加数据
-1234creat
+1234create database neuralinfo;use neuralinfo;create table 
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1998,7 +2015,7 @@ C 语言编译器被简称为 cc
 下载地址 
 解压缩，并进入目录，新建 my.ini 配置文件，内容如下
 
-123456789101112131415[client]# 设置mysql客户端默认字符集d
+123456789101112131415[client]# 设置mysql客户端默认字符集default-character-set=utf8 [mysqld]# 设置3306端口port =
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -2193,7 +2210,10 @@ Problem Setting
 
 如果通过认证，则进入授权路径；否则进入无授权路径
 授权路径：N1-N2-N5-N4
-无授权路径：N1-N3-N6
+无授权路径：N1-N3-N6-N4
+
+
+有控制流漏洞的程序（比如可能存在栈溢出的情况），可能会通过修改某些函数变量的值，间接修改
           ...
           <!--noindex-->
           <div class="post-button text-center">
