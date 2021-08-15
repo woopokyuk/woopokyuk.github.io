@@ -154,7 +154,24 @@
 <p>只要成员函数的返回值或者输出参数没有指向被保护数据的指针或引用，数据就是安全的。</p>
 <p>如果用 <code>std::lock_guard</code> 保护数据，但在同一个函数中，又将保护数据传给某个用户提供的函数，就麻烦了，因为这个函数可能是恶意的，能绕过保护机制。 </p>
 <hr>
-]]></content>
+<h4 id="3-2-2-死锁"><a href="#3-2-2-死锁" class="headerlink" title="3.2.2 死锁"></a>3.2.2 死锁</h4><p>一个给定操作需要两个或两个以上的互斥量时，可能会出现<strong>死锁（deadlock）</strong>。</p>
+<p>死锁与条件竞争相反，不同的两个线程会互相等待，导致什么都没做。</p>
+<h5 id="a-如何避免死锁？"><a href="#a-如何避免死锁？" class="headerlink" title="a. 如何避免死锁？"></a>a. 如何避免死锁？</h5><p>死锁一般建议：让两个互斥量总以相同的顺序上锁。</p>
+<p>但这只适用于互斥量用于不同的地方的时候；如果不同互斥量保护同一个类的实例时，比如实例提供的第一互斥量作为第一个参数，提供的第二个互斥量为第二个参数，在参数交换了之后，两个线程试图在相同的两个实例间进行数据交换时，程序 又死锁了！</p>
+<ul>
+<li><p>C++中解决这个问题的方法</p>
+<p><code>std::lock</code> 可以一次性锁住多个(两个以上)的互斥量，且没有死锁风险</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 在一个简单的交换操作中使用 std::lock</span></span><br><span class="line"><span class="comment">// 这里的std::lock()需要包含&lt;mutex&gt;头文件</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">some_big_object</span>;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(some_big_object&amp; lhs,some_big_object&amp; rhs)</span></span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">X</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    some_big_object some_detail;</span><br><span class="line">    std::mutex m;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">X</span>(some_big_object <span class="keyword">const</span>&amp; sd):<span class="built_in">some_detail</span>(sd)&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(X&amp; lhs, X&amp; rhs)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(&amp;lhs==&amp;rhs)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        std::<span class="built_in">lock</span>(lhs.m,rhs.m); <span class="comment">// 1</span></span><br><span class="line">        <span class="function">std::lock_guard&lt;std::mutex&gt; <span class="title">lock_a</span><span class="params">(lhs.m,std::adopt_lock)</span></span>; <span class="comment">// 2</span></span><br><span class="line">        <span class="function">std::lock_guard&lt;std::mutex&gt; <span class="title">lock_b</span><span class="params">(rhs.m,std::adopt_lock)</span></span>; <span class="comment">// 3</span></span><br><span class="line">        <span class="built_in">swap</span>(lhs.some_detail,rhs.some_detail);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>标注$^{1}$锁住两个互斥量，标注$^{2,3}$​表示两个 <code>std:lock_guard</code> 实例已经创建好，提供 <code>std::adopt_lock</code>参数除了表示 <code>std::lock_guard</code> 对象已经上锁外，还表示现成的锁，而非尝试创建新的锁。</p>
+<h5 id="b-避免死锁的进阶"><a href="#b-避免死锁的进阶" class="headerlink" title="b. 避免死锁的进阶"></a>b. 避免死锁的进阶</h5><ul>
+<li>避免嵌套锁</li>
+<li>避免在持有锁的时候，调用用户提供的代码</li>
+<li>使用固定顺序获取锁</li>
+<li>使用锁的层次结构</li>
+</ul>
+<h2 id="第-4-章-同步并发操作"><a href="#第-4-章-同步并发操作" class="headerlink" title="[第 4 章] 同步并发操作"></a>[第 4 章] 同步并发操作</h2>]]></content>
       <categories>
         <category>笔记</category>
       </categories>
