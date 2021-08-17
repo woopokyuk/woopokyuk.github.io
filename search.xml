@@ -1583,7 +1583,14 @@ y(t)=Cx(t).
 </ul>
 <p>这种分类方式，本质上也是基于具体部位的功能，如<strong>皮肤感受器</strong>广泛存在于表皮的生发层和真皮的毛囊周围；视觉感受器就是眼睛；<strong>听觉感受器</strong>依赖基底膜上的科蒂氏器中包含的大量毛细胞；<strong>味觉感受器</strong>是分布在舌面各种乳突内的味蕾，更具体的味觉对应味蕾的不同区域；嗅觉感受器分布在鼻粘膜上部淡黄色的嗅上皮内。</p>
 <h2 id="2-信息系统感受器分类"><a href="#2-信息系统感受器分类" class="headerlink" title="2 信息系统感受器分类"></a>2 信息系统感受器分类</h2><p>外感受器是信息系统内部环境感知外部环境的接口，在分布上应是与硬件沟通的媒介；内感受器则是系统内部参数</p>
-<h3 id="2-1-内感受器"><a href="#2-1-内感受器" class="headerlink" title="2.1 内感受器"></a>2.1 内感受器</h3><h3 id="2-2-外感受器"><a href="#2-2-外感受器" class="headerlink" title="2.2 外感受器"></a>2.2 外感受器</h3><h2 id="3-总结"><a href="#3-总结" class="headerlink" title="3 总结"></a>3 总结</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<p><img src="/2021/08/12/%E5%85%B3%E4%BA%8E%E6%84%9F%E5%8F%97%E5%99%A8%E7%9A%84%E5%88%86%E7%B1%BB/image-20210817152158893.png" alt="image-20210817152158893"></p>
+<h3 id="2-1-内感受器"><a href="#2-1-内感受器" class="headerlink" title="2.1 内感受器"></a>2.1 内感受器</h3><p>资源感受器：CPU使用量、内存使用量、磁盘利用率、系统负载。</p>
+<p>本体（硬件）感受器：处理器健康状况、物理/逻辑驱动器故障、电源等级、磁盘和阵列、内存、CPU风扇速度、温度、电压等。</p>
+<p>内核感受器：文件访问/读写、进程细节、线程数、进程数、僵死进程数等 <a href="http://www.joca.cn/CN/abstract/abstract12203.shtml">http://www.joca.cn/CN/abstract/abstract12203.shtml</a></p>
+<h3 id="2-2-外感受器"><a href="#2-2-外感受器" class="headerlink" title="2.2 外感受器"></a>2.2 外感受器</h3><p>网络应用感受器：吞吐量、错误、网络流量、响应时间。</p>
+<p>输入输出感受器：打印机、键盘、鼠标、显示器</p>
+<h2 id="3-总结"><a href="#3-总结" class="headerlink" title="3 总结"></a>3 总结</h2><p>目前针对信息系统的感受器分类仍然比较浅显深度不够，还需增添细节和如此支撑的理由，在操作系统层面还需要更深入的探讨合理性和必要性。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
 <li><p><a href="https://baike.baidu.com/item/%E5%86%85%E6%84%9F%E5%8F%97%E5%99%A8/4215030?fr=aladdin">https://baike.baidu.com/item/%E5%86%85%E6%84%9F%E5%8F%97%E5%99%A8/4215030?fr=aladdin</a></p>
 </li>
 <li><p><a href="https://baike.baidu.com/item/%E5%A4%96%E6%84%9F%E5%8F%97%E5%99%A8/4215264?fr=aladdin">https://baike.baidu.com/item/%E5%A4%96%E6%84%9F%E5%8F%97%E5%99%A8/4215264?fr=aladdin</a></p>
