@@ -5525,4 +5525,27 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>Crypto</tag>
       </tags>
   </entry>
+  <entry>
+    <title>项目回顾</title>
+    <url>/2021/08/19/%E9%A1%B9%E7%9B%AE%E5%9B%9E%E9%A1%BE/</url>
+    <content><![CDATA[<h2 id="为什么研究F2FS文件系统的项目？"><a href="#为什么研究F2FS文件系统的项目？" class="headerlink" title="为什么研究F2FS文件系统的项目？"></a>为什么研究F2FS文件系统的项目？</h2><p>F2FS是一种Flash文件系统，跟传统的Linux文件系统相比，更能发挥闪存存储设备的性能优势，然后现在也有越来越多的厂商使用F2FS文件系统，所以做F2FS文件系统取证还是很有意义的。</p>
+<h2 id="这个项目跟其他研究相比有什么优势，为什么不用现成的工具？"><a href="#这个项目跟其他研究相比有什么优势，为什么不用现成的工具？" class="headerlink" title="这个项目跟其他研究相比有什么优势，为什么不用现成的工具？"></a>这个项目跟其他研究相比有什么优势，为什么不用现成的工具？</h2><ol>
+<li><p>之前的研究有把整个F2FS文件系统镜像当成一个磁盘，通过模拟Linux挂载磁盘来构建文件系统的结构信息，这样做可以解决可移植问题，但是这种方法要根据位图信息遍历整个文件系统，所以解析大容量的文件系统的时候，效率就会低很多。</p>
+</li>
+<li><p>然后也有人做过，分别遍历段摘要区和主区，恢复和解析删除文件，但是它们只针对删除文件，不涉及现存的那些没被删除的文件。而且，分别遍历段摘要区和主区其实效率也不是很高。</p>
+</li>
+<li>我们所做的这个项目，解析的效率要比传统的那种磁盘遍历要高。文件取证方法通过定位有效文件夹以及.Trash文 件夹快速解析获取用户当前目录结构和近期删除 的所有文件数据信息。</li>
+</ol>
+<h2 id="项目中有什么难点？如何解决的"><a href="#项目中有什么难点？如何解决的" class="headerlink" title="项目中有什么难点？如何解决的"></a>项目中有什么难点？如何解决的</h2><p>F2FS文件系统一般有两个或者两个以上节点地址表（就是为了防止宕机然后对元数据造成不可恢复的损害）。但只有一个有效的节点地址表存储最新的节点信息。然后又因为F2FS文件系统有一个jounal缓存机制，可能有效nat_entry表项没有更新到节点地址表的情况。</p>
+<p>根据节点地址表的写入原理，通过检查点段，定位到最新有效的节点地址表。</p>
+<h2 id="Refer"><a href="#Refer" class="headerlink" title="Refer"></a>Refer</h2><p><a href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&amp;dbname=CJFDLAST2020&amp;filename=AQJS202008011&amp;v=kzaijASy61LCqpqJRwFs793cGqXipps20s2T0ZMnwutpBr66jWZ7J%mmd2FlAOSIYFVLF">手机端F2FS镜像文件数据取证方法 - 中国知网 (cnki.net)</a></p>
+]]></content>
+      <categories>
+        <category>科研</category>
+      </categories>
+      <tags>
+        <tag>科研</tag>
+        <tag>F2FS</tag>
+      </tags>
+  </entry>
 </search>
