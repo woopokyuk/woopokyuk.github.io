@@ -965,14 +965,14 @@
 </ul>
 <h3 id="菜单栏无法识别问题"><a href="#菜单栏无法识别问题" class="headerlink" title="菜单栏无法识别问题"></a>菜单栏无法识别问题</h3><p>类似 <code>Cannot GET /%20</code> 的问题，是因为主题的<code>_congif.yml</code> 文件中菜单栏的设置多个空格，官方默认的 <code>home: / || home</code>是错的，应该是 <code>home: /|| home</code></p>
 <h3 id="图片不显示的问题"><a href="#图片不显示的问题" class="headerlink" title="图片不显示的问题"></a>图片不显示的问题</h3><p><a href="https://www.cnblogs.com/gispathfinder/p/12239390.html">参考</a> ，这是 hexo-asset-image 的 bug，需要对<code>Blog\node_modules\hexo-asset-image\index.js</code>进行如下修改，即可正常显示</p>
-<p><img src="/2021/05/09/Ref/image-20210510174338088.png" alt="image-20210510174338088"></p>
+<p><img src="/.io//image-20210510174338088.png" alt="image-20210510174338088"></p>
 <h3 id="编译时遇到未知路径问题"><a href="#编译时遇到未知路径问题" class="headerlink" title="编译时遇到未知路径问题"></a>编译时遇到未知路径问题</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FATAL &#123;</span><br><span class="line">  err: Template render error: (unknown path)</span><br><span class="line">    Error: unexpected end of comment</span><br><span class="line">      at Object._prettifyError (D:\Document\Blog\node_modules\nunjucks\src\lib.js:36:11)</span><br><span class="line">      at Template.render (D:\Document\Blog\node_modules\nunjucks\src\environment.js:538:21)</span><br><span class="line">      at Environment.renderString (D:\Document\Blog\node_modules\nunjucks\src\environment.js:380:17)</span><br><span class="line">      at D:\Document\Blog\node_modules\hexo\lib\extend\tag.js:236:16</span><br><span class="line">      at tryCatcher (D:\Document\Blog\node_modules\bluebird\js\release\util.js:16:23)</span><br><span class="line">      at Function.Promise.fromNode.Promise.fromCallback (D:\Document\Blog\node_modules\bluebird\js\release\promise.js:209:30)</span><br></pre></td></tr></table></figure>
 <p>这种是文章中出现未转义的括号造成的，尽量用 ` 进行转移，将其包裹成文本或代码形式</p>
 <h3 id="页面下方翻页不正常显示"><a href="#页面下方翻页不正常显示" class="headerlink" title="页面下方翻页不正常显示"></a>页面下方翻页不正常显示</h3><p><a href="https://www.cnblogs.com/xiejava/p/12456273.html">参考</a></p>
 <p><code>&lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt;</code>不显示为<code>&gt;</code>，解决方法是在<code>Blog\themes\next\layout\_partials\pagination.swig</code>文件中，添加参数<code>escape: false</code></p>
-<p><img src="/2021/05/09/Ref/image-20210524231854084.png" alt="image-20210524231854084"></p>
+<p><img src="/.io//image-20210524231854084.png" alt="image-20210524231854084"></p>
 <p>然后重新编译即可正常显示了，如下图</p>
-<p><img src="/2021/05/09/Ref/image-20210524231934515.png" alt="image-20210524231934515"></p>
+<p><img src="/.io//image-20210524231934515.png" alt="image-20210524231934515"></p>
 <h3 id="显示公式"><a href="#显示公式" class="headerlink" title="显示公式"></a>显示公式</h3><p><a href="https://www.dazhuanlan.com/2019/12/19/5dfb3c4dae9ca/">hexo中数学公式不能正常显示问题解决 | 大专栏 (dazhuanlan.com)</a></p>
 <h4 id="公式换行无效的问题"><a href="#公式换行无效的问题" class="headerlink" title="公式换行无效的问题"></a>公式换行无效的问题</h4><p><a href="https://lanlan2017.github.io/blog/eb86e892/">Hexo Mathjax双斜线换行失效 | 蓝蓝博客 (lanlan2017.github.io)</a></p>
 <h3 id="npm-警告"><a href="#npm-警告" class="headerlink" title="npm 警告"></a>npm 警告</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@2.3.2 (node_modules\fsevents):</span><br><span class="line">npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@2.3.2: wanted &#123;&quot;os&quot;:&quot;darwin&quot;,&quot;arch&quot;:&quot;any&quot;&#125; (current: &#123;&quot;os&quot;:&quot;win32&quot;,&quot;arch&quot;:&quot;x64&quot;&#125;)</span><br></pre></td></tr></table></figure>
@@ -983,11 +983,11 @@
 <li>在根目录的source目录下，新建一个index.md文档</li>
 <li>修改根目录下的_config.yml文件的index_generator项，将其指向一个无效值</li>
 </ol>
-<p><img src="/2021/05/09/Ref/image-20210808164122221.png" alt="image-20210808164122221"></p>
+<p><img src="/.io//image-20210808164122221.png" alt="image-20210808164122221"></p>
 <ol>
 <li>修改NexT主题的配置文件（themes/next/_config.yml文件）的Home菜单指向的链接。将<code>menu</code>项下的<code>home</code>项的值修改为<code>/ || fa fa-home</code>。使得点击页面中的Home菜单时，可以返回自定义主页。</li>
 </ol>
-<p><img src="/2021/05/09/Ref/image-20210808164317319.png" alt="image-20210808164317319"></p>
+<p><img src="/.io//image-20210808164317319.png" alt="image-20210808164317319"></p>
 <h3 id="方法二（未成功）"><a href="#方法二（未成功）" class="headerlink" title="方法二（未成功）"></a>方法二（未成功）</h3><p>参考 <a href="https://www.liaofuzhan.com/posts/1123041323.html">https://www.liaofuzhan.com/posts/1123041323.html</a></p>
 <ol>
 <li>新建页面</li>
@@ -996,11 +996,11 @@
 <ol>
 <li>修改数据</li>
 </ol>
-<p><img src="/2021/05/09/Ref/image-20210808170125613.png" alt="image-20210808170125613"></p>
+<p><img src="/.io//image-20210808170125613.png" alt="image-20210808170125613"></p>
 <ol>
 <li>在对应主题的配置文件中修改menu，对应的图表可以去<a href="https://fontawesome.com/找到喜欢的并记下标签">https://fontawesome.com/找到喜欢的并记下标签</a></li>
 </ol>
-<p>​    <img src="/2021/05/09/Ref/image-20210808170218837.png" alt="image-20210808170218837"></p>
+<p>​    <img src="/.io//image-20210808170218837.png" alt="image-20210808170218837"></p>
 <ol>
 <li><code>\themes\next\languages\zh-Hans.yml</code>在menu下添加 <code>myindexpage: 主页</code></li>
 <li>在 <code>themes\next\layout</code> 新增myindexpage.swig页</li>
@@ -1020,16 +1020,20 @@
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;&#123;&#123; url_for(theme.menu.archives).split(&#x27;||&#x27;)[0] | trim &#125;&#125;&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>改为</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;&#123;&#123; url_for(theme.menu.archives.split(&#x27;||&#x27;)[0]) | trim &#125;&#125;&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="文章加密"><a href="#文章加密" class="headerlink" title="文章加密"></a>文章加密</h2><h3 id="安装yarn"><a href="#安装yarn" class="headerlink" title="安装yarn"></a>安装yarn</h3><p><a href="https://blog.csdn.net/yw00yw/article/details/81354533">https://blog.csdn.net/yw00yw/article/details/81354533</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g yarn</span><br></pre></td></tr></table></figure>
+<h3 id="安装与使用hexo-blog-encrypt"><a href="#安装与使用hexo-blog-encrypt" class="headerlink" title="安装与使用hexo-blog-encrypt"></a>安装与使用hexo-blog-encrypt</h3><p><a href="https://www.jianshu.com/p/44e211829447">https://www.jianshu.com/p/44e211829447</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yarn add hexo-blog-encrypt</span><br></pre></td></tr></table></figure>
 <h2 id="不同的修改"><a href="#不同的修改" class="headerlink" title="不同的修改"></a>不同的修改</h2><p>版本：从参考地址下载的最新版（NexT 8.4.0 Released）</p>
 <h3 id="圆形旋转头像"><a href="#圆形旋转头像" class="headerlink" title="圆形旋转头像"></a>圆形旋转头像</h3><p>打开<code>Blog\themes\hexo-theme-next-8.4.0\_config.yml</code>文件，将<code>rounded</code>和<code>rotated</code>都改成<code>true</code>即可</p>
-<p><img src="/2021/05/09/Ref/image-20210510101136415.png" alt="image-20210510101136415"></p>
+<p><img src="/.io//image-20210510101136415.png" alt="image-20210510101136415"></p>
 <h3 id="添加动态背景"><a href="#添加动态背景" class="headerlink" title="添加动态背景"></a>添加动态背景</h3><p><code>Blog\themes\hexo-theme-next-8.4.0\_config.yml</code>文件，定位<code>canvas</code>然后<code>enable=true</code>即可</p>
 <h3 id="删除强力驱动"><a href="#删除强力驱动" class="headerlink" title="删除强力驱动"></a>删除强力驱动</h3><p>在<code>\Blog\themes\hexo-theme-next-8.4.0\layout\_partials\footer.njk</code>定位<code>powered</code>，将以下代码注释掉（<!-- -->）</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;%- if theme.footer.powered %&#125;</span><br><span class="line">  &lt;div class=&quot;powered-by&quot;&gt;</span><br><span class="line">    &#123;%- set next_site = &#x27;https://theme-next.js.org&#x27; if theme.scheme === &#x27;Gemini&#x27; else &#x27;https://theme-next.js.org/&#x27; + theme.scheme | lower + &#x27;/&#x27; %&#125;</span><br><span class="line">    &#123;&#123;- __(&#x27;footer.powered&#x27;, next_url(&#x27;https://hexo.io&#x27;, &#x27;Hexo&#x27;, &#123;class: &#x27;theme-link&#x27;&#125;) + &#x27; &amp; &#x27; + next_url(next_site, &#x27;NexT.&#x27; + theme.scheme, &#123;class: &#x27;theme-link&#x27;&#125;)) &#125;&#125;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&#123;%- endif %&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="修改文章底部带-号的标签"><a href="#修改文章底部带-号的标签" class="headerlink" title="修改文章底部带#号的标签"></a>修改文章底部带#号的标签</h3><p>打开<code>myblog/themes/next/layout/_macro/post.swig</code>文件，搜索<code>post.tags</code>，将 <code>if theme.tag_icon else &#39;#&#39;</code>删除即可</p>
-<p><img src="/2021/05/09/Ref/image-20210510095812090.png" alt="image-20210510095812090"></p>
+<p><img src="/.io//image-20210510095812090.png" alt="image-20210510095812090"></p>
 <p>效果：</p>
-<p><img src="/2021/05/09/Ref/image-20210510095930542.png" alt="image-20210510095930542"></p>
+<p><img src="/.io//image-20210510095930542.png" alt="image-20210510095930542"></p>
 ]]></content>
       <categories>
         <category>Tools</category>
@@ -1555,9 +1559,9 @@ y(t)=Cx(t).
   <entry>
     <title>关于感受器的分类</title>
     <url>/2021/08/12/%E5%85%B3%E4%BA%8E%E6%84%9F%E5%8F%97%E5%99%A8%E7%9A%84%E5%88%86%E7%B1%BB/</url>
-    <content><![CDATA[<h2 id="1-人-动物的感受器分类"><a href="#1-人-动物的感受器分类" class="headerlink" title="1 人/动物的感受器分类"></a>1 人/动物的感受器分类</h2><p><img src="/2021/08/12/%E5%85%B3%E4%BA%8E%E6%84%9F%E5%8F%97%E5%99%A8%E7%9A%84%E5%88%86%E7%B1%BB/image-20210812162618594.png" alt="image-20210812162618594" style="zoom:67%;"></p>
+    <content><![CDATA[<h2 id="1-人-动物的感受器分类"><a href="#1-人-动物的感受器分类" class="headerlink" title="1 人/动物的感受器分类"></a>1 人/动物的感受器分类</h2><p><img src="/.io//image-20210812162618594.png" alt="image-20210812162618594" style="zoom:67%;"></p>
 <h3 id="1-1-内感受器-1"><a href="#1-1-内感受器-1" class="headerlink" title="1.1 内感受器$^{1}$"></a>1.1 内感受器$^{1}$</h3><p>分布在<strong>内脏和躯体深部</strong>的各种感受器。可接受机体内部的各种化学和物理性刺激将其转变为神经冲动，由传入神经传至相应的感觉中枢，产生不同的感觉。</p>
-<p><img src="/2021/08/12/%E5%85%B3%E4%BA%8E%E6%84%9F%E5%8F%97%E5%99%A8%E7%9A%84%E5%88%86%E7%B1%BB/image-20210812160736428.png" alt="image-20210812160736428" style="zoom:67%;"></p>
+<p><img src="/.io//image-20210812160736428.png" alt="image-20210812160736428" style="zoom:67%;"></p>
 <h4 id="1-1-1-分类"><a href="#1-1-1-分类" class="headerlink" title="1.1.1 分类"></a>1.1.1 分类</h4><h5 id="a-按感受器的分布"><a href="#a-按感受器的分布" class="headerlink" title="a. 按感受器的分布"></a>a. 按感受器的分布</h5><p>内感受器可分为<strong>本体感受器</strong>和<strong>内脏感受器</strong>。</p>
 <ul>
 <li>本体感受器</li>
@@ -1583,7 +1587,7 @@ y(t)=Cx(t).
 </ul>
 <p>这种分类方式，本质上也是基于具体部位的功能，如<strong>皮肤感受器</strong>广泛存在于表皮的生发层和真皮的毛囊周围；视觉感受器就是眼睛；<strong>听觉感受器</strong>依赖基底膜上的科蒂氏器中包含的大量毛细胞；<strong>味觉感受器</strong>是分布在舌面各种乳突内的味蕾，更具体的味觉对应味蕾的不同区域；嗅觉感受器分布在鼻粘膜上部淡黄色的嗅上皮内。</p>
 <h2 id="2-信息系统感受器分类"><a href="#2-信息系统感受器分类" class="headerlink" title="2 信息系统感受器分类"></a>2 信息系统感受器分类</h2><p>外感受器是信息系统内部环境感知外部环境的接口，在分布上应是与硬件沟通的媒介；内感受器则是系统内部参数</p>
-<p><img src="/2021/08/12/%E5%85%B3%E4%BA%8E%E6%84%9F%E5%8F%97%E5%99%A8%E7%9A%84%E5%88%86%E7%B1%BB/image-20210817152158893.png" alt="image-20210817152158893"></p>
+<p><img src="/.io//image-20210817152158893.png" alt="image-20210817152158893"></p>
 <h3 id="2-1-内感受器"><a href="#2-1-内感受器" class="headerlink" title="2.1 内感受器"></a>2.1 内感受器</h3><p>资源感受器：CPU使用量、内存使用量、磁盘利用率、系统负载。</p>
 <p>本体（硬件）感受器：处理器健康状况、物理/逻辑驱动器故障、电源等级、磁盘和阵列、内存、CPU风扇速度、温度、电压等。</p>
 <p>内核感受器：文件访问/读写、进程细节、线程数、进程数、僵死进程数等 <a href="http://www.joca.cn/CN/abstract/abstract12203.shtml">http://www.joca.cn/CN/abstract/abstract12203.shtml</a></p>
@@ -1967,26 +1971,26 @@ y(t)=Cx(t).
     <title>感知器算法作业</title>
     <url>/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/</url>
     <content><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>编写感知器算法，求下列模式的解向量：</p>
-<p><img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image002.png" alt="img"></p>
-<p><img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image004.png" alt="img"></p>
-<p>设<img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image006.png" alt="img"></p>
-<h2 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h2><p>（1）将训练样本写成增广向量的形式，然后规范化（将属于<img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image008.png" alt="img">的训练集样本乘以<img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image010.png" alt="img">），任取初始权向量<img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image012.png" alt="img">开始迭代（这里已经给定为<img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image006.png" alt="img">），括号里的1代表迭代次数k=1</p>
-<p>（2）用所有的训练样本进行迭代，每输入一个样本X都计算一次<img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image014.png" alt="img"></p>
-<p><img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image016.png" alt="img"></p>
+<p><img src="/.io//clip_image002.png" alt="img"></p>
+<p><img src="/.io//clip_image004.png" alt="img"></p>
+<p>设<img src="/.io//clip_image006.png" alt="img"></p>
+<h2 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h2><p>（1）将训练样本写成增广向量的形式，然后规范化（将属于<img src="/.io//clip_image008.png" alt="img">的训练集样本乘以<img src="/.io//clip_image010.png" alt="img">），任取初始权向量<img src="/.io//clip_image012.png" alt="img">开始迭代（这里已经给定为<img src="/.io//clip_image006.png" alt="img">），括号里的1代表迭代次数k=1</p>
+<p>（2）用所有的训练样本进行迭代，每输入一个样本X都计算一次<img src="/.io//clip_image014.png" alt="img"></p>
+<p><img src="/.io//clip_image016.png" alt="img"></p>
 <p>这里的c为校正增量系数，大于0即可。</p>
-<p>（3）只要某一轮中有一个样本的<img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image018.png" alt="img">则回到（2），直到所有样本训练都正确分类。</p>
-<h2 id="计算过程"><a href="#计算过程" class="headerlink" title="计算过程"></a>计算过程</h2><p>在编写代码时，将计算过程中每一步状态的值都cout出来，当设定初始权向量<img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image006.png" alt="img">，校正增量系数c为1时，有具体过程如下：</p>
-<p><img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image020.jpg" alt="img"></p>
-<p><img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image022.jpg" alt="img"></p>
-<p><img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image024.jpg" alt="img"></p>
-<p>由此可得：解向量为<img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image026.png" alt="img"></p>
-<p>判别函数为<img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image028.png" alt="img"></p>
-<h2 id="结果分析讨论"><a href="#结果分析讨论" class="headerlink" title="结果分析讨论"></a>结果分析讨论</h2><p>（1）当我设定初始权向量<img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image030.png" alt="img">，校正增量系数c为1时，有最终的解向量输出结果如下：</p>
-<p><img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image032.jpg" alt="img"></p>
-<p>经5轮迭代，此时的解向量为<img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image034.png" alt="img">，判别函数为<img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image036.png" alt="img"></p>
-<p>（2）当设定初始权向量<img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image006.png" alt="img">，校正增量系数c为4时，有输出结果如下：</p>
-<p><img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image038.jpg" alt="img"></p>
-<p>迭代4轮后，输出解向量为<img src="/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/clip_image040.png" alt="img"></p>
+<p>（3）只要某一轮中有一个样本的<img src="/.io//clip_image018.png" alt="img">则回到（2），直到所有样本训练都正确分类。</p>
+<h2 id="计算过程"><a href="#计算过程" class="headerlink" title="计算过程"></a>计算过程</h2><p>在编写代码时，将计算过程中每一步状态的值都cout出来，当设定初始权向量<img src="/.io//clip_image006.png" alt="img">，校正增量系数c为1时，有具体过程如下：</p>
+<p><img src="/.io//clip_image020.jpg" alt="img"></p>
+<p><img src="/.io//clip_image022.jpg" alt="img"></p>
+<p><img src="/.io//clip_image024.jpg" alt="img"></p>
+<p>由此可得：解向量为<img src="/.io//clip_image026.png" alt="img"></p>
+<p>判别函数为<img src="/.io//clip_image028.png" alt="img"></p>
+<h2 id="结果分析讨论"><a href="#结果分析讨论" class="headerlink" title="结果分析讨论"></a>结果分析讨论</h2><p>（1）当我设定初始权向量<img src="/.io//clip_image030.png" alt="img">，校正增量系数c为1时，有最终的解向量输出结果如下：</p>
+<p><img src="/.io//clip_image032.jpg" alt="img"></p>
+<p>经5轮迭代，此时的解向量为<img src="/.io//clip_image034.png" alt="img">，判别函数为<img src="/.io//clip_image036.png" alt="img"></p>
+<p>（2）当设定初始权向量<img src="/.io//clip_image006.png" alt="img">，校正增量系数c为4时，有输出结果如下：</p>
+<p><img src="/.io//clip_image038.jpg" alt="img"></p>
+<p>迭代4轮后，输出解向量为<img src="/.io//clip_image040.png" alt="img"></p>
 <p>由此可得，当初始权向量和校正增量系数取不同值时，输出的结果并不相同，所以感知器算法的解，不是单值的。</p>
 <h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> x[<span class="number">9</span>][<span class="number">4</span>] = &#123;</span><br><span class="line">		&#123;<span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>&#125;,</span><br><span class="line">		&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">-1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="comment">// 权向量初始值w[1]   校正增量系数c   判别函数d  轮数roundCount   迭代标号k   错判次数mistake</span></span><br><span class="line">	<span class="keyword">int</span> k = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> w[<span class="number">100</span>][<span class="number">4</span>] = &#123; &#123;<span class="number">0</span>&#125;,&#123;<span class="number">-1</span>, <span class="number">-2</span>, <span class="number">-2</span>, <span class="number">0</span>&#125; &#125;;</span><br><span class="line">	<span class="comment">/*int w[100][4] = &#123; 0 &#125;;*/</span></span><br><span class="line">	<span class="keyword">int</span> d = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">double</span> c = <span class="number">5</span>;</span><br><span class="line">	<span class="keyword">int</span> roundCount = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> mistake = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">do</span></span><br><span class="line">	&#123;</span><br><span class="line">		mistake = <span class="number">0</span>;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;第&quot;</span> &lt;&lt; roundCount &lt;&lt; <span class="string">&quot;轮&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">8</span>; ++i)</span><br><span class="line">		&#123;</span><br><span class="line">			d = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">4</span>; ++j)</span><br><span class="line">			&#123;</span><br><span class="line">				d += w[k][j] * x[i][j];</span><br><span class="line">			&#125;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;WT(&quot;</span> &lt;&lt; k &lt;&lt; <span class="string">&quot;)&quot;</span> &lt;&lt; <span class="string">&quot;X&quot;</span> &lt;&lt; i &lt;&lt; <span class="string">&quot;=&quot;</span> &lt;&lt; d &lt;&lt; std::endl;</span><br><span class="line">			<span class="keyword">if</span> (d &lt;= <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				std::cout &lt;&lt; <span class="string">&quot;W(&quot;</span> &lt;&lt; k + <span class="number">1</span> &lt;&lt; <span class="string">&quot;)=&quot;</span> &lt;&lt; <span class="string">&quot;W(&quot;</span> &lt;&lt; k &lt;&lt; <span class="string">&quot;)&quot;</span> &lt;&lt; <span class="string">&quot;+&quot;</span> &lt;&lt; c</span><br><span class="line">					&lt;&lt; <span class="string">&quot;*X&quot;</span> &lt;&lt; i &lt;&lt; <span class="string">&quot;=( &quot;</span>;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">4</span>; ++j)</span><br><span class="line">				&#123;</span><br><span class="line">					w[k + <span class="number">1</span>][j] = w[k][j] + c * x[i][j];</span><br><span class="line">					std::cout &lt;&lt; w[k + <span class="number">1</span>][j] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				std::cout &lt;&lt; <span class="string">&quot;)T&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">				++mistake;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				std::cout &lt;&lt; <span class="string">&quot;W(&quot;</span> &lt;&lt; k + <span class="number">1</span> &lt;&lt; <span class="string">&quot;)=&quot;</span> &lt;&lt; <span class="string">&quot;W(&quot;</span> &lt;&lt; k &lt;&lt; <span class="string">&quot;)=( &quot;</span>;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">4</span>; ++j)</span><br><span class="line">				&#123;</span><br><span class="line">					w[k + <span class="number">1</span>][j] = w[k][j];</span><br><span class="line">					std::cout &lt;&lt; w[k + <span class="number">1</span>][j] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				std::cout &lt;&lt; <span class="string">&quot;)T&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">			&#125;</span><br><span class="line">			++k;</span><br><span class="line">		&#125;</span><br><span class="line">		++roundCount;</span><br><span class="line">	&#125; <span class="keyword">while</span> (mistake &gt; <span class="number">0</span>);</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;解向量W=( &quot;</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">4</span>; ++j)</span><br><span class="line">	&#123;</span><br><span class="line">		std::cout &lt;&lt; w[k][j] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;)T&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	std::cin.<span class="built_in">get</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
