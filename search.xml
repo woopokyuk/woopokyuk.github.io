@@ -2391,6 +2391,8 @@ y(t)=Cx(t).
 </tbody>
 </table>
 </div>
+<h2 id="inline函数和宏定义的区别"><a href="#inline函数和宏定义的区别" class="headerlink" title="inline函数和宏定义的区别"></a>inline函数和宏定义的区别</h2><p><img src="/2021/08/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%BB%BC%E5%90%88%E5%B8%B8%E8%A7%81%E7%90%86%E8%AE%BA%E9%97%AE%E9%A2%98/image-20210820163118618.png" alt="image-20210820163118618"></p>
+<h2 id="strcpy和memcpy的区别"><a href="#strcpy和memcpy的区别" class="headerlink" title="strcpy和memcpy的区别"></a>strcpy和memcpy的区别</h2><p>​    1、复制的内容不同。strcpy只能复制字符串，而memcpy可以复制任意内容，例如字符数组、整型、结构体、类等。<br>​    2、复制的方法不同。strcpy不需要指定长度，它遇到被复制字符的串结束符”\0”才结束，所以容易溢出。memcpy则是根据其第3个参数决定复制的长度。<br>​    3、用途不同。通常在复制字符串时用strcpy，而需要复制其他类型数据时则一般用memcpy</p>
 <h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><p>多个并发进程中，每个进程持有某种资源又等待其他进程释放它们现在保持着的资源，没改变这个状态之前不能向前推进，这组进程就产生了死锁。</p>
 <h3 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h3><ul>
 <li><p>鸵鸟策略</p>
@@ -2452,6 +2454,11 @@ y(t)=Cx(t).
 <h2 id="双向链表插入节点"><a href="#双向链表插入节点" class="headerlink" title="双向链表插入节点"></a>双向链表插入节点</h2><p><a href="http://www.360doc.com/content/17/0427/12/30427643_649056362.shtml">http://www.360doc.com/content/17/0427/12/30427643_649056362.shtml</a></p>
 <p><img src="/2021/08/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%BB%BC%E5%90%88%E5%B8%B8%E8%A7%81%E7%90%86%E8%AE%BA%E9%97%AE%E9%A2%98/image-20210819231749802.png" alt="image-20210819231749802"></p>
 <h3 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h3><p>任一节点对应的两棵子树的最大高度差为1</p>
+<h2 id="ifelse太多怎么优化"><a href="#ifelse太多怎么优化" class="headerlink" title="ifelse太多怎么优化"></a>ifelse太多怎么优化</h2><p>用一些设计模式吧，比如策略模式</p>
+<h2 id="构造函数与析构函数的区别"><a href="#构造函数与析构函数的区别" class="headerlink" title="构造函数与析构函数的区别"></a>构造函数与析构函数的区别</h2><ol>
+<li>构造函数 ，是一种特殊的方法。主要用来在创建对象时初始化对象， 即为对象成员变量赋初始值，总与new运算符一起使用在创建对象的语句中。特别的一个类可以有多个构造函数 ，可根据其参数个数的不同或参数类型的不同来区分它们 即构造函数的重载。</li>
+<li>析构函数(destructor) 与构造函数相反，当对象脱离其作用域时（例如对象所在的函数已调用完毕），系统自动执行析构函数。析构函数往往用来做“清理善后” 的工作（例如在建立对象时用new开辟了一片内存空间，应在退出前在析构函数中用delete释放）</li>
+</ol>
 ]]></content>
       <categories>
         <category>笔记</category>
