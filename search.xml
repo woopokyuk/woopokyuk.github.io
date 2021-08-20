@@ -2303,6 +2303,30 @@ y(t)=Cx(t).
 </tbody>
 </table>
 </div>
+<h2 id="重载和重写的区别"><a href="#重载和重写的区别" class="headerlink" title="重载和重写的区别"></a>重载和重写的区别</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>重写</th>
+<th>重载</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>父类和子类之间的垂直关系</td>
+<td>不同函数之间的水平关系</td>
+</tr>
+<tr>
+<td>参数列表相同，</td>
+<td>参数列表不同，返回值不要求</td>
+</tr>
+<tr>
+<td>调用方法根据对象类型决定</td>
+<td>根据调用时实参表与形参表的对应关系来选择函数体</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h2 id="new和malloc的区别"><a href="#new和malloc的区别" class="headerlink" title="new和malloc的区别"></a>new和malloc的区别</h2><div class="table-container">
 <table>
 <thead>
