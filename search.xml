@@ -5548,4 +5548,248 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>F2FS</tag>
       </tags>
   </entry>
+  <entry>
+    <title>计算机基础综合常见理论问题</title>
+    <url>/2021/08/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%BB%BC%E5%90%88%E5%B8%B8%E8%A7%81%E7%90%86%E8%AE%BA%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="TCP与UDP的区别"><a href="#TCP与UDP的区别" class="headerlink" title="TCP与UDP的区别"></a>TCP与UDP的区别</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>TCP</th>
+<th>UDP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>面向连接</td>
+<td>无连接的</td>
+</tr>
+<tr>
+<td>提供可靠的服务</td>
+<td>UDP尽最大努力交付</td>
+</tr>
+<tr>
+<td>面向字节流</td>
+<td>面向报文</td>
+</tr>
+<tr>
+<td>有拥塞控制</td>
+<td>没有拥塞控制</td>
+</tr>
+<tr>
+<td>TCP连接只能是点到点的</td>
+<td>UDP支持一对一，一对多，多对一和多对多的交互通信</td>
+</tr>
+<tr>
+<td>TCP首部开销20字节</td>
+<td>UDP的首部开销只有8个字节</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h3><p><img src="/.io//image-20210820110104796.png" alt="image-20210820110104796"></p>
+<h2 id="TCP四次挥手"><a href="#TCP四次挥手" class="headerlink" title="TCP四次挥手"></a>TCP四次挥手</h2><p><img src="/.io//image-20210820110017508.png" alt="image-20210820110017508"></p>
+<h3 id="TCP如何实现可靠传输"><a href="#TCP如何实现可靠传输" class="headerlink" title="TCP如何实现可靠传输"></a>TCP如何实现可靠传输</h3><p><img src="/.io//image-20210819232117290.png" alt="image-20210819232117290"></p>
+<h2 id="计算机网络模型"><a href="#计算机网络模型" class="headerlink" title="计算机网络模型"></a>计算机网络模型</h2><p><img src="/.io//image-20210820103407379.png" alt="image-20210820103407379" style="zoom:67%;"></p>
+<h2 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>进程</th>
+<th>线程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>资源分配基本单位</td>
+<td>资源调度的基本单位</td>
+</tr>
+<tr>
+<td>有自己的独立地址空间</td>
+<td>共享所属进程的地址空间</td>
+</tr>
+<tr>
+<td>在进程切换时，涉及存储器管理方面的操作，开销比线程大</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>线程依赖进程而存在</td>
+</tr>
+<tr>
+<td>进程是拥有系统资源的一个独立单位</td>
+<td>线程自己基本上不拥有系统资源，只有一点在运行中必不可少的资源(如程序计数器,一组寄存器和栈)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="指针和引用的区别"><a href="#指针和引用的区别" class="headerlink" title="指针和引用的区别"></a>指针和引用的区别</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>指针</th>
+<th>引用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>存的是一个地址</td>
+<td>是原变量的别名</td>
+</tr>
+<tr>
+<td>可以有多级</td>
+<td>只有一级</td>
+</tr>
+<tr>
+<td>可以为空</td>
+<td>不能为NULL且在定义时必须初始化</td>
+</tr>
+<tr>
+<td>在初始化后可以改变指向</td>
+<td>在初始化之后不可再改变</td>
+</tr>
+<tr>
+<td>sizeof指针得到的是本指针的大小</td>
+<td>sizeof引用得到的是引用所指向变量的大小</td>
+</tr>
+<tr>
+<td>声明和 定义可以分开，可以先只声明指针变量而不初始化，等用到时再指向具体变量</td>
+<td>在声明时必须初始化为另一变量</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="new和malloc的区别"><a href="#new和malloc的区别" class="headerlink" title="new和malloc的区别"></a>new和malloc的区别</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>new</th>
+<th>malloc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>运算符，不重载</td>
+<td>标准库函数，支持覆盖</td>
+</tr>
+<tr>
+<td>除了分配，还会调用构造函数和析构函数</td>
+<td>仅仅分配内存空间</td>
+</tr>
+<tr>
+<td>返回的是具体类型指针</td>
+<td>void类型指针</td>
+</tr>
+<tr>
+<td>自动计算要分配的空间大小</td>
+<td>需要手工计算</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="堆和栈的区别"><a href="#堆和栈的区别" class="headerlink" title="堆和栈的区别"></a>堆和栈的区别</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>堆</th>
+<th>栈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>由开发者控制</td>
+<td>编译器自动管理</td>
+</tr>
+<tr>
+<td>堆内存可以达到4G的空间</td>
+<td>默认的栈空间大小是1-2M</td>
+</tr>
+<tr>
+<td>堆频繁new/delete会产生大量碎片（重点是如何解决？如内存池、伙伴系统等）</td>
+<td>不存在碎片问题</td>
+</tr>
+<tr>
+<td>堆向上生长（向着内存地址增加的方向）</td>
+<td>栈向下生长（向着内存地址减小的方向增长）</td>
+</tr>
+<tr>
+<td>堆都是动态分配的</td>
+<td>静态分配和动态分配</td>
+</tr>
+<tr>
+<td></td>
+<td>栈是机器系统提供的数据结构，计算机会在底层对栈提供支持，效率更高</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><p>多个并发进程中，每个进程持有某种资源又等待其他进程释放它们现在保持着的资源，没改变这个状态之前不能向前推进，这组进程就产生了死锁。</p>
+<h3 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h3><ul>
+<li><p>鸵鸟策略</p>
+<ul>
+<li>死锁影响不大，或者概率很低，可以忽略死锁的情况。</li>
+</ul>
+</li>
+<li><p>死锁预防 （破坏产生死锁的四个条件）</p>
+<ul>
+<li>破坏互斥：允许某些资源被多个进程同时访问</li>
+<li>破坏占有并等待：资源预先分配，或者申请资源前先释放占有的资源</li>
+<li>破坏非抢占：允许强制抢占</li>
+<li>破坏循环等待条件：对所有资源同一编号，所有进程对资源的请求按序号递增的顺序提出</li>
+</ul>
+</li>
+<li><p>死锁避免</p>
+<ul>
+<li><strong>银行家算法</strong>：动态检测资源分配状态，处于安全状态才能进行资源分配。（<strong>安全状态：</strong>即使所有进程突然请求所需的资源，也能存在某种资源分配顺序，让每一个进程运行完毕）</li>
+</ul>
+</li>
+<li><p>死锁解除</p>
+<ul>
+<li>利用抢占：挂起进程并抢占其资源（要避免挂起时间过长而饥饿）</li>
+<li>利用回滚：让某些进程回退到可以解除死锁的情况，自动释放资源</li>
+<li>杀死某些进程知道死锁解除</li>
+</ul>
+</li>
+<li><p>死锁的检测</p>
+<ul>
+<li>检查有向图是否存在环</li>
+<li>使用类似死锁避免的检测算法</li>
+</ul>
+</li>
+</ul>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><h3 id="C-多态分类及实现："><a href="#C-多态分类及实现：" class="headerlink" title="C++ 多态分类及实现："></a>C++ 多态分类及实现：</h3><ol>
+<li>重载多态（Ad-hoc Polymorphism，编译期）：函数重载、运算符重载</li>
+<li>子类型多态（Subtype Polymorphism，运行期）：虚函数</li>
+<li>参数多态性（Parametric Polymorphism，编译期）：类模板、函数模板</li>
+<li>强制多态（Coercion Polymorphism，编译期/运行期）：基本类型转换、自定义类型转换</li>
+</ol>
+<h4 id="静态多态（编译期-早绑定）"><a href="#静态多态（编译期-早绑定）" class="headerlink" title="静态多态（编译期/早绑定）"></a>静态多态（编译期/早绑定）</h4><p>函数重载</p>
+<h4 id="动态多态（运行期期-晚绑定）"><a href="#动态多态（运行期期-晚绑定）" class="headerlink" title="动态多态（运行期期/晚绑定）"></a>动态多态（运行期期/晚绑定）</h4><ul>
+<li>虚函数：用 virtual 修饰成员函数，使其成为虚函数</li>
+<li>动态绑定：当使用基类的引用或指针调用一个虚函数时将发生动态绑定</li>
+</ul>
+<h2 id="虚函数实现多态的原理"><a href="#虚函数实现多态的原理" class="headerlink" title="虚函数实现多态的原理"></a>虚函数实现多态的原理</h2><p>（1）编译器在发现基类中有虚函数时，会自动为每个含有虚函数的类生成一份虚表，该表是一个一维 数组，虚表里保存了虚函数的入口地址 </p>
+<p>（2）编译器会在每个对象的前四个字节中保存一个虚表指针，即vptr，指向对象所属类的虚表。在构 造时，根据对象的类型去初始化虚指针vptr，从而让vptr指向正确的虚表，从而在调用虚函数时，能找到 正确的函数 </p>
+<p>（3）所谓的合适时机，在派生类定义对象时，程序运行会自动调用构造函数，在构造函数中创建虚表 并对虚表初始化。在构造子类对象时，会先调用父类的构造函数，此时，编译器只“看到了”父类，并为 父类对象初始化虚表指针，令它指向父类的虚表；当调用子类的构造函数时，为子类对象初始化虚表指 针，令它指向子类的虚表</p>
+<p> （4）当派生类对基类的虚函数没有重写时，派生类的虚表指针指向的是基类的虚表；当派生类对基类 的虚函数重写时，派生类的虚表指针指向的是自身的虚表；当派生类中有自己的虚函数时，在自己的虚 表中将此虚函数地址添加在后面 这样指向派生类的基类指针在运行时，就可以根据派生类对虚函数重写情况动态的进行调用，从而实现 多态性。</p>
+<h2 id="线程是越多越好吗"><a href="#线程是越多越好吗" class="headerlink" title="线程是越多越好吗"></a>线程是越多越好吗</h2><p>$最佳线程数 = CPU核心数 <em> (1/CPU利用率) = CPU核心数 </em> (1 + (I/O耗时/CPU耗时))$</p>
+<h2 id="B树和B-树的区别（B树是一种平衡多路搜索树）"><a href="#B树和B-树的区别（B树是一种平衡多路搜索树）" class="headerlink" title="B树和B+树的区别（B树是一种平衡多路搜索树）"></a>B树和B+树的区别（B树是一种平衡多路搜索树）</h2><p>B+树中只有叶子节点会带有指向记录的指针（ROWID），换句话说，就是非叶子节点不会带上 ROWID，一个块中可以容纳更多的索引项，可以降低树的高度；B树所有节点都带有</p>
+<p>B+树中所有叶子节点都通过指针连接在一起，范围扫描性能要好一点；B树不会，B树需要在叶子节点和内部节点之间不停地移动。</p>
+<h3 id="B树的应用场景"><a href="#B树的应用场景" class="headerlink" title="B树的应用场景"></a>B树的应用场景</h3><p>文件系统和数据库</p>
+<h2 id="（了解哪些算法）冒泡排序，选择排序，快排"><a href="#（了解哪些算法）冒泡排序，选择排序，快排" class="headerlink" title="（了解哪些算法）冒泡排序，选择排序，快排"></a>（了解哪些算法）冒泡排序，选择排序，快排</h2><p><strong>冒泡：</strong>比较相邻的元素。升序的话就是，如果第一个比第二个大，就交换位置</p>
+<p><strong>选择：</strong>最开始在未排序的序列里面找到最小元素，存放到排序序列的起始位置，然后，再从未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推</p>
+<p><strong>快排：</strong>随机挑一个数作基准，小于基准的放在前，大于基准的放在后。把序列分为较小区和较大区，再分别对小数与大区进行排序。</p>
+<p><strong>归并排序：</strong>把数据分为两段，从两段中逐个选最小的元素移入新数据段的末尾。可从上到下或从下到上进行。</p>
+<p><strong>堆排：</strong>从堆顶把根卸出来放在有序区之前，再恢复堆。</p>
+<h2 id="双向链表插入节点"><a href="#双向链表插入节点" class="headerlink" title="双向链表插入节点"></a>双向链表插入节点</h2><p><a href="http://www.360doc.com/content/17/0427/12/30427643_649056362.shtml">http://www.360doc.com/content/17/0427/12/30427643_649056362.shtml</a></p>
+<p><img src="/.io//image-20210819231749802.png" alt="image-20210819231749802"></p>
+<h3 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h3><p>任一节点对应的两棵子树的最大高度差为1</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>计算机理论</tag>
+      </tags>
+  </entry>
 </search>
