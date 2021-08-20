@@ -2447,8 +2447,10 @@ y(t)=Cx(t).
 </li>
 <li>我们所做的这个项目，解析的效率要比传统的那种磁盘遍历要高。文件取证方法通过定位有效文件夹以及.Trash文 件夹快速解析获取用户当前目录结构和近期删除 的所有文件数据信息。</li>
 </ol>
-<h2 id="项目中有什么难点？如何解决的"><a href="#项目中有什么难点？如何解决的" class="headerlink" title="项目中有什么难点？如何解决的"></a>项目中有什么难点？如何解决的</h2><p>F2FS文件系统一般有两个或者两个以上节点地址表（就是为了防止宕机然后对元数据造成不可恢复的损害）。但只有一个有效的节点地址表存储最新的节点信息。然后又因为F2FS文件系统有一个jounal缓存机制，可能有效nat_entry表项没有更新到节点地址表的情况。</p>
+<h2 id="项目中有什么难点？如何解决的"><a href="#项目中有什么难点？如何解决的" class="headerlink" title="项目中有什么难点？如何解决的"></a>项目中有什么难点？如何解决的</h2><p>F2FS文件系统一般有两个或者两个以上节点地址表（就是为了防止宕机然后对元数据造成不可恢复的损害）。但只有一个有效的节点地址表存储最新的节点信息。然后又因为F2FS文件系统有一个jounal缓存机制，<strong>可能有效nat_entry表项没有更新到节点地址表</strong>的情况。</p>
 <p>根据节点地址表的写入原理，通过检查点段，定位到最新有效的节点地址表。</p>
+<p><img src="/2021/08/19/%E9%A1%B9%E7%9B%AE%E5%9B%9E%E9%A1%BE/image-20210820122646610.png" alt="image-20210820122646610"></p>
+<h2 id="F2FS文件系统知识点"><a href="#F2FS文件系统知识点" class="headerlink" title="F2FS文件系统知识点"></a>F2FS文件系统知识点</h2><h3 id="结构布局"><a href="#结构布局" class="headerlink" title="结构布局"></a>结构布局</h3><p><img src="/2021/08/19/%E9%A1%B9%E7%9B%AE%E5%9B%9E%E9%A1%BE/image-20210820122433526.png" alt="image-20210820122433526"></p>
 <h2 id="Refer"><a href="#Refer" class="headerlink" title="Refer"></a>Refer</h2><p><a href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&amp;dbname=CJFDLAST2020&amp;filename=AQJS202008011&amp;v=kzaijASy61LCqpqJRwFs793cGqXipps20s2T0ZMnwutpBr66jWZ7J%mmd2FlAOSIYFVLF">手机端F2FS镜像文件数据取证方法 - 中国知网 (cnki.net)</a></p>
 ]]></content>
       <categories>
