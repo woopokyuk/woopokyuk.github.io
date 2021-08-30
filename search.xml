@@ -5968,4 +5968,152 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>Crypto</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Customizable Framework for Managing Trusted Components Deployed on Middleware</title>
+    <url>/2021/08/30/Middleware/</url>
+    <content><![CDATA[<font face="楷体">用于管理部署在中间件上的受信任组件的可自定义框架</font>
+
+<h2 id="1-KeyWrods"><a href="#1-KeyWrods" class="headerlink" title="1 KeyWrods"></a>1 KeyWrods</h2><p>可信计算，可信管理，可信保护，可信度量，中间件</p>
+<h2 id="2-可信管理模型"><a href="#2-可信管理模型" class="headerlink" title="2 可信管理模型"></a>2 可信管理模型</h2><h3 id="2-1-可信系统的定义"><a href="#2-1-可信系统的定义" class="headerlink" title="2.1 可信系统的定义"></a>2.1 可信系统的定义</h3><p>丑国NSF认为可信系统是：按预期工作，且不易被颠覆</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">behaves as expected, but, more importantly, continues to produce expected behavior and are not susceptible to subversion</span><br></pre></td></tr></table></figure>
+<p>作者Minghui Zhou等人认为</p>
+<script type="math/tex; mode=display">the\ \ trust = trust\ \ relationship+trust\ \ property+trust\ \ entity</script><ul>
+<li>trust relationship：实际就是 trustor 和 trustee 的关系，turstor 信任 trustee，trustee 被 trustor 信任。</li>
+<li>trust properties: 包括安全性、隐私、及时性、可用性和可靠性等</li>
+<li>trust entity: trustor 和 trustee 均为信任实体</li>
+</ul>
+<p>在不同的应用领域信托人（trustor）需要受托人（trustee）担保不同的信托属性。受托人（trustee）可以位于计算机系统中的各层：硬件、网络、操作系统、中间件、应用程序服务。</p>
+<font color="blue">该文关注的信托实体是网络上开放的动态的软件组件。</font>软件组件是否可信，取决于：提供服务时的安全性、可靠性和及时性等。如果满足其声明和预期的信任功能，则该软件组件是可信的。
+
+### 2.2 可信管理的四层模型
+
+![image-20210830203705391](Middleware/image-20210830203705391.png)
+
+* The Communication Layer：通信层。负责信任实体时间的通信，除了提供可靠通信，还提供了可信通信需求（比如SSL）
+* The Management Layer：管理层。是管理可信度和信任关系的核心。
+  * Trust Policy Customization 信任策略定制，有三种类型
+    * 开发人员可以根据信任要求指定需要保证的信任属性。
+    * 委托人或开发人员可以（重新）定义与特定受托人相关的信任属性的不同度量模型，即可信度度量方法和标准。
+    * 用户可以配置如何在运行时权衡信任属性（这会需要重新配置信任机制）
+* The Infrastructure Layer：基础设施层。为保证不同的信托属性提供具体的信托服务，如安全性、容错性等。
+
+### 2.3 信托实体
+
+如上文提到的，这里的信托实体就是应用程序组件。
+
+#### 2.3.1 可信组件
+
+受托人可以声明其在提供服务时可以担保的信托财产。例如，当银行机构提供金融服务时，它必须声明其服务是安全可靠的，否则客户将对银行服务不满意，然后不再来该机构寻求任何服务。
+
+| 可信组件的结构 |
+| -------------- |
+| 命名信息       |
+| 接口描述       |
+| 资源/组件引用  |
+| 信任属性声明   |
+
+例如电子书店的可信组件如下
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">entity</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">entity-name</span>&gt;</span>Order<span class="tag">&lt;/<span class="name">entity-name</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">interface</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">provide-method</span>&gt;</span> … <span class="tag">&lt;/<span class="name">provide-method</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">request-method</span>&gt;</span> … <span class="tag">&lt;/<span class="name">request-method</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">interface</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">entity-ref</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">ent-ref-name</span>&gt;</span>Customer<span class="tag">&lt;/<span class="name">ent-ref-name</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">entity-ref</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">resource-ref</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">res-ref-name</span>&gt;</span>odbc/orders<span class="tag">&lt;/<span class="name">res-ref-name</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">res-type</span>&gt;</span>DataSource<span class="tag">&lt;/<span class="name">res-type</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">resource-ref</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">entity</span>&gt;</span> </span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">trust-property</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">trust-prop-type</span>&gt;</span> security <span class="tag">&lt;/<span class="name">trust-prop-type</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">role-ref</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">role-ref-name</span>&gt;</span> administrator <span class="tag">&lt;/<span class="name">role-ref-name</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">trust-prop-policy</span>&gt;</span> SecurityPolicy <span class="tag">&lt;/<span class="name">trust-prop-policy</span>&gt;</span></span><br><span class="line">    …… </span><br><span class="line">  <span class="tag">&lt;/<span class="name">role-ref</span>&gt;</span> </span><br><span class="line">  …… </span><br><span class="line"><span class="tag">&lt;/<span class="name">trust-property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+### 2.4 度量模型
+
+可以将复杂的信任属性拆分成若干简单的子属性，然后单独定义表达式，以便更好的度量与管理。
+
+#### 2.4.1 基于单类型的信任公式
+
+$t$ 时刻，软件组件 $u$ 的可信度计算公式
+
+$$STW(u,t)=\sum_{c\in TrustChars}w_c\times TW_c(u,t)$$
+
+其中，$W_c$ 为信任属性 $C$ 在同一信任指标中的权值，$TW_c(u,t)$ 表示软件组件 $U$ 中 $C$ 信任属性 的可信度，$TrustChars$ 表示信任属性集。
+
+#### 2.4.2 基于属性定制的信任公式
+
+我们无法定义满足所有要求的公式，所以需要根据特定的场景，根据应用系统的要求和用户的期望定制特定的公式。比如当我们关注系统安全特性的时候，我们可以定制与安全相关的度量公式。
+
+* 安全性
+
+$$TW_{Security}(u,t)=MTBF/(MTBF+MTTR)$$​
+
+其中 $MTBF$ 意味着故障平均时间（mean time between failures）
+
+$MTTR$​ 意味着从故障中恢复的平均时间（mean time to repair/recover from failures）
+
+* 及时性
+
+$$TW_{Timeliness}(u,t)=\frac{1}{t}$$​​
+
+其中 $t$ 为计算时间，计算时间越短，及时性越好
+
+* 可靠性
+
+$$TW_{Reliability}(u,t)=MTBF/(1+MTBF)$$​
+
+可靠性：系统在指定环境，指定时间内完成任务的概率
+
+* 除了定制属性外，还可以定制属性的权重。权重和需为 1
+
+$$\sum_{Trustchars}w_c=1$$
+
+ ### 2.5 信任策略
+
+信任策略可以用定制工具在运行时重新定义。
+
+## 3 中间件
+
+最流行的模型是**基于对象**的中间件，其中应用程序被构造成对象，这些对象通过位置透明的方法调用进行交互。信任管理的原型系统已经部署在北大的 PKUAS 的 J2EE
+
+### 3.1 PKUAS
+
+是一个基于组件的中间件平台，为部署和执行应用组件提供了环境，其中**容器**为组件实例提供运行空间。
+
+为了支持组件实例的执行，容器能够捕获组件的所有详细信息（如界面、约束和关系），这是通过 PKUAS 的<font color="blue">反射机制</font>实现的。
+
+通过**容器**，组件获得公共服务的支持，实现应用的交互和非功能要求。
+
+### 3.2 整合信任管理
+
+将信任管理**作为一种公共服务**纳入 PKUAS
+
+信任组件装配工具将信任组件整合在一起，用于定制和调整信任属性。
+
+通过与装配工具交互，容器可以提取有关组件和应用程序信任属性的所有信息，然后将其供应给信托管理。
+
+### 3.3 信任组件的组装
+
+装配实际上是为每个应用程序定义一个装配说明，并且只有**在部署时才形成具体的应用程序**。
+
+在组装应用程序时，我们不仅要明确涉及哪些信任组件，还要声明将为用户保证哪些信任属性。
+
+### 3.4 信任管理的使用
+
+通过使用 PKUAS 和在 PKUAS 上实施的信托管理服务，开发人员可以指定组件和应用程序的信托属性，并通过自定义信托策略来定义可信度的衡量模型。
+
+基本流程：
+
+1. 指定可保证的信任属性，以及信任组件在请求受信任服务时期望的信任要求
+2. 为信任组件提供信任策略，以评估可信度
+3. 使用装配工具组装信任组件以构建信任程序
+4. 在 PKUAS 上部署和运行应用程序
+5. 使用自定义工具自定义组件的信任策略
+
+当部署的应用程序在 PKUAS 上运行时，信任管理机制监控应用程序，计算组件的可信度数，通知用户值得信赖的程度，并根据策略调整信任属性。
+
+### 3.5 执行情况的评估
+
+<font color="blue">信托管理的加入会影响系统性能。这方面可以进行优化</font>
+
+<p>最后，该文提出未来会研究如何<strong>有效的进行运行时评估</strong>（应该在管理框架中增加一些自动化功能，以减轻开发人员的一些负担）。</p>
+<h2 id="4-Ref"><a href="#4-Ref" class="headerlink" title="4 Ref"></a>4 Ref</h2><p><a href="https://ieeexplore.ieee.org/document/1467909">https://ieeexplore.ieee.org/document/1467909</a></p>
+]]></content>
+      <categories>
+        <category>科研</category>
+      </categories>
+      <tags>
+        <tag>文献</tag>
+        <tag>科研</tag>
+        <tag>可信计算</tag>
+      </tags>
+  </entry>
 </search>
