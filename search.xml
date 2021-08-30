@@ -374,7 +374,7 @@ $$TW_{Reliability}(u,t)=MTBF/(1+MTBF)$$​
 
 $$\sum_{Trustchars}w_c=1$$
 
- ### 2.5 信任策略
+### 2.5 信任策略
 
 信任策略可以用定制工具在运行时重新定义。
 
