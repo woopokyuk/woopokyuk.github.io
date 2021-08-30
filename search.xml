@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>C-FLAT Control-Flow Attestation for Embedded Systems Software</title>
+    <url>/2021/05/19/Control-Flow-Attestation-for-Embedded-Systems-Software/</url>
+    <content><![CDATA[<h2 id="Keywords"><a href="#Keywords" class="headerlink" title="Keywords"></a>Keywords</h2><p>远程认证；控制流攻击；嵌入式系统安全</p>
+<h2 id="Problem-Setting"><a href="#Problem-Setting" class="headerlink" title="Problem Setting"></a>Problem Setting</h2><p><img src="/2021/05/19/Control-Flow-Attestation-for-Embedded-Systems-Software/image-20210519153200738.png" alt="image-20210519153200738"></p>
+<ul>
+<li>如果通过认证，则进入授权路径；否则进入无授权路径<ul>
+<li>授权路径：N1-N2-N5-N4</li>
+<li>无授权路径：N1-N3-N6-N4</li>
+</ul>
+</li>
+<li>有控制流漏洞的程序（比如可能存在栈溢出的情况），可能会通过修改某些函数变量的值，间接修改函数返回的地址，这样就会导致程序按非预期的（非授权的）路径运行</li>
+</ul>
+<h2 id="System-Model"><a href="#System-Model" class="headerlink" title="System Model"></a>System Model</h2><p><img src="/2021/05/19/Control-Flow-Attestation-for-Embedded-Systems-Software/image-20210519160106939.png" alt="image-20210519160106939"></p>
+<p><strong>目标：</strong>Ver 希望确定远程嵌入式系统 Prv 的运行时控制流</p>
+<ol>
+<li>通过静态分析，生成控制流图</li>
+<li>测量每个可能的控制流路径，并存到数据库</li>
+<li>Ver 向 Prv 发起挑战，Prv 执行一个函数，然后计算被执行的 CFG（控制流图）。这样会生成一个经过认证的数字签名，并存至数据库。</li>
+</ol>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这篇论文的主要工作是提出一种认证，这种控制流认证会使系统的安全控制流程被写入数据库，这个数据库（我认为也可以是其他的一些数据结构）会在我们后续的研究中，比如安全状态观测和动态调整流程或许是有用的。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p><a href="https://dl.acm.org/doi/10.1145/2976749.2978358">https://dl.acm.org/doi/10.1145/2976749.2978358</a></p>
+]]></content>
+      <categories>
+        <category>科研</category>
+      </categories>
+      <tags>
+        <tag>文献</tag>
+        <tag>控制流</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>A multi-flow information flow tracking approach for proving quantitative hardware security properties</title>
     <url>/2020/09/03/A-multi-flow-information-flow-tracking-approach/</url>
     <content><![CDATA[<h2 id="Key-words"><a href="#Key-words" class="headerlink" title="Key words"></a>Key words</h2><p>hardware security; Information Flow Tracking (IFT); multi-flow IFT; security property</p>
@@ -131,37 +162,6 @@
       </tags>
   </entry>
   <entry>
-    <title>C-FLAT Control-Flow Attestation for Embedded Systems Software</title>
-    <url>/2021/05/19/Control-Flow-Attestation-for-Embedded-Systems-Software/</url>
-    <content><![CDATA[<h2 id="Keywords"><a href="#Keywords" class="headerlink" title="Keywords"></a>Keywords</h2><p>远程认证；控制流攻击；嵌入式系统安全</p>
-<h2 id="Problem-Setting"><a href="#Problem-Setting" class="headerlink" title="Problem Setting"></a>Problem Setting</h2><p><img src="/2021/05/19/Control-Flow-Attestation-for-Embedded-Systems-Software/image-20210519153200738.png" alt="image-20210519153200738"></p>
-<ul>
-<li>如果通过认证，则进入授权路径；否则进入无授权路径<ul>
-<li>授权路径：N1-N2-N5-N4</li>
-<li>无授权路径：N1-N3-N6-N4</li>
-</ul>
-</li>
-<li>有控制流漏洞的程序（比如可能存在栈溢出的情况），可能会通过修改某些函数变量的值，间接修改函数返回的地址，这样就会导致程序按非预期的（非授权的）路径运行</li>
-</ul>
-<h2 id="System-Model"><a href="#System-Model" class="headerlink" title="System Model"></a>System Model</h2><p><img src="/2021/05/19/Control-Flow-Attestation-for-Embedded-Systems-Software/image-20210519160106939.png" alt="image-20210519160106939"></p>
-<p><strong>目标：</strong>Ver 希望确定远程嵌入式系统 Prv 的运行时控制流</p>
-<ol>
-<li>通过静态分析，生成控制流图</li>
-<li>测量每个可能的控制流路径，并存到数据库</li>
-<li>Ver 向 Prv 发起挑战，Prv 执行一个函数，然后计算被执行的 CFG（控制流图）。这样会生成一个经过认证的数字签名，并存至数据库。</li>
-</ol>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这篇论文的主要工作是提出一种认证，这种控制流认证会使系统的安全控制流程被写入数据库，这个数据库（我认为也可以是其他的一些数据结构）会在我们后续的研究中，比如安全状态观测和动态调整流程或许是有用的。</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p><a href="https://dl.acm.org/doi/10.1145/2976749.2978358">https://dl.acm.org/doi/10.1145/2976749.2978358</a></p>
-]]></content>
-      <categories>
-        <category>科研</category>
-      </categories>
-      <tags>
-        <tag>文献</tag>
-        <tag>控制流</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux程序设计</title>
     <url>/2021/06/22/Linux%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</url>
     <content><![CDATA[<h2 id="第一章-基础知识"><a href="#第一章-基础知识" class="headerlink" title="第一章 基础知识"></a>第一章 基础知识</h2><h3 id="1-1-Linux-程序设计常识"><a href="#1-1-Linux-程序设计常识" class="headerlink" title="1.1 Linux 程序设计常识"></a>1.1 Linux 程序设计常识</h3><ul>
@@ -284,6 +284,185 @@
       <tags>
         <tag>Linux</tag>
         <tag>读书笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Customizable Framework for Managing Trusted Components Deployed on Middleware</title>
+    <url>/2021/08/30/Middleware/</url>
+    <content><![CDATA[<font face="楷体">用于管理部署在中间件上的受信任组件的可自定义框架</font>
+
+<h2 id="1-KeyWrods"><a href="#1-KeyWrods" class="headerlink" title="1 KeyWrods"></a>1 KeyWrods</h2><p>可信计算，可信管理，可信保护，可信度量，中间件</p>
+<h2 id="2-可信管理模型"><a href="#2-可信管理模型" class="headerlink" title="2 可信管理模型"></a>2 可信管理模型</h2><h3 id="2-1-可信系统的定义"><a href="#2-1-可信系统的定义" class="headerlink" title="2.1 可信系统的定义"></a>2.1 可信系统的定义</h3><p>丑国NSF认为可信系统是：按预期工作，且不易被颠覆</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">behaves as expected, but, more importantly, continues to produce expected behavior and are not susceptible to subversion</span><br></pre></td></tr></table></figure>
+<p>作者Minghui Zhou等人认为</p>
+<script type="math/tex; mode=display">the\ \ trust = trust\ \ relationship+trust\ \ property+trust\ \ entity</script><ul>
+<li>trust relationship：实际就是 trustor 和 trustee 的关系，turstor 信任 trustee，trustee 被 trustor 信任。</li>
+<li>trust properties: 包括安全性、隐私、及时性、可用性和可靠性等</li>
+<li>trust entity: trustor 和 trustee 均为信任实体</li>
+</ul>
+<p>在不同的应用领域信托人（trustor）需要受托人（trustee）担保不同的信托属性。受托人（trustee）可以位于计算机系统中的各层：硬件、网络、操作系统、中间件、应用程序服务。</p>
+<font color="blue">该文关注的信托实体是网络上开放的动态的软件组件。</font>软件组件是否可信，取决于：提供服务时的安全性、可靠性和及时性等。如果满足其声明和预期的信任功能，则该软件组件是可信的。
+
+### 2.2 可信管理的四层模型
+
+![image-20210830203705391](Middleware/image-20210830203705391.png)
+
+* The Communication Layer：通信层。负责信任实体时间的通信，除了提供可靠通信，还提供了可信通信需求（比如SSL）
+* The Management Layer：管理层。是管理可信度和信任关系的核心。
+  * Trust Policy Customization 信任策略定制，有三种类型
+    * 开发人员可以根据信任要求指定需要保证的信任属性。
+    * 委托人或开发人员可以（重新）定义与特定受托人相关的信任属性的不同度量模型，即可信度度量方法和标准。
+    * 用户可以配置如何在运行时权衡信任属性（这会需要重新配置信任机制）
+* The Infrastructure Layer：基础设施层。为保证不同的信托属性提供具体的信托服务，如安全性、容错性等。
+
+### 2.3 信托实体
+
+如上文提到的，这里的信托实体就是应用程序组件。
+
+#### 2.3.1 可信组件
+
+受托人可以声明其在提供服务时可以担保的信托财产。例如，当银行机构提供金融服务时，它必须声明其服务是安全可靠的，否则客户将对银行服务不满意，然后不再来该机构寻求任何服务。
+
+| 可信组件的结构 |
+| -------------- |
+| 命名信息       |
+| 接口描述       |
+| 资源/组件引用  |
+| 信任属性声明   |
+
+例如电子书店的可信组件如下
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">entity</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">entity-name</span>&gt;</span>Order<span class="tag">&lt;/<span class="name">entity-name</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">interface</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">provide-method</span>&gt;</span> … <span class="tag">&lt;/<span class="name">provide-method</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">request-method</span>&gt;</span> … <span class="tag">&lt;/<span class="name">request-method</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">interface</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">entity-ref</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">ent-ref-name</span>&gt;</span>Customer<span class="tag">&lt;/<span class="name">ent-ref-name</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">entity-ref</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">resource-ref</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">res-ref-name</span>&gt;</span>odbc/orders<span class="tag">&lt;/<span class="name">res-ref-name</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">res-type</span>&gt;</span>DataSource<span class="tag">&lt;/<span class="name">res-type</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">resource-ref</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">entity</span>&gt;</span> </span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">trust-property</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">trust-prop-type</span>&gt;</span> security <span class="tag">&lt;/<span class="name">trust-prop-type</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">role-ref</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">role-ref-name</span>&gt;</span> administrator <span class="tag">&lt;/<span class="name">role-ref-name</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">trust-prop-policy</span>&gt;</span> SecurityPolicy <span class="tag">&lt;/<span class="name">trust-prop-policy</span>&gt;</span></span><br><span class="line">    …… </span><br><span class="line">  <span class="tag">&lt;/<span class="name">role-ref</span>&gt;</span> </span><br><span class="line">  …… </span><br><span class="line"><span class="tag">&lt;/<span class="name">trust-property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+### 2.4 度量模型
+
+可以将复杂的信任属性拆分成若干简单的子属性，然后单独定义表达式，以便更好的度量与管理。
+
+#### 2.4.1 基于单类型的信任公式
+
+$t$ 时刻，软件组件 $u$ 的可信度计算公式
+
+$$STW(u,t)=\sum_{c\in TrustChars}w_c\times TW_c(u,t)$$
+
+其中，$W_c$ 为信任属性 $C$ 在同一信任指标中的权值，$TW_c(u,t)$ 表示软件组件 $U$ 中 $C$ 信任属性 的可信度，$TrustChars$ 表示信任属性集。
+
+#### 2.4.2 基于属性定制的信任公式
+
+我们无法定义满足所有要求的公式，所以需要根据特定的场景，根据应用系统的要求和用户的期望定制特定的公式。比如当我们关注系统安全特性的时候，我们可以定制与安全相关的度量公式。
+
+* 安全性
+
+$$TW_{Security}(u,t)=MTBF/(MTBF+MTTR)$$​
+
+其中 $MTBF$ 意味着故障平均时间（mean time between failures）
+
+$MTTR$​ 意味着从故障中恢复的平均时间（mean time to repair/recover from failures）
+
+* 及时性
+
+$$TW_{Timeliness}(u,t)=\frac{1}{t}$$​​
+
+其中 $t$ 为计算时间，计算时间越短，及时性越好
+
+* 可靠性
+
+$$TW_{Reliability}(u,t)=MTBF/(1+MTBF)$$​
+
+可靠性：系统在指定环境，指定时间内完成任务的概率
+
+* 除了定制属性外，还可以定制属性的权重。权重和需为 1
+
+$$\sum_{Trustchars}w_c=1$$
+
+ ### 2.5 信任策略
+
+信任策略可以用定制工具在运行时重新定义。
+
+## 3 中间件
+
+最流行的模型是**基于对象**的中间件，其中应用程序被构造成对象，这些对象通过位置透明的方法调用进行交互。信任管理的原型系统已经部署在北大的 PKUAS 的 J2EE
+
+### 3.1 PKUAS
+
+是一个基于组件的中间件平台，为部署和执行应用组件提供了环境，其中**容器**为组件实例提供运行空间。
+
+为了支持组件实例的执行，容器能够捕获组件的所有详细信息（如界面、约束和关系），这是通过 PKUAS 的<font color="blue">反射机制</font>实现的。
+
+通过**容器**，组件获得公共服务的支持，实现应用的交互和非功能要求。
+
+### 3.2 整合信任管理
+
+将信任管理**作为一种公共服务**纳入 PKUAS
+
+信任组件装配工具将信任组件整合在一起，用于定制和调整信任属性。
+
+通过与装配工具交互，容器可以提取有关组件和应用程序信任属性的所有信息，然后将其供应给信托管理。
+
+### 3.3 信任组件的组装
+
+装配实际上是为每个应用程序定义一个装配说明，并且只有**在部署时才形成具体的应用程序**。
+
+在组装应用程序时，我们不仅要明确涉及哪些信任组件，还要声明将为用户保证哪些信任属性。
+
+### 3.4 信任管理的使用
+
+通过使用 PKUAS 和在 PKUAS 上实施的信托管理服务，开发人员可以指定组件和应用程序的信托属性，并通过自定义信托策略来定义可信度的衡量模型。
+
+基本流程：
+
+1. 指定可保证的信任属性，以及信任组件在请求受信任服务时期望的信任要求
+2. 为信任组件提供信任策略，以评估可信度
+3. 使用装配工具组装信任组件以构建信任程序
+4. 在 PKUAS 上部署和运行应用程序
+5. 使用自定义工具自定义组件的信任策略
+
+当部署的应用程序在 PKUAS 上运行时，信任管理机制监控应用程序，计算组件的可信度数，通知用户值得信赖的程度，并根据策略调整信任属性。
+
+### 3.5 执行情况的评估
+
+<font color="blue">信托管理的加入会影响系统性能。这方面可以进行优化</font>
+
+<p>最后，该文提出未来会研究如何<strong>有效的进行运行时评估</strong>（应该在管理框架中增加一些自动化功能，以减轻开发人员的一些负担）。</p>
+<h2 id="4-Ref"><a href="#4-Ref" class="headerlink" title="4 Ref"></a>4 Ref</h2><p><a href="https://ieeexplore.ieee.org/document/1467909">https://ieeexplore.ieee.org/document/1467909</a></p>
+]]></content>
+      <categories>
+        <category>科研</category>
+      </categories>
+      <tags>
+        <tag>文献</tag>
+        <tag>科研</tag>
+        <tag>可信计算</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nessus安装</title>
+    <url>/2021/01/20/Nessus%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><a href="https://blog.csdn.net/nex1less/article/details/88407590">参考</a>  </p>
+<ol>
+<li>从<a href="http://www.tenable.com/products/nessus/select-your-operating-system">官网</a>下载对应版本的Nessus，这里下载的是Nessus-8.13.1-debian6_amd64.deb  </li>
+<li><code>dpkg -i Nessus-8.13.1-debian6_amd64.deb</code>  </li>
+<li>安装完成后提示<br><img src="/2021/01/20/Nessus%E5%AE%89%E8%A3%85/000Nessus_install_finished.png" alt>  </li>
+<li>故通过<code>/bin/systemctl start nessusd.service</code>启动  </li>
+<li>查看Nessus启动状态（下图为启动成功）<code>netstat -ntpl | grep nessus</code><br><img src="/2021/01/20/Nessus%E5%AE%89%E8%A3%85/002netstat.png" alt>  </li>
+</ol>
+<h2 id="注册与初始化"><a href="#注册与初始化" class="headerlink" title="注册与初始化"></a>注册与初始化</h2><ol>
+<li><a href="http://www.tenable.com/products/nessus/nessus-plugins/obtain-an-activation-code">http://www.tenable.com/products/nessus/nessus-plugins/obtain-an-activation-code</a>  </li>
+<li>这里注册免费的Nessus Essential  </li>
+<li>获取邮箱收到的激活码  </li>
+<li>启动页通过浏览器查看<a href="https://kali:8834/">https://kali:8834/</a><br><img src="/2021/01/20/Nessus%E5%AE%89%E8%A3%85/001Nessus_browser_ui.png" alt>  </li>
+<li>选择注册版本，并填写激活码<br><img src="/2021/01/20/Nessus%E5%AE%89%E8%A3%85/003license.png" alt>  </li>
+<li>这里遇到了一个问题，网络断开，重启网络<code>systemctl restart networking</code>不管用。<code>ifconfig</code>发现ip地址只有127.0.0.1，于是<code>sudo dhclient eth0</code>，随即恢复 <a href="https://unix.stackexchange.com/questions/178399/no-longer-able-to-reach-the-internet-on-kali-linux">参考</a>  </li>
+<li>随后要求注册账号，填写用户名和密码，即可开始初始化过程<br><img src="/2021/01/20/Nessus%E5%AE%89%E8%A3%85/004initialing.png" alt>  </li>
+<li>在线下载很慢，于是<a href="https://blog.csdn.net/robacco/article/details/89575849">离线下载</a>  </li>
+</ol>
+<h2 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h2><p><a href="https://blog.csdn.net/Fish_cyy/article/details/105797084">参考</a>  </p>
+<h2 id="切换root用户"><a href="#切换root用户" class="headerlink" title="切换root用户"></a>切换root用户</h2><p><code>sudo passwd root</code>给root添加密码即可</p>
+]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+      <tags>
+        <tag>Nessus</tag>
       </tags>
   </entry>
   <entry>
@@ -530,59 +709,32 @@
       </tags>
   </entry>
   <entry>
-    <title>Nessus安装</title>
-    <url>/2021/01/20/Nessus%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><a href="https://blog.csdn.net/nex1less/article/details/88407590">参考</a>  </p>
-<ol>
-<li>从<a href="http://www.tenable.com/products/nessus/select-your-operating-system">官网</a>下载对应版本的Nessus，这里下载的是Nessus-8.13.1-debian6_amd64.deb  </li>
-<li><code>dpkg -i Nessus-8.13.1-debian6_amd64.deb</code>  </li>
-<li>安装完成后提示<br><img src="/2021/01/20/Nessus%E5%AE%89%E8%A3%85/000Nessus_install_finished.png" alt>  </li>
-<li>故通过<code>/bin/systemctl start nessusd.service</code>启动  </li>
-<li>查看Nessus启动状态（下图为启动成功）<code>netstat -ntpl | grep nessus</code><br><img src="/2021/01/20/Nessus%E5%AE%89%E8%A3%85/002netstat.png" alt>  </li>
-</ol>
-<h2 id="注册与初始化"><a href="#注册与初始化" class="headerlink" title="注册与初始化"></a>注册与初始化</h2><ol>
-<li><a href="http://www.tenable.com/products/nessus/nessus-plugins/obtain-an-activation-code">http://www.tenable.com/products/nessus/nessus-plugins/obtain-an-activation-code</a>  </li>
-<li>这里注册免费的Nessus Essential  </li>
-<li>获取邮箱收到的激活码  </li>
-<li>启动页通过浏览器查看<a href="https://kali:8834/">https://kali:8834/</a><br><img src="/2021/01/20/Nessus%E5%AE%89%E8%A3%85/001Nessus_browser_ui.png" alt>  </li>
-<li>选择注册版本，并填写激活码<br><img src="/2021/01/20/Nessus%E5%AE%89%E8%A3%85/003license.png" alt>  </li>
-<li>这里遇到了一个问题，网络断开，重启网络<code>systemctl restart networking</code>不管用。<code>ifconfig</code>发现ip地址只有127.0.0.1，于是<code>sudo dhclient eth0</code>，随即恢复 <a href="https://unix.stackexchange.com/questions/178399/no-longer-able-to-reach-the-internet-on-kali-linux">参考</a>  </li>
-<li>随后要求注册账号，填写用户名和密码，即可开始初始化过程<br><img src="/2021/01/20/Nessus%E5%AE%89%E8%A3%85/004initialing.png" alt>  </li>
-<li>在线下载很慢，于是<a href="https://blog.csdn.net/robacco/article/details/89575849">离线下载</a>  </li>
-</ol>
-<h2 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h2><p><a href="https://blog.csdn.net/Fish_cyy/article/details/105797084">参考</a>  </p>
-<h2 id="切换root用户"><a href="#切换root用户" class="headerlink" title="切换root用户"></a>切换root用户</h2><p><code>sudo passwd root</code>给root添加密码即可</p>
+    <title>论文研读 2021-05-19</title>
+    <url>/2021/05/19/QianPaper/</url>
+    <content><![CDATA[<h1 id="程序运行模型"><a href="#程序运行模型" class="headerlink" title="程序运行模型"></a>程序运行模型</h1><h2 id="函数运行模型"><a href="#函数运行模型" class="headerlink" title="函数运行模型"></a>函数运行模型</h2><ul>
+<li>将程序分解为每一个函数的状态的组合</li>
+<li>函数内部运行一个独立的<strong>自动机</strong></li>
+<li>每一个函数的自动机组合在一起形成整个程序的自动机</li>
+</ul>
+<h3 id="自动机构建"><a href="#自动机构建" class="headerlink" title="自动机构建"></a>自动机构建</h3><ul>
+<li>静态生成：链表存放函数状态转移</li>
+<li>动态生成：函数运行的过程中动态生成自动机。可以减少特征值存放所需要的空间，但是遇到某些未加入状态的正常函数会产生误报。</li>
+</ul>
+<h2 id="动态完整性度量方法"><a href="#动态完整性度量方法" class="headerlink" title="动态完整性度量方法"></a>动态完整性度量方法</h2><ul>
+<li>程序进入新函数时，度量模块就会将函数调用者对应的调用序列压栈保存，并新建空间保存当前序列</li>
+<li>函数运行过程中，度量模块记录程序这段时间的调用，作为度量内容</li>
+<li>函数运行结束后，度量模块已经记录函数运行序列，并将其与函数自动机比对，验证度量是否成功</li>
+<li>度量符合则继续运行，不符合则结束运行</li>
+<li>程序返回上一个函数，并将原先保存的序列出栈，继续以上过程，直到程序结束</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>Qian 的这篇文章，其实本质上和我们提的方法是一样的。但是这种形式化的描述方法，算法的描述都非常值得借鉴学习！</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>Lee 发来的一篇不知篇名的文章（未检索到相关信息）</p>
 ]]></content>
       <categories>
-        <category>Tools</category>
+        <category>科研</category>
       </categories>
       <tags>
-        <tag>Nessus</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PWN分析环境搭建</title>
-    <url>/2021/05/31/PWN%E5%88%86%E6%9E%90%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><p><a href="http://mirrors.163.com/ubuntu-releases/16.04/">http://mirrors.163.com/ubuntu-releases/16.04/</a> 这里下载 ubuntu-16.04.7-desktop-amd64.iso </p>
-<ul>
-<li>注意先建空白盘</li>
-</ul>
-<p><img src="/2021/05/31/PWN%E5%88%86%E6%9E%90%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20210531154505963.png" alt="image-20210531154505963"></p>
-<ul>
-<li><p>建好后再通过设置，添加 ISO 映像文件</p>
-<p><img src="/2021/05/31/PWN%E5%88%86%E6%9E%90%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20210531154636268.png" alt="image-20210531154636268"></p>
-</li>
-<li><p>然后再启动虚拟机开始安装</p>
-</li>
-</ul>
-<h2 id="二进制安全研究工具"><a href="#二进制安全研究工具" class="headerlink" title="二进制安全研究工具"></a>二进制安全研究工具</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo dpkg --add-architecture i386</span><br><span class="line">sudo apt update &amp;&amp; sudo apt upgrade</span><br><span class="line">sudo apt install libc6:i386</span><br><span class="line"></span><br><span class="line">sudo apt install gcc-4.8 cmake gdb socat vim</span><br><span class="line">sudo apt install python-dev python-pip python3 python3-dev python3-pip</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这里我是分步用 sudo python -m pip install 安装的</span></span><br><span class="line">sudo pip install zio pwntools ropgadget capstone keystone-engine unicorn</span><br><span class="line">wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh</span><br><span class="line">sudo wget https://github.com/slimm609/checksec.sh/raw/master/checksec -O /usr/local/bin/checksec &amp;&amp; sudo chmod +x /usr/local/bin/checksec</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>环境搭建</category>
-      </categories>
-      <tags>
-        <tag>CTF</tag>
-        <tag>PWN</tag>
+        <tag>文献</tag>
       </tags>
   </entry>
   <entry>
@@ -706,6 +858,31 @@
       </tags>
   </entry>
   <entry>
+    <title>PWN分析环境搭建</title>
+    <url>/2021/05/31/PWN%E5%88%86%E6%9E%90%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><p><a href="http://mirrors.163.com/ubuntu-releases/16.04/">http://mirrors.163.com/ubuntu-releases/16.04/</a> 这里下载 ubuntu-16.04.7-desktop-amd64.iso </p>
+<ul>
+<li>注意先建空白盘</li>
+</ul>
+<p><img src="/2021/05/31/PWN%E5%88%86%E6%9E%90%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20210531154505963.png" alt="image-20210531154505963"></p>
+<ul>
+<li><p>建好后再通过设置，添加 ISO 映像文件</p>
+<p><img src="/2021/05/31/PWN%E5%88%86%E6%9E%90%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20210531154636268.png" alt="image-20210531154636268"></p>
+</li>
+<li><p>然后再启动虚拟机开始安装</p>
+</li>
+</ul>
+<h2 id="二进制安全研究工具"><a href="#二进制安全研究工具" class="headerlink" title="二进制安全研究工具"></a>二进制安全研究工具</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo dpkg --add-architecture i386</span><br><span class="line">sudo apt update &amp;&amp; sudo apt upgrade</span><br><span class="line">sudo apt install libc6:i386</span><br><span class="line"></span><br><span class="line">sudo apt install gcc-4.8 cmake gdb socat vim</span><br><span class="line">sudo apt install python-dev python-pip python3 python3-dev python3-pip</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这里我是分步用 sudo python -m pip install 安装的</span></span><br><span class="line">sudo pip install zio pwntools ropgadget capstone keystone-engine unicorn</span><br><span class="line">wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh</span><br><span class="line">sudo wget https://github.com/slimm609/checksec.sh/raw/master/checksec -O /usr/local/bin/checksec &amp;&amp; sudo chmod +x /usr/local/bin/checksec</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>环境搭建</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>PWN</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RASP技术</title>
     <url>/2021/07/04/RASP%E6%8A%80%E6%9C%AF/</url>
     <content><![CDATA[<h2 id="1-什么是-RASP"><a href="#1-什么是-RASP" class="headerlink" title="1 什么是 RASP"></a>1 什么是 RASP</h2><p>Runtime application self-protection，运行时应用自我保护技术，与应用程序融为一体，实时监测和阻断攻击，注入到被保护应用的服务中提供函数级别的实时防护，可以在不更新策略以及不升级被保护应用代码的情况下检测/防护未知漏洞。具备自我保护功能，不需要人为干涉。</p>
@@ -753,35 +930,6 @@
       <tags>
         <tag>科研</tag>
         <tag>RASP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>论文研读 2021-05-19</title>
-    <url>/2021/05/19/QianPaper/</url>
-    <content><![CDATA[<h1 id="程序运行模型"><a href="#程序运行模型" class="headerlink" title="程序运行模型"></a>程序运行模型</h1><h2 id="函数运行模型"><a href="#函数运行模型" class="headerlink" title="函数运行模型"></a>函数运行模型</h2><ul>
-<li>将程序分解为每一个函数的状态的组合</li>
-<li>函数内部运行一个独立的<strong>自动机</strong></li>
-<li>每一个函数的自动机组合在一起形成整个程序的自动机</li>
-</ul>
-<h3 id="自动机构建"><a href="#自动机构建" class="headerlink" title="自动机构建"></a>自动机构建</h3><ul>
-<li>静态生成：链表存放函数状态转移</li>
-<li>动态生成：函数运行的过程中动态生成自动机。可以减少特征值存放所需要的空间，但是遇到某些未加入状态的正常函数会产生误报。</li>
-</ul>
-<h2 id="动态完整性度量方法"><a href="#动态完整性度量方法" class="headerlink" title="动态完整性度量方法"></a>动态完整性度量方法</h2><ul>
-<li>程序进入新函数时，度量模块就会将函数调用者对应的调用序列压栈保存，并新建空间保存当前序列</li>
-<li>函数运行过程中，度量模块记录程序这段时间的调用，作为度量内容</li>
-<li>函数运行结束后，度量模块已经记录函数运行序列，并将其与函数自动机比对，验证度量是否成功</li>
-<li>度量符合则继续运行，不符合则结束运行</li>
-<li>程序返回上一个函数，并将原先保存的序列出栈，继续以上过程，直到程序结束</li>
-</ul>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>Qian 的这篇文章，其实本质上和我们提的方法是一样的。但是这种形式化的描述方法，算法的描述都非常值得借鉴学习！</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>Lee 发来的一篇不知篇名的文章（未检索到相关信息）</p>
-]]></content>
-      <categories>
-        <category>科研</category>
-      </categories>
-      <tags>
-        <tag>文献</tag>
       </tags>
   </entry>
   <entry>
@@ -979,79 +1127,6 @@
       </tags>
   </entry>
   <entry>
-    <title>解决XAMPP安装后无法启动Apache和MySQL的问题并搭建pikachu环境</title>
-    <url>/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/</url>
-    <content><![CDATA[<p><a href="https://blog.csdn.net/qq_41664447/article/details/81202740">参考</a></p>
-<h2 id="1-启动-Apache"><a href="#1-启动-Apache" class="headerlink" title="1 启动 Apache"></a>1 启动 Apache</h2><p>注意这里修改端口号的目的是避免与现存服务冲突，如果原有默认的端口可用，实际上不需要修改</p>
-<h3 id="1-1-修改端口号"><a href="#1-1-修改端口号" class="headerlink" title="1.1 修改端口号"></a>1.1 修改端口号</h3><ul>
-<li><p>需要修改配置中的端口号，以避免与其他服务冲突</p>
-<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604103954352.png" alt="image-20210604103954352"></p>
-<ul>
-<li><p>其中右上角整体的配置</p>
-<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604104053107.png" alt="image-20210604104053107"></p>
-<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604104115988.png" alt="image-20210604104115988"></p>
-</li>
-<li><p>Apache 服务对应的配置也需要同步修改：将 httpd.conf 中所有 80 替换为以上的8081 及 httpd-ssl.conf 中所有 443 替换为 4433，与以上配置相同。</p>
-<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604104214321.png" alt="image-20210604104214321"></p>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>实际上我走到这一步是没有成功的，点击 start 没有报错，仅提示正在试图启动 Apache 服务，没有其他动静</li>
-</ul>
-<h3 id="1-2-修改注册表路径"><a href="#1-2-修改注册表路径" class="headerlink" title="1.2 修改注册表路径"></a>1.2 修改注册表路径</h3><ul>
-<li>win + R，regedit 进入注册表编辑器</li>
-<li><p><code>\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Apache2.4</code></p>
-</li>
-<li><p>找到 ImagePath 将其路径修改为 xampp 目录的 apache 底下 httpd.exe 的绝对路径，根据自己安装情况修改即可 <code>..\xampp\apache\bin\httpd.exe</code></p>
-</li>
-<li><p>修改完成后即可正常启动</p>
-<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604104813087.png" alt="image-20210604104813087"></p>
-</li>
-</ul>
-<h2 id="2-启动-MySQL"><a href="#2-启动-MySQL" class="headerlink" title="2 启动 MySQL"></a>2 启动 MySQL</h2><h3 id="2-1-修改端口"><a href="#2-1-修改端口" class="headerlink" title="2.1 修改端口"></a>2.1 修改端口</h3><p>同上，将配置文件中的 3306 改为 3316</p>
-<h3 id="2-2-重启服务"><a href="#2-2-重启服务" class="headerlink" title="2.2 重启服务"></a>2.2 重启服务</h3><ul>
-<li>删除MySQL服务<code>sc delete mysql</code></li>
-<li>按 Apache 以上提到注册表信息的内容，找到 MySQL相关并全部删除</li>
-<li>找到<code>xampp\mysql</code>目录下的 mysql_start.bat 并启动</li>
-<li>关闭 XAMPP 重新以管理员身份打开，并启动 MySQL 服务即可</li>
-</ul>
-<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604112516623.png" alt="image-20210604112516623"></p>
-<h2 id="3-pikachu-环境"><a href="#3-pikachu-环境" class="headerlink" title="3 pikachu 环境"></a>3 pikachu 环境</h2><p><a href="https://blog.csdn.net/jomos/article/details/106881756">搭建pikachu的环境_jomos的博客-CSDN博客_pikachu搭建</a> 需要修改 MySQL 账户密码，若修改后连不上了则参考下一条</p>
-<ul>
-<li><p>下载 <a href="https://github.com/zhuifengshaonianhanlu/pikachu">https://github.com/zhuifengshaonianhanlu/pikachu</a> 压缩包</p>
-</li>
-<li><p>解压到 <code>\xampp\htdocs</code> 下，并将 pikachu-master 改名为 pikachu</p>
-<ul>
-<li>原因：<code>\xampp\htdocs\pikachu\inc\config.inc.php</code> 中 <code>define(&#39;DBNAME&#39;, &#39;pikachu&#39;);//自定义，建议不修改</code></li>
-</ul>
-</li>
-<li><p>修改上述配置文件 config.inc.php 中端口为 XAMPP 中 MySQL 配置的端口，完成！</p>
-<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604203010242.png" alt="image-20210604203010242"></p>
-</li>
-<li><p>启动 XAMPP，打开 Apache 和 MySQL 服务，访问 <code>http://localhost:8081/pikachu/</code></p>
-</li>
-</ul>
-<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604203143811.png" alt="image-20210604203143811"></p>
-<ul>
-<li><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604212056271.png" alt="image-20210604212056271"></li>
-</ul>
-<h2 id="4-XAMPP-通过-PHPADMIN-修改密码后连不上了"><a href="#4-XAMPP-通过-PHPADMIN-修改密码后连不上了" class="headerlink" title="4 XAMPP 通过 PHPADMIN 修改密码后连不上了"></a>4 XAMPP 通过 PHPADMIN 修改密码后连不上了</h2><p><a href="https://blog.csdn.net/m0_37468234/article/details/80047785">xampp修改mysql密码后不能登陆_honyliu-CSDN博客</a></p>
-<ul>
-<li><code>\xampp\phpMyAdmin\config.inc.php</code> 中 <code>$cfg[&#39;Servers&#39;][$i][&#39;password&#39;] = &#39;&#39;;</code> 添加密码</li>
-</ul>
-<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604211818520.png" alt="image-20210604211818520"></p>
-]]></content>
-      <categories>
-        <category>解决方案</category>
-      </categories>
-      <tags>
-        <tag>XAMPP</tag>
-        <tag>pikachu</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Unix/Linux系统编程</title>
     <url>/2021/06/20/Unix%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="2-编程背景"><a href="#2-编程背景" class="headerlink" title="2 编程背景"></a>2 编程背景</h2><h3 id="2-3-程序开发"><a href="#2-3-程序开发" class="headerlink" title="2.3 程序开发"></a>2.3 程序开发</h3><h4 id="2-3-1-C-语言变量"><a href="#2-3-1-C-语言变量" class="headerlink" title="2.3.1 C 语言变量"></a>2.3.1 C 语言变量</h4><p><img src="/2021/06/20/Unix%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/image-20210620220047647.png" alt="image-20210620220047647"></p>
@@ -1220,6 +1295,79 @@
       <tags>
         <tag>文献</tag>
         <tag>Blockchain</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解决XAMPP安装后无法启动Apache和MySQL的问题并搭建pikachu环境</title>
+    <url>/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/</url>
+    <content><![CDATA[<p><a href="https://blog.csdn.net/qq_41664447/article/details/81202740">参考</a></p>
+<h2 id="1-启动-Apache"><a href="#1-启动-Apache" class="headerlink" title="1 启动 Apache"></a>1 启动 Apache</h2><p>注意这里修改端口号的目的是避免与现存服务冲突，如果原有默认的端口可用，实际上不需要修改</p>
+<h3 id="1-1-修改端口号"><a href="#1-1-修改端口号" class="headerlink" title="1.1 修改端口号"></a>1.1 修改端口号</h3><ul>
+<li><p>需要修改配置中的端口号，以避免与其他服务冲突</p>
+<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604103954352.png" alt="image-20210604103954352"></p>
+<ul>
+<li><p>其中右上角整体的配置</p>
+<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604104053107.png" alt="image-20210604104053107"></p>
+<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604104115988.png" alt="image-20210604104115988"></p>
+</li>
+<li><p>Apache 服务对应的配置也需要同步修改：将 httpd.conf 中所有 80 替换为以上的8081 及 httpd-ssl.conf 中所有 443 替换为 4433，与以上配置相同。</p>
+<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604104214321.png" alt="image-20210604104214321"></p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>实际上我走到这一步是没有成功的，点击 start 没有报错，仅提示正在试图启动 Apache 服务，没有其他动静</li>
+</ul>
+<h3 id="1-2-修改注册表路径"><a href="#1-2-修改注册表路径" class="headerlink" title="1.2 修改注册表路径"></a>1.2 修改注册表路径</h3><ul>
+<li>win + R，regedit 进入注册表编辑器</li>
+<li><p><code>\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Apache2.4</code></p>
+</li>
+<li><p>找到 ImagePath 将其路径修改为 xampp 目录的 apache 底下 httpd.exe 的绝对路径，根据自己安装情况修改即可 <code>..\xampp\apache\bin\httpd.exe</code></p>
+</li>
+<li><p>修改完成后即可正常启动</p>
+<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604104813087.png" alt="image-20210604104813087"></p>
+</li>
+</ul>
+<h2 id="2-启动-MySQL"><a href="#2-启动-MySQL" class="headerlink" title="2 启动 MySQL"></a>2 启动 MySQL</h2><h3 id="2-1-修改端口"><a href="#2-1-修改端口" class="headerlink" title="2.1 修改端口"></a>2.1 修改端口</h3><p>同上，将配置文件中的 3306 改为 3316</p>
+<h3 id="2-2-重启服务"><a href="#2-2-重启服务" class="headerlink" title="2.2 重启服务"></a>2.2 重启服务</h3><ul>
+<li>删除MySQL服务<code>sc delete mysql</code></li>
+<li>按 Apache 以上提到注册表信息的内容，找到 MySQL相关并全部删除</li>
+<li>找到<code>xampp\mysql</code>目录下的 mysql_start.bat 并启动</li>
+<li>关闭 XAMPP 重新以管理员身份打开，并启动 MySQL 服务即可</li>
+</ul>
+<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604112516623.png" alt="image-20210604112516623"></p>
+<h2 id="3-pikachu-环境"><a href="#3-pikachu-环境" class="headerlink" title="3 pikachu 环境"></a>3 pikachu 环境</h2><p><a href="https://blog.csdn.net/jomos/article/details/106881756">搭建pikachu的环境_jomos的博客-CSDN博客_pikachu搭建</a> 需要修改 MySQL 账户密码，若修改后连不上了则参考下一条</p>
+<ul>
+<li><p>下载 <a href="https://github.com/zhuifengshaonianhanlu/pikachu">https://github.com/zhuifengshaonianhanlu/pikachu</a> 压缩包</p>
+</li>
+<li><p>解压到 <code>\xampp\htdocs</code> 下，并将 pikachu-master 改名为 pikachu</p>
+<ul>
+<li>原因：<code>\xampp\htdocs\pikachu\inc\config.inc.php</code> 中 <code>define(&#39;DBNAME&#39;, &#39;pikachu&#39;);//自定义，建议不修改</code></li>
+</ul>
+</li>
+<li><p>修改上述配置文件 config.inc.php 中端口为 XAMPP 中 MySQL 配置的端口，完成！</p>
+<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604203010242.png" alt="image-20210604203010242"></p>
+</li>
+<li><p>启动 XAMPP，打开 Apache 和 MySQL 服务，访问 <code>http://localhost:8081/pikachu/</code></p>
+</li>
+</ul>
+<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604203143811.png" alt="image-20210604203143811"></p>
+<ul>
+<li><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604212056271.png" alt="image-20210604212056271"></li>
+</ul>
+<h2 id="4-XAMPP-通过-PHPADMIN-修改密码后连不上了"><a href="#4-XAMPP-通过-PHPADMIN-修改密码后连不上了" class="headerlink" title="4 XAMPP 通过 PHPADMIN 修改密码后连不上了"></a>4 XAMPP 通过 PHPADMIN 修改密码后连不上了</h2><p><a href="https://blog.csdn.net/m0_37468234/article/details/80047785">xampp修改mysql密码后不能登陆_honyliu-CSDN博客</a></p>
+<ul>
+<li><code>\xampp\phpMyAdmin\config.inc.php</code> 中 <code>$cfg[&#39;Servers&#39;][$i][&#39;password&#39;] = &#39;&#39;;</code> 添加密码</li>
+</ul>
+<p><img src="/2021/06/04/XAMPP%E5%AE%89%E8%A3%85%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8Apache/image-20210604211818520.png" alt="image-20210604211818520"></p>
+]]></content>
+      <categories>
+        <category>解决方案</category>
+      </categories>
+      <tags>
+        <tag>XAMPP</tag>
+        <tag>pikachu</tag>
       </tags>
   </entry>
   <entry>
@@ -1671,48 +1819,6 @@ y(t)=Cx(t).
       </tags>
   </entry>
   <entry>
-    <title>在Word中插入伪码</title>
-    <url>/2021/07/05/%E5%9C%A8Word%E4%B8%AD%E6%8F%92%E5%85%A5%E4%BC%AA%E7%A0%81/</url>
-    <content><![CDATA[<h2 id="1-texlive-下载安装"><a href="#1-texlive-下载安装" class="headerlink" title="1 texlive 下载安装"></a>1 texlive 下载安装</h2><ol>
-<li>下载 texlive2021 <a href="https://mirrors.ustc.edu.cn/CTAN/systems/texlive/Images/">https://mirrors.ustc.edu.cn/CTAN/systems/texlive/Images/</a></li>
-</ol>
-<p><img src="/2021/07/05/%E5%9C%A8Word%E4%B8%AD%E6%8F%92%E5%85%A5%E4%BC%AA%E7%A0%81/image-20210705190359766.png" alt="image-20210705190359766" style="zoom:80%;"></p>
-<ol>
-<li>用资源管理器打开，这样就会装载到 DVD 驱动器</li>
-</ol>
-<p><img src="/2021/07/05/%E5%9C%A8Word%E4%B8%AD%E6%8F%92%E5%85%A5%E4%BC%AA%E7%A0%81/image-20210705190808453.png" alt="image-20210705190808453"></p>
-<ol>
-<li>以管理员方式运行 install-tl-windows.bat，等待安装完毕</li>
-</ol>
-<h2 id="2-texsword-下载安装"><a href="#2-texsword-下载安装" class="headerlink" title="2 texsword 下载安装"></a>2 texsword 下载安装</h2><ol>
-<li><p>下载地址 <a href="https://sourceforge.net/projects/texsword/，解压后将其中的四个文件都复制到">https://sourceforge.net/projects/texsword/，解压后将其中的四个文件都复制到</a> <code>C:\Users\自己的用户名\AppData\Roaming\Microsoft\Word\STARTUP</code> 中</p>
-<p><img src="/2021/07/05/%E5%9C%A8Word%E4%B8%AD%E6%8F%92%E5%85%A5%E4%BC%AA%E7%A0%81/image-20210705193329388.png" alt="image-20210705193329388"></p>
-</li>
-<li><p>重启 Word，在加载项中可以找到 texsword 相关选项</p>
-</li>
-<li><p>点击 TEX，在源码区输入伪码（TeX 语法），然后运行即可</p>
-<p><img src="/2021/07/05/%E5%9C%A8Word%E4%B8%AD%E6%8F%92%E5%85%A5%E4%BC%AA%E7%A0%81/image-20210705193441934.png" alt="image-20210705193441934"></p>
-</li>
-<li><p>效果如下</p>
-</li>
-</ol>
-<p><img src="/2021/07/05/%E5%9C%A8Word%E4%B8%AD%E6%8F%92%E5%85%A5%E4%BC%AA%E7%A0%81/image-20210705193618881.png" alt="image-20210705193618881" style="zoom:80%;"></p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>注意一定要安装 texlive，texsword 才可正常使用</p>
-<ol>
-<li><p><a href="https://blog.csdn.net/aiwei169/article/details/81431363">https://blog.csdn.net/aiwei169/article/details/81431363</a></p>
-</li>
-<li><p><a href="https://www.neusncp.com/user/blog?id=151">https://www.neusncp.com/user/blog?id=151</a></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>解决方案</category>
-      </categories>
-      <tags>
-        <tag>tex</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>剑指Offer打卡</title>
     <url>/2021/07/05/%E5%89%91%E6%8C%87Offer%E6%89%93%E5%8D%A1/</url>
     <content><![CDATA[<p>剑指Offer第二版<br><a href="https://www.acwing.com/problem/search/1/?csrfmiddlewaretoken=Y5IpedXu3Sl5DfZekji1hxNwdx39jFGAZnymRUdbGvocdSTYVoacOQ44UmneUfw4&amp;search_content=%E5%89%91%E6%8C%87">https://www.acwing.com/problem/search/1/?csrfmiddlewaretoken=Y5IpedXu3Sl5DfZekji1hxNwdx39jFGAZnymRUdbGvocdSTYVoacOQ44UmneUfw4&amp;search_content=%E5%89%91%E6%8C%87</a></p>
@@ -1853,6 +1959,48 @@ y(t)=Cx(t).
       </tags>
   </entry>
   <entry>
+    <title>在Word中插入伪码</title>
+    <url>/2021/07/05/%E5%9C%A8Word%E4%B8%AD%E6%8F%92%E5%85%A5%E4%BC%AA%E7%A0%81/</url>
+    <content><![CDATA[<h2 id="1-texlive-下载安装"><a href="#1-texlive-下载安装" class="headerlink" title="1 texlive 下载安装"></a>1 texlive 下载安装</h2><ol>
+<li>下载 texlive2021 <a href="https://mirrors.ustc.edu.cn/CTAN/systems/texlive/Images/">https://mirrors.ustc.edu.cn/CTAN/systems/texlive/Images/</a></li>
+</ol>
+<p><img src="/2021/07/05/%E5%9C%A8Word%E4%B8%AD%E6%8F%92%E5%85%A5%E4%BC%AA%E7%A0%81/image-20210705190359766.png" alt="image-20210705190359766" style="zoom:80%;"></p>
+<ol>
+<li>用资源管理器打开，这样就会装载到 DVD 驱动器</li>
+</ol>
+<p><img src="/2021/07/05/%E5%9C%A8Word%E4%B8%AD%E6%8F%92%E5%85%A5%E4%BC%AA%E7%A0%81/image-20210705190808453.png" alt="image-20210705190808453"></p>
+<ol>
+<li>以管理员方式运行 install-tl-windows.bat，等待安装完毕</li>
+</ol>
+<h2 id="2-texsword-下载安装"><a href="#2-texsword-下载安装" class="headerlink" title="2 texsword 下载安装"></a>2 texsword 下载安装</h2><ol>
+<li><p>下载地址 <a href="https://sourceforge.net/projects/texsword/，解压后将其中的四个文件都复制到">https://sourceforge.net/projects/texsword/，解压后将其中的四个文件都复制到</a> <code>C:\Users\自己的用户名\AppData\Roaming\Microsoft\Word\STARTUP</code> 中</p>
+<p><img src="/2021/07/05/%E5%9C%A8Word%E4%B8%AD%E6%8F%92%E5%85%A5%E4%BC%AA%E7%A0%81/image-20210705193329388.png" alt="image-20210705193329388"></p>
+</li>
+<li><p>重启 Word，在加载项中可以找到 texsword 相关选项</p>
+</li>
+<li><p>点击 TEX，在源码区输入伪码（TeX 语法），然后运行即可</p>
+<p><img src="/2021/07/05/%E5%9C%A8Word%E4%B8%AD%E6%8F%92%E5%85%A5%E4%BC%AA%E7%A0%81/image-20210705193441934.png" alt="image-20210705193441934"></p>
+</li>
+<li><p>效果如下</p>
+</li>
+</ol>
+<p><img src="/2021/07/05/%E5%9C%A8Word%E4%B8%AD%E6%8F%92%E5%85%A5%E4%BC%AA%E7%A0%81/image-20210705193618881.png" alt="image-20210705193618881" style="zoom:80%;"></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>注意一定要安装 texlive，texsword 才可正常使用</p>
+<ol>
+<li><p><a href="https://blog.csdn.net/aiwei169/article/details/81431363">https://blog.csdn.net/aiwei169/article/details/81431363</a></p>
+</li>
+<li><p><a href="https://www.neusncp.com/user/blog?id=151">https://www.neusncp.com/user/blog?id=151</a></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>解决方案</category>
+      </categories>
+      <tags>
+        <tag>tex</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于增量式GHSOM神经网络模型的入侵检测研究</title>
     <url>/2020/09/08/%E5%9F%BA%E4%BA%8E%E5%A2%9E%E9%87%8F%E5%BC%8FGHSOM%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E7%A0%94%E7%A9%B6/</url>
     <content><![CDATA[<h2 id="Key-words"><a href="#Key-words" class="headerlink" title="Key words"></a>Key words</h2><p>增量式学习; 生长型分层自组织映射; 入侵检测; 神经网络; 信息安全; 网络安全</p>
@@ -1946,6 +2094,34 @@ y(t)=Cx(t).
       </tags>
   </entry>
   <entry>
+    <title>并查集模板与应用</title>
+    <url>/2021/08/06/%E5%B9%B6%E6%9F%A5%E9%9B%86%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%BA%94%E7%94%A8/</url>
+    <content><![CDATA[<p><a href="https://labuladong.gitbook.io/algo/mu-lu-ye-1/mu-lu-ye-2/unionfind-suan-fa-xiang-jie">Union-Find算法详解 - labuladong 的算法小抄 (gitbook.io)</a></p>
+<h2 id="并查集（模板）"><a href="#并查集（模板）" class="headerlink" title="并查集（模板）"></a>并查集（模板）</h2><h3 id="UF-类"><a href="#UF-类" class="headerlink" title="UF 类"></a>UF 类</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UF</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//构造并查集</span></span><br><span class="line">    <span class="built_in">UF</span>(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        count = n;</span><br><span class="line">        parent = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">0</span>);</span><br><span class="line">        size = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">            size[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回节点x的根节点</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (parent[x] != x) &#123;</span><br><span class="line">            parent[x] = parent[parent[x]];<span class="comment">//路径压缩</span></span><br><span class="line">            x = parent[x];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断p 和 q是否互相连通</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">connected</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">return</span> rootp == rootq;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将p和q连通</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Union</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">if</span> (rootp == rootq)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">//按秩合并，高树顶点做根</span></span><br><span class="line">        <span class="keyword">if</span> (size[rootp] &gt; size[rootq]) &#123;</span><br><span class="line">            parent[rootq] = rootp;</span><br><span class="line">            size[rootp] += size[rootq];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            parent[rootp] = rootq;</span><br><span class="line">            size[rootq] += size[rootp];</span><br><span class="line">        &#125;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; size; <span class="comment">//用来存储树的大小，为按秩合并做准备</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UF</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//构造并查集</span></span><br><span class="line">    <span class="built_in">UF</span>(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        count = n;</span><br><span class="line">        parent = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">0</span>);</span><br><span class="line">        size = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">            size[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回节点x的根节点</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (parent[x] != x) &#123;</span><br><span class="line">            parent[x] = parent[parent[x]];<span class="comment">//路径压缩</span></span><br><span class="line">            x = parent[x];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断p 和 q是否互相连通</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">connected</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">return</span> rootp == rootq;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将p和q连通</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Union</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">if</span> (rootp == rootq)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">//按秩合并，高树顶点做根</span></span><br><span class="line">        <span class="keyword">if</span> (size[rootp] &gt; size[rootq]) &#123;</span><br><span class="line">            parent[rootq] = rootp;</span><br><span class="line">            size[rootp] += size[rootq];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            parent[rootp] = rootq;</span><br><span class="line">            size[rootq] += size[rootp];</span><br><span class="line">        &#125;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; size; <span class="comment">//用来存储树的大小，为按秩合并做准备</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="function">UF <span class="title">uf</span><span class="params">(n)</span></span>;  <span class="comment">// 这里的n根据具体案例决定，比如有1，9的节点需要连通，那这里n就得是10，因为类中生成的数组是[0,9]的10个数</span></span><br><span class="line">    <span class="comment">// 如果使a,b连同</span></span><br><span class="line">    <span class="keyword">int</span> a, b;</span><br><span class="line">    cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">    uf.<span class="built_in">Union</span>(a,b);</span><br><span class="line">    <span class="comment">// 如果想判断 a,b 是否连通</span></span><br><span class="line">    uf.<span class="built_in">connected</span>(a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="P3367-【模板】并查集"><a href="#P3367-【模板】并查集" class="headerlink" title="P3367 【模板】并查集"></a>P3367 【模板】并查集</h2><p><a href="https://www.luogu.com.cn/problem/P3367">https://www.luogu.com.cn/problem/P3367</a></p>
+<p><img src="/2021/08/06/%E5%B9%B6%E6%9F%A5%E9%9B%86%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20210816094310822.png" alt="image-20210816094310822" style="zoom: 67%;"></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UF</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//构造并查集</span></span><br><span class="line">    <span class="built_in">UF</span>(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        count = n;</span><br><span class="line">        parent = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">0</span>);</span><br><span class="line">        size = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">            size[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回节点x的根节点</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (parent[x] != x) &#123;</span><br><span class="line">            parent[x] = parent[parent[x]];<span class="comment">//路径压缩</span></span><br><span class="line">            x = parent[x];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断p 和 q是否互相连通</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">connected</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">return</span> rootp == rootq;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将p和q连通</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Union</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">if</span> (rootp == rootq)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">//按秩合并，高树顶点做根</span></span><br><span class="line">        <span class="keyword">if</span> (size[rootp] &gt; size[rootq]) &#123;</span><br><span class="line">            parent[rootq] = rootp;</span><br><span class="line">            size[rootp] += size[rootq];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            parent[rootp] = rootq;</span><br><span class="line">            size[rootq] += size[rootp];</span><br><span class="line">        &#125;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; size; <span class="comment">//用来存储树的大小，为按秩合并做准备</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> N, M;</span><br><span class="line">    cin &gt;&gt; N &gt;&gt; M;</span><br><span class="line">    <span class="function">UF <span class="title">uf</span><span class="params">(N+<span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; M; ++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> Z, X, Y;</span><br><span class="line">        cin &gt;&gt; Z &gt;&gt; X &gt;&gt; Y;</span><br><span class="line">        <span class="keyword">if</span> (Z == <span class="number">1</span>) &#123;</span><br><span class="line">            uf.<span class="built_in">Union</span>(X, Y);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (Z == <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (uf.<span class="built_in">connected</span>(X, Y)) &#123;</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;Y&quot;</span> &lt;&lt; endl;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;N&quot;</span> &lt;&lt; endl;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="P1551-亲戚"><a href="#P1551-亲戚" class="headerlink" title="P1551 亲戚"></a>P1551 亲戚</h2><p><a href="https://www.luogu.com.cn/problem/P1551">https://www.luogu.com.cn/problem/P1551</a></p>
+<p><img src="/2021/08/06/%E5%B9%B6%E6%9F%A5%E9%9B%86%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20210818163607068.png" alt="image-20210818163607068"></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UF</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//构造并查集</span></span><br><span class="line">    <span class="built_in">UF</span>(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        count = n;</span><br><span class="line">        parent = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">0</span>);</span><br><span class="line">        size = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">            size[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回节点x的根节点</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (parent[x] != x) &#123;</span><br><span class="line">            parent[x] = parent[parent[x]];<span class="comment">//路径压缩</span></span><br><span class="line">            x = parent[x];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断p 和 q是否互相连通</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">connected</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">return</span> rootp == rootq;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将p和q连通</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Union</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">if</span> (rootp == rootq)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">//按秩合并，高树顶点做根</span></span><br><span class="line">        <span class="keyword">if</span> (size[rootp] &gt; size[rootq]) &#123;</span><br><span class="line">            parent[rootq] = rootp;</span><br><span class="line">            size[rootp] += size[rootq];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            parent[rootp] = rootq;</span><br><span class="line">            size[rootq] += size[rootp];</span><br><span class="line">        &#125;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; size; <span class="comment">//用来存储树的大小，为按秩合并做准备</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m, p;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; p;</span><br><span class="line"></span><br><span class="line">    <span class="function">UF <span class="title">uf</span><span class="params">(n+<span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> Mi, Mj;</span><br><span class="line">        cin &gt;&gt; Mi &gt;&gt; Mj;</span><br><span class="line">        uf.<span class="built_in">Union</span>(Mi, Mj);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; p; ++j) &#123;</span><br><span class="line">        <span class="keyword">int</span> Pi, Pj;</span><br><span class="line">        cin &gt;&gt; Pi &gt;&gt; Pj;</span><br><span class="line">        <span class="keyword">if</span> (uf.<span class="built_in">connected</span>(Pi, Pj)) cout &lt;&lt; <span class="string">&quot;Yes&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">else</span> cout &lt;&lt; <span class="string">&quot;No&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="P1111-修复公路"><a href="#P1111-修复公路" class="headerlink" title="P1111 修复公路"></a>P1111 修复公路</h2><p><img src="/2021/08/06/%E5%B9%B6%E6%9F%A5%E9%9B%86%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20210818214206051.png" alt="image-20210818214206051" style="zoom:67%;"></p>
+<ul>
+<li>TODO</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UF</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//构造并查集</span></span><br><span class="line">    <span class="built_in">UF</span>(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        count = n;</span><br><span class="line">        parent = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">0</span>);</span><br><span class="line">        size = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">            size[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回节点x的根节点</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (parent[x] != x) &#123;</span><br><span class="line">            parent[x] = parent[parent[x]];<span class="comment">//路径压缩</span></span><br><span class="line">            x = parent[x];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断p 和 q是否互相连通</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">connected</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">return</span> rootp == rootq;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将p和q连通</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Union</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">if</span> (rootp == rootq)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">//按秩合并，高树顶点做根</span></span><br><span class="line">        <span class="keyword">if</span> (size[rootp] &gt; size[rootq]) &#123;</span><br><span class="line">            parent[rootq] = rootp;</span><br><span class="line">            size[rootp] += size[rootq];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            parent[rootp] = rootq;</span><br><span class="line">            size[rootq] += size[rootp];</span><br><span class="line">        &#125;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断所有节点是否连通</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">allConnected</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> root = <span class="built_in">find</span>(parent[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; count; ++i) &#123;</span><br><span class="line">            <span class="keyword">int</span> tmp = <span class="built_in">find</span>(parent[i]);</span><br><span class="line">            <span class="keyword">if</span> (tmp != root) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; size; <span class="comment">//用来存储树的大小，为按秩合并做准备</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 按t排序</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(pair&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;, <span class="keyword">int</span>&gt;&amp; a, pair&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;, <span class="keyword">int</span>&gt;&amp; b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.second &lt; b.second;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> N, M;</span><br><span class="line">    cin &gt;&gt; N &gt;&gt; M;</span><br><span class="line">    <span class="function">UF <span class="title">uf</span><span class="params">(N + <span class="number">1</span>)</span></span>;</span><br><span class="line">    vector&lt;pair&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;, <span class="keyword">int</span>&gt;&gt; record; <span class="comment">// 记录输入((x,y), t)</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; M; ++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> x, y, t;</span><br><span class="line">        cin &gt;&gt; x &gt;&gt; y &gt;&gt; t;</span><br><span class="line">        record.<span class="built_in">push_back</span>(<span class="built_in">make_pair</span>(<span class="built_in">make_pair</span>(x, y), t));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">sort</span>(record.<span class="built_in">begin</span>(), record.<span class="built_in">end</span>(), cmp);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span> (pair&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;, <span class="keyword">int</span>&gt;&amp; i : record) &#123;</span><br><span class="line">        uf.<span class="built_in">Union</span>(i.first.first, i.first.second);</span><br><span class="line">        <span class="keyword">if</span> (uf.<span class="built_in">allConnected</span>()) &#123;</span><br><span class="line">            ans = i.second;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="P3402-可持久化并查集"><a href="#P3402-可持久化并查集" class="headerlink" title="P3402 可持久化并查集"></a>P3402 可持久化并查集</h2><p><a href="https://www.luogu.com.cn/problem/P3402">https://www.luogu.com.cn/problem/P3402</a></p>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>并查集</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>感知器算法作业</title>
     <url>/2019/10/17/%E6%84%9F%E7%9F%A5%E5%99%A8%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/</url>
     <content><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>编写感知器算法，求下列模式的解向量：</p>
@@ -1978,34 +2154,6 @@ y(t)=Cx(t).
       <tags>
         <tag>感知器算法</tag>
         <tag>模式识别</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>并查集模板与应用</title>
-    <url>/2021/08/06/%E5%B9%B6%E6%9F%A5%E9%9B%86%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%BA%94%E7%94%A8/</url>
-    <content><![CDATA[<p><a href="https://labuladong.gitbook.io/algo/mu-lu-ye-1/mu-lu-ye-2/unionfind-suan-fa-xiang-jie">Union-Find算法详解 - labuladong 的算法小抄 (gitbook.io)</a></p>
-<h2 id="并查集（模板）"><a href="#并查集（模板）" class="headerlink" title="并查集（模板）"></a>并查集（模板）</h2><h3 id="UF-类"><a href="#UF-类" class="headerlink" title="UF 类"></a>UF 类</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UF</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//构造并查集</span></span><br><span class="line">    <span class="built_in">UF</span>(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        count = n;</span><br><span class="line">        parent = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">0</span>);</span><br><span class="line">        size = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">            size[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回节点x的根节点</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (parent[x] != x) &#123;</span><br><span class="line">            parent[x] = parent[parent[x]];<span class="comment">//路径压缩</span></span><br><span class="line">            x = parent[x];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断p 和 q是否互相连通</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">connected</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">return</span> rootp == rootq;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将p和q连通</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Union</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">if</span> (rootp == rootq)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">//按秩合并，高树顶点做根</span></span><br><span class="line">        <span class="keyword">if</span> (size[rootp] &gt; size[rootq]) &#123;</span><br><span class="line">            parent[rootq] = rootp;</span><br><span class="line">            size[rootp] += size[rootq];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            parent[rootp] = rootq;</span><br><span class="line">            size[rootq] += size[rootp];</span><br><span class="line">        &#125;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; size; <span class="comment">//用来存储树的大小，为按秩合并做准备</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UF</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//构造并查集</span></span><br><span class="line">    <span class="built_in">UF</span>(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        count = n;</span><br><span class="line">        parent = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">0</span>);</span><br><span class="line">        size = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">            size[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回节点x的根节点</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (parent[x] != x) &#123;</span><br><span class="line">            parent[x] = parent[parent[x]];<span class="comment">//路径压缩</span></span><br><span class="line">            x = parent[x];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断p 和 q是否互相连通</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">connected</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">return</span> rootp == rootq;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将p和q连通</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Union</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">if</span> (rootp == rootq)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">//按秩合并，高树顶点做根</span></span><br><span class="line">        <span class="keyword">if</span> (size[rootp] &gt; size[rootq]) &#123;</span><br><span class="line">            parent[rootq] = rootp;</span><br><span class="line">            size[rootp] += size[rootq];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            parent[rootp] = rootq;</span><br><span class="line">            size[rootq] += size[rootp];</span><br><span class="line">        &#125;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; size; <span class="comment">//用来存储树的大小，为按秩合并做准备</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="function">UF <span class="title">uf</span><span class="params">(n)</span></span>;  <span class="comment">// 这里的n根据具体案例决定，比如有1，9的节点需要连通，那这里n就得是10，因为类中生成的数组是[0,9]的10个数</span></span><br><span class="line">    <span class="comment">// 如果使a,b连同</span></span><br><span class="line">    <span class="keyword">int</span> a, b;</span><br><span class="line">    cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">    uf.<span class="built_in">Union</span>(a,b);</span><br><span class="line">    <span class="comment">// 如果想判断 a,b 是否连通</span></span><br><span class="line">    uf.<span class="built_in">connected</span>(a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="P3367-【模板】并查集"><a href="#P3367-【模板】并查集" class="headerlink" title="P3367 【模板】并查集"></a>P3367 【模板】并查集</h2><p><a href="https://www.luogu.com.cn/problem/P3367">https://www.luogu.com.cn/problem/P3367</a></p>
-<p><img src="/2021/08/06/%E5%B9%B6%E6%9F%A5%E9%9B%86%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20210816094310822.png" alt="image-20210816094310822" style="zoom: 67%;"></p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UF</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//构造并查集</span></span><br><span class="line">    <span class="built_in">UF</span>(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        count = n;</span><br><span class="line">        parent = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">0</span>);</span><br><span class="line">        size = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">            size[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回节点x的根节点</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (parent[x] != x) &#123;</span><br><span class="line">            parent[x] = parent[parent[x]];<span class="comment">//路径压缩</span></span><br><span class="line">            x = parent[x];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断p 和 q是否互相连通</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">connected</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">return</span> rootp == rootq;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将p和q连通</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Union</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">if</span> (rootp == rootq)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">//按秩合并，高树顶点做根</span></span><br><span class="line">        <span class="keyword">if</span> (size[rootp] &gt; size[rootq]) &#123;</span><br><span class="line">            parent[rootq] = rootp;</span><br><span class="line">            size[rootp] += size[rootq];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            parent[rootp] = rootq;</span><br><span class="line">            size[rootq] += size[rootp];</span><br><span class="line">        &#125;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; size; <span class="comment">//用来存储树的大小，为按秩合并做准备</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> N, M;</span><br><span class="line">    cin &gt;&gt; N &gt;&gt; M;</span><br><span class="line">    <span class="function">UF <span class="title">uf</span><span class="params">(N+<span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; M; ++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> Z, X, Y;</span><br><span class="line">        cin &gt;&gt; Z &gt;&gt; X &gt;&gt; Y;</span><br><span class="line">        <span class="keyword">if</span> (Z == <span class="number">1</span>) &#123;</span><br><span class="line">            uf.<span class="built_in">Union</span>(X, Y);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (Z == <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (uf.<span class="built_in">connected</span>(X, Y)) &#123;</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;Y&quot;</span> &lt;&lt; endl;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;N&quot;</span> &lt;&lt; endl;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="P1551-亲戚"><a href="#P1551-亲戚" class="headerlink" title="P1551 亲戚"></a>P1551 亲戚</h2><p><a href="https://www.luogu.com.cn/problem/P1551">https://www.luogu.com.cn/problem/P1551</a></p>
-<p><img src="/2021/08/06/%E5%B9%B6%E6%9F%A5%E9%9B%86%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20210818163607068.png" alt="image-20210818163607068"></p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UF</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//构造并查集</span></span><br><span class="line">    <span class="built_in">UF</span>(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        count = n;</span><br><span class="line">        parent = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">0</span>);</span><br><span class="line">        size = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">            size[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回节点x的根节点</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (parent[x] != x) &#123;</span><br><span class="line">            parent[x] = parent[parent[x]];<span class="comment">//路径压缩</span></span><br><span class="line">            x = parent[x];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断p 和 q是否互相连通</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">connected</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">return</span> rootp == rootq;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将p和q连通</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Union</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">if</span> (rootp == rootq)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">//按秩合并，高树顶点做根</span></span><br><span class="line">        <span class="keyword">if</span> (size[rootp] &gt; size[rootq]) &#123;</span><br><span class="line">            parent[rootq] = rootp;</span><br><span class="line">            size[rootp] += size[rootq];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            parent[rootp] = rootq;</span><br><span class="line">            size[rootq] += size[rootp];</span><br><span class="line">        &#125;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; size; <span class="comment">//用来存储树的大小，为按秩合并做准备</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m, p;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; p;</span><br><span class="line"></span><br><span class="line">    <span class="function">UF <span class="title">uf</span><span class="params">(n+<span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> Mi, Mj;</span><br><span class="line">        cin &gt;&gt; Mi &gt;&gt; Mj;</span><br><span class="line">        uf.<span class="built_in">Union</span>(Mi, Mj);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; p; ++j) &#123;</span><br><span class="line">        <span class="keyword">int</span> Pi, Pj;</span><br><span class="line">        cin &gt;&gt; Pi &gt;&gt; Pj;</span><br><span class="line">        <span class="keyword">if</span> (uf.<span class="built_in">connected</span>(Pi, Pj)) cout &lt;&lt; <span class="string">&quot;Yes&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">else</span> cout &lt;&lt; <span class="string">&quot;No&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="P1111-修复公路"><a href="#P1111-修复公路" class="headerlink" title="P1111 修复公路"></a>P1111 修复公路</h2><p><img src="/2021/08/06/%E5%B9%B6%E6%9F%A5%E9%9B%86%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20210818214206051.png" alt="image-20210818214206051" style="zoom:67%;"></p>
-<ul>
-<li>TODO</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UF</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//构造并查集</span></span><br><span class="line">    <span class="built_in">UF</span>(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        count = n;</span><br><span class="line">        parent = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">0</span>);</span><br><span class="line">        size = vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">            size[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回节点x的根节点</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (parent[x] != x) &#123;</span><br><span class="line">            parent[x] = parent[parent[x]];<span class="comment">//路径压缩</span></span><br><span class="line">            x = parent[x];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断p 和 q是否互相连通</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">connected</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">return</span> rootp == rootq;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将p和q连通</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Union</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootp = <span class="built_in">find</span>(p);</span><br><span class="line">        <span class="keyword">int</span> rootq = <span class="built_in">find</span>(q);</span><br><span class="line">        <span class="keyword">if</span> (rootp == rootq)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">//按秩合并，高树顶点做根</span></span><br><span class="line">        <span class="keyword">if</span> (size[rootp] &gt; size[rootq]) &#123;</span><br><span class="line">            parent[rootq] = rootp;</span><br><span class="line">            size[rootp] += size[rootq];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            parent[rootp] = rootq;</span><br><span class="line">            size[rootq] += size[rootp];</span><br><span class="line">        &#125;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断所有节点是否连通</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">allConnected</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> root = <span class="built_in">find</span>(parent[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; count; ++i) &#123;</span><br><span class="line">            <span class="keyword">int</span> tmp = <span class="built_in">find</span>(parent[i]);</span><br><span class="line">            <span class="keyword">if</span> (tmp != root) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; size; <span class="comment">//用来存储树的大小，为按秩合并做准备</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 按t排序</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(pair&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;, <span class="keyword">int</span>&gt;&amp; a, pair&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;, <span class="keyword">int</span>&gt;&amp; b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.second &lt; b.second;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> N, M;</span><br><span class="line">    cin &gt;&gt; N &gt;&gt; M;</span><br><span class="line">    <span class="function">UF <span class="title">uf</span><span class="params">(N + <span class="number">1</span>)</span></span>;</span><br><span class="line">    vector&lt;pair&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;, <span class="keyword">int</span>&gt;&gt; record; <span class="comment">// 记录输入((x,y), t)</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; M; ++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> x, y, t;</span><br><span class="line">        cin &gt;&gt; x &gt;&gt; y &gt;&gt; t;</span><br><span class="line">        record.<span class="built_in">push_back</span>(<span class="built_in">make_pair</span>(<span class="built_in">make_pair</span>(x, y), t));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">sort</span>(record.<span class="built_in">begin</span>(), record.<span class="built_in">end</span>(), cmp);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span> (pair&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;, <span class="keyword">int</span>&gt;&amp; i : record) &#123;</span><br><span class="line">        uf.<span class="built_in">Union</span>(i.first.first, i.first.second);</span><br><span class="line">        <span class="keyword">if</span> (uf.<span class="built_in">allConnected</span>()) &#123;</span><br><span class="line">            ans = i.second;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="P3402-可持久化并查集"><a href="#P3402-可持久化并查集" class="headerlink" title="P3402 可持久化并查集"></a>P3402 可持久化并查集</h2><p><a href="https://www.luogu.com.cn/problem/P3402">https://www.luogu.com.cn/problem/P3402</a></p>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>并查集</tag>
-        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -2600,8 +2748,8 @@ y(t)=Cx(t).
       <tags>
         <tag>文献</tag>
         <tag>科研</tag>
-        <tag>信息系统仿生安全</tag>
         <tag>可信计算</tag>
+        <tag>信息系统仿生安全</tag>
         <tag>智能安全</tag>
         <tag>自主计算</tag>
       </tags>
@@ -5966,154 +6114,6 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
       <tags>
         <tag>CTF</tag>
         <tag>Crypto</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Customizable Framework for Managing Trusted Components Deployed on Middleware</title>
-    <url>/2021/08/30/Middleware/</url>
-    <content><![CDATA[<font face="楷体">用于管理部署在中间件上的受信任组件的可自定义框架</font>
-
-<h2 id="1-KeyWrods"><a href="#1-KeyWrods" class="headerlink" title="1 KeyWrods"></a>1 KeyWrods</h2><p>可信计算，可信管理，可信保护，可信度量，中间件</p>
-<h2 id="2-可信管理模型"><a href="#2-可信管理模型" class="headerlink" title="2 可信管理模型"></a>2 可信管理模型</h2><h3 id="2-1-可信系统的定义"><a href="#2-1-可信系统的定义" class="headerlink" title="2.1 可信系统的定义"></a>2.1 可信系统的定义</h3><p>丑国NSF认为可信系统是：按预期工作，且不易被颠覆</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">behaves as expected, but, more importantly, continues to produce expected behavior and are not susceptible to subversion</span><br></pre></td></tr></table></figure>
-<p>作者Minghui Zhou等人认为</p>
-<script type="math/tex; mode=display">the\ \ trust = trust\ \ relationship+trust\ \ property+trust\ \ entity</script><ul>
-<li>trust relationship：实际就是 trustor 和 trustee 的关系，turstor 信任 trustee，trustee 被 trustor 信任。</li>
-<li>trust properties: 包括安全性、隐私、及时性、可用性和可靠性等</li>
-<li>trust entity: trustor 和 trustee 均为信任实体</li>
-</ul>
-<p>在不同的应用领域信托人（trustor）需要受托人（trustee）担保不同的信托属性。受托人（trustee）可以位于计算机系统中的各层：硬件、网络、操作系统、中间件、应用程序服务。</p>
-<font color="blue">该文关注的信托实体是网络上开放的动态的软件组件。</font>软件组件是否可信，取决于：提供服务时的安全性、可靠性和及时性等。如果满足其声明和预期的信任功能，则该软件组件是可信的。
-
-### 2.2 可信管理的四层模型
-
-![image-20210830203705391](Middleware/image-20210830203705391.png)
-
-* The Communication Layer：通信层。负责信任实体时间的通信，除了提供可靠通信，还提供了可信通信需求（比如SSL）
-* The Management Layer：管理层。是管理可信度和信任关系的核心。
-  * Trust Policy Customization 信任策略定制，有三种类型
-    * 开发人员可以根据信任要求指定需要保证的信任属性。
-    * 委托人或开发人员可以（重新）定义与特定受托人相关的信任属性的不同度量模型，即可信度度量方法和标准。
-    * 用户可以配置如何在运行时权衡信任属性（这会需要重新配置信任机制）
-* The Infrastructure Layer：基础设施层。为保证不同的信托属性提供具体的信托服务，如安全性、容错性等。
-
-### 2.3 信托实体
-
-如上文提到的，这里的信托实体就是应用程序组件。
-
-#### 2.3.1 可信组件
-
-受托人可以声明其在提供服务时可以担保的信托财产。例如，当银行机构提供金融服务时，它必须声明其服务是安全可靠的，否则客户将对银行服务不满意，然后不再来该机构寻求任何服务。
-
-| 可信组件的结构 |
-| -------------- |
-| 命名信息       |
-| 接口描述       |
-| 资源/组件引用  |
-| 信任属性声明   |
-
-例如电子书店的可信组件如下
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">entity</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">entity-name</span>&gt;</span>Order<span class="tag">&lt;/<span class="name">entity-name</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">interface</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">provide-method</span>&gt;</span> … <span class="tag">&lt;/<span class="name">provide-method</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">request-method</span>&gt;</span> … <span class="tag">&lt;/<span class="name">request-method</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">interface</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">entity-ref</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">ent-ref-name</span>&gt;</span>Customer<span class="tag">&lt;/<span class="name">ent-ref-name</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">entity-ref</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">resource-ref</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">res-ref-name</span>&gt;</span>odbc/orders<span class="tag">&lt;/<span class="name">res-ref-name</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">res-type</span>&gt;</span>DataSource<span class="tag">&lt;/<span class="name">res-type</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">resource-ref</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">entity</span>&gt;</span> </span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">trust-property</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">trust-prop-type</span>&gt;</span> security <span class="tag">&lt;/<span class="name">trust-prop-type</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">role-ref</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">role-ref-name</span>&gt;</span> administrator <span class="tag">&lt;/<span class="name">role-ref-name</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">trust-prop-policy</span>&gt;</span> SecurityPolicy <span class="tag">&lt;/<span class="name">trust-prop-policy</span>&gt;</span></span><br><span class="line">    …… </span><br><span class="line">  <span class="tag">&lt;/<span class="name">role-ref</span>&gt;</span> </span><br><span class="line">  …… </span><br><span class="line"><span class="tag">&lt;/<span class="name">trust-property</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-### 2.4 度量模型
-
-可以将复杂的信任属性拆分成若干简单的子属性，然后单独定义表达式，以便更好的度量与管理。
-
-#### 2.4.1 基于单类型的信任公式
-
-$t$ 时刻，软件组件 $u$ 的可信度计算公式
-
-$$STW(u,t)=\sum_{c\in TrustChars}w_c\times TW_c(u,t)$$
-
-其中，$W_c$ 为信任属性 $C$ 在同一信任指标中的权值，$TW_c(u,t)$ 表示软件组件 $U$ 中 $C$ 信任属性 的可信度，$TrustChars$ 表示信任属性集。
-
-#### 2.4.2 基于属性定制的信任公式
-
-我们无法定义满足所有要求的公式，所以需要根据特定的场景，根据应用系统的要求和用户的期望定制特定的公式。比如当我们关注系统安全特性的时候，我们可以定制与安全相关的度量公式。
-
-* 安全性
-
-$$TW_{Security}(u,t)=MTBF/(MTBF+MTTR)$$​
-
-其中 $MTBF$ 意味着故障平均时间（mean time between failures）
-
-$MTTR$​ 意味着从故障中恢复的平均时间（mean time to repair/recover from failures）
-
-* 及时性
-
-$$TW_{Timeliness}(u,t)=\frac{1}{t}$$​​
-
-其中 $t$ 为计算时间，计算时间越短，及时性越好
-
-* 可靠性
-
-$$TW_{Reliability}(u,t)=MTBF/(1+MTBF)$$​
-
-可靠性：系统在指定环境，指定时间内完成任务的概率
-
-* 除了定制属性外，还可以定制属性的权重。权重和需为 1
-
-$$\sum_{Trustchars}w_c=1$$
-
- ### 2.5 信任策略
-
-信任策略可以用定制工具在运行时重新定义。
-
-## 3 中间件
-
-最流行的模型是**基于对象**的中间件，其中应用程序被构造成对象，这些对象通过位置透明的方法调用进行交互。信任管理的原型系统已经部署在北大的 PKUAS 的 J2EE
-
-### 3.1 PKUAS
-
-是一个基于组件的中间件平台，为部署和执行应用组件提供了环境，其中**容器**为组件实例提供运行空间。
-
-为了支持组件实例的执行，容器能够捕获组件的所有详细信息（如界面、约束和关系），这是通过 PKUAS 的<font color="blue">反射机制</font>实现的。
-
-通过**容器**，组件获得公共服务的支持，实现应用的交互和非功能要求。
-
-### 3.2 整合信任管理
-
-将信任管理**作为一种公共服务**纳入 PKUAS
-
-信任组件装配工具将信任组件整合在一起，用于定制和调整信任属性。
-
-通过与装配工具交互，容器可以提取有关组件和应用程序信任属性的所有信息，然后将其供应给信托管理。
-
-### 3.3 信任组件的组装
-
-装配实际上是为每个应用程序定义一个装配说明，并且只有**在部署时才形成具体的应用程序**。
-
-在组装应用程序时，我们不仅要明确涉及哪些信任组件，还要声明将为用户保证哪些信任属性。
-
-### 3.4 信任管理的使用
-
-通过使用 PKUAS 和在 PKUAS 上实施的信托管理服务，开发人员可以指定组件和应用程序的信托属性，并通过自定义信托策略来定义可信度的衡量模型。
-
-基本流程：
-
-1. 指定可保证的信任属性，以及信任组件在请求受信任服务时期望的信任要求
-2. 为信任组件提供信任策略，以评估可信度
-3. 使用装配工具组装信任组件以构建信任程序
-4. 在 PKUAS 上部署和运行应用程序
-5. 使用自定义工具自定义组件的信任策略
-
-当部署的应用程序在 PKUAS 上运行时，信任管理机制监控应用程序，计算组件的可信度数，通知用户值得信赖的程度，并根据策略调整信任属性。
-
-### 3.5 执行情况的评估
-
-<font color="blue">信托管理的加入会影响系统性能。这方面可以进行优化</font>
-
-<p>最后，该文提出未来会研究如何<strong>有效的进行运行时评估</strong>（应该在管理框架中增加一些自动化功能，以减轻开发人员的一些负担）。</p>
-<h2 id="4-Ref"><a href="#4-Ref" class="headerlink" title="4 Ref"></a>4 Ref</h2><p><a href="https://ieeexplore.ieee.org/document/1467909">https://ieeexplore.ieee.org/document/1467909</a></p>
-]]></content>
-      <categories>
-        <category>科研</category>
-      </categories>
-      <tags>
-        <tag>文献</tag>
-        <tag>科研</tag>
-        <tag>可信计算</tag>
       </tags>
   </entry>
 </search>
