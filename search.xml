@@ -885,13 +885,24 @@ $$\sum_{Trustchars}w_c=1</script><h3 id="2-5-信任策略"><a href="#2-5-信任�
 <li>将 all_log 改为 false</li>
 </ol>
 <p><img src="/2021/07/04/RASP%E6%8A%80%E6%9C%AF/image-20210730164219455.png" alt="image-20210730164219455" style="zoom:67%;"></p>
-<ol>
-<li><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2></li>
-<li><p><a href="https://rasp.baidu.com/#section-intro">开源应用运行时自我保护解决方案 - OpenRASP - 百度安全 (baidu.com)</a></p>
+<h2 id="4-Java-RASP-架构说明-4-5-​​"><a href="#4-Java-RASP-架构说明-4-5-​​" class="headerlink" title="4  Java RASP 架构说明$^{4,5}$​​"></a>4  Java RASP 架构说明$^{4,5}$​​</h2><p>在服务器启动时，可动态的修改Java字节码，对敏感操作的函数进行挂钩。当服务器发生攻击，就会触发这些Hook点，此时RASP agent就可以获取到函数的参数。</p>
+<p>RASP以Java Instrumentation的方式工作在JVM层，它主要通过hook可能引发漏洞的关键函数，在这些关键函数执行之前添加安全检查，根据上下文和关键函数的参数等信息判断请求是否为恶意请求，并终止或继续执行流。</p>
+<hr>
+<ul>
+<li><p>Java Instrumentation</p>
+<p>允许开发者访问从JVM中加载的类，并且允许对它的字节码做修改，加入我们自己的代码，这些都是在运行时完成的。(无需担心这个机制带来的安全问题，因为它也同样遵从适用于Java类和相应的类加载器的安全策略。)</p>
+<p>允许开发者添加自定义的字节码转换器来对Java字节码进行自定义的操作转化，从而实现在不修改源代码的情况下，实现AOP。</p>
 </li>
+</ul>
+<p>OpenRASP的开发者选择了ASM这个框架，相比其他的框架，ASM的优点是更加底层、更加灵活，功能也更加丰富。</p>
+<h2 id="5-参考"><a href="#5-参考" class="headerlink" title="5 参考"></a>5 参考</h2><ol>
+<li><a href="https://rasp.baidu.com/#section-intro">开源应用运行时自我保护解决方案 - OpenRASP - 百度安全 (baidu.com)</a></li>
 <li><a href="https://paper.seebug.org/330/">Rasp 技术介绍与实现 (seebug.org)</a></li>
 <li><a href="https://www.freebuf.com/articles/web/197823.html">https://www.freebuf.com/articles/web/197823.html</a></li>
-<li><a href="https://rasp.baidu.com/doc/hacking/architect/java.html">Java 版本 - OpenRASP 官方文档 - 开源自适应安全产品 (baidu.com)</a></li>
+<li><p><a href="https://rasp.baidu.com/doc/hacking/architect/java.html">Java 版本 - OpenRASP 官方文档 - 开源自适应安全产品 (baidu.com)</a></p>
+</li>
+<li><p><a href="https://paper.seebug.org/513/">https://paper.seebug.org/513/</a></p>
+</li>
 </ol>
 ]]></content>
       <categories>
