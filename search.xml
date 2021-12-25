@@ -6613,4 +6613,37 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>摄影</tag>
       </tags>
   </entry>
+  <entry>
+    <title>自动更新Windows壁纸的Java脚本</title>
+    <url>/2021/12/26/%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0Windows%E5%A3%81%E7%BA%B8%E7%9A%84Java%E8%84%9A%E6%9C%AC/</url>
+    <content><![CDATA[<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>jna下载地址<a href="https://repo1.maven.org/maven2/net/java/dev/jna/">https://repo1.maven.org/maven2/net/java/dev/jna/</a></p>
+<p>这里我下载的是jna-5.9.0.jar </p>
+<p>注意jna-platform也要下载下载对应版本</p>
+<p><a href="https://blog.csdn.net/weixin_30692969/article/details/114143239">jna安装参考</a></p>
+<p><a href="https://blog.csdn.net/iteye_878/article/details/82613410">调用api参考</a></p>
+<p><a href="https://www.iteye.com/blog/xpenxpen-2178860">https://www.iteye.com/blog/xpenxpen-2178860</a></p>
+<p><a href="https://www.cnblogs.com/new-life/p/9345840.html">https://www.cnblogs.com/new-life/p/9345840.html</a></p>
+<p><a href="https://blog.csdn.net/qq_40994260/article/details/107117634">Java: 操作读写注册表(Registry)_RaySunWHUT-CSDN博客_java registry</a></p>
+<h2 id="项目创建"><a href="#项目创建" class="headerlink" title="项目创建"></a>项目创建</h2><p>一、创建Java项目</p>
+<p>二、把jna的包导入库中，jar包添加方法参考<a href="https://www.cnblogs.com/yulia/p/6824058.html，具体如下">https://www.cnblogs.com/yulia/p/6824058.html，具体如下</a></p>
+<p>（1）File——Project Structure</p>
+<p><img src="/2021/12/26/%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0Windows%E5%A3%81%E7%BA%B8%E7%9A%84Java%E8%84%9A%E6%9C%AC/image-20211226005832346.png" alt="image-20211226005832346"></p>
+<p>（2）Modules——Dependencies——Add——JARS</p>
+<p><img src="/2021/12/26/%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0Windows%E5%A3%81%E7%BA%B8%E7%9A%84Java%E8%84%9A%E6%9C%AC/image-20211226005651080.png" alt="image-20211226005651080"></p>
+<p><img src="/2021/12/26/%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0Windows%E5%A3%81%E7%BA%B8%E7%9A%84Java%E8%84%9A%E6%9C%AC/image-20211226005735303.png" alt="image-20211226005735303"></p>
+<p>OK后可以看到Project窗口有了这个Jar包</p>
+<p><img src="/2021/12/26/%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0Windows%E5%A3%81%E7%BA%B8%E7%9A%84Java%E8%84%9A%E6%9C%AC/image-20211226005809036.png" alt="image-20211226005809036"></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 测试程序</span></span><br><span class="line"><span class="keyword">import</span> com.sun.jna.Library;</span><br><span class="line"><span class="keyword">import</span> com.sun.jna.Native;</span><br><span class="line"><span class="keyword">import</span> com.sun.jna.Platform;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CLibrary</span> <span class="keyword">extends</span> <span class="title">Library</span> </span>&#123;</span><br><span class="line">        CLibrary INSTANCE = (CLibrary) Native.loadLibrary((Platform.isWindows() ? <span class="string">&quot;msvcrt&quot;</span> : <span class="string">&quot;c&quot;</span>), CLibrary.class);</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">printf</span><span class="params">(String format, Object... args)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        CLibrary.INSTANCE.printf(<span class="string">&quot;Hello, World\n&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i &lt; args.length;i++) &#123;</span><br><span class="line">            CLibrary.INSTANCE.printf(<span class="string">&quot;Argument %d: %s\n&quot;</span>, i, args[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>三、把需要使用的dll文件放入到java工程目录下的bin目录下，比如user32.dll，这个文件默认位置为<code>C:\Windows\System32</code></p>
+<p><img src="/2021/12/26/%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0Windows%E5%A3%81%E7%BA%B8%E7%9A%84Java%E8%84%9A%E6%9C%AC/image-20211226010908944.png" alt="image-20211226010908944"></p>
+<p>查看dll文件中有哪些函数，参考<a href="https://blog.csdn.net/zztoll/article/details/105325155">https://blog.csdn.net/zztoll/article/details/105325155</a></p>
+<h2 id="代码编写"><a href="#代码编写" class="headerlink" title="代码编写"></a>代码编写</h2>]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>autoscript</tag>
+      </tags>
+  </entry>
 </search>
