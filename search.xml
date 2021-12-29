@@ -6868,4 +6868,161 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>Crypto</tag>
       </tags>
   </entry>
+  <entry>
+    <title>深入理解JVM字节码</title>
+    <url>/2021/12/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JVM%E5%AD%97%E8%8A%82%E7%A0%81/</url>
+    <content><![CDATA[<h2 id="1-深入剖析class文件结构"><a href="#1-深入剖析class文件结构" class="headerlink" title="1 深入剖析class文件结构"></a>1 深入剖析class文件结构</h2><h3 id="1-1-初探class文件"><a href="#1-1-初探class文件" class="headerlink" title="1.1 初探class文件"></a>1.1 初探class文件</h3><p>在IDEA中编写代码并运行后，就会自动在out目录下生成对应的class文件</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello, World&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用010Editor查看class文件</p>
+<p><img src="/2021/12/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JVM%E5%AD%97%E8%8A%82%E7%A0%81/image-20211229095649390.png" alt="image-20211229095649390"></p>
+<h3 id="1-2-class文件结构"><a href="#1-2-class文件结构" class="headerlink" title="1.2 class文件结构"></a>1.2 class文件结构</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line">classFile &#123;</span><br><span class="line">    u4              magic;  								<span class="comment">// 魔数</span></span><br><span class="line">    u2              minor_version; 							<span class="comment">// 副版本号</span></span><br><span class="line">    u2              major_version; 							<span class="comment">// 主版本号</span></span><br><span class="line">    u2              constant_pool_count;						</span><br><span class="line">    cp_info         constant_pool[constant_pool_count<span class="number">-1</span>]; 	<span class="comment">// 常量池</span></span><br><span class="line">    u2              access_flags; 							<span class="comment">// 类访问标记</span></span><br><span class="line">    u2              this_class; 							<span class="comment">// 类索引</span></span><br><span class="line">    u2              super_class; 							<span class="comment">// 超类索引 </span></span><br><span class="line">    u2              interfaces_count;</span><br><span class="line">    u2              interfaces[interfaces_count]; 			<span class="comment">// 接口表索引</span></span><br><span class="line">    u2              fields_count;</span><br><span class="line">    field_info      fields[fields_count]; 					<span class="comment">// 字段表</span></span><br><span class="line">    u2              methods_count;</span><br><span class="line">    method_info     methods[methods_count]; 				<span class="comment">// 方法表</span></span><br><span class="line">    u2              attributes_count;</span><br><span class="line">    attribute_info  attributes[attributes_count]; 			<span class="comment">// 属性表</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-1-魔数"><a href="#1-2-1-魔数" class="headerlink" title="1.2.1 魔数"></a>1.2.1 魔数</h4><p>可以从上文看到Hello.class的魔数是四字节的0xCAFEBABE（咖啡宝贝？）</p>
+<p>魔数是JVM识别class文件的标志，虚拟机在加载类文件之前会检查魔数是否正确，否则抛出<code>java.lang.ClassFormatError</code>异常，比如将魔数改为0xCAFEBABB</p>
+<p><img src="/2021/12/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JVM%E5%AD%97%E8%8A%82%E7%A0%81/image-20211229102108725.png" alt="image-20211229102108725"></p>
+<p>然后在终端运行修改过的Hello.class，（注意如果直接IDEA运行会重新生成class文件并覆盖旧的）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">java Hello</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/12/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JVM%E5%AD%97%E8%8A%82%E7%A0%81/image-20211229102509877.png" alt="image-20211229102509877"></p>
+<h4 id="1-2-2-版本号"><a href="#1-2-2-版本号" class="headerlink" title="1.2.2 版本号"></a>1.2.2 版本号</h4><p>0x0034表示主版本号为52（0x34），虚拟机解析时可以知道这是一个Java 8编译出的类。如果类文件版本高于JVM版本，加载类时会抛出异常<code>java.lang.UnsupportedClassVersionError</code></p>
+<hr>
+<h5 id="关于版本号"><a href="#关于版本号" class="headerlink" title="关于版本号"></a>关于版本号</h5><p>每次Java发布大版本，主版本号就会加1，比如Java 8是52，Java 9是53</p>
+<hr>
+<p>我们把主版本号改成53（0x35），然后终端运行一下修改后的类文件</p>
+<p><img src="/2021/12/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JVM%E5%AD%97%E8%8A%82%E7%A0%81/image-20211229103408691.png" alt="image-20211229103408691"></p>
+<h4 id="1-2-3-常量池"><a href="#1-2-3-常量池" class="headerlink" title="1.2.3 常量池"></a>1.2.3 常量池</h4><h5 id="一、常量池是做什么用的？"><a href="#一、常量池是做什么用的？" class="headerlink" title="一、常量池是做什么用的？"></a>一、常量池是做什么用的？</h5><p>像0这样的简单常用的操作数，会被内嵌到字节码中。如果操作数比较大或者是字符串常量，class文件就会将其存储在常量池，使用时，根据索引位置来查找。</p>
+<h5 id="二、常量池大小"><a href="#二、常量池大小" class="headerlink" title="二、常量池大小"></a>二、常量池大小</h5><p>比如大小为n时，真正有效的索引是1~n-1，因为0属于保留索引。</p>
+<h5 id="三、常量池项（cp-info）集合"><a href="#三、常量池项（cp-info）集合" class="headerlink" title="三、常量池项（cp_info）集合"></a>三、常量池项（cp_info）集合</h5><p>最多包含n-1（因为long和double类型的常量会占用两个索引位置）</p>
+<h5 id="四、每个常量项——cp-info的结构"><a href="#四、每个常量项——cp-info的结构" class="headerlink" title="四、每个常量项——cp_info的结构"></a>四、每个常量项——cp_info的结构</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line">cp_info &#123;</span><br><span class="line">    u1 tag; <span class="comment">// 类型</span></span><br><span class="line">    u1 info[];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="五、常量池类型"><a href="#五、常量池类型" class="headerlink" title="五、常量池类型"></a>五、常量池类型</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>tag值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CONSTANT_Utf8_info</td>
+<td>1</td>
+</tr>
+<tr>
+<td>CONSTANT_Integer_info</td>
+<td>3</td>
+</tr>
+<tr>
+<td>CONSTANT_Flaot_info</td>
+<td>4</td>
+</tr>
+<tr>
+<td>CONSTANT_Long_info</td>
+<td>5</td>
+</tr>
+<tr>
+<td>CONSTANT_Double_info</td>
+<td>6</td>
+</tr>
+<tr>
+<td>CONSTANT_Class_info</td>
+<td>7</td>
+</tr>
+<tr>
+<td>CONSTANT_String_info</td>
+<td>8</td>
+</tr>
+<tr>
+<td>CONSTANT_Fieldref_info</td>
+<td>9</td>
+</tr>
+<tr>
+<td>CONSTANT_Methodref_info</td>
+<td>10</td>
+</tr>
+<tr>
+<td>CONSTANT_InterfaceMethodref_info</td>
+<td>11</td>
+</tr>
+<tr>
+<td>CONSTANT_NameAndType_info</td>
+<td>12</td>
+</tr>
+<tr>
+<td>CONSTANT_MethodHandle_info</td>
+<td>15</td>
+</tr>
+<tr>
+<td>CONSTANT_MethodType_info</td>
+<td>16</td>
+</tr>
+<tr>
+<td>CONSTANT_InvokeDynamic_info</td>
+<td>18</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>（1）查看类文件Hello.class常量池的方法</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">javap -v Hello</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/12/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JVM%E5%AD%97%E8%8A%82%E7%A0%81/image-20211229152410890.png" alt="image-20211229152410890"></p>
+<h5 id="六、CONSTANT-Integer-info和CONSTANT-Flaot-info"><a href="#六、CONSTANT-Integer-info和CONSTANT-Flaot-info" class="headerlink" title="六、CONSTANT_Integer_info和CONSTANT_Flaot_info"></a>六、CONSTANT_Integer_info和CONSTANT_Flaot_info</h5><p>这两种常量都是4字节的。其结构分别如下</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">CONSTANT_Integer_info &#123;</span><br><span class="line">    u1 tag;</span><br><span class="line">    u4 bytes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">CONSTANT_Float_info &#123;</span><br><span class="line">    u1 tag;</span><br><span class="line">    u4 bytes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其他如boolean、byte、short、char类型的变量，在常量池中都被当做int来处理。</p>
+<p>有示例类<code>MyConstantTest</code>如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConstantTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> bool = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">char</span> c = <span class="string">&#x27;A&#x27;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">byte</span> b =<span class="number">66</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">short</span> s = <span class="number">67</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> i = <span class="number">68</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在终端中<code>javac MyConstantTest.java</code>生成class文件，然后拖入010Editor查看。</p>
+<p><img src="/2021/12/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JVM%E5%AD%97%E8%8A%82%E7%A0%81/image-20211229160807279.png" alt="image-20211229160807279"></p>
+<h5 id="七、CONSTANT-Long-info和CONSTANT-Double-info"><a href="#七、CONSTANT-Long-info和CONSTANT-Double-info" class="headerlink" title="七、CONSTANT_Long_info和CONSTANT_Double_info"></a>七、CONSTANT_Long_info和CONSTANT_Double_info</h5><p>这两个都是8字节。结构如下</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">CONSTANT_Long_info &#123;    u1 tag;    u4 high_bytes;    u4 low_bytes;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">CONSTANT_Double_info &#123;    u1 tag;    u4 high_bytes;    u4 low_bytes;&#125;</span><br></pre></td></tr></table></figure>
+<p>示例程序如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldMain</span> </span>&#123;    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">long</span> a = Long.MAX_VALUE;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/12/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JVM%E5%AD%97%E8%8A%82%E7%A0%81/image-20211229161606371.png" alt="image-20211229161606371"></p>
+<h5 id="八、CONSTANT-Utf8-info"><a href="#八、CONSTANT-Utf8-info" class="headerlink" title="八、CONSTANT_Utf8_info"></a>八、CONSTANT_Utf8_info</h5><p>存储字符串内容，其结构如下</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">CONSTANT_Utf8_info &#123;    u1 tag;    u2 length; <span class="comment">// 注意，这个length不是表示字符串有多少字符，而是表示byte数组的长度    u1 bytes[length];  // 采用MUTF-8编码的字节数组&#125;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="什么是MUTF-8编码"><a href="#什么是MUTF-8编码" class="headerlink" title="什么是MUTF-8编码"></a>什么是MUTF-8编码</h6><p>这要先从UTF-8编码说起。UTF-8是一种变长编码，使用1~4字节表示一个字符。规则如下:</p>
+<p><a href="https://www.zhihu.com/question/23374078">参考 - 知乎 - Unicode 和 UTF-8 有什么区别？</a></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Unicode范围（十六进制）</th>
+<th>UTF-8编码方式（二进制）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0000 0001 - 0000 007F</td>
+<td>0xxxxxxx</td>
+</tr>
+<tr>
+<td>0000 0080 - 0000 07FF</td>
+<td>110xxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td>0000 0800 - 0000 FFFF</td>
+<td>1110xxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td>0001 0000 - 0010 FFFF</td>
+<td>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>比如<code>A</code>的Unicode值是0x41在0000 0001 - 0000 007F范围内，将0x41填到7个x中，所以其UTF-8值为01000001，即0x41</p>
+<p>再如<code>严</code>的<a href="http://tool.chinaz.com/tools/unicode.aspx">Unicode</a>是0x4E25，其范围在0000 0800 - 0000 FFFF，将0x4E25从低位开始填入1110xxxx 10xxxxxx 10xxxxxx的16个x中，得到其UTF-8为11100100 10111000 10100101，也即0xE4B8A5</p>
+<p>MUTF-8的不同指出在于：</p>
+<p>（1）MUTF-8中用两个字节表示空字符（<code>&quot;\0&quot;</code>）：把110xxxxx 10xxxxxx中的x全部填入0，也就是0xC080。而UTF-8只用一个字节，也就是0x00表示。MUTF-8这种方式的好处在于可以保证字符串中不会出现空字符，在C语言处理时不会出现意外截断。</p>
+<p>（2）MUTF-8只用了标准UTF-8中的三种编码方式：单字节、两字节、三字节，没有用到四字节。需要编码超过0000 FFFF的字符时，Java使用“代理对”通过两个字符来表示。</p>
+<hr>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>JVM</tag>
+      </tags>
+  </entry>
 </search>
