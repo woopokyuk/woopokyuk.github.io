@@ -7293,4 +7293,58 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>验证码</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Instrumentation调用栈跟踪Lab</title>
+    <url>/2022/01/06/%E8%B0%83%E7%94%A8%E6%A0%88%E8%B7%9F%E8%B8%AALab/</url>
+    <content><![CDATA[<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>跟书本相同的方法，比书本描述更详细些</p>
+<p>参考<a href="https://www.cnblogs.com/756623607-zhang/p/12575509.html">https://www.cnblogs.com/756623607-zhang/p/12575509.html</a></p>
+<p>首先创建maven项目</p>
+<p>然后将AgentMain打包为Agent的jar包：使用maven-jar-plugin插件打包在pom.xml中配置打包属性</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-jar-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">archive</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">manifestEntries</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Agent-Class</span>&gt;</span>org.example.AgentMain<span class="tag">&lt;/<span class="name">Agent-Class</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Premain-Class</span>&gt;</span>org.example.AgentMain<span class="tag">&lt;/<span class="name">Premain-Class</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Can-Redefine-Classes</span>&gt;</span>true<span class="tag">&lt;/<span class="name">Can-Redefine-Classes</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Can-Retransform-Classes</span>&gt;</span>true<span class="tag">&lt;/<span class="name">Can-Retransform-Classes</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">manifestEntries</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">archive</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在项目根目录执行<code>mvn clean package</code>生成jar包，报错如下。</p>
+<p><img src="/2022/01/06/%E8%B0%83%E7%94%A8%E6%A0%88%E8%B7%9F%E8%B8%AALab/image-20220106113428746.png" alt="image-20220106113428746"></p>
+<p>原因：rt包没有打包到项目中去，需要在pom.xml文件中配置，将jdk的相关jar加入项目中，<a href="https://www.cnblogs.com/kingsonfu/p/12692591.html">参考</a>，修改如下:</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">encoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">encoding</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">compilerArguments</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">verbose</span> /&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- 将jdk的依赖jar打入项目中，这样项目中使用的jdk的依赖就可以正常使用 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bootclasspath</span>&gt;</span>$&#123;java.home&#125;/lib/rt.jar;$&#123;java.home&#125;/lib/jce.jar;$&#123;java.home&#125;/lib/jsse.jar<span class="tag">&lt;/<span class="name">bootclasspath</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">compilerArguments</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>重新执行<code>mvn clean package</code>，构建完成</p>
+<p><img src="/2022/01/06/%E8%B0%83%E7%94%A8%E6%A0%88%E8%B7%9F%E8%B8%AALab/image-20220106114334500.png" alt="image-20220106114334500"></p>
+<p>可以在target目录找打对应的jar包</p>
+<p><img src="/2022/01/06/%E8%B0%83%E7%94%A8%E6%A0%88%E8%B7%9F%E8%B8%AALab/image-20220106114420545.png" alt="image-20220106114420545"></p>
+<p>把jar包移至MyTest的同一目录，执行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">java -javaagent:AgentTest-1.0-SNAPSHOT.jar MyTest</span><br></pre></td></tr></table></figure>
+<p>但是报错找不到或无法加载主类，猜想可能是因为打包Jar包后没有生成MANIFEST.MF造成的。</p>
+<p>build内可用finalName指定包名</p>
+<p><img src="/2022/01/06/%E8%B0%83%E7%94%A8%E6%A0%88%E8%B7%9F%E8%B8%AALab/image-20220106154734433.png" alt="image-20220106154734433"></p>
+<p>完全按照参考链接进行测试，发现还是会报错</p>
+<p><img src="/2022/01/06/%E8%B0%83%E7%94%A8%E6%A0%88%E8%B7%9F%E8%B8%AALab/image-20220106164129830.png" alt="image-20220106164129830"></p>
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><p>参考<a href="https://www.cnblogs.com/huanshilang/p/12206644.html">https://www.cnblogs.com/huanshilang/p/12206644.html</a></p>
+<p>讲了一些原理性的东西</p>
+]]></content>
+      <categories>
+        <category>解决方案</category>
+      </categories>
+      <tags>
+        <tag>JVM字节码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>新建简单maven项目</title>
+    <url>/2022/01/06/%E6%96%B0%E5%BB%BA%E7%AE%80%E5%8D%95maven%E9%A1%B9%E7%9B%AE/</url>
+    <content><![CDATA[<h2 id="建立过程"><a href="#建立过程" class="headerlink" title="建立过程"></a>建立过程</h2><p>（1）选择maven并勾选Create from archetype</p>
+<p><img src="/2022/01/06/%E6%96%B0%E5%BB%BA%E7%AE%80%E5%8D%95maven%E9%A1%B9%E7%9B%AE/image-20220106111514364.png" alt="image-20220106111514364"></p>
+<p>（2）填写项目名</p>
+<p><img src="/2022/01/06/%E6%96%B0%E5%BB%BA%E7%AE%80%E5%8D%95maven%E9%A1%B9%E7%9B%AE/image-20220106111703919.png" alt="image-20220106111703919"></p>
+<p>（3）添加属性</p>
+<p><img src="/2022/01/06/%E6%96%B0%E5%BB%BA%E7%AE%80%E5%8D%95maven%E9%A1%B9%E7%9B%AE/image-20220106111809524.png" alt="image-20220106111809524"></p>
+<p>（4）点击Finish，等待加载完成</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.cnblogs.com/adaonling/p/11669008.html">https://www.cnblogs.com/adaonling/p/11669008.html</a></p>
+<p><a href="https://blog.csdn.net/weixin_30275415/article/details/97103617">https://blog.csdn.net/weixin_30275415/article/details/97103617</a></p>
+]]></content>
+      <categories>
+        <category>解决方案</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>maven</tag>
+      </tags>
+  </entry>
 </search>
