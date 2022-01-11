@@ -4936,9 +4936,10 @@ y(t)=Cx(t).
 <p>（2）JVM运行以后在任意时刻通过Attach API远程加载Agent的jar包</p>
 ]]></content>
       <categories>
-        <category>笔记</category>
+        <category>CS</category>
       </categories>
       <tags>
+        <tag>笔记</tag>
         <tag>Java</tag>
         <tag>JVM</tag>
       </tags>
@@ -7345,6 +7346,418 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
       <tags>
         <tag>RSA</tag>
         <tag>Crypto</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>AWVS</title>
+    <url>/2021/01/29/AWVS/</url>
+    <content><![CDATA[<p><a href="https://blog.csdn.net/qq_41901122/article/details/104748654">安装过程</a></p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>AWVS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Qt记录</title>
+    <url>/2020/11/30/Qt%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<h2 id="QFileSystemModel用法"><a href="#QFileSystemModel用法" class="headerlink" title="QFileSystemModel用法"></a>QFileSystemModel用法</h2><p><a href="http://c.biancheng.net/view/1865.html">参考</a>  </p>
+<ol>
+<li>在头文件mainwindow.h中添加<code>#include &lt;QFileSystemModel&gt;</code>，并主窗口类中定义了一个QFileSystemModel类的成员变量model<code>QFileSystemModel *model;</code><br><img src="/2020/11/30/Qt%E8%AE%B0%E5%BD%95/1931211-20201130202301455-1251241689.png" alt>  </li>
+<li>在ui中添加Tree View  </li>
+<li>在mainwindow.cpp中添加  <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">model = <span class="keyword">new</span> <span class="built_in">QFileSystemModel</span>(<span class="keyword">this</span>);  <span class="comment">//QFileSystemModel提供单独线程</span></span><br><span class="line">model-&gt;<span class="built_in">setRootPath</span>(QDir::<span class="built_in">currentPath</span>());  <span class="comment">//设置根目录</span></span><br><span class="line">ui-&gt;treeView-&gt;<span class="built_in">setModel</span>(model);  <span class="comment">//设置数据模型</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2020/11/30/Qt%E8%AE%B0%E5%BD%95/1931211-20201130202637517-1511483392.png" alt>  </p>
+<ol>
+<li>运行后效果如下<br><img src="/2020/11/30/Qt%E8%AE%B0%E5%BD%95/1931211-20201130202716318-2112153808.png" alt>  </li>
+</ol>
+<h2 id="QTcpSocket"><a href="#QTcpSocket" class="headerlink" title="QTcpSocket"></a>QTcpSocket</h2><p><a href="https://blog.csdn.net/zhouyingge1104/article/details/103324487">参考</a><br>需要在.pro配置文件中添加<code>QT += network</code></p>
+<h2 id="在窗口打印一些中间状态的字符串"><a href="#在窗口打印一些中间状态的字符串" class="headerlink" title="在窗口打印一些中间状态的字符串"></a>在窗口打印一些中间状态的字符串</h2><p><code>qDebug &lt;&lt; &quot;打印&quot;;</code></p>
+<h2 id="输出某些信息到日志文件"><a href="#输出某些信息到日志文件" class="headerlink" title="输出某些信息到日志文件"></a>输出某些信息到日志文件</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MainWindow::actionLog</span><span class="params">(QString message)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    QString logFileName = <span class="string">&quot;action.log&quot;</span>;</span><br><span class="line">    action_logFile.<span class="built_in">setFileName</span>(logFileName);</span><br><span class="line">    action_logFile.<span class="built_in">open</span>(QIODevice::WriteOnly | QIODevice::Append);</span><br><span class="line">    <span class="keyword">if</span>(!action_logFile.<span class="built_in">isOpen</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;打开文件日志失败&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">QTextStream <span class="title">stream</span><span class="params">(&amp;action_logFile)</span></span>;</span><br><span class="line">    QString str;</span><br><span class="line">    str += dateTime.<span class="built_in">currentDateTime</span>().<span class="built_in">toString</span>(<span class="string">&quot;yyyy-MM-dd hh:mm:ss.zzz&quot;</span>);</span><br><span class="line">    str += <span class="string">&quot;: &quot;</span>;</span><br><span class="line">    str += message;</span><br><span class="line">    str += <span class="string">&quot;\r\n&quot;</span>;</span><br><span class="line">    stream &lt;&lt; str  ;</span><br><span class="line"></span><br><span class="line">    action_logFile.<span class="built_in">close</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="获取当前进程占用的内存信息"><a href="#获取当前进程占用的内存信息" class="headerlink" title="获取当前进程占用的内存信息"></a>获取当前进程占用的内存信息</h2><p><a href="https://www.cnblogs.com/findumars/p/6383030.html">参考</a><br>getUsedMemory(GetCurrentProcessId());即可  </p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span>  <span class="comment">// 用于获取当前程序运行时的信息</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QProcess&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">MainWindow::getUsedMemory</span><span class="params">(DWORD pid)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> pidChar[<span class="number">25</span>];</span><br><span class="line">    <span class="comment">//将DWORD类型转换为10进制的char*类型</span></span><br><span class="line">    _ultoa(pid,pidChar,<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//调用外部命令</span></span><br><span class="line">    QProcess p;</span><br><span class="line">    p.<span class="built_in">start</span>(<span class="string">&quot;tasklist /FI \&quot;PID EQ &quot;</span> + <span class="built_in">QString</span>(pidChar) + <span class="string">&quot; \&quot;&quot;</span>);</span><br><span class="line">    p.<span class="built_in">waitForFinished</span>();</span><br><span class="line">    <span class="comment">//得到返回结果</span></span><br><span class="line">    QString result = QString::<span class="built_in">fromLocal8Bit</span>(p.<span class="built_in">readAllStandardOutput</span>());</span><br><span class="line">    <span class="comment">//关闭外部命令</span></span><br><span class="line">    p.<span class="built_in">close</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//替换掉&quot;,&quot;</span></span><br><span class="line">    result = result.<span class="built_in">replace</span>(<span class="string">&quot;,&quot;</span>,<span class="string">&quot;&quot;</span>);</span><br><span class="line">    <span class="comment">//匹配 &#x27;数字+空格+K&#x27;部分</span></span><br><span class="line">    <span class="function">QRegExp <span class="title">rx</span><span class="params">(<span class="string">&quot;(\\d+)(\\s)(K)&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//初始化结果</span></span><br><span class="line">    <span class="function">QString <span class="title">usedMem</span><span class="params">(<span class="string">&quot;&quot;</span>)</span></span>;</span><br><span class="line">    <span class="keyword">if</span>(rx.<span class="built_in">indexIn</span>(result) != <span class="number">-1</span>)&#123;</span><br><span class="line">        <span class="comment">//匹配成功</span></span><br><span class="line">        usedMem = rx.<span class="built_in">cap</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//截取K前面的字符串，转换为数字，供换算单位使用。</span></span><br><span class="line">    usedMem = usedMem.<span class="built_in">left</span>(usedMem.<span class="built_in">length</span>()<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">return</span> usedMem.<span class="built_in">toDouble</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="执行Shell命令"><a href="#执行Shell命令" class="headerlink" title="执行Shell命令"></a>执行Shell命令</h2><p><a href="https://www.cnblogs.com/xupeidong/p/11777031.html">参考</a>  </p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//执行shell指令或者shell脚本的方法</span></span><br><span class="line"><span class="function">QString <span class="title">Common::executeLinuxCmd</span><span class="params">(QString strCmd)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    QProcess p;</span><br><span class="line">    p.<span class="built_in">start</span>(<span class="string">&quot;bash&quot;</span>, <span class="built_in">QStringList</span>() &lt;&lt;<span class="string">&quot;-c&quot;</span> &lt;&lt; strCmd);</span><br><span class="line">    p.<span class="built_in">waitForFinished</span>();</span><br><span class="line">    QString strResult = p.<span class="built_in">readAllStandardOutput</span>();</span><br><span class="line">    <span class="keyword">return</span> strResult;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//实例</span></span><br><span class="line">QString strResult1 = <span class="built_in">executeLinuxCmd</span>(<span class="string">&quot;sudo sh /home/test.sh&quot;</span>);</span><br><span class="line"> </span><br><span class="line">QString strResult2 = <span class="built_in">executeLinuxCmd</span>(<span class="string">&quot;cat /etc/hostname&quot;</span>);</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Qt</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>BurpSuite使用</title>
+    <url>/2021/01/29/BurpSuite%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="1-伪造IP"><a href="#1-伪造IP" class="headerlink" title="1 伪造IP"></a>1 伪造IP</h2><p><a href="https://blog.csdn.net/qq_43168364/article/details/108604163">参考</a>  </p>
+<h3 id="1-1-插件安装"><a href="#1-1-插件安装" class="headerlink" title="1.1 插件安装"></a>1.1 插件安装</h3><ol>
+<li>下载jython，下载地址<a href="http://search.maven.org/remotecontent?filepath=org/python/jython-standalone/2.7.0/jython-standalone-2.7.0.jar">http://search.maven.org/remotecontent?filepath=org/python/jython-standalone/2.7.0/jython-standalone-2.7.0.jar</a>  </li>
+<li>在Burp Suite中添加<br><img src="/2021/01/29/BurpSuite%E4%BD%BF%E7%94%A8/1931211-20210129175534091-235101172.png" alt>  </li>
+<li>下载fakeIP插件，下载地址<a href="https://github.com/TheKingOfDuck/burpFakeIP">https://github.com/TheKingOfDuck/burpFakeIP</a>  </li>
+<li>添加插件<br><img src="/2021/01/29/BurpSuite%E4%BD%BF%E7%94%A8/1931211-20210129180039262-1156831525.png" alt>  </li>
+</ol>
+<h3 id="1-2-使用"><a href="#1-2-使用" class="headerlink" title="1.2 使用"></a>1.2 使用</h3><ol>
+<li>在Proxy窗口右键即可看到fakeIP条目<br><img src="/2021/01/29/BurpSuite%E4%BD%BF%E7%94%A8/1931211-20210129180323572-633922338.png" alt>  </li>
+<li>选定设置如127.0.0.1即可，其余为常规操作</li>
+</ol>
+<h2 id="2-字典"><a href="#2-字典" class="headerlink" title="2 字典"></a>2 字典</h2><p>来源 <a href="https://github.com/rootphantomer/Blasting_dictionary">https://github.com/rootphantomer/Blasting_dictionary</a></p>
+<h3 id="2-1-添加字典的方法"><a href="#2-1-添加字典的方法" class="headerlink" title="2.1 添加字典的方法"></a>2.1 添加字典的方法</h3><p><img src="/2021/01/29/BurpSuite%E4%BD%BF%E7%94%A8/1931211-20210130105220812-361405263.png" alt><br>结果中长度与其他明显不同的即为可用的口令<br><img src="/2021/01/29/BurpSuite%E4%BD%BF%E7%94%A8/1931211-20210130105749936-1646941203.png" alt></p>
+<h2 id="3-伪造Referer"><a href="#3-伪造Referer" class="headerlink" title="3 伪造Referer"></a>3 伪造Referer</h2><p>如<code>document.getElementById(&quot;demo&quot;).innerHTML=&quot;必须来自https://www.google.com&quot;;</code>添加此行即可<br><img src="/2021/01/29/BurpSuite%E4%BD%BF%E7%94%A8/1931211-20210130112133511-365336705.png" alt>  </p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>BurpSuite</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>UNIX网络编程卷2进程间通信[笔记]</title>
+    <url>/2020/12/16/UNIX%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%8D%B72%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/</url>
+    <content><![CDATA[<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h2><h3 id="1-1-什么是进程间通信？"><a href="#1-1-什么是进程间通信？" class="headerlink" title="1.1 什么是进程间通信？"></a>1.1 什么是进程间通信？</h3><p>IPC: Interprocess communication<br>是指运行在某个操作系统上的不同进程间各种消息传递的方式</p>
+<h3 id="1-2-线程"><a href="#1-2-线程" class="headerlink" title="1.2 线程"></a>1.2 线程</h3><ol>
+<li>从IPC的角度来看，一个给定进程内的所有线程共享同样的全局变量  </li>
+<li>在支持线程的系统上，只有对空管道调用read的那个线程阻塞，同一进程的其余线程才能继续执行</li>
+</ol>
+<h3 id="1-3-IPC对象的持续性"><a href="#1-3-IPC对象的持续性" class="headerlink" title="1.3 IPC对象的持续性"></a>1.3 IPC对象的持续性</h3><p><img src="/2020/12/16/UNIX%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%8D%B72%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/1931211-20201215163425131-2012889289.png" alt>  </p>
+<hr>
+<ol>
+<li><a href="https://baike.baidu.com/item/%E8%87%AA%E4%B8%BE/3063932?fr=aladdin">自举的概念</a>=加电自检+磁盘引导  </li>
+<li>对于一种给定形式的IPC，要求其具备随文件系统的持续性可能会使其性能降级，而IPC的一个基本设计目标是高性能</li>
+</ol>
+<hr>
+<h3 id="1-4-名字空间"><a href="#1-4-名字空间" class="headerlink" title="1.4 名字空间"></a>1.4 名字空间</h3><p>对于除普通管道以外的所有形式的IPC来说，名字是客户与服务器彼此连接交换信息的手段。<br>（管道没有名字因此不能用于无亲缘关系的进程间，但是FIFO在一个文件系统中的路径名作为标识符因此可以用于无亲缘关系的进程间）  </p>
+<h3 id="1-6-出错处理：包裹函数（wrapper-function）"><a href="#1-6-出错处理：包裹函数（wrapper-function）" class="headerlink" title="1.6 出错处理：包裹函数（wrapper function）"></a>1.6 出错处理：包裹函数（wrapper function）</h3><ol>
+<li>命名方法：将原有实际的函数名第一个字母改为大写。  </li>
+<li>作用：包裹函数执行实际的函数调用，测试其返回值，并在<strong>碰到错误时终止进程</strong>。旨在缩短程序长度（因为现实程序中，需要检查每个函数调用是否返回错误）  </li>
+<li>案例  </li>
+</ol>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// lib/wrapunix.c</span></span><br><span class="line"><span class="function"><span class="keyword">void</span></span></span><br><span class="line"><span class="function"><span class="title">Sem_post</span><span class="params">(<span class="keyword">sem_t</span> *sem)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (sem_post(sem) == <span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        err_sys(<span class="string">&quot;sem_post error&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="Unix-errno值"><a href="#Unix-errno值" class="headerlink" title="Unix errno值"></a>Unix errno值</h4><ol>
+<li>每当在一个Unix函数中发生错误时，全局变量errno将被设置称一个只是错误类型的正数（若函数不返回错误，则errno的值就无定义），函数本身则通常返回-1  </li>
+<li><code>err_sys</code>函数检查errno的值并输出相应的出错信息  </li>
+<li>所有正的错误值都是常值，具有E开头的全大写的名字（比如errno值为EAGAIN时，对应的出错消息为”Resource temporarily unavailable”），通常定义在头文件&lt;/usr/include/sys/errno.h&gt;中，没有值为0的errno值<br><font face="楷体">[注意]Ubuntu中一般存放在/usr/include/asm-generic/errno.h</font><br><img src="/2020/12/16/UNIX%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%8D%B72%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/1931211-20201216114011126-1582437540.png" alt>  </li>
+<li>多线程环境下，每个线程必须有自己的errno变量</li>
+</ol>
+<hr>
+<h3 id="1-7-Unix标准"><a href="#1-7-Unix标准" class="headerlink" title="1.7 Unix标准"></a>1.7 Unix标准</h3><p>有关Unix标准化的大多数活动是由Posix和Open Group做的  </p>
+<h4 id="Posix"><a href="#Posix" class="headerlink" title="Posix"></a>Posix</h4><p>Posix: Portable Operating System Interface 可移植操作系统接口; 1996年版的Posix.1标准的前言中声称ISO/IEC 9945由以下三部分组成  </p>
+<ol>
+<li>第一部分:系统应用程序接口(API)[C语言]  </li>
+<li>第二部分:Shell和实用程序  </li>
+<li>第三部分:系统管理<br>第一二部分就是Posix.1和Posix.2  </li>
+</ol>
+<h3 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h3><ol>
+<li>图1-1展示了两个进程访问单个文件的情形。如果这两个进程都只是往该文件的末尾添加新的数据（譬如这是一个日志文件），那么需要什么类型的同步？<br><img src="/2020/12/16/UNIX%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%8D%B72%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/1931211-20201216163117501-1066991941.png" alt><br>答：这两个进程只需给open函数指定O_APPEND标志，或者给fopen函数指定添加模式。内核保证每次write都将新的数据添加到该文件的末尾。  </li>
+<li>查看你的系统<font face="Times">[Ubuntu1804]</font>中的<errno.h>头文件是如何定义errno变量的<br>答：<code>whereis errno.h</code>查看位置得/usr/include/errno.h  </errno.h></li>
+</ol>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* Copyright (C) 1991-2018 Free Software Foundation, Inc.</span></span><br><span class="line"><span class="comment">   This file is part of the GNU C Library.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   The GNU C Library is free software; you can redistribute it and/or</span></span><br><span class="line"><span class="comment">   modify it under the terms of the GNU Lesser General Public</span></span><br><span class="line"><span class="comment">   License as published by the Free Software Foundation; either</span></span><br><span class="line"><span class="comment">   version 2.1 of the License, or (at your option) any later version.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   The GNU C Library is distributed in the hope that it will be useful,</span></span><br><span class="line"><span class="comment">   but WITHOUT ANY WARRANTY; without even the implied warranty of</span></span><br><span class="line"><span class="comment">   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU</span></span><br><span class="line"><span class="comment">   Lesser General Public License for more details.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   You should have received a copy of the GNU Lesser General Public</span></span><br><span class="line"><span class="comment">   License along with the GNU C Library; if not, see</span></span><br><span class="line"><span class="comment">   &lt;http://www.gnu.org/licenses/&gt;.  */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *	ISO C99 Standard: 7.5 Errors	&lt;errno.h&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span>	_ERRNO_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	_ERRNO_H 1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;features.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* The system-specific definitions of the E* constants, as macros.  */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/errno.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* When included from assembly language, this header only provides the</span></span><br><span class="line"><span class="comment">   E* constants.  */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __ASSEMBLER__</span></span><br><span class="line"></span><br><span class="line">__BEGIN_DECLS</span><br><span class="line"></span><br><span class="line"><span class="comment">/* The error code set by various library functions.  */</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> *__errno_location (<span class="keyword">void</span>) __THROW __attribute_const__;</span><br><span class="line"><span class="meta"># <span class="meta-keyword">define</span> errno (*__errno_location ())</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># <span class="meta-keyword">ifdef</span> __USE_GNU</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* The full and simple forms of the name with which the program was</span></span><br><span class="line"><span class="comment">   invoked.  These variables are set up automatically at startup based on</span></span><br><span class="line"><span class="comment">   the value of argv[0].  */</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">char</span> *program_invocation_name;</span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">char</span> *program_invocation_short_name;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* bits/errno.h may have defined this type.  If it didn&#x27;t, provide a</span></span><br><span class="line"><span class="comment">   fallback definition.  */</span></span><br><span class="line"><span class="meta">#  <span class="meta-keyword">ifndef</span> __error_t_defined</span></span><br><span class="line"><span class="meta">#   <span class="meta-keyword">define</span> __error_t_defined 1</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> <span class="keyword">error_t</span>;</span><br><span class="line"><span class="meta">#  <span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta"># <span class="meta-keyword">endif</span> <span class="comment">/* __USE_GNU */</span></span></span><br><span class="line"></span><br><span class="line">__END_DECLS</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* !__ASSEMBLER__ */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* errno.h */</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="2-Posix-IPC"><a href="#2-Posix-IPC" class="headerlink" title="2 Posix IPC"></a>2 Posix IPC</h2><h3 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h3><script type="math/tex; mode=display">Posix IPC = Posix消息队列 + Posix信号量 + Posix共享内存区</script><h3 id="2-2-IPC名字"><a href="#2-2-IPC名字" class="headerlink" title="2.2 IPC名字"></a>2.2 IPC名字</h3><h4 id="Posix-1对IPC名字的要求"><a href="#Posix-1对IPC名字的要求" class="headerlink" title="Posix.1对IPC名字的要求"></a>Posix.1对IPC名字的要求</h4><ol>
+<li>必须符合已有的路径名规则（必须最多由PATH_MAX个字节构成，包括结尾的空字节）  </li>
+<li>若以斜杠开头，则对这些函数的不同调用将访问同一个队列；若不以斜杠开头，则效果取决于实现  </li>
+<li>名字中额外的斜杠的解释由实现定义</li>
+</ol>
+<h4 id="Solaris-2-6"><a href="#Solaris-2-6" class="headerlink" title="Solaris 2.6"></a>Solaris 2.6</h4><p>要求以斜杠开头，但不允许有另外的斜杠符</p>
+<h4 id="Digital-Unix-4-0B"><a href="#Digital-Unix-4-0B" class="headerlink" title="Digital Unix 4.0B"></a>Digital Unix 4.0B</h4><p>在文件系统中创建所指定的路径名</p>
+<h4 id="移植性问题"><a href="#移植性问题" class="headerlink" title="移植性问题"></a>移植性问题</h4><ol>
+<li>当我们指定首字符为斜杠的名字如/tmp.1234时，符合Posix和Solaris规则，但是Digital Unix会尝试创建这个文件，除非我们有在根目录中的写权限否则会导致尝试失败  </li>
+<li>当我们指定一个类似/tmp/test.1234这样的名字时，如果/tmp目录存在，且具备该目录的写权限（对于多数Unix系统来说是可以的），但是Solaris下会导致失败  <font face="楷体">[避免移植性问题]  
+&emsp;&emsp;方法一：将Posix IPC名字的#define行放在一个便于修改的头文件中，这样应用程序转移到另一个系统上时，只需要修改这个头文件  
+&emsp;&emsp;方法二：自己定义一个名为px_ipc_name的函数，它为定位Posix IPC名字而添加上正确的前缀目录  </font>
+
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;unpipc.h&quot;</span></span></span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">pc_ipc_name</span><span class="params">(<span class="keyword">const</span> cahr *name)</span></span>;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>CS</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>Unix</tag>
+        <tag>网络编程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>正则表达式</title>
+    <url>/2020/09/10/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <content><![CDATA[<font face="楷体" size="3">[推荐练习](https://www.hackerrank.com/domains/regex)
+</font>
+
+<h2 id><a href="#" class="headerlink" title="."></a>.</h2><font face="楷体">可以匹配任何内容，除了换行符  
+如果想在字符串中匹配`.`则需要转义`\.`，在Java中则需`\\.`  
+</font>
+
+<p>举例<br><code>A.B.C.D.</code>可以匹配<code>A+B-C=DE</code><br><code>...\\....\\....\\....</code>可以匹配<code>abc.def.ghi.jkx</code>（其中包含的字母可用任意字符替换）  </p>
+<h2 id="d与-D"><a href="#d与-D" class="headerlink" title="\d与\D"></a>\d与\D</h2><font face="楷体">`\d`可以匹配数字，`\D`匹配除了数字以外的所有字符  
+</font>
+
+<p>举例<br>xxXxxXxxxx, 其中x代表数字, X代表非数字<br>表达式可写作<code>\\d&#123;2&#125;\\D\\d&#123;2&#125;\\D\\d&#123;4&#125;</code>，其中{n}是标志限定符，<code>\\d&#123;n&#125;</code>就要匹配n次<code>\\d</code>  </p>
+<h2 id="s与-S"><a href="#s与-S" class="headerlink" title="\s与\S"></a>\s与\S</h2><font face="楷体">`\s`可以匹配空格，`\S`匹配除了空格以外的所有字符  
+</font>
+
+<p>举例<br>XXxXXxXX，其中x代表空格，X代表非空格<br>表达式写作<code>\\S&#123;2&#125;\\s\\S&#123;2&#125;\\s\\S&#123;2&#125;</code></p>
+<h2 id="w与-W"><a href="#w与-W" class="headerlink" title="\w与\W"></a>\w与\W</h2><font face="楷体">`\w`可以匹配word(字母数字下划线)，`\W`匹配除了字母数字下划线以外的所有字符  
+</font>
+
+<p>举例<br>xxxXxxxxxxxxxxXxxx，其中x代表字母数字下划线，X代表除此以外的所有字符<br>表达式可写作<code>\\w&#123;3&#125;\\W\\w&#123;10&#125;\\W\\w&#123;3&#125;</code>  </p>
+<h2 id="与"><a href="#与" class="headerlink" title="^与$"></a>^与$</h2><font face="楷体">`^`可以匹配字符串头，`$`匹配字符串尾  
+</font>
+
+<p>举例  </p>
+<ol>
+<li>Xxxxx.，其中X表示数字，x表示word，这个字符串必须以数字开头，以字符.结尾，字符串长度需为6<br>表达式可写作<code>^\\d\\w&#123;4&#125;\\.$</code>  </li>
+<li>字符串由大小写字母组成并以s结尾<br>表达式可写作<code>^[a-zA-Z]*s$</code></li>
+</ol>
+<h2 id="-1"><a href="#-1" class="headerlink" title="[]"></a>[]</h2><font face="楷体">`[]`可以匹配括号内的所有字符  
+</font>
+
+<p>举例<br>有字符串S：长度为6；第一个字符为1，2或3；第二个字符为1，2或0；第三个字符为下x，s或0；第四个字符为3，0，A或a；第五个字符为x，s或u；第六个字符为.或,<br>表达式可写作<code>^[1-3][0-2][xs0][30Aa][xsu][.,]$</code></p>
+<h2 id="-2"><a href="#-2" class="headerlink" title></a><sup><a href="#fn_" id="reffn_"></a></sup></h2><font face="楷体">`^`在括号中使用时表示不接受括号表达式中的字符集合  
+</font>
+
+<p>举例  </p>
+<ol>
+<li>字符串长度大于等于5；第一个字符为小写字母；第二个字符为正数；第三个字符为非小写字母；第四个字符为非大写字母；第五个字符为大写字母<br>表达式可写为<code>^[a-z][1-9][^a-z][^A-Z][A-Z]</code>  </li>
+<li>字符串长度为6；第一个字符不是数字；第二个字符不是aeiou；第三个字符不是bcDF；第四个字符不是\r\n\t\f或空格；第五个字符不是AEIOU；第六个字符不是.,<br>表达式可写作<code>^[^0-9][^aeiou][^bcDF][^\r\n\t\f ][^AEIOU][^.,]$</code></li>
+</ol>
+<h2 id="x"><a href="#x" class="headerlink" title="{x}"></a>{x}</h2><font face="楷体">`{x}`匹配前面的模式x次  
+</font>
+
+<p>举例<br>字符串长度为45；前40个字符为字母（包含大小写）或偶数；后5个字符为奇数或空白字符<br>表达式可写作<code>^[a-zA-Z02468]&#123;40&#125;[13579\r\n\t\f ]&#123;5&#125;$</code>  </p>
+<h2 id="x-y"><a href="#x-y" class="headerlink" title="{x,y}"></a>{x,y}</h2><font face="楷体">`{x,y}`匹配前面的模式x~y次。`{x,}`至少匹配x次  
+</font>
+
+<p>举例<br>字符串1~2个数字开头；然后跟3或3个以上字母（包含大小写）；以0~3个.结尾<br>表达式可写作<code>^\\d&#123;1,2&#125;[a-zA-Z]&#123;3,&#125;\\.&#123;0,3&#125;$</code>  </p>
+<h2 id="-3"><a href="#-3" class="headerlink" title="*"></a>*</h2><font face="楷体">匹配前面的模式0次或多次  
+</font>
+
+<p>举例<br>字符串以2个或2个以上数字开头；然后跟上0或多个小写字母；以0或多个大写字母结尾<br>表达式可写作<code>^\\d&#123;2,&#125;[a-z]*[A-Z]*$</code>  </p>
+<h2 id="-4"><a href="#-4" class="headerlink" title="+"></a>+</h2><font face="楷体">匹配前面的模式1次或多次  
+</font>
+
+<p>使用方法与<code>*</code>类似</p>
+<h2 id="b"><a href="#b" class="headerlink" title="\b"></a>\b</h2><font face="楷体">匹配单词边界  
+</font>
+
+<p>举例<br>匹配单词：以元音字母aeiouAEIOU开头；匹配的单词可以是任意长度，且由大小写字母组成；要匹配单词边界<br>表达式可写作：<code>\\b[aeiouAEIOU][a-zA-Z]*\\b</code>注意这里是匹配单词边界不是整个字符串所以不使用<code>^$</code>  </p>
+<h2 id="-5"><a href="#-5" class="headerlink" title="()"></a>()</h2><font face="楷体">捕获组  
+</font>
+
+<p>举例<br>匹配3个或以上的连续的ok<br>表达式可写作：<code>(ok)&#123;3,&#125;</code></p>
+<h2 id="替代匹配"><a href="#替代匹配" class="headerlink" title="| 替代匹配"></a>| 替代匹配</h2><font face="楷体">匹配多项中的一项  
+</font>
+
+<p>举例<br>字符串需以 Mr., Mrs., Ms., Dr. or Er.开头；剩余部分为一个或多个英文字母<br>表达式可写作：<code>^(Mr|Mrs|Ms|Dr|Er)\\.[a-zA-Z]+$</code></p>
+<h2 id="group-number"><a href="#group-number" class="headerlink" title="\group_number"></a>\group_number</h2><font face="楷体">匹配相同文本，group_number表示跟哪一个组进行匹配。比如\1就是和从左到右数，第一个捕获组()进行相同文本的匹配  
+</font>
+
+<p>举例<br><img src="/2020/09/10/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/1931211-20200916143048220-1624765848.png" alt><br>表达式可写作：<code>^([a-z])(\\w)([\r\n\t\f ])(\\W)(\\d)(\\D)([A-Z])([a-zA-Z])([aeiouAEIOU])([^\r\n\t\f ])\\1\\2\\3\\4\\5\\6\\7\\8\\9\\10$</code>  </p>
+<h2 id="前向引用"><a href="#前向引用" class="headerlink" title="前向引用"></a>前向引用</h2><p><code>(\\2two|(one))+</code>可以匹配oneonetwo<br><code>(\\2amigo|(go!))+</code>可以匹配go!go!amigo  </p>
+<p>例题<br><img src="/2020/09/10/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/1931211-20200916234936738-1856791285.png" alt><br>表达式可写作：<code>^(\\2tic|(tac))+</code>  </p>
+<h2 id="正向预查"><a href="#正向预查" class="headerlink" title="正向预查"></a>正向预查</h2><h3 id="regex-1-regex-2"><a href="#regex-1-regex-2" class="headerlink" title="regex_1(?=regex_2)"></a>regex_1(?=regex_2)</h3><font face="楷体">匹配后面紧跟着regex_2的regex_1。需要注意的是：regex_2并不会被返回</font>  
+
+<p>举例<br>在字符串中匹配出后面紧跟oo的o<br>表达式可写作：<code>o(?=oo)</code>  </p>
+<h3 id="lt-regex-2-regex-1"><a href="#lt-regex-2-regex-1" class="headerlink" title="(?&lt;=regex_2)regex_1"></a>(?&lt;=regex_2)regex_1</h3><font face="楷体">查找regex_2后面的regex_1</font>  
+
+<p>举例  </p>
+<ol>
+<li><code>(?&lt;=[a-z])[aeiou]</code>，匹配h<font color="red">e</font>1o  </li>
+<li>匹配所有出现在奇数数字之后的数字，表达式写作：<code>(?&lt;=[13579])\\d</code>  </li>
+</ol>
+<h2 id="反向预查"><a href="#反向预查" class="headerlink" title="反向预查"></a>反向预查</h2><h3 id="regex-1-regex-2-1"><a href="#regex-1-regex-2-1" class="headerlink" title="regex_1(?!regex_2)"></a>regex_1(?!regex_2)</h3><font face="楷体">匹配后面不跟着regex_2的regex_1</font>  
+
+<p>举例  </p>
+<ol>
+<li><code>c(?!o)</code>可以匹配到<font color="red">c</font>hocolate  </li>
+<li>匹配字符串中所有后面不仅跟相同字符的字符，比如字符串goooo，可以匹配<font color="red">g</font>ooo<font color="red">o</font><br>表达式可写作：<code>(.)(?!\\1)</code></li>
+</ol>
+<h3 id="lt-regex-2-regex-1-1"><a href="#lt-regex-2-regex-1-1" class="headerlink" title="(?&lt;!regex_2)regex_1"></a>(?&lt;!regex_2)regex_1</h3><font face="楷体">匹配前面不是regex_2的regex_1</font>  
+
+<p>举例  </p>
+<ol>
+<li><code>(?&lt;![a-z])[aeiou]</code>，匹配he1<font color="red">o</font>  </li>
+<li>匹配前面不是aeiouAEIOU的所有字符，表达式可写作：<code>(?&lt;![aeiouAEIOU]).</code></li>
+</ol>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>正则表达式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python3网络爬虫环境配置</title>
+    <url>/2020/12/18/Python3%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h2 id="tesserocr"><a href="#tesserocr" class="headerlink" title="tesserocr"></a>tesserocr</h2><h3 id="1-安装-——-Windows环境"><a href="#1-安装-——-Windows环境" class="headerlink" title="1 安装 —— Windows环境"></a>1 安装 —— Windows环境</h3><p><a href="https://github.com/sirfz/tesserocr">参考</a><br>作用：识别验证码<br><code>conda install -c conda-forge tesserocr</code>  </p>
+<h3 id="2-命令行中使用tesseract命令"><a href="#2-命令行中使用tesseract命令" class="headerlink" title="2 命令行中使用tesseract命令"></a>2 命令行中使用tesseract命令</h3><ol>
+<li>用下图测试安装是否成功<br><img src="/2020/12/18/Python3%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/1931211-20201218230743404-911656743.png" alt>  </li>
+<li><code>tesseract testocr.png result -l eng &amp;&amp; type result.txt</code>，其中调用了tesseract命令，第一个参数为图片的名称，-l指定使用的语言包，这里的eng表示使用英文，result.txt是保存的结果<br><img src="/2020/12/18/Python3%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/1931211-20201218230941867-302708121.png" alt>  </li>
+</ol>
+<h3 id="3-Python中使用tesserocr库"><a href="#3-Python中使用tesserocr库" class="headerlink" title="3 Python中使用tesserocr库"></a>3 Python中使用tesserocr库</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tesserocr</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line">img = Image.<span class="built_in">open</span>(<span class="string">&quot;testocr.png&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(tesserocr.image_to_text(img))</span><br></pre></td></tr></table></figure>
+<h2 id="PhantomJS"><a href="#PhantomJS" class="headerlink" title="PhantomJS"></a>PhantomJS</h2><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1 安装"></a>1 安装</h3><ol>
+<li><a href="https://phantomjs.org/download.html">下载地址</a>  </li>
+<li>直接解压即可用  </li>
+<li>将phantomjs-2.1.1-windows\bin对应的目录加到环境变量中，或者将phantomjs.exe复制到我们配置的Anaconda的Python虚拟环境的Script文件夹中  </li>
+<li>这里我们选择的是后者，然后在该虚拟环境命令行输入phantomjs即可进入Phantomjs<br><img src="/2020/12/18/Python3%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/1931211-20201218233715618-58918695.png" alt>  </li>
+</ol>
+<h3 id="2-在python中使用"><a href="#2-在python中使用" class="headerlink" title="2 在python中使用"></a>2 在python中使用</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在控制台输出https://www.baidu.com</span></span><br><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"></span><br><span class="line">browser = webdriver.PhantomJS()</span><br><span class="line">browser.get(<span class="string">&#x27;https://www.baidu.com&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(browser.current_url)</span><br></pre></td></tr></table></figure>
+<h2 id="Scrapy"><a href="#Scrapy" class="headerlink" title="Scrapy"></a>Scrapy</h2><ol>
+<li><code>conda install Scrapy</code>  </li>
+<li>测试：在命令行输入<code>scrapy</code><br><img src="/2020/12/18/Python3%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/1931211-20201218234550185-1883771662.png" alt>  </li>
+</ol>
+<h2 id="pyspider"><a href="#pyspider" class="headerlink" title="pyspider"></a>pyspider</h2><p>需要先安装PhantomJS  </p>
+<ol>
+<li><p><code>pip install pyspider</code>报错  </p>
+<blockquote>
+<p>ERROR: Command errored out with exit status 10: python setup.py egg_info Check the logs for full command output.  </p>
+</blockquote>
+</li>
+<li><p>前往<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pycurl">pycurl</a>下载pycurl‑7.43.0.4‑cp37‑cp37m‑win_amd64.whl（根据python3.7和64位系统而选择）  </p>
+</li>
+<li><code>pip install pycurl-7.43.0.4-cp37-cp37m-win_amd64.whl</code></li>
+</ol>
+<hr>
+<h2 id="爬虫基础"><a href="#爬虫基础" class="headerlink" title="爬虫基础"></a>爬虫基础</h2><h3 id="1-HTTP基本原理"><a href="#1-HTTP基本原理" class="headerlink" title="1 HTTP基本原理"></a>1 HTTP基本原理</h3><h4 id="1-1-URI-amp-URL"><a href="#1-1-URI-amp-URL" class="headerlink" title="1.1 URI &amp; URL"></a>1.1 URI &amp; URL</h4><ol>
+<li>URI Uniform Resource Identifier 统一资源标识符  </li>
+<li>URL Universal Resource Locator 统一资源定位符  </li>
+<li>URL是URI的子集，URI还包括URN(Universal Resource Name 统一资源名称)只命名资源但不指定位置  </li>
+</ol>
+<h4 id="1-2-HTTPS"><a href="#1-2-HTTPS" class="headerlink" title="1.2 HTTPS"></a>1.2 HTTPS</h4><p>Hyper Text Transfer Protocol over Secure Socket Layer 是以安全为目标的HTTP通道。有些网站虽然HTTPS协议，但仍被提醒不安全，可能是证书验证不通过，如果要爬取这样的站点就要设置忽略证书的选项。</p>
+<h3 id="2-代理的基本原理"><a href="#2-代理的基本原理" class="headerlink" title="2 代理的基本原理"></a>2 代理的基本原理</h3><p>有的爬虫刚开始可以正常抓取数据，但是片刻后出现403错误，可能是网站采取了反爬虫措施。比如服务器检测单位时间内某IP的请求次数，超过阈值则拒绝服务，这需要借助某种方式伪装IP。如设置代理，不断更换</p>
+<h4 id="2-1-代理的作用"><a href="#2-1-代理的作用" class="headerlink" title="2.1 代理的作用"></a>2.1 代理的作用</h4><ol>
+<li>访问一些平时无法访问的站点  </li>
+<li>提高访问速度  </li>
+<li>隐藏真实IP  </li>
+</ol>
+]]></content>
+      <categories>
+        <category>环境搭建</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>爬虫</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python3网络爬虫基本库的使用</title>
+    <url>/2020/12/20/Python3%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="1-urllib"><a href="#1-urllib" class="headerlink" title="1 urllib"></a>1 urllib</h2><p>Python内置的HTTP请求库，包含4个模块：  </p>
+<ol>
+<li>request 模拟发送请求  </li>
+<li>error 异常处理，保证程序不会异常终止  </li>
+<li>parse URL处理，包括拆分、解析、合并等  </li>
+<li>robotparser 识别网站的robots.txt文件，判断哪些网站可以爬  </li>
+</ol>
+<h3 id="1-1-urllib-request-urlopen基本使用"><a href="#1-1-urllib-request-urlopen基本使用" class="headerlink" title="1.1 urllib.request.urlopen基本使用"></a>1.1 urllib.request.urlopen基本使用</h3><p><a href="https://docs.python.org/3.7/library/urllib.request.html#urllib.request.urlopen">urlopen的API</a>，<code>urlopen(url, data=None, [timeout, ]*, cafile=None, capath=None, cadefault=False, context=None)</code></p>
+<h4 id="1-1-1-GET"><a href="#1-1-1-GET" class="headerlink" title="1.1.1 GET"></a>1.1.1 GET</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line">reponse = urllib.request.urlopen(<span class="string">&quot;https://www.python.org/&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(reponse.read().decode(<span class="string">&#x27;utf8&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<h4 id="1-1-2-POST"><a href="#1-1-2-POST" class="headerlink" title="1.1.2 POST"></a>1.1.2 POST</h4><ol>
+<li>添加data参数。如果是字节流编码格式的内容，即bytes类型，需要通过<code>bytes()</code>方法转化  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.parse</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line">data = <span class="built_in">bytes</span>(urllib.parse.urlencode(&#123;<span class="string">&#x27;word&#x27;</span>: <span class="string">&#x27;hello&#x27;</span>&#125;), encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">reponse = urllib.request.urlopen(<span class="string">&#x27;http://httpbin.org/post&#x27;</span>, data=data)</span><br><span class="line"><span class="built_in">print</span>(reponse.read().decode(<span class="string">&#x27;utf8&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<ol>
+<li>返回结果可以看到我们传递的参数  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;args&quot;: &#123;&#125;, </span><br><span class="line">  &quot;data&quot;: &quot;&quot;, </span><br><span class="line">  &quot;files&quot;: &#123;&#125;, </span><br><span class="line">  &quot;form&quot;: &#123;</span><br><span class="line">    &quot;word&quot;: &quot;hello&quot;</span><br><span class="line">  &#125;, </span><br><span class="line">  &quot;headers&quot;: &#123;</span><br><span class="line">    &quot;Accept-Encoding&quot;: &quot;identity&quot;, </span><br><span class="line">    &quot;Content-Length&quot;: &quot;10&quot;, </span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;, </span><br><span class="line">    &quot;Host&quot;: &quot;httpbin.org&quot;, </span><br><span class="line">    &quot;User-Agent&quot;: &quot;Python-urllib/3.7&quot;, </span><br><span class="line">    &quot;X-Amzn-Trace-Id&quot;: &quot;Root=1-5fde1150-77771d313337109b23a16596&quot;</span><br><span class="line">  &#125;, </span><br><span class="line">  &quot;json&quot;: null, </span><br><span class="line">  &quot;origin&quot;: &quot;153.3.60.156&quot;, </span><br><span class="line">  &quot;url&quot;: &quot;http://httpbin.org/post&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="1-1-3-设置超时"><a href="#1-1-3-设置超时" class="headerlink" title="1.1.3 设置超时"></a>1.1.3 设置超时</h4><ol>
+<li>设置timeout，如果<code>timeout=0.1</code>则意味着服务器0.1秒内无相应则超时，测试代码如下  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line">reponse = urllib.request.urlopen(<span class="string">&#x27;http://httpbin.org/get&#x27;</span>, timeout=<span class="number">0.1</span>)</span><br><span class="line"><span class="built_in">print</span>(reponse.read().decode(<span class="string">&#x27;utf8&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<ol>
+<li>这段代码执行后会报urllib.error.URLError: <urlopen error timed out>，这个异常属于urllib.error，因此需要进行异常处理  </urlopen></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> urllib.error</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    reponse = urllib.request.urlopen(<span class="string">&#x27;http://httpbin.org/get&#x27;</span>, timeout=<span class="number">0.1</span>)</span><br><span class="line"><span class="keyword">except</span> urllib.error.URLError <span class="keyword">as</span> e:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(e.reason, socket.timeout):  <span class="comment"># 判断异常是否是socket.timeout类型</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;TIME OUT&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-Request类-构建更完整的请求"><a href="#1-2-Request类-构建更完整的请求" class="headerlink" title="1.2 Request类 构建更完整的请求"></a>1.2 Request类 构建更完整的请求</h3><p><code>urlopen()</code>可以发起最基本的请求，借助<a href="https://docs.python.org/zh-cn/3/library/urllib.request.html#urllib.request.Request">Request类</a>可以构建更完整的请求，<code>Request(url, data=None, headers=&#123;&#125;, origin_req_host=None, unverifiable=False, method=None)</code>  </p>
+<ol>
+<li>url为必传参数  </li>
+<li>headers是请求头，添加请求头最常用的方法是通过修改User-Agent来伪装浏览器，默认是Python-urllib，可以修改。比如要伪装火狐浏览器可以设为Mozilla/s.o (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11  </li>
+<li>origin_req_host指定请求方的host名称或者IP  </li>
+<li>unverifiable表示请求是否是无法验证的。True表示用户没有足够的权限来选择接受请求的结果，比如我们请求HTML文档中的图片，但是我们没有自动抓取图像的权限  </li>
+<li>method表示请求使用的方法，比如GET/POST/PUT  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request, parse</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://httpbin.org/post&#x27;</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;ozilla/s.o (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;Host&#x27;</span>: <span class="string">&#x27;httpbin.org&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">dict</span> = &#123;</span><br><span class="line">    <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;Germey&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">data = <span class="built_in">bytes</span>(parse.urlencode(<span class="built_in">dict</span>), encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">req = request.Request(url=url, data=data, headers=headers, method=<span class="string">&#x27;POST&#x27;</span>)</span><br><span class="line">reponse = request.urlopen(req)</span><br><span class="line"><span class="built_in">print</span>(reponse.read().decode(<span class="string">&#x27;utf8&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<p>返回结果为  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;args&quot;: &#123;&#125;, </span><br><span class="line">  &quot;data&quot;: &quot;&quot;, </span><br><span class="line">  &quot;files&quot;: &#123;&#125;, </span><br><span class="line">  &quot;form&quot;: &#123;</span><br><span class="line">    &quot;name&quot;: &quot;Germey&quot;</span><br><span class="line">  &#125;, </span><br><span class="line">  &quot;headers&quot;: &#123;</span><br><span class="line">    &quot;Accept-Encoding&quot;: &quot;identity&quot;, </span><br><span class="line">    &quot;Content-Length&quot;: &quot;11&quot;, </span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;, </span><br><span class="line">    &quot;Host&quot;: &quot;httpbin.org&quot;, </span><br><span class="line">    &quot;User-Agent&quot;: &quot;ozilla/s.o (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11&quot;, </span><br><span class="line">    &quot;X-Amzn-Trace-Id&quot;: &quot;Root=1-5fde1845-6dd69e756aef8d7d196283c0&quot;</span><br><span class="line">  &#125;, </span><br><span class="line">  &quot;json&quot;: null, </span><br><span class="line">  &quot;origin&quot;: &quot;153.3.60.156&quot;, </span><br><span class="line">  &quot;url&quot;: &quot;http://httpbin.org/post&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>成功设置了data、headers、method</p>
+<h3 id="1-3-获取Cookies"><a href="#1-3-获取Cookies" class="headerlink" title="1.3 获取Cookies"></a>1.3 获取Cookies</h3><h4 id="1-3-1-输出到控制台"><a href="#1-3-1-输出到控制台" class="headerlink" title="1.3.1 输出到控制台"></a>1.3.1 输出到控制台</h4><ol>
+<li>首先声明一个<code>CookieJar</code>对象  </li>
+<li>利用<code>HTTPCookieProcessor</code>构建一个handler  </li>
+<li>利用<code>build_opener</code>构建opener，执行open函数  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> http.cookiejar</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line">cookie = http.cookiejar.CookieJar()</span><br><span class="line">handler = urllib.request.HTTPCookieProcessor(cookie)</span><br><span class="line">opener = urllib.request.build_opener(handler)</span><br><span class="line">reponse = opener.<span class="built_in">open</span>(<span class="string">&#x27;https://www.baidu.com&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> cookie:</span><br><span class="line">    <span class="built_in">print</span>(item.name + <span class="string">&quot; = &quot;</span> + item.value)</span><br></pre></td></tr></table></figure>
+<p>返回结果中有每条cookie的名称和值  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">BAIDUID = 74596F1DEF3244E28A23ECA2168D97F4:FG=1</span><br><span class="line">BIDUPSID = 74596F1DEF3244E2AC018C7F10BFE6E0</span><br><span class="line">PSTM = 1608453123</span><br><span class="line">BD_NOT_HTTPS = 1</span><br></pre></td></tr></table></figure>
+<h4 id="1-3-2-生成Mozilla格式的Cookies文件"><a href="#1-3-2-生成Mozilla格式的Cookies文件" class="headerlink" title="1.3.2 生成Mozilla格式的Cookies文件"></a>1.3.2 生成Mozilla格式的Cookies文件</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> http.cookiejar</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line">filename = <span class="string">&#x27;cookies.txt&#x27;</span></span><br><span class="line">cookie = http.cookiejar.MozillaCookieJar(filename)</span><br><span class="line">handler = urllib.request.HTTPCookieProcessor(cookie)</span><br><span class="line">opener = urllib.request.build_opener(handler)</span><br><span class="line">reponse = opener.<span class="built_in">open</span>(<span class="string">&#x27;https://www.baidu.com&#x27;</span>)</span><br><span class="line">cookie.save(ignore_discard=<span class="literal">True</span>, ignore_expires=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Netscape HTTP Cookie File</span><br><span class="line"># http://curl.haxx.se/rfc/cookie_spec.html</span><br><span class="line"># This is a generated file!  Do not edit.</span><br><span class="line"></span><br><span class="line">.baidu.com	TRUE	/	FALSE	1639989697	BAIDUID	418B75A649A30AB1C79CED2D32734FBF:FG=1</span><br><span class="line">.baidu.com	TRUE	/	FALSE	3755937344	BIDUPSID	418B75A649A30AB11E06E56E65FE5E5B</span><br><span class="line">.baidu.com	TRUE	/	FALSE	3755937344	PSTM	1608453695</span><br><span class="line">www.baidu.com	FALSE	/	FALSE	1608453997	BD_NOT_HTTPS	1</span><br></pre></td></tr></table></figure>
+<h4 id="1-3-3-生成libwww-perl-LWP-格式的Cookies文件"><a href="#1-3-3-生成libwww-perl-LWP-格式的Cookies文件" class="headerlink" title="1.3.3 生成libwww-perl(LWP)格式的Cookies文件"></a>1.3.3 生成libwww-perl(LWP)格式的Cookies文件</h4><p>只修改cookie行即可<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cookie = http.cookiejar.LWPCookieJar(filename)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#LWP-Cookies-2.0</span><br><span class="line">Set-Cookie3: BAIDUID=&quot;F3403A28BB17E897CF386749420DF132:FG=1&quot;; path=&quot;/&quot;; domain=&quot;.baidu.com&quot;; path_spec; domain_dot; expires=&quot;2021-12-20 08:46:27Z&quot;; comment=bd; version=0</span><br><span class="line">Set-Cookie3: BIDUPSID=F3403A28BB17E8971CC847C9DC1B41F7; path=&quot;/&quot;; domain=&quot;.baidu.com&quot;; path_spec; domain_dot; expires=&quot;2089-01-07 12:00:34Z&quot;; version=0</span><br><span class="line">Set-Cookie3: PSTM=1608453985; path=&quot;/&quot;; domain=&quot;.baidu.com&quot;; path_spec; domain_dot; expires=&quot;2089-01-07 12:00:34Z&quot;; version=0</span><br><span class="line">Set-Cookie3: BD_NOT_HTTPS=1; path=&quot;/&quot;; domain=&quot;www.baidu.com&quot;; path_spec; expires=&quot;2020-12-20 08:51:27Z&quot;; version=0</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-利用生成的Cookies文件"><a href="#1-4-利用生成的Cookies文件" class="headerlink" title="1.4 利用生成的Cookies文件"></a>1.4 利用生成的Cookies文件</h3><ol>
+<li>利用MozillaCookieJar的Cookies文件  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> http.cookiejar</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line">cookie = http.cookiejar.MozillaCookieJar()</span><br><span class="line">cookie.load(<span class="string">&#x27;cookies.txt&#x27;</span>, ignore_discard=<span class="literal">True</span>, ignore_expires=<span class="literal">True</span>)</span><br><span class="line">handler = urllib.request.HTTPCookieProcessor(cookie)</span><br><span class="line">opener = urllib.request.build_opener(handler)</span><br><span class="line">reponse = opener.<span class="built_in">open</span>(<span class="string">&#x27;http://www.baidu.com&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(reponse.read().decode(<span class="string">&#x27;utf8&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<ol>
+<li>利用LWPCookieJar格式的Cookies，输出网页的源代码  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cookie = http.cookiejar.LWPCookieJar()</span><br></pre></td></tr></table></figure>
+<h3 id="1-5-处理异常"><a href="#1-5-处理异常" class="headerlink" title="1.5 处理异常"></a>1.5 处理异常</h3><h4 id="1-5-1-URLError"><a href="#1-5-1-URLError" class="headerlink" title="1.5.1 URLError"></a>1.5.1 URLError</h4><p>URLError类来自urllib库的error模块，继承自OSError类，是error异常模块的基类，由request模块产生的异常都可以通过捕获这个类来处理。它具有一个属性reason，即返回错误的原因。  </p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request, error</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    reponse = request.urlopen(<span class="string">&#x27;https://www.baidu.com/xiatiande.htm&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> error.URLError <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(e.reason)</span><br></pre></td></tr></table></figure>
+<p>返回<code>Not Found</code>  </p>
+<h4 id="1-5-2-HTTPError"><a href="#1-5-2-HTTPError" class="headerlink" title="1.5.2 HTTPError"></a>1.5.2 HTTPError</h4><p>URLError的子类，专门用于处理HTTP请求错误，具有三个属性：code返回HTTP状态码，reason同父类，headers返回请求头。  </p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request, error</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    reponse = request.urlopen(<span class="string">&#x27;https://www.baidu.com/xiatiande.htm&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> error.HTTPError <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(e.reason, e.code, e.headers, sep=<span class="string">&#x27;\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>返回结果  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Not Found</span><br><span class="line">404</span><br><span class="line">Content-Length: 211</span><br><span class="line">Content-Type: text/html; charset=iso-8859-1</span><br><span class="line">Date: Sun, 20 Dec 2020 09:30:22 GMT</span><br><span class="line">Server: Apache</span><br><span class="line">Connection: close</span><br></pre></td></tr></table></figure>
+<h4 id="1-5-3-更好的异常处理方法"><a href="#1-5-3-更好的异常处理方法" class="headerlink" title="1.5.3 更好的异常处理方法"></a>1.5.3 更好的异常处理方法</h4><ol>
+<li>先捕获HTTPError再捕获URLError，最后用else处理正常逻辑  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request, error</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    reponse = request.urlopen(<span class="string">&#x27;https://www.baidu.com/xiatiande.htm&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> error.HTTPError <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(e.reason, e.code, e.headers, sep=<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> error.URLError <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(e.reason)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Request Successfully&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<hr>
+<ol>
+<li>有时reason属性返回的不是字符串，而是一个对象。这时我们可以用<code>isinstance()</code>方法来判断其类型，做出更详细的异常判断  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request, error</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    reponse = request.urlopen(<span class="string">&#x27;https://www.baidu.com&#x27;</span>, timeout=<span class="number">0.01</span>)</span><br><span class="line"><span class="keyword">except</span> error.URLError <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(e.reason)</span><br></pre></td></tr></table></figure>
+<p>返回结果是<code>_ssl.c:1074: The handshake operation timed out</code>，修改代码  </p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request, error</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    reponse = request.urlopen(<span class="string">&#x27;https://www.baidu.com&#x27;</span>, timeout=<span class="number">0.01</span>)</span><br><span class="line"><span class="keyword">except</span> error.URLError <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">type</span>(e.reason))</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(e.reason, socket.timeout):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;TIME OUT&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>输出  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;class &#x27;socket.timeout&#x27;&gt;</span><br><span class="line">TIME OUT</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="1-6-解析链接"><a href="#1-6-解析链接" class="headerlink" title="1.6 解析链接"></a>1.6 解析链接</h3><h4 id="1-6-1-urllib-parse-urlparse"><a href="#1-6-1-urllib-parse-urlparse" class="headerlink" title="1.6.1 urllib.parse.urlparse"></a>1.6.1 urllib.parse.urlparse</h4><p><a href="https://docs.python.org/3/library/urllib.parse.html">urlparse的API</a><br>urllib.parse.urlparse(urlstring, scheme=’’, allow_fragments=True)<br>其中scheme是协议信息，若链接中不带协议信息则以输入的scheme为默认，否则以链接中的有效<br>allow_fragments表示是否解析fragments  </p>
+<ol>
+<li><p>利用<code>urlparse</code>方法解析一个URL  </p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urlparse</span><br><span class="line"></span><br><span class="line">result = urlparse(<span class="string">&#x27;http://www.baidu.com/index.html;user?id=5#comment&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(result), result, sep=<span class="string">&#x27;\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>返回结果为  </p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;class &#x27;urllib.parse.ParseResult&#x27;&gt;</span><br><span class="line">ParseResult(scheme=&#x27;http&#x27;, netloc=&#x27;www.baidu.com&#x27;, path=&#x27;/index.html&#x27;, params=&#x27;user&#x27;, query=&#x27;id=5&#x27;, fragment=&#x27;comment&#x27;)</span><br></pre></td></tr></table></figure>
+<h4 id="1-6-2-urllib-parse-urlencode"><a href="#1-6-2-urllib-parse-urlencode" class="headerlink" title="1.6.2 urllib.parse.urlencode"></a>1.6.2 urllib.parse.urlencode</h4><p>可以将字典序列化成GET请求参数  </p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urlencode</span><br><span class="line"></span><br><span class="line">params = &#123;</span><br><span class="line">    <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;germey&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;age&#x27;</span>: <span class="number">22</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">base_url = <span class="string">&#x27;http://www.baidu.com?&#x27;</span></span><br><span class="line">url = base_url + urlencode(params)</span><br><span class="line"><span class="built_in">print</span>(url)</span><br></pre></td></tr></table></figure>
+<p>输出<code>http://www.baidu.com?name=germey&amp;age=22</code></p>
+<h3 id="1-7-Robots协议"><a href="#1-7-Robots协议" class="headerlink" title="1.7 Robots协议"></a>1.7 Robots协议</h3><p><code>urllib.robotparser.RobotFileParser</code>类，可以根据某网站的robots.txt文件判断一个爬虫是否有权限爬取这个网页。  </p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib.robotparser <span class="keyword">import</span> RobotFileParser</span><br><span class="line"></span><br><span class="line">rp = RobotFileParser()</span><br><span class="line">rp.set_url(<span class="string">&#x27;https://www.baidu.com/robots.txt&#x27;</span>)</span><br><span class="line">rp.read()</span><br><span class="line"><span class="built_in">print</span>(rp.can_fetch(<span class="string">&#x27;*&#x27;</span>, <span class="string">&#x27;https://image.baidu.com/search/index?tn=baiduimage&amp;ps=1&amp;ct=&#x27;</span></span><br><span class="line">                        <span class="string">&#x27;201326592&amp;lm=-1&amp;cl=2&amp;nc=1&amp;ie=utf-8&amp;word=asdfmovie&#x27;</span>))  <span class="comment"># 判断是否可以爬取，第一个参数是用户代理，第二个参数是要抓取的URL</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-requests"><a href="#2-requests" class="headerlink" title="2 requests"></a>2 requests</h2><h3 id="2-1-get"><a href="#2-1-get" class="headerlink" title="2.1 get"></a>2.1 get</h3><ol>
+<li>基本用法  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">r = requests.get(<span class="string">&#x27;http://httpbin.org/get&#x27;</span>)  <span class="comment"># 可以添加params, headers等参数</span></span><br><span class="line"><span class="built_in">print</span>(r.text)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>用Cookies维持登录状态  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">&#x27;Cookie&#x27;</span>: <span class="string">&#x27;从登录后的网页copy下来&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;Host&#x27;</span>: <span class="string">&#x27;www.zhihu.com&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Edg/87.0.664.66&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">r = requests.get(<span class="string">&#x27;https://www.zhihu.com/explore&#x27;</span>, headers=headers)</span><br><span class="line"><span class="built_in">print</span>(r.text)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>跳过SSL证书验证并忽略警告  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line">logging.captureWarnings(<span class="literal">True</span>)</span><br><span class="line">reponse = requests.get(<span class="string">&#x27;https://www.testurl.blabla&#x27;</span>, verify=<span class="literal">False</span>)</span><br><span class="line"><span class="built_in">print</span>(reponse.status_code)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>Python</tag>
+        <tag>爬虫</tag>
       </tags>
   </entry>
 </search>
