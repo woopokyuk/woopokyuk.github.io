@@ -7798,8 +7798,8 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
     <title>FTPGui实验</title>
     <url>/2020/10/17/FTPGui%E5%AE%9E%E9%AA%8C/</url>
     <content><![CDATA[<h2 id="GUI基本情况"><a href="#GUI基本情况" class="headerlink" title="GUI基本情况"></a>GUI基本情况</h2><ol>
-<li>连接登录界面<br><img src="/2020/10/17/FTPGui%E5%AE%9E%E9%AA%8C/FTPGui实验\003login.png" alt>  </li>
-<li>若用户名和密码正确，点击连接则进入上传下载界面<br><img src="/2020/10/17/FTPGui%E5%AE%9E%E9%AA%8C/FTPGui实验\004updown.png" alt>  </li>
+<li>连接登录界面<br><img src="/2020/10/17/FTPGui%E5%AE%9E%E9%AA%8C/003login.png" alt>  </li>
+<li>若用户名和密码正确，点击连接则进入上传下载界面<br><img src="/2020/10/17/FTPGui%E5%AE%9E%E9%AA%8C/004updown.png" alt>  </li>
 </ol>
 <h2 id="tkinter-注意事项"><a href="#tkinter-注意事项" class="headerlink" title="tkinter 注意事项"></a>tkinter 注意事项</h2><ol>
 <li>按钮事件的command参数如果调用了函数如<code>command=self.button_on_click()</code>会直接执行函数，而不是等待按钮被按下才执行，需将其改成<code>command=self.button_on_click</code>  </li>
@@ -7813,13 +7813,13 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </li>
 <li><p>如果文件名输错，则会报FileNotFoundError，这是没有问题的  </p>
 </li>
-<li>发现一个问题，当我通过UI进行登录，点击connect按钮后，在服务端记录到：先有正常的(相当于已注册的用户)登录，随即有匿名用户在同一时间登录<br><img src="/2020/10/17/FTPGui%E5%AE%9E%E9%AA%8C/FTPGui实验\000正常用户匿名用户.png" alt>  </li>
-<li>而当我使用测试程序进行上传操作时，只有user登录，这个应该就是问题所在了<br><img src="/2020/10/17/FTPGui%E5%AE%9E%E9%AA%8C/FTPGui实验\001测试上传.png" alt>  </li>
+<li>发现一个问题，当我通过UI进行登录，点击connect按钮后，在服务端记录到：先有正常的(相当于已注册的用户)登录，随即有匿名用户在同一时间登录<br><img src="/2020/10/17/FTPGui%E5%AE%9E%E9%AA%8C/000正常用户匿名用户.png" alt>  </li>
+<li>而当我使用测试程序进行上传操作时，只有user登录，这个应该就是问题所在了<br><img src="/2020/10/17/FTPGui%E5%AE%9E%E9%AA%8C/001测试上传.png" alt>  </li>
 <li>考虑到，在Gui代码中，我先在<code>connect_button_on_click</code>函数中调用<code>FTP()</code>函数，又在创建连接按钮这个组件时，使用command参数将<code>connect_button_on_click</code>调用了一边，猜想，是因为在此处连接了两遍导致新增匿名用户  </li>
 <li>同时，想到在点击事件的函数中，使用的变量是self的，这其实在某种程度上相当于在类中大家通用的变量。为了只调用一次FTP连接，准备将点击事件函数中新增参数<code>user_name</code>和<code>pwd</code></li>
 <li>这里回到了旧问题：如果在<code>command</code>中包含参数，则不点击按钮也会执行函数。。  </li>
 <li>还是回到了原先的版本。。  </li>
-<li>问题找到了，当看到点击事件函数中被我添加的messagebox时，我悟了，这是又login了一次。所以我将这行注释掉以后，即可正常上传了<br><img src="/2020/10/17/FTPGui%E5%AE%9E%E9%AA%8C/FTPGui实验\002message.png" alt>  </li>
+<li>问题找到了，当看到点击事件函数中被我添加的messagebox时，我悟了，这是又login了一次。所以我将这行注释掉以后，即可正常上传了<br><img src="/2020/10/17/FTPGui%E5%AE%9E%E9%AA%8C/002message.png" alt>  </li>
 </ol>
 <h2 id="打包项目"><a href="#打包项目" class="headerlink" title="打包项目"></a>打包项目</h2><p><a href="https://blog.csdn.net/qq_33462307/article/details/90479045">安装pyinstaller参考</a>  </p>
 <ol>
@@ -7828,7 +7828,7 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </blockquote>
 </li>
 <li>以管理员身份运行Anaconda环境未果  </li>
-<li><code>pyinstaller -F ftpClientGui.py</code>是没有问题的<br><img src="/2020/10/17/FTPGui%E5%AE%9E%E9%AA%8C/FTPGui实验\005exe.png" alt>  </li>
+<li><code>pyinstaller -F ftpClientGui.py</code>是没有问题的<br><img src="/2020/10/17/FTPGui%E5%AE%9E%E9%AA%8C/005exe.png" alt>  </li>
 </ol>
 <h2 id="ftpClientGui-py"><a href="#ftpClientGui-py" class="headerlink" title="ftpClientGui.py"></a>ftpClientGui.py</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> tkinter <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tkinter <span class="keyword">import</span> messagebox</span><br><span class="line"><span class="keyword">from</span> ftplib <span class="keyword">import</span> FTP</span><br><span class="line"><span class="keyword">import</span> ftpClient</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClientGui</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, init_window_name</span>):</span></span><br><span class="line">        self.init_window_name = init_window_name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set_init_window</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        set options of our window</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.init_window_name.title(<span class="string">&quot;ftpClient&quot;</span>)  <span class="comment"># window title</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># set window size and location(center)</span></span><br><span class="line">        width = <span class="number">400</span></span><br><span class="line">        height = <span class="number">160</span></span><br><span class="line">        self.screen_width = self.init_window_name.winfo_screenwidth()</span><br><span class="line">        self.screen_height = self.init_window_name.winfo_screenheight()</span><br><span class="line">        align_str = <span class="string">&quot;%dx%d+%d+%d&quot;</span> % (width, height, (self.screen_width - width) / <span class="number">2</span>, (self.screen_height - height) / <span class="number">2</span>)</span><br><span class="line">        self.init_window_name.geometry(align_str)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># set label and entry of user&#x27;s info</span></span><br><span class="line">        user_name_label = Label(self.init_window_name, text=<span class="string">&quot;user name&quot;</span>)</span><br><span class="line">        user_name_label.place(x=<span class="number">50</span>, y=<span class="number">40</span>)</span><br><span class="line"></span><br><span class="line">        self.user_name_entry = Entry(self.init_window_name)</span><br><span class="line">        self.user_name_entry.place(x=<span class="number">150</span>, y=<span class="number">40</span>)</span><br><span class="line"></span><br><span class="line">        pwd_label = Label(self.init_window_name, text=<span class="string">&quot;password&quot;</span>)</span><br><span class="line">        pwd_label.place(x=<span class="number">50</span>, y=<span class="number">70</span>)</span><br><span class="line"></span><br><span class="line">        self.pwd_entry = Entry(self.init_window_name, show=<span class="string">&quot;*&quot;</span>)</span><br><span class="line">        self.pwd_entry.place(x=<span class="number">150</span>, y=<span class="number">70</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># login button</span></span><br><span class="line">        connect_button = Button(self.init_window_name, text=<span class="string">&quot;connect&quot;</span>,</span><br><span class="line">                                command=self.connect_button_on_click)</span><br><span class="line">        connect_button.place(x=<span class="number">150</span>, y=<span class="number">110</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">connect_button_on_click</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.ftp = FTP(ftpClient.HOST, self.user_name_entry.get(), self.pwd_entry.get())</span><br><span class="line">        <span class="comment"># show connection status</span></span><br><span class="line">        <span class="comment"># messagebox.showinfo(title=&quot;Connection Status&quot;, message=self.ftp.login())</span></span><br><span class="line">        self.next_window()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">next_window</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        when connect button on click, start next window to transfer files</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.transfer_ui = Toplevel()</span><br><span class="line">        self.transfer_ui.title(<span class="string">&quot;Transfer UI&quot;</span>)</span><br><span class="line">        next_width = <span class="number">400</span></span><br><span class="line">        next_height = <span class="number">160</span></span><br><span class="line">        next_align_str = <span class="string">&quot;%dx%d+%d+%d&quot;</span> % (next_width, next_height,</span><br><span class="line">                                          (self.screen_width - next_width) / <span class="number">2</span>, (self.screen_height - next_height) / <span class="number">2</span>)</span><br><span class="line">        self.transfer_ui.geometry(next_align_str)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># upload and download files</span></span><br><span class="line">        path_label = Label(self.transfer_ui, text=<span class="string">&quot;Path/Name&quot;</span>)</span><br><span class="line">        path_label.place(x=<span class="number">70</span>, y=<span class="number">40</span>)</span><br><span class="line">        self.path_entry = Entry(self.transfer_ui)</span><br><span class="line">        self.path_entry.place(x=<span class="number">170</span>, y=<span class="number">40</span>)</span><br><span class="line">        upload_button = Button(self.transfer_ui, text=<span class="string">&quot;Upload&quot;</span>, command=self.upload_button_on_click)</span><br><span class="line">        upload_button.place(x=<span class="number">100</span>, y=<span class="number">75</span>)</span><br><span class="line">        download_button = Button(self.transfer_ui, text=<span class="string">&quot;Download&quot;</span>, command=self.download_button_on_click)</span><br><span class="line">        download_button.place(x=<span class="number">200</span>, y=<span class="number">75</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">download_button_on_click</span>(<span class="params">self</span>):</span></span><br><span class="line">        file_name = self.path_entry.get()</span><br><span class="line">        self.ftp.retrbinary((<span class="string">&#x27;RETR &#x27;</span> + file_name), <span class="built_in">open</span>(file_name, <span class="string">&quot;wb&quot;</span>).write)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">upload_button_on_click</span>(<span class="params">self</span>):</span></span><br><span class="line">        file_name = self.path_entry.get()</span><br><span class="line">        self.ftp.storbinary((<span class="string">&#x27;STOR &#x27;</span> + file_name), <span class="built_in">open</span>(file_name, <span class="string">&quot;rb&quot;</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gui_start</span>():</span></span><br><span class="line">    init_window = Tk()</span><br><span class="line">    ftp_client = ClientGui(init_window)</span><br><span class="line">    ftp_client.set_init_window()</span><br><span class="line">    init_window.mainloop()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gui_start()</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
@@ -7855,7 +7855,7 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </ol>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> guppy <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span>():</span></span><br><span class="line">    <span class="built_in">sum</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10000</span>):</span><br><span class="line">        <span class="built_in">sum</span> += i</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span></span><br><span class="line"></span><br><span class="line">test()</span><br><span class="line">h = hpy()</span><br><span class="line"><span class="built_in">print</span>(h.heap())</span><br></pre></td></tr></table></figure>
 <ol>
-<li><p>输出日志信息有<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\001guppyTest.png" alt></p>
+<li><p>输出日志信息有<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/001guppyTest.png" alt></p>
 </li>
 <li><p>可以看出以上日志信息包含的是代码中各种数据类型在系统中的内存使用情况，跟我们需要的数据有所出入。故再做memory_profiler实验  </p>
 </li>
@@ -7866,7 +7866,7 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </ol>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> memory_profiler <span class="keyword">import</span> profile</span><br><span class="line"></span><br><span class="line"><span class="meta">@profile(<span class="params">precision=<span class="number">4</span>,stream=<span class="built_in">open</span>(<span class="params"><span class="string">&#x27;memoryTest.log&#x27;</span>,<span class="string">&#x27;w+&#x27;</span></span>)</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span>():</span></span><br><span class="line">    <span class="built_in">sum</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10000</span>):</span><br><span class="line">        <span class="built_in">sum</span> += i</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span></span><br><span class="line"></span><br><span class="line">test()</span><br></pre></td></tr></table></figure>
 <ol>
-<li>执行完成后，我们生成的memoryTest.log中包含<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\000memoryTestlog.png" alt></li>
+<li>执行完成后，我们生成的memoryTest.log中包含<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/000memoryTestlog.png" alt></li>
 </ol>
 <h5 id="ftpServer的改造工作"><a href="#ftpServer的改造工作" class="headerlink" title="ftpServer的改造工作"></a>ftpServer的改造工作</h5><h6 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h6><ol>
 <li>经调试ftpServer发现在调用pyftpdlib中各个模块的函数时，有<code>servers.py</code>，<code>__init__.py</code>比较频繁的被调用到，故目标时对这几项进行适当的改造  </li>
@@ -7896,9 +7896,9 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <h6 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h6><ol>
 <li><p>我用一个<code>while 1</code>的简单的加1函数对memory_profiler进行测试，发现，对这种持续执行的函数，无法记录其内存分配！</p>
 </li>
-<li><p>为了解决问题，我对代码进行再一次的调试工作，同样的在ioloop中要求输入用户名，这次我进行了更深入的试验，我在调试环境下进行ftp的put操作上传文件。发现会转到<code>ioloop.Select.poll()</code>函数，所以在该函数的上方加一个装饰器<code>@profile()</code>，这个时候终于在命令行打印内存使用信息了。<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\002ioloopMemory@profile.png" alt>  </p>
+<li><p>为了解决问题，我对代码进行再一次的调试工作，同样的在ioloop中要求输入用户名，这次我进行了更深入的试验，我在调试环境下进行ftp的put操作上传文件。发现会转到<code>ioloop.Select.poll()</code>函数，所以在该函数的上方加一个装饰器<code>@profile()</code>，这个时候终于在命令行打印内存使用信息了。<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/002ioloopMemory@profile.png" alt>  </p>
 </li>
-<li><p>尝试将其写入log文件中<code>@profile(precision=10, stream=open(&quot;ioloopSelectPollMemory.log&quot;, &quot;w+&quot;))</code>也是可行的<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\003ioloopMemory@profileLog.png" alt>  </p>
+<li><p>尝试将其写入log文件中<code>@profile(precision=10, stream=open(&quot;ioloopSelectPollMemory.log&quot;, &quot;w+&quot;))</code>也是可行的<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/003ioloopMemory@profileLog.png" alt>  </p>
 </li>
 </ol>
 <hr>
@@ -7914,16 +7914,16 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <li>当到断点时直接单步进入函数看看发生了什么  </li>
 <li>有没有现成的方法可以将python代码的执行过程导出呢？  </li>
 <li>找到了现成的工具graphviz和pycallgraph，安装和使用方法<a href="https://www.cnblogs.com/cx2016/p/12252987.html">参考1</a>和<a href="https://blog.csdn.net/qq_37177765/article/details/95886071">参考2</a>，这里遇到一个小问题，因为ftp项目代码涉及各种端口，因此会遇到权限问题，只有在root用户时才能正常运作。以往的实验中，由于未使用特殊工具所以直接<code>sudo su</code>转root权限即可，但是，这次实验中，用到了pycallgraph，需要在虚拟环境中直接使用这个指令。因此还需使root用户也可以使用infosec用户的anaconda环境。配置方法<a href="http://www.siyuanblog.com/?p=31126">参考</a>  </li>
-<li>接下来只要先<code>sudo su</code>进入root权限，再激活infosecEnv虚拟环境（<code>source activate infosecEnv</code>），到ftpProjects项目目录下执行<code>pycallgraph graphviz -- ./ftpServer.py</code>即可启动ftp服务<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\004pycall启动ftp.png" alt>  </li>
-<li>然后在客户机<code>ftp 121.248.52.75</code>登录账号传输文件即可，此次实验put也即上传了note.txt和一个py文件，完成后直接<code>bye</code>然后在服务端ctrl+c终止ftp服务<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\005传文件.png" alt>  </li>
-<li>在同级目录生成了一个调用图<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\pycallgraph.png" alt>  </li>
-<li>可以看出这个调用图很复杂，为简化工作，想将搜索深度调整为1，然后启动ftp服务上传note.txt，具体方法<a href="http://pycallgraph.slowchop.com/en/master/guide/command_line_usage.html">参考</a><br><code>pycallgraph --max-depth 1 graphviz -- ./ftpServer.py</code>随后得到调用图有<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\006pycalldepth01.png" alt><br>这又太简单了，所以再上调深度为2  </li>
-<li><code>pycallgraph --max-depth 2 graphviz -- ./ftpServer.py</code><br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\007pycalldepth02.png" alt>  </li>
-<li>深度3<code>pycallgraph --max-depth 3 graphviz -- ./ftpServer.py</code><br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\008pycalldepth03.png" alt>  </li>
+<li>接下来只要先<code>sudo su</code>进入root权限，再激活infosecEnv虚拟环境（<code>source activate infosecEnv</code>），到ftpProjects项目目录下执行<code>pycallgraph graphviz -- ./ftpServer.py</code>即可启动ftp服务<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/004pycall启动ftp.png" alt>  </li>
+<li>然后在客户机<code>ftp 121.248.52.75</code>登录账号传输文件即可，此次实验put也即上传了note.txt和一个py文件，完成后直接<code>bye</code>然后在服务端ctrl+c终止ftp服务<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/005传文件.png" alt>  </li>
+<li>在同级目录生成了一个调用图<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/pycallgraph.png" alt>  </li>
+<li>可以看出这个调用图很复杂，为简化工作，想将搜索深度调整为1，然后启动ftp服务上传note.txt，具体方法<a href="http://pycallgraph.slowchop.com/en/master/guide/command_line_usage.html">参考</a><br><code>pycallgraph --max-depth 1 graphviz -- ./ftpServer.py</code>随后得到调用图有<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/006pycalldepth01.png" alt><br>这又太简单了，所以再上调深度为2  </li>
+<li><code>pycallgraph --max-depth 2 graphviz -- ./ftpServer.py</code><br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/007pycalldepth02.png" alt>  </li>
+<li>深度3<code>pycallgraph --max-depth 3 graphviz -- ./ftpServer.py</code><br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/008pycalldepth03.png" alt>  </li>
 <li>深度的实验先做到这里，展开下一步实验：对上传文件时涉及的各函数搞清楚其动作意义  </li>
 </ol>
 <h3 id="2020-11-05实验"><a href="#2020-11-05实验" class="headerlink" title="2020.11.05实验"></a>2020.11.05实验</h3><ol>
-<li>寻找深度3时，“调用图”中某个函数的方法，比如需要查找<code>find_and_load</code>函数，则在我们创建的Anaconda的虚拟环境infisecEnv的目录下<code>grep -r &quot;find_and_load&quot; *</code>即可查看所有包含“find_and_load”字符串所在的文件及位置<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\009findandload.png" alt>  </li>
+<li>寻找深度3时，“调用图”中某个函数的方法，比如需要查找<code>find_and_load</code>函数，则在我们创建的Anaconda的虚拟环境infisecEnv的目录下<code>grep -r &quot;find_and_load&quot; *</code>即可查看所有包含“find_and_load”字符串所在的文件及位置<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/009findandload.png" alt>  </li>
 <li>python中的importlib的作用 <a href="http://www.cocoachina.com/articles/98690">参考</a>，所以其包含的_bootstrap.py并不在我们的考虑范围内，那么这个调用函数的分支暂不考虑  </li>
 <li><code>grep -r &quot;handle_fromlist&quot; *</code>发现也在_bootstrap.py故同样暂不考虑  </li>
 </ol>
@@ -7936,13 +7936,13 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <p><em>else01</em> 在初始化时，还调用了<code>bind_af_unspecified</code>函数，该函数位于ioloop<br><em>else02</em> 还调用了ioloop的<code>listen</code>函数监听IO事件<br><em>else03</em> 还调用了ioloop的<code>__init__</code>函数  </p>
 <hr>
 <ol>
-<li><code>servers.FTPServer.address</code>用于返回监听的host:port，从程序启动后的打印信息得<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\010address.png" alt>  </li>
+<li><code>servers.FTPServer.address</code>用于返回监听的host:port，从程序启动后的打印信息得<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/010address.png" alt>  </li>
 <li><code>servers.FTPServer._map_len</code>返回socket_map长度  </li>
 <li><code>servers.FTPServer.close_all</code>停止服务并断连所有用户  </li>
 <li><code>servers.FTPServer._log_start</code>用于记录服务器日志  </li>
 </ol>
 <h4 id="ioloop"><a href="#ioloop" class="headerlink" title="ioloop"></a>ioloop</h4><ol>
-<li>同样的ioloop我们也是改到了本地项目。看看<code>ioloop.Epoll.loop</code>中这个<code>Epoll</code>类，其继承自<code>_BasePollEpoll</code>，而该类中并未定义<code>loop</code>函数。同时<code>_BasePollEpoll</code>又继承自<code>_IOLoop</code>(基类)<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\011Epoll.png" alt>  </li>
+<li>同样的ioloop我们也是改到了本地项目。看看<code>ioloop.Epoll.loop</code>中这个<code>Epoll</code>类，其继承自<code>_BasePollEpoll</code>，而该类中并未定义<code>loop</code>函数。同时<code>_BasePollEpoll</code>又继承自<code>_IOLoop</code>(基类)<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/011Epoll.png" alt>  </li>
 <li>在IOLoop中找到了<code>loop</code>函数：开始异步IO  </li>
 <li><code>bind_af_unspecified</code>和<code>bind()</code>类似，但可从地址族中猜测地址，返回刚确定的地址族。  </li>
 <li><code>listen</code>函数监听IO事件  </li>
@@ -7950,48 +7950,48 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </ol>
 <p>从以上看出，上传文件的关键操作其实在深度3的实验中并未体现出来，故再做深度4的实验  </p>
 <h4 id="深度4的实验"><a href="#深度4的实验" class="headerlink" title="深度4的实验"></a>深度4的实验</h4><ol>
-<li><code>pycallgraph --max-depth 4 graphviz -- ./ftpServer.py</code><br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\012pycalldepth04.png" alt>  </li>
+<li><code>pycallgraph --max-depth 4 graphviz -- ./ftpServer.py</code><br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/012pycalldepth04.png" alt>  </li>
 <li>可以发现，loop又进一步调用了一些函数，其中包括调用10次<code>ioloop._Scheduler.poll</code>和11次<code>ioloop.Epoll.poll</code>  </li>
 <li>查看<code>ioloop._Scheduler.poll</code>，运行计划中的功能并返回下一功能的超时时间（如果没有就pass）  </li>
 <li><code>ioloop.Epoll.poll</code>，Epoll没有poll所以还是看其父类_BasePollEpoll的poll，这样还是不够清晰，继续深度5看看</li>
 </ol>
 <h4 id="深度5的实验"><a href="#深度5的实验" class="headerlink" title="深度5的实验"></a>深度5的实验</h4><ol>
-<li><code>pycallgraph --max-depth 5 graphviz -- ./ftpServer.py</code><br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\013pycalldepth05.png" alt>  </li>
+<li><code>pycallgraph --max-depth 5 graphviz -- ./ftpServer.py</code><br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/013pycalldepth05.png" alt>  </li>
 <li><code>ioloop._Scheduler.poll</code>进一步调用了<code>ioloop._CallLater.call</code>(调用调度函数)和<code>ioloop._CallLater.__lt__</code>(与其他超时时间作比较)  </li>
 </ol>
 <h4 id="深度6的实验"><a href="#深度6的实验" class="headerlink" title="深度6的实验"></a>深度6的实验</h4><ol>
-<li><code>pycallgraph --max-depth 6 graphviz -- ./ftpServer.py</code><br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\014pycalldepth06.png" alt></li>
+<li><code>pycallgraph --max-depth 6 graphviz -- ./ftpServer.py</code><br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/014pycalldepth06.png" alt></li>
 </ol>
 <h4 id="深度7的实验"><a href="#深度7的实验" class="headerlink" title="深度7的实验"></a>深度7的实验</h4><ol>
-<li><code>pycallgraph --max-depth 7 graphviz -- ./ftpServer.py</code><br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\015pycalldepth07.png" alt></li>
+<li><code>pycallgraph --max-depth 7 graphviz -- ./ftpServer.py</code><br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/015pycalldepth07.png" alt></li>
 </ol>
-<h4 id="深度8"><a href="#深度8" class="headerlink" title="深度8"></a>深度8</h4><p><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\016pycalldepth08.png" alt></p>
+<h4 id="深度8"><a href="#深度8" class="headerlink" title="深度8"></a>深度8</h4><p><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/016pycalldepth08.png" alt></p>
 <h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><ol>
 <li>好像找不到“文件上传”这个动作对应的函数。再去Github看看<a href="https://github.com/giampaolo/pyftpdlib">pyftpdlib的源码</a>  </li>
-<li>有没有可能时上传的文件note.txt太小导致没有检测到调用过程呢？试试较大的文件。用此前F2FS的1G镜像文件做上传测试<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\018depth03FileSize1G.png" alt><br>说明跟文件大小无关  </li>
+<li>有没有可能时上传的文件note.txt太小导致没有检测到调用过程呢？试试较大的文件。用此前F2FS的1G镜像文件做上传测试<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/018depth03FileSize1G.png" alt><br>说明跟文件大小无关  </li>
 <li>利用pycall先到这里，再手动调试看看。  </li>
 </ol>
 <h4 id="再一次手动调试"><a href="#再一次手动调试" class="headerlink" title="再一次手动调试"></a>再一次手动调试</h4><ol>
-<li>先将断点放ftpServer.py的<code>server.serve_forever()</code>处，然后再调整至servers.py的<code>self.ioloop.loop(timeout, blocking)</code>处。在客户机连接服务器，然后F7单步进入ioloop.py中的_IOLoop类的<code>loop</code>函数，然后F8直接step out看执行流程。研究发现当客户机<code>ftp 121.248.52.75</code>请求连接服务后，每条与服务端的交互指令的执行都会循环检查有无socketmap<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\019socketmap.png" alt><br>这段代码在前面提到的<code>loop</code>函数中  </li>
+<li>先将断点放ftpServer.py的<code>server.serve_forever()</code>处，然后再调整至servers.py的<code>self.ioloop.loop(timeout, blocking)</code>处。在客户机连接服务器，然后F7单步进入ioloop.py中的_IOLoop类的<code>loop</code>函数，然后F8直接step out看执行流程。研究发现当客户机<code>ftp 121.248.52.75</code>请求连接服务后，每条与服务端的交互指令的执行都会循环检查有无socketmap<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/019socketmap.png" alt><br>这段代码在前面提到的<code>loop</code>函数中  </li>
 <li>这次step into其中的poll看看（从前面深度4的实验中我们得知这里_BasePollEpoll的<code>poll</code>被调了11次？）  </li>
 <li>在调试过程中，如果客户机ftp命令行中不再输入新的交互指令，那服务端step out到<code>while socket_map</code>检测不到，也就不会再执行下一步。除非在客户机输入新指令  </li>
-<li>研究发现，上传<code>note.txt</code>：<br>在第二次进入<code>poll</code>时，<strong>建立数据连接</strong>。<br>在第三次进入时，<strong>开始传输数据</strong>。<br>第五次进入后，完成传输。<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\020手动调试.png" alt>  </li>
-<li>第二次<code>poll</code>时step into看看发生了什么。<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\021poll02.png" alt><br>本次<code>poll</code>的第一次for循环中，它就在执行了<code>_write(inst)</code>后建立了数据连接  </li>
+<li>研究发现，上传<code>note.txt</code>：<br>在第二次进入<code>poll</code>时，<strong>建立数据连接</strong>。<br>在第三次进入时，<strong>开始传输数据</strong>。<br>第五次进入后，完成传输。<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/020手动调试.png" alt>  </li>
+<li>第二次<code>poll</code>时step into看看发生了什么。<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/021poll02.png" alt><br>本次<code>poll</code>的第一次for循环中，它就在执行了<code>_write(inst)</code>后建立了数据连接  </li>
 <li>所以在<code>_write(inst)</code>中究竟发生了什么呢，重新发起上传请求，到第二次<code>poll</code>执行到这个函数的时候再step into看看  </li>
 <li>发现这个<code>_write</code>在ioloop.py开头有写<code>_write = asyncore.write</code>也即asyncore.py中的<code>write</code>函数  </li>
-<li>下一步，看看<code>write</code>函数。<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\022poll02write.png" alt><br>会调用asyncore.py的<code>handle_write_event()</code>，跟进该函数，同样仍在asyncore.py模块中，经过判断会调用<code>handle_connect_event()</code><br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\023connectEvent.png" alt>  </li>
-<li>有进一步调用<code>handle_connect()</code><br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\024handle_connect.png" alt><br>执行后，会发现客户机完成了数据连接的建立  </li>
+<li>下一步，看看<code>write</code>函数。<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/022poll02write.png" alt><br>会调用asyncore.py的<code>handle_write_event()</code>，跟进该函数，同样仍在asyncore.py模块中，经过判断会调用<code>handle_connect_event()</code><br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/023connectEvent.png" alt>  </li>
+<li>有进一步调用<code>handle_connect()</code><br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/024handle_connect.png" alt><br>执行后，会发现客户机完成了数据连接的建立  </li>
 </ol>
 <hr>
 <p><font color="red">实验阶段性小结：</font> 由以上可知，<code>handle_connect()</code>标志连接的建立。但这里可能还是存在一些问题，我认为，这里所做的操作只不过是在完成数据连接建立的基础上，给用户的反馈信息。而不是正儿八经的创建过程。先留这里吧。。</p>
 <hr>
 <ol>
 <li>在<code>handle_connect()</code>上方加装饰器看看，能能导出内存信息？<br>当然这么做之前，本意是将该函数所在的handlers.py文件创建在本地。但实验发现，想这么做会面临很多意料之外的问题，故将装饰器放在源文件也即pyftpdlib包下的handlers.py文件中。因此在定义<code>handle_connect()</code>之前加上以下<br><code>@profile(precision=4, stream=open(&quot;/home/infosec/ftpProjects/handle_connect_memory.log&quot;, &quot;w+&quot;))</code>  </li>
-<li>ftp连接服务器，然后登陆uesr账户，向服务器上传notex.txt，传输完成后，一旦终止程序即可采集到建立数据连接占用的内存信息<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\025handle_log.png" alt>  </li>
+<li>ftp连接服务器，然后登陆uesr账户，向服务器上传notex.txt，传输完成后，一旦终止程序即可采集到建立数据连接占用的内存信息<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/025handle_log.png" alt>  </li>
 <li>至此，我们可以采集数据连接建立相关函数占用的内存，下一步，看看文件上传开始，所需要的内存  </li>
-<li>与数据连接建立的调试过程同理，可梳理出流程有<br>ioloop.py<code>poll</code>中的<code>_read</code>，然后到asyncore.py中的<code>read</code>函数，再到handlers.py的<code>handle_read</code>函数。故在<code>handle_read</code>函数定义前加上装饰器<code>@profile(precision=4, stream=open(&quot;/home/infosec/ftpProjects/handle_read_memory.log&quot;, &quot;w+&quot;))</code><br>重新做上传，读日志加上此前设置的连接日志，但这两个日志没有记录到有哪一行新增消耗，全是0<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\026两个log.png" alt>  </li>
+<li>与数据连接建立的调试过程同理，可梳理出流程有<br>ioloop.py<code>poll</code>中的<code>_read</code>，然后到asyncore.py中的<code>read</code>函数，再到handlers.py的<code>handle_read</code>函数。故在<code>handle_read</code>函数定义前加上装饰器<code>@profile(precision=4, stream=open(&quot;/home/infosec/ftpProjects/handle_read_memory.log&quot;, &quot;w+&quot;))</code><br>重新做上传，读日志加上此前设置的连接日志，但这两个日志没有记录到有哪一行新增消耗，全是0<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/026两个log.png" alt>  </li>
 <li>经调试发现，<code>get</code>从服务器下载数据，也仍是<code>poll</code>不断循环读写完成的。  </li>
-<li>在ioloop的poll前加装饰器。同时又猜测前面两个日志全0消耗的原因可能是精度不够，所以这里将精度统一改为10<br><code>@profile(precision=10, stream=open(&quot;/home/infosec/ftpProjects/poll_memory.log&quot;, &quot;w+&quot;))</code><br>此时应有三个日志，但只有poll中显示有内存信息的变化，其他两个仍和前面的实验结果类似<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/内存与函数监控实验\027poll_log.png" alt></li>
+<li>在ioloop的poll前加装饰器。同时又猜测前面两个日志全0消耗的原因可能是精度不够，所以这里将精度统一改为10<br><code>@profile(precision=10, stream=open(&quot;/home/infosec/ftpProjects/poll_memory.log&quot;, &quot;w+&quot;))</code><br>此时应有三个日志，但只有poll中显示有内存信息的变化，其他两个仍和前面的实验结果类似<br><img src="/2020/11/17/%E5%86%85%E5%AD%98%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9B%91%E6%8E%A7%E5%AE%9E%E9%AA%8C/027poll_log.png" alt></li>
 </ol>
 ]]></content>
       <categories>
