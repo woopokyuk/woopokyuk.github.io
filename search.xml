@@ -8311,4 +8311,29 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>Spring Boot</tag>
       </tags>
   </entry>
+  <entry>
+    <title>phoenixUI使用测试</title>
+    <url>/2022/02/23/phoenixUI%E4%BD%BF%E7%94%A8%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[<h2 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h2><p>（1）进入<code>/phoenix/doc/数据库设计/sql/mysql</code>目录<br>（2）进入cmd，启动本机MySQL，<a href="https://woopokyuk.github.io/2021/05/27/MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%85/">具体步骤参考</a><br>（3）登录<br>（4）执行<code>source phoenix.sql</code></p>
+<h2 id="Maven设置"><a href="#Maven设置" class="headerlink" title="Maven设置"></a>Maven设置</h2><p>将Maven的设置都指向我们本地的Maven<br><img src="/2022/02/23/phoenixUI%E4%BD%BF%E7%94%A8%E6%B5%8B%E8%AF%95/2022-02-23-09-15-40.png" alt>  </p>
+<h2 id="application-dev配置"><a href="#application-dev配置" class="headerlink" title="application-dev配置"></a>application-dev配置</h2><p>激活的是dev环境<br><img src="/2022/02/23/phoenixUI%E4%BD%BF%E7%94%A8%E6%B5%8B%E8%AF%95/2022-02-23-09-38-39.png" alt><br>直接运行会报错，提示连不上数据库，这是因为配置中默认的数据库设置不是我们本地的，修改成本地的用户名密码<br><img src="/2022/02/23/phoenixUI%E4%BD%BF%E7%94%A8%E6%B5%8B%E8%AF%95/2022-02-23-09-17-10.png" alt>  </p>
+<h3 id="连不上数据库和连不上端口的问题"><a href="#连不上数据库和连不上端口的问题" class="headerlink" title="连不上数据库和连不上端口的问题"></a>连不上数据库和连不上端口的问题</h3><p>但是仍然报错<br><code>java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.</code>  </p>
+<p>我尝试将url改为<code>jdbc:mysql://localhost:3306/phoenix</code><br>然后报错<code>Access denied for user &#39;root&#39;@&#39;localhost&#39; (using password: YES)</code>  </p>
+<p>经过一些列尝试后，我参考了<a href="https://blog.csdn.net/qq_45041158/article/details/104725392，将密码从`0000`改成`&quot;0000&quot;`就不再报上述错误，这是yml解析造成的错误，如果密码是数字的话可能产生这样的问题。">https://blog.csdn.net/qq_45041158/article/details/104725392，将密码从`0000`改成`&quot;0000&quot;`就不再报上述错误，这是yml解析造成的错误，如果密码是数字的话可能产生这样的问题。</a>  </p>
+<p>然后运行项目发现443被占用，所以我将配置文件中的443改成2333再次运行，这时出现了无法连接到16000端口的问题  </p>
+<p>这个16000是server端默认端口，为避免冲突，我将所有涉及server端的配置端口均设成23333，然后运行server项目。  </p>
+<p>重启ui项目  </p>
+<p>没有报错，访问<a href="http://localhost:2333/phoenix-ui/login">http://localhost:2333/phoenix-ui/login</a>  </p>
+<p><img src="/2022/02/23/phoenixUI%E4%BD%BF%E7%94%A8%E6%B5%8B%E8%AF%95/2022-02-23-11-06-43.png" alt>  </p>
+<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p>admin/admin123  </p>
+<p><img src="/2022/02/23/phoenixUI%E4%BD%BF%E7%94%A8%E6%B5%8B%E8%AF%95/2022-02-23-14-32-03.png" alt></p>
+]]></content>
+      <categories>
+        <category>解决方案</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring Boot</tag>
+      </tags>
+  </entry>
 </search>
