@@ -8370,4 +8370,25 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>Spring Boot</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Xray使用</title>
+    <url>/2022/02/28/Xray%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="1-下载安装"><a href="#1-下载安装" class="headerlink" title="1 下载安装"></a>1 下载安装</h2><p><a href="https://docs.xray.cool/#/README">https://docs.xray.cool/#/README</a></p>
+<h2 id="2-代理模式"><a href="#2-代理模式" class="headerlink" title="2 代理模式"></a>2 代理模式</h2><h3 id="生成CA证书"><a href="#生成CA证书" class="headerlink" title="生成CA证书"></a>生成CA证书</h3><p>只需要在第一次使用时运行  </p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">.\xray_windows_amd64.exe genca</span><br></pre></td></tr></table></figure>
+<p>运行命令之后，将在当前文件夹生成 ca.crt 和 ca.key</p>
+<h3 id="安装CA证书"><a href="#安装CA证书" class="headerlink" title="安装CA证书"></a>安装CA证书</h3><p><a href="https://docs.xray.cool/#/tutorial/webscan_proxy">https://docs.xray.cool/#/tutorial/webscan_proxy</a></p>
+<h3 id="配置代理"><a href="#配置代理" class="headerlink" title="配置代理"></a>配置代理</h3><p>借助SwitchyOmega插件<br><img src="/2022/02/28/Xray%E4%BD%BF%E7%94%A8/2022-02-28-20-11-30.png" alt>  </p>
+<h2 id="3-使用"><a href="#3-使用" class="headerlink" title="3 使用"></a>3 使用</h2><p>注意在配置文件中查看是否有限制<br><img src="/2022/02/28/Xray%E4%BD%BF%E7%94%A8/2022-02-28-20-10-11.png" alt>  </p>
+<hr>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">.\xray_windows_amd64.exe webscan --listen <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">7777</span> --html-output test.html</span><br></pre></td></tr></table></figure>
+<p>然后使用配置代理的浏览器浏览相应网站，就可以自动扫描，结果会在test.html中呈现<br><img src="/2022/02/28/Xray%E4%BD%BF%E7%94%A8/2022-02-28-20-27-23.png" alt>  </p>
+]]></content>
+      <categories>
+        <category>SEC</category>
+      </categories>
+      <tags>
+        <tag>Xray</tag>
+      </tags>
+  </entry>
 </search>
