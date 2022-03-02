@@ -8147,12 +8147,100 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"></td>
+<td style="text-align:center">validate（校验）</td>
+<td style="text-align:center">校验项目是否正确并且所有必要的信息可以完成项目的构建过程。</td>
+</tr>
+<tr>
+<td style="text-align:center">initialize（初始化）</td>
+<td style="text-align:center">初始化构建状态，比如设置属性值。</td>
+</tr>
+<tr>
+<td style="text-align:center">generate-sources（生成源代码）</td>
+<td style="text-align:center">生成包含在编译阶段中的任何源代码。</td>
+</tr>
+<tr>
+<td style="text-align:center">process-sources（处理源代码）</td>
+<td style="text-align:center">处理源代码，比如说，过滤任意值。</td>
+</tr>
+<tr>
+<td style="text-align:center">generate-resources（生成资源文件）</td>
+<td style="text-align:center">生成将会包含在项目包中的资源文件。</td>
+</tr>
+<tr>
+<td style="text-align:center">process-resources （处理资源文件）</td>
+<td style="text-align:center">复制和处理资源到目标目录，为打包阶段最好准备。</td>
+</tr>
+<tr>
+<td style="text-align:center">compile（编译）</td>
+<td style="text-align:center">编译项目的源代码。</td>
+</tr>
+<tr>
+<td style="text-align:center">process-classes（处理类文件）</td>
+<td style="text-align:center">处理编译生成的文件，比如说对Java class文件做字节码改善优化。</td>
+</tr>
+<tr>
+<td style="text-align:center">generate-test-sources（生成测试源代码）</td>
+<td style="text-align:center">生成包含在编译阶段中的任何测试源代码。</td>
+</tr>
+<tr>
+<td style="text-align:center">process-test-sources（处理测试源代码）</td>
+<td style="text-align:center">处理测试源代码，比如说，过滤任意值。</td>
+</tr>
+<tr>
+<td style="text-align:center">generate-test-resources（生成测试资源文件）</td>
+<td style="text-align:center">为测试创建资源文件。</td>
+</tr>
+<tr>
+<td style="text-align:center">process-test-resources（处理测试资源文件）</td>
+<td style="text-align:center">复制和处理测试资源到目标目录。</td>
+</tr>
+<tr>
+<td style="text-align:center">test-compile（编译测试源码）</td>
+<td style="text-align:center">编译测试源代码到测试目标目录.</td>
+</tr>
+<tr>
+<td style="text-align:center">process-test-classes（处理测试类文件）</td>
+<td style="text-align:center">处理测试源码编译生成的文件。</td>
+</tr>
+<tr>
+<td style="text-align:center">test（测试）</td>
+<td style="text-align:center">使用合适的单元测试框架运行测试（Juint是其中之一）。</td>
+</tr>
+<tr>
+<td style="text-align:center">prepare-package（准备打包）</td>
+<td style="text-align:center">在实际打包之前，执行任何的必要的操作为打包做准备。</td>
+</tr>
+<tr>
+<td style="text-align:center">package（打包）</td>
+<td style="text-align:center">将编译后的代码打包成可分发格式的文件，比如JAR、WAR或者EAR文件。</td>
+</tr>
+<tr>
+<td style="text-align:center">pre-integration-test（集成测试前）</td>
+<td style="text-align:center">在执行集成测试前进行必要的动作。比如说，搭建需要的环境。</td>
+</tr>
+<tr>
+<td style="text-align:center">integration-test（集成测试）</td>
+<td style="text-align:center">处理和部署项目到可以运行集成测试环境中。</td>
+</tr>
+<tr>
+<td style="text-align:center">post-integration-test（集成测试后）</td>
+<td style="text-align:center">在执行集成测试完成后进行必要的动作。比如说，清理集成测试环境。</td>
+</tr>
+<tr>
+<td style="text-align:center">verify （验证）</td>
+<td style="text-align:center">运行任意的检查来验证项目包有效且达到质量标准。</td>
+</tr>
+<tr>
+<td style="text-align:center">install（安装）</td>
+<td style="text-align:center">安装项目包到本地仓库，这样项目包可以用作其他本地项目的依赖。</td>
+</tr>
+<tr>
+<td style="text-align:center">deploy（部署）</td>
+<td style="text-align:center">将最终的项目包复制到远程仓库中与其他开发者和项目共享。</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>validate（校验）|校验项目是否正确并且所有必要的信息可以完成项目的构建过程。<br>initialize（初始化）|    初始化构建状态，比如设置属性值。<br>generate-sources（生成源代码）|    生成包含在编译阶段中的任何源代码。<br>process-sources（处理源代码）    |处理源代码，比如说，过滤任意值。<br>generate-resources（生成资源文件）|    生成将会包含在项目包中的资源文件。<br>process-resources （处理资源文件）|    复制和处理资源到目标目录，为打包阶段最好准备。<br>compile（编译）|    编译项目的源代码。<br>process-classes（处理类文件）|    处理编译生成的文件，比如说对Java class文件做字节码改善优化。<br>generate-test-sources（生成测试源代码）|    生成包含在编译阶段中的任何测试源代码。<br>process-test-sources（处理测试源代码）|    处理测试源代码，比如说，过滤任意值。<br>generate-test-resources（生成测试资源文件）|    为测试创建资源文件。<br>process-test-resources（处理测试资源文件）|    复制和处理测试资源到目标目录。<br>test-compile（编译测试源码）|    编译测试源代码到测试目标目录.<br>process-test-classes（处理测试类文件）|    处理测试源码编译生成的文件。<br>test（测试）|    使用合适的单元测试框架运行测试（Juint是其中之一）。<br>prepare-package（准备打包）|    在实际打包之前，执行任何的必要的操作为打包做准备。<br>package（打包）    |将编译后的代码打包成可分发格式的文件，比如JAR、WAR或者EAR文件。<br>pre-integration-test（集成测试前）|    在执行集成测试前进行必要的动作。比如说，搭建需要的环境。<br>integration-test（集成测试）|    处理和部署项目到可以运行集成测试环境中。<br>post-integration-test（集成测试后）    |在执行集成测试完成后进行必要的动作。比如说，清理集成测试环境。<br>verify （验证）|    运行任意的检查来验证项目包有效且达到质量标准。<br>install（安装）|    安装项目包到本地仓库，这样项目包可以用作其他本地项目的依赖。<br>deploy（部署）|    将最终的项目包复制到远程仓库中与其他开发者和项目共享。</p>
 <p><strong>注意</strong>：执行某阶段的调用，比如<code>mvn compile</code>时，只有当前阶段及前面的阶段被执行。    </p>
 <h5 id="指令示例-1"><a href="#指令示例-1" class="headerlink" title="指令示例"></a>指令示例</h5><p>（1）使用以下命令构建、安装工程到<strong>本地</strong>仓库：  </p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mvn install</span><br></pre></td></tr></table></figure>
@@ -8169,12 +8257,24 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"></td>
+<td style="text-align:center">pre-site</td>
+<td style="text-align:center">执行需要在生成站点前需要完成的工作</td>
+</tr>
+<tr>
+<td style="text-align:center">site</td>
+<td style="text-align:center">生成项目的站点文档</td>
+</tr>
+<tr>
+<td style="text-align:center">post-site</td>
+<td style="text-align:center">执行需要在站点文档生成后要完成的工作，并为部署做准备</td>
+</tr>
+<tr>
+<td style="text-align:center">site-deploy</td>
+<td style="text-align:center">将生成的站点文档部署到特定服务器上</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>pre-site|执行需要在生成站点前需要完成的工作<br>site|生成项目的站点文档<br>post-site|执行需要在站点文档生成后要完成的工作，并为部署做准备<br>site-deploy|将生成的站点文档部署到特定服务器上</p>
 <h2 id="6-构建配置文件"><a href="#6-构建配置文件" class="headerlink" title="6 构建配置文件"></a>6 构建配置文件</h2><h3 id="6-1-配置文件类型"><a href="#6-1-配置文件类型" class="headerlink" title="6.1 配置文件类型"></a>6.1 配置文件类型</h3><div class="table-container">
 <table>
 <thead>
@@ -8185,12 +8285,20 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"></td>
+<td style="text-align:center">项目级</td>
+<td style="text-align:center">定义在项目的POM文件pom.xml中</td>
+</tr>
+<tr>
+<td style="text-align:center">用户级</td>
+<td style="text-align:center">定义在Maven的设置xml文件中 (%USER_HOME%/.m2/settings.xml)</td>
+</tr>
+<tr>
+<td style="text-align:center">全局</td>
+<td style="text-align:center">定义在 Maven 全局的设置 xml 文件中 (%M2_HOME%/conf/settings.xml)</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>项目级|定义在项目的POM文件pom.xml中<br>用户级|定义在Maven的设置xml文件中 (%USER_HOME%/.m2/settings.xml)<br>全局|定义在 Maven 全局的设置 xml 文件中 (%M2_HOME%/conf/settings.xml)</p>
 <h3 id="6-2-通过Maven设置激活配置文件"><a href="#6-2-通过Maven设置激活配置文件" class="headerlink" title="6.2 通过Maven设置激活配置文件"></a>6.2 通过Maven设置激活配置文件</h3><p>（1）在setting.xml文件中增加<code>&lt;activeProfiles&gt;</code>属性  </p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0</span></span></span><br><span class="line"><span class="string"><span class="tag">   http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">   ...</span><br><span class="line">   <span class="tag">&lt;<span class="name">activeProfiles</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">activeProfile</span>&gt;</span>test<span class="tag">&lt;/<span class="name">activeProfile</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">activeProfiles</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>（2）然后执行命令（需要有符合命名规则的测试类才能正常执行）</p>
@@ -8220,12 +8328,16 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"></td>
+<td style="text-align:center">Build plugins</td>
+<td style="text-align:center">构建时执行</td>
+</tr>
+<tr>
+<td style="text-align:center">Reporting plugins</td>
+<td style="text-align:center">网站生成过程中执行</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Build plugins|构建时执行<br>Reporting plugins|网站生成过程中执行</p>
 <h3 id="8-2-插件列表"><a href="#8-2-插件列表" class="headerlink" title="8.2 插件列表"></a>8.2 插件列表</h3><div class="table-container">
 <table>
 <thead>
@@ -8236,12 +8348,36 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"></td>
+<td style="text-align:center">clean</td>
+<td style="text-align:center">构建之后清理目标文件。删除目标目录。</td>
+</tr>
+<tr>
+<td style="text-align:center">compiler</td>
+<td style="text-align:center">编译 Java 源文件。</td>
+</tr>
+<tr>
+<td style="text-align:center">surefile</td>
+<td style="text-align:center">运行 JUnit 单元测试。创建测试报告。</td>
+</tr>
+<tr>
+<td style="text-align:center">jar</td>
+<td style="text-align:center">从当前工程中构建 JAR 文件。</td>
+</tr>
+<tr>
+<td style="text-align:center">war</td>
+<td style="text-align:center">从当前工程中构建 WAR 文件。</td>
+</tr>
+<tr>
+<td style="text-align:center">javadoc</td>
+<td style="text-align:center">为工程生成 Javadoc。</td>
+</tr>
+<tr>
+<td style="text-align:center">antrun</td>
+<td style="text-align:center">从构建过程的任意一个阶段中运行一个 ant 任务的集合。</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>clean | 构建之后清理目标文件。删除目标目录。<br>compiler | 编译 Java 源文件。<br>surefile | 运行 JUnit 单元测试。创建测试报告。<br>jar | 从当前工程中构建 JAR 文件。<br>war | 从当前工程中构建 WAR 文件。<br>javadoc | 为工程生成 Javadoc。<br>antrun | 从构建过程的任意一个阶段中运行一个 ant 任务的集合。</p>
 <h2 id="9-Maven构建Java项目"><a href="#9-Maven构建Java项目" class="headerlink" title="9 Maven构建Java项目"></a>9 Maven构建Java项目</h2><p>命令行的方式创建一个，组织名为com.companyname.bank，项目名为consumerBanking，原型ArchetypeId为maven-archetype-quickstart，不适用交互模式的简单Java应用项目。  </p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mvn archetype:generate &quot;-DgroupId=com.companyname.bank&quot; &quot;-DartifactId=consumerBanking&quot; &quot;-DarchetypeArtifactId=maven-archetype-quickstart&quot; &quot;-DinteractiveMode=false&quot;</span><br></pre></td></tr></table></figure>
 <h2 id="10-Maven构建和项目测试"><a href="#10-Maven构建和项目测试" class="headerlink" title="10 Maven构建和项目测试"></a>10 Maven构建和项目测试</h2>]]></content>
@@ -8410,6 +8546,29 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
       </categories>
       <tags>
         <tag>有限状态机</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Maven配置</title>
+    <url>/2022/03/02/Maven%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<p><a href="https://blog.csdn.net/qq_32588349/article/details/51461182">参考</a></p>
+<h2 id="1-下载，解压"><a href="#1-下载，解压" class="headerlink" title="1 下载，解压"></a>1 下载，解压</h2><p><a href="https://maven.apache.org/download.cgi">https://maven.apache.org/download.cgi</a><br><img src="/2022/03/02/Maven%E9%85%8D%E7%BD%AE/2022-03-02-20-48-40.png" alt>  </p>
+<p>解压到空白目录Maven，并在改目录新建本地仓库<br><img src="/2022/03/02/Maven%E9%85%8D%E7%BD%AE/2022-03-02-20-50-12.png" alt>  </p>
+<h2 id="2-本地仓库路径"><a href="#2-本地仓库路径" class="headerlink" title="2 本地仓库路径"></a>2 本地仓库路径</h2><p>修改文件<code>D:\Software\App\maven\apache-maven-3.8.4\conf\settings.xml</code><br><img src="/2022/03/02/Maven%E9%85%8D%E7%BD%AE/2022-03-02-20-51-29.png" alt>  </p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>D://Software//App//maven//LocalWarehouse<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-配置环境变量"><a href="#3-配置环境变量" class="headerlink" title="3 配置环境变量"></a>3 配置环境变量</h2><p>（1）添加系统变量<code>M2_HOME</code>，值为下载的那个包的解压路径，这里为<code>D:\Software\App\maven\apache-maven-3.8.4</code><br>（2）在<code>Path</code>变量中添加<code>%M2_HOME%\bin;</code>  </p>
+<h2 id="4-验证"><a href="#4-验证" class="headerlink" title="4 验证"></a>4 验证</h2><p>命令行输入  </p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">mvn -version</span><br></pre></td></tr></table></figure>
+<p><img src="/2022/03/02/Maven%E9%85%8D%E7%BD%AE/2022-03-02-20-56-32.png" alt>  </p>
+<h2 id="5-在IDEA中配置Maven"><a href="#5-在IDEA中配置Maven" class="headerlink" title="5 在IDEA中配置Maven"></a>5 在IDEA中配置Maven</h2><p>设置，搜索maven，并修改路径，如下  </p>
+<p><img src="/2022/03/02/Maven%E9%85%8D%E7%BD%AE/2022-03-02-21-00-50.png" alt>  </p>
+<h2 id="6-Maven换源"><a href="#6-Maven换源" class="headerlink" title="6 Maven换源"></a>6 Maven换源</h2><p>参考<a href="https://developer.aliyun.com/mvn/guide">https://developer.aliyun.com/mvn/guide</a><br>在setting.xml的mirrors标签添加子节点如下  </p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>aliyunmaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>阿里云公共仓库<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://maven.aliyun.com/repository/public<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>解决方案</category>
+      </categories>
+      <tags>
+        <tag>maven</tag>
       </tags>
   </entry>
 </search>
