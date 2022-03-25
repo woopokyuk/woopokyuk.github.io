@@ -8571,4 +8571,36 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>maven</tag>
       </tags>
   </entry>
+  <entry>
+    <title>TDS协议小记</title>
+    <url>/2022/03/16/TDS%E5%8D%8F%E8%AE%AE%E5%B0%8F%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="什么是TDS"><a href="#什么是TDS" class="headerlink" title="什么是TDS"></a>什么是TDS</h2><p>Tabular Data Stream，<strong>表格数据流</strong>是一种应用层协议。用于在客户端和数据库服务器之间传输请求和响应。</p>
+<h2 id="客户端和服务器交换信息的方式"><a href="#客户端和服务器交换信息的方式" class="headerlink" title="客户端和服务器交换信息的方式"></a>客户端和服务器交换信息的方式</h2><p><a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-tds/5a9d49b8-d1c4-4ff5-8f65-76dc924f5c4d">https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-tds/5a9d49b8-d1c4-4ff5-8f65-76dc924f5c4d</a>  </p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://www.freetds.org/">http://www.freetds.org/</a><br><a href="https://en.wikipedia.org/wiki/Tabular_Data_Stream">https://en.wikipedia.org/wiki/Tabular_Data_Stream</a>  </p>
+]]></content>
+      <categories>
+        <category>科研</category>
+      </categories>
+      <tags>
+        <tag>TDS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何将自定义的工具类打包成jar并添加maven依赖</title>
+    <url>/2022/03/25/%E5%A6%82%E4%BD%95%E5%B0%86%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB%E6%89%93%E5%8C%85%E6%88%90jar%E5%B9%B6%E6%B7%BB%E5%8A%A0maven%E4%BE%9D%E8%B5%96/</url>
+    <content><![CDATA[<h2 id="确定需要打包的目录"><a href="#确定需要打包的目录" class="headerlink" title="确定需要打包的目录"></a>确定需要打包的目录</h2><p>在需要打包的类库目录如<code>esec-utils</code>下<br><img src="/2022/03/25/%E5%A6%82%E4%BD%95%E5%B0%86%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB%E6%89%93%E5%8C%85%E6%88%90jar%E5%B9%B6%E6%B7%BB%E5%8A%A0maven%E4%BE%9D%E8%B5%96/2022-03-25-18-21-09.png" alt>  </p>
+<h2 id="在指定目录打包jar"><a href="#在指定目录打包jar" class="headerlink" title="在指定目录打包jar"></a>在指定目录打包jar</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mvn clean package</span><br></pre></td></tr></table></figure>
+<p>随即在项目的out目录生成jar包<br><img src="/2022/03/25/%E5%A6%82%E4%BD%95%E5%B0%86%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB%E6%89%93%E5%8C%85%E6%88%90jar%E5%B9%B6%E6%B7%BB%E5%8A%A0maven%E4%BE%9D%E8%B5%96/2022-03-25-18-24-42.png" alt>  </p>
+<h2 id="添加maven依赖"><a href="#添加maven依赖" class="headerlink" title="添加maven依赖"></a>添加maven依赖</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mvn install:install-file -DgroupId=&quot;com.esec&quot; -DartifactId=&quot;esec-utils&quot; -Dversion=&quot;1.0&quot; -Dfile=&quot;D:\某某目录\out\artifacts\esec_utils_jar\esec-utils.jar&quot; -Dpackaging=&quot;jar&quot;</span><br></pre></td></tr></table></figure>
+<p>在pom中可以这样添加依赖  </p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.esec<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>esec-utils<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.esec<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>app-file-transfer<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>解决方案</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>maven</tag>
+      </tags>
+  </entry>
 </search>
