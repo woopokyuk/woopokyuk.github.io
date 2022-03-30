@@ -8603,4 +8603,28 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>maven</tag>
       </tags>
   </entry>
+  <entry>
+    <title>MySQL删除行报错的问题</title>
+    <url>/2022/03/30/MySQL%E5%88%A0%E9%99%A4%E8%A1%8C%E6%8A%A5%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在删除表的某行时，报错有  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails</span><br></pre></td></tr></table></figure>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
+<li>关闭外键约束</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SET foreign_key_checks = 0;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>按情况删除数据，比如  </li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">delete from server where IP = &quot;192.168.137.1&quot;;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>重新开启约束  </li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SET foreign_key_checks = 1;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>解决方案</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
 </search>
