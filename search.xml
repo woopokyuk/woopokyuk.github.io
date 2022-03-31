@@ -8630,7 +8630,8 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
   <entry>
     <title>Sigar小记</title>
     <url>/2022/03/31/Sigar%E5%B0%8F%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="源码地址"><a href="#源码地址" class="headerlink" title="源码地址"></a>源码地址</h2><p><a href="https://github.com/hyperic/sigar">https://github.com/hyperic/sigar</a></p>
+    <content><![CDATA[<p>Sigar = System Information Gatherer And Reporter  </p>
+<h2 id="源码地址"><a href="#源码地址" class="headerlink" title="源码地址"></a>源码地址</h2><p><a href="https://github.com/hyperic/sigar">https://github.com/hyperic/sigar</a><br><a href="https://sourceforge.net/projects/sigar/">文档和源码分享地址</a>  </p>
 <h2 id="src-Makefile"><a href="#src-Makefile" class="headerlink" title="src Makefile"></a>src Makefile</h2><figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">SUBDIRS = os</span><br><span class="line"></span><br><span class="line">INCLUDES = @INCLUDES@</span><br><span class="line"></span><br><span class="line">lib_LTLIBRARIES = libsigar.la</span><br><span class="line"></span><br><span class="line">libsigar_la_LDFLAGS = <span class="variable">$(SIGAR_LIBS)</span></span><br><span class="line"></span><br><span class="line">libsigar_la_LIBADD = <span class="variable">$(top_builddir)</span>/src/os/@SRC_OS@/libsigar_os.la</span><br><span class="line"></span><br><span class="line">libsigar_la_CFLAGS = -I<span class="variable">$(top_srcdir)</span>/<span class="keyword">include</span></span><br><span class="line"></span><br><span class="line">libsigar_la_SOURCES = \</span><br><span class="line">	sigar.c \</span><br><span class="line">	sigar_cache.c \</span><br><span class="line">	sigar_fileinfo.c \</span><br><span class="line">	sigar_format.c \</span><br><span class="line">	sigar_getline.c \</span><br><span class="line">	sigar_ptql.c \</span><br><span class="line">	sigar_signal.c \</span><br><span class="line">	sigar_util.c \</span><br><span class="line">	sigar_version_autoconf.c</span><br><span class="line"></span><br><span class="line">EXTRA_DIST=\</span><br><span class="line">	sigar_version.c.in \</span><br><span class="line">	CMakeLists.txt</span><br></pre></td></tr></table></figure>
 <h2 id="sigar-h"><a href="#sigar-h" class="headerlink" title="sigar.h"></a>sigar.h</h2><h3 id="sigar-cpu-info-t-sigar-cpu-t-sigar-cpu-list-t"><a href="#sigar-cpu-info-t-sigar-cpu-t-sigar-cpu-list-t" class="headerlink" title="sigar_cpu_info_t,sigar_cpu_t,sigar_cpu_list_t"></a>sigar_cpu_info_t,sigar_cpu_t,sigar_cpu_list_t</h3><ol>
 <li>sigar_cpu_info_t存放的数据是对cpu所有核心的综合列表  </li>
@@ -8715,6 +8716,41 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
       <tags>
         <tag>sigar</tag>
         <tag>监控</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL导出数据报错securefilepriv的问题</title>
+    <url>/2022/03/31/MySQL%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E6%8A%A5%E9%94%99securefilepriv%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="将数据库某个表中的数据导出为csv"><a href="#将数据库某个表中的数据导出为csv" class="headerlink" title="将数据库某个表中的数据导出为csv"></a>将数据库某个表中的数据导出为csv</h2><p><a href="https://www.runoob.com/mysql/mysql-database-export.html">参考</a>  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT * FROM monitor_jvm_memory_history INTO OUTFILE &#x27;jvm_memory_history.csv&#x27;</span><br><span class="line">FIELDS TERMINATED BY &#x27;,&#x27; ENCLOSED BY &#x27;&quot;&#x27;</span><br><span class="line">LINES TERMINATED BY &#x27;\r\n&#x27;;</span><br></pre></td></tr></table></figure>
+<h2 id="报错如下"><a href="#报错如下" class="headerlink" title="报错如下"></a>报错如下</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ERROR 1290 (HY000): The MySQL server is running with the --secure-file-priv option so it cannot execute this statement</span><br></pre></td></tr></table></figure>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
+<li>先查看 secure_file_priv 属性值  </li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SHOW VARIABLES LIKE &quot;secure_file_priv&quot;;</span><br></pre></td></tr></table></figure>
+<p><img src="/2022/03/31/MySQL%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E6%8A%A5%E9%94%99securefilepriv%E7%9A%84%E9%97%AE%E9%A2%98/2022-03-31-17-23-35.png" alt>  </p>
+<p>说明做了导入导出的限制  </p>
+<ol>
+<li>修改MySQL的配置文件，在其中添加  </li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">secure_file_priv = </span><br></pre></td></tr></table></figure>
+<p>即不限制目录  </p>
+<ol>
+<li>重启MySQL服务即可  </li>
+</ol>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"><span class="built_in">net</span> stop mysql</span><br><span class="line"><span class="built_in">net</span> <span class="built_in">start</span> mysql</span><br></pre></td></tr></table></figure>
+<ol>
+<li>效果如下  </li>
+</ol>
+<p><img src="/2022/03/31/MySQL%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E6%8A%A5%E9%94%99securefilepriv%E7%9A%84%E9%97%AE%E9%A2%98/2022-03-31-17-27-55.png" alt>  </p>
+<p>导出文件所在目录在MySQL安装目录的data中对应的数据库目录下</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p><a href="http://blog.sina.com.cn/s/blog_59bba95d0102wspc.html">http://blog.sina.com.cn/s/blog_59bba95d0102wspc.html</a></p>
+]]></content>
+      <categories>
+        <category>解决方案</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
       </tags>
   </entry>
 </search>
