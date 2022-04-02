@@ -8753,4 +8753,36 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>MySQL</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Java Instrumentation小结</title>
+    <url>/2022/04/02/JavaInstrumentation%E5%B0%8F%E7%BB%93/</url>
+    <content><![CDATA[<p>实验代码参考 <a href="https://gitee.com/woopokyuk/instrumentation-test">https://gitee.com/woopokyuk/instrumentation-test</a></p>
+<h2 id="字节码修改三要素"><a href="#字节码修改三要素" class="headerlink" title="字节码修改三要素"></a>字节码修改三要素</h2><ul>
+<li>Agent类 </li>
+<li>Transformer类 </li>
+<li>目标测试类</li>
+</ul>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li>在POM中添加依赖</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javassist<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javassist<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.0.GA<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>POM添加插件<br><a href="https://sourceforge.net/projects/jboss/files/Javassist/">插件需要单独下载</a></li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-jar-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">archive</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">manifestEntries</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">Premain-Class</span>&gt;</span>com.AopAgentTest<span class="tag">&lt;/<span class="name">Premain-Class</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">Boot-Class-Path</span>&gt;</span>D:/Download/javassist-3.8.0.GA.jar<span class="tag">&lt;/<span class="name">Boot-Class-Path</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">manifestEntries</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">archive</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>配置MF文件</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Premain-Class: com.AopAgentTest</span><br><span class="line">Agent-Class: com.AopAgentTest</span><br><span class="line">Can-Redefine-Classes: true</span><br><span class="line">Class-Path: D:/Download/javassist-3.8.0.GA.jar</span><br><span class="line">Can-Retransform-Classes: true</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="最后通过执行"><a href="#最后通过执行" class="headerlink" title="最后通过执行"></a>最后通过执行</h2><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">java -javaagent:D:\Projects\<span class="number">2022</span>SEU\instrumentationTest\target\instrumentationTest.jar com.AopAgentTest</span><br></pre></td></tr></table></figure>
+<p>即可得到结果</p>
+]]></content>
+      <categories>
+        <category>CS</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Instrumentation</tag>
+      </tags>
+  </entry>
 </search>
