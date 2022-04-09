@@ -1908,12 +1908,6 @@ y(t)=Cx(t).
 <li><a href="https://baike.baidu.com/item/%E5%9F%BA%E7%AB%99/1260692?fr=aladdin#3">https://baike.baidu.com/item/%E5%9F%BA%E7%AB%99/1260692?fr=aladdin#3</a></li>
 </ol>
 ]]></content>
-      <categories>
-        <category>科研</category>
-      </categories>
-      <tags>
-        <tag>信息系统仿生安全</tag>
-      </tags>
   </entry>
   <entry>
     <title>函数监控的调研</title>
@@ -8888,6 +8882,18 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
       <tags>
         <tag>Java</tag>
         <tag>maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>决策树小记</title>
+    <url>/2022/04/06/%E5%86%B3%E7%AD%96%E6%A0%91%E5%B0%8F%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="决策树C4-5算法"><a href="#决策树C4-5算法" class="headerlink" title="决策树C4.5算法"></a>决策树C4.5算法</h2><p>C4.5是对ID3的扩展，C4.5产生的分类规则易于理解，准确率较高  </p>
+]]></content>
+      <categories>
+        <category>CS</category>
+      </categories>
+      <tags>
+        <tag>决策树</tag>
       </tags>
   </entry>
 </search>
