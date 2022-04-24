@@ -8714,14 +8714,14 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
   <entry>
     <title>编程工具演练</title>
     <url>/2022/04/22/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7%E6%BC%94%E7%BB%83/</url>
-    <content><![CDATA[<h2 id="Git基操"><a href="#Git基操" class="headerlink" title="Git基操"></a>Git基操</h2><h3 id="diff与patch"><a href="#diff与patch" class="headerlink" title="diff与patch"></a>diff与patch</h3><p>(1) diff用于比较两个文件或目录的差异  </p>
+    <content><![CDATA[<h2 id="1-Git基操"><a href="#1-Git基操" class="headerlink" title="1 Git基操"></a>1 Git基操</h2><h3 id="1-1-diff与patch"><a href="#1-1-diff与patch" class="headerlink" title="1.1 diff与patch"></a>1.1 diff与patch</h3><p>(1) diff用于比较两个文件或目录的差异  </p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">diff -u left.c right.c</span><br></pre></td></tr></table></figure>
 <p>其中<code>-u</code>是指以合并的方式来显示文件内容的不同。  </p>
 <p>(2) patch可以根据diff产生的结果diff.txt，根据left.txt生成right.c，反之亦然  </p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> left.c -&gt; right.c</span></span><br><span class="line">patch left.c diff.txt</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> right.c -&gt; left.c</span></span><br><span class="line">patch -R right.c diff.txt</span><br></pre></td></tr></table></figure>
-<h3 id="版本控制工具的发展"><a href="#版本控制工具的发展" class="headerlink" title="版本控制工具的发展"></a>版本控制工具的发展</h3><h4 id="最早期的本地版本控制"><a href="#最早期的本地版本控制" class="headerlink" title="最早期的本地版本控制"></a>最早期的本地版本控制</h4><p>RCS(Revision Control System) 只适合本地的版本控制  </p>
-<h4 id="集中式版本控制"><a href="#集中式版本控制" class="headerlink" title="集中式版本控制"></a>集中式版本控制</h4><p>CVS(Concurrent Versions System) 不支持原子化操作，会导致客户端提交的数据出现不完整的情况，同时效率也比较低<br>SVN(Subversion) 优化了服务器上内容的存储，也实现了原子化操作。当然，SVN也存在一些问题，比如提交是要排队的，不能同时修改；缺乏代码门禁，提交的过程缺少检查防护（一种解决方案是旁路检查）；在面临单点故障或者黑客攻击时，可能会存在数据丢失的问题。  </p>
-<h4 id="分布式版本控制-Git"><a href="#分布式版本控制-Git" class="headerlink" title="分布式版本控制 Git"></a>分布式版本控制 Git</h4><div class="table-container">
+<h3 id="1-2-版本控制工具的发展"><a href="#1-2-版本控制工具的发展" class="headerlink" title="1.2 版本控制工具的发展"></a>1.2 版本控制工具的发展</h3><h4 id="1-2-1-最早期的本地版本控制"><a href="#1-2-1-最早期的本地版本控制" class="headerlink" title="1.2.1 最早期的本地版本控制"></a>1.2.1 最早期的本地版本控制</h4><p>RCS(Revision Control System) 只适合本地的版本控制  </p>
+<h4 id="1-2-2-集中式版本控制"><a href="#1-2-2-集中式版本控制" class="headerlink" title="1.2.2 集中式版本控制"></a>1.2.2 集中式版本控制</h4><p>CVS(Concurrent Versions System) 不支持原子化操作，会导致客户端提交的数据出现不完整的情况，同时效率也比较低<br>SVN(Subversion) 优化了服务器上内容的存储，也实现了原子化操作。当然，SVN也存在一些问题，比如提交是要排队的，不能同时修改；缺乏代码门禁，提交的过程缺少检查防护（一种解决方案是旁路检查）；在面临单点故障或者黑客攻击时，可能会存在数据丢失的问题。  </p>
+<h4 id="1-2-3-分布式版本控制-Git"><a href="#1-2-3-分布式版本控制-Git" class="headerlink" title="1.2.3 分布式版本控制 Git"></a>1.2.3 分布式版本控制 Git</h4><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -8745,7 +8745,7 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </table>
 </div>
 <p>分布式版本控制，如果文件被修改，则在每次提交更新时都会把当时的全部文件制作成一个快照；如果文件没被修改，则不再重新存储该文件，而是保留一个链接指向之前存储的文件。  </p>
-<h3 id="Git的工程区域与文件状态"><a href="#Git的工程区域与文件状态" class="headerlink" title="Git的工程区域与文件状态"></a>Git的工程区域与文件状态</h3><h4 id="工程区域"><a href="#工程区域" class="headerlink" title="工程区域"></a>工程区域</h4><div class="table-container">
+<h3 id="1-3-Git的工程区域与文件状态"><a href="#1-3-Git的工程区域与文件状态" class="headerlink" title="1.3 Git的工程区域与文件状态"></a>1.3 Git的工程区域与文件状态</h3><h4 id="1-3-1-工程区域"><a href="#1-3-1-工程区域" class="headerlink" title="1.3.1 工程区域"></a>1.3.1 工程区域</h4><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -8769,7 +8769,7 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </tbody>
 </table>
 </div>
-<h4 id="文件状态"><a href="#文件状态" class="headerlink" title="文件状态"></a>文件状态</h4><div class="table-container">
+<h4 id="1-3-2-文件状态"><a href="#1-3-2-文件状态" class="headerlink" title="1.3.2 文件状态"></a>1.3.2 文件状态</h4><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -8793,14 +8793,14 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </tbody>
 </table>
 </div>
-<h3 id="Git常用命令"><a href="#Git常用命令" class="headerlink" title="Git常用命令"></a>Git常用命令</h3><h4 id="工作准备"><a href="#工作准备" class="headerlink" title="工作准备"></a>工作准备</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone [URL]# 工程克隆</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-Git常用命令"><a href="#1-4-Git常用命令" class="headerlink" title="1.4 Git常用命令"></a>1.4 Git常用命令</h3><h4 id="1-4-1-工作准备"><a href="#1-4-1-工作准备" class="headerlink" title="1.4.1 工作准备"></a>1.4.1 工作准备</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone [URL]# 工程克隆</span><br></pre></td></tr></table></figure>
 <p>注意：如果项目git服务器已经支持git-lfs，对二进制文件做了区别管理，那么克隆时需要使用  </p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git lfs clone [URL]</span><br></pre></td></tr></table></figure>
 <p>否则无法下载二进制文件，工程不完整</p>
-<h4 id="查看工作区"><a href="#查看工作区" class="headerlink" title="查看工作区"></a>查看工作区</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git diff # 查看工作区修改内容</span><br><span class="line">git status # 查看工作区状态</span><br></pre></td></tr></table></figure>
+<h4 id="1-4-2-查看工作区"><a href="#1-4-2-查看工作区" class="headerlink" title="1.4.2 查看工作区"></a>1.4.2 查看工作区</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git diff # 查看工作区修改内容</span><br><span class="line">git status # 查看工作区状态</span><br></pre></td></tr></table></figure>
 <h5 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a>git diff</h5><p><a href="https://git-scm.com/docs/git-diff">https://git-scm.com/docs/git-diff</a>  </p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 比较两个节点的差异</span>  </span><br><span class="line">git diff [节点1] [节点2]  </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 比较两个分支的差异</span>  </span><br><span class="line">git diff [分支1]..[分支2]  </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 当前索引与上次提交的差异</span>  </span><br><span class="line">git diff --cached  </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 只看文件列表，列表前的大写字母M表示Modified，A表示Added，D表示Deleted</span></span><br><span class="line">git diff [分支1]..[分支2] --name-status</span><br></pre></td></tr></table></figure>
-<h4 id="文件修改后提交推送"><a href="#文件修改后提交推送" class="headerlink" title="文件修改后提交推送"></a>文件修改后提交推送</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add/rm/mv # 新增/删除/移动文件到暂存区</span><br><span class="line">git commit # 提交更改的文件</span><br><span class="line">git push # 推送到远端仓库</span><br></pre></td></tr></table></figure>
+<h4 id="1-4-3-文件修改后提交推送"><a href="#1-4-3-文件修改后提交推送" class="headerlink" title="1.4.3 文件修改后提交推送"></a>1.4.3 文件修改后提交推送</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add/rm/mv # 新增/删除/移动文件到暂存区</span><br><span class="line">git commit # 提交更改的文件</span><br><span class="line">git push # 推送到远端仓库</span><br></pre></td></tr></table></figure>
 <h5 id="新增-删除-移动"><a href="#新增-删除-移动" class="headerlink" title="新增/删除/移动"></a>新增/删除/移动</h5><p><a href="https://git-scm.com/docs/git-add">https://git-scm.com/docs/git-add</a><br><a href="https://git-scm.com/docs/git-rm">https://git-scm.com/docs/git-rm</a><br><a href="https://git-scm.com/docs/git-mv">https://git-scm.com/docs/git-mv</a>  </p>
 <ul>
 <li>新建文件未被git跟踪的，需要先执行<code>git add</code>把文件添加到暂存区再提交。如果曾经提交过，在较新的git版本中，不需要add可以直接提交。  </li>
@@ -8808,12 +8808,48 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <li><code>git mv</code>可以移动文件，也可以重命名。  </li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 将test.conf文件移动config目录</span></span><br><span class="line">git mv test.conf config</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将test.conf文件重命名为abc.conf</span></span><br><span class="line">git mv config/test.conf config/abc.conf</span><br></pre></td></tr></table></figure>
-<h5 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h5><p><code>git commit</code>是将暂存区的文件改动提交到<strong>本地版本库</strong>，远端服务器是不受影响的。  </p>
+<h5 id="commit提交"><a href="#commit提交" class="headerlink" title="commit提交"></a>commit提交</h5><p><code>git commit</code>是将暂存区的文件改动提交到<strong>本地版本库</strong>，远端服务器是不受影响的。  </p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 指定文件</span></span><br><span class="line">git commit [file_name] -m &quot;提交的说明&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 所有暂存区文件</span></span><br><span class="line">git commit -am &quot;提交的说明&quot;</span><br></pre></td></tr></table></figure>
-<h4 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log # 查看当前分支上的提交日志</span><br></pre></td></tr></table></figure>
-<h4 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch # 列出本地分支</span><br><span class="line">git branch -b # 新建分支</span><br><span class="line">git branch -d # 删除分支</span><br><span class="line">git checkout # 切换分支</span><br><span class="line">git pull # 更新分支</span><br><span class="line">git merge # 合并分支</span><br></pre></td></tr></table></figure>
-<h4 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git reset # 强制回退到历史节点</span><br><span class="line">git checkout # 回退本地所有修改而未提交的</span><br></pre></td></tr></table></figure>
-<h2 id="IDEA"><a href="#IDEA" class="headerlink" title="IDEA"></a>IDEA</h2><div class="table-container">
+<h5 id="push推送"><a href="#push推送" class="headerlink" title="push推送"></a>push推送</h5><font face="楷体">注意：windows上分支的大小写是不敏感的。</font>  
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push origin [分支名]</span><br></pre></td></tr></table></figure>
+<h4 id="1-4-5-查看日志"><a href="#1-4-5-查看日志" class="headerlink" title="1.4.5 查看日志"></a>1.4.5 查看日志</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log # 查看当前分支上的提交日志</span><br></pre></td></tr></table></figure>
+<h4 id="1-4-6-分支管理"><a href="#1-4-6-分支管理" class="headerlink" title="1.4.6 分支管理"></a>1.4.6 分支管理</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch # 列出本地分支</span><br><span class="line">git branch -r # 列出远端分支</span><br><span class="line">git branch -r # 列出本地及远端分支</span><br><span class="line">git branch -b [branch_name] # 新建分支</span><br><span class="line">git branch -d [branch_name] # 删除分支</span><br><span class="line">git branch -D [branch_name] # 强制删除分支</span><br><span class="line">git checkout [branch_name] # 切换分支</span><br><span class="line">git checkout -f [branch_name] # 强制切换分支</span><br><span class="line">git pull origin [remote_branch]:[local_branch] # 更新分支(一般远程与本地分支相同，可以省略local_branch)</span><br><span class="line">git merge [branch_name] # 合并分支</span><br></pre></td></tr></table></figure>
+<h5 id="git-branch-与-git-checkout-b新建分支的区别"><a href="#git-branch-与-git-checkout-b新建分支的区别" class="headerlink" title="git branch 与 git checkout -b新建分支的区别"></a>git branch 与 git checkout -b新建分支的区别</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><code>git branch [branch_name]</code></th>
+<th style="text-align:center"><code>git checkout -b [branch_name]</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">新建后不切换分支</td>
+<td style="text-align:center">新建后切换到新分支</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="如何删除远端分支"><a href="#如何删除远端分支" class="headerlink" title="如何删除远端分支"></a>如何删除远端分支</h5><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -d -r [branch_name] # 删除远端分支</span><br><span class="line">git push origin:[branch_name] # 删除后推送到服务器</span><br></pre></td></tr></table></figure>
+<h5 id="fetch与pull的区别"><a href="#fetch与pull的区别" class="headerlink" title="fetch与pull的区别"></a>fetch与pull的区别</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><code>git fetch</code></th>
+<th style="text-align:center"><code>git pull</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">获取远程的更新到本地，但不合并（合并需要手动merge）</td>
+<td style="text-align:center">获取远程更新，并自动与本地合并</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="1-4-7-撤销操作-谨慎使用"><a href="#1-4-7-撤销操作-谨慎使用" class="headerlink" title="1.4.7 撤销操作(谨慎使用)"></a>1.4.7 撤销操作(谨慎使用)</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git reset [commit_id] # 强制回退到历史节点</span><br><span class="line">git checkout . # 回退本地所有修改而未提交的文件内容</span><br><span class="line">git checkout -- [file_name] # 回退某个文件的修改未提交的内容</span><br></pre></td></tr></table></figure>
+<h2 id="2-IDEA"><a href="#2-IDEA" class="headerlink" title="2 IDEA"></a>2 IDEA</h2><div class="table-container">
 <table>
 <thead>
 <tr>
