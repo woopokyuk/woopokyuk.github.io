@@ -8809,13 +8809,14 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 将test.conf文件移动config目录</span></span><br><span class="line">git mv test.conf config</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将test.conf文件重命名为abc.conf</span></span><br><span class="line">git mv config/test.conf config/abc.conf</span><br></pre></td></tr></table></figure>
 <h5 id="commit提交"><a href="#commit提交" class="headerlink" title="commit提交"></a>commit提交</h5><p><code>git commit</code>是将暂存区的文件改动提交到<strong>本地版本库</strong>，远端服务器是不受影响的。  </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 指定文件</span></span><br><span class="line">git commit [file_name] -m &quot;提交的说明&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 所有暂存区文件</span></span><br><span class="line">git commit -am &quot;提交的说明&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 指定文件</span></span><br><span class="line">git commit [file_name] -m &quot;提交的说明&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 所有暂存区文件</span></span><br><span class="line">git commit -am &quot;提交的说明&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改最近一次提交的信息,执行后进入VIM即可修改message信息并保存</span></span><br><span class="line">git commit --amend </span><br></pre></td></tr></table></figure>
 <h5 id="push推送"><a href="#push推送" class="headerlink" title="push推送"></a>push推送</h5><font face="楷体">注意：windows上分支的大小写是不敏感的。</font>  
 
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push origin [分支名]</span><br></pre></td></tr></table></figure>
 <h4 id="1-4-5-查看日志"><a href="#1-4-5-查看日志" class="headerlink" title="1.4.5 查看日志"></a>1.4.5 查看日志</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log # 查看当前分支上的提交日志</span><br></pre></td></tr></table></figure>
-<h4 id="1-4-6-分支管理"><a href="#1-4-6-分支管理" class="headerlink" title="1.4.6 分支管理"></a>1.4.6 分支管理</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch # 列出本地分支</span><br><span class="line">git branch -r # 列出远端分支</span><br><span class="line">git branch -r # 列出本地及远端分支</span><br><span class="line">git branch -b [branch_name] # 新建分支</span><br><span class="line">git branch -d [branch_name] # 删除分支</span><br><span class="line">git branch -D [branch_name] # 强制删除分支</span><br><span class="line">git checkout [branch_name] # 切换分支</span><br><span class="line">git checkout -f [branch_name] # 强制切换分支</span><br><span class="line">git pull origin [remote_branch]:[local_branch] # 更新分支(一般远程与本地分支相同，可以省略local_branch)</span><br><span class="line">git merge [branch_name] # 合并分支</span><br></pre></td></tr></table></figure>
-<h5 id="git-branch-与-git-checkout-b新建分支的区别"><a href="#git-branch-与-git-checkout-b新建分支的区别" class="headerlink" title="git branch 与 git checkout -b新建分支的区别"></a>git branch 与 git checkout -b新建分支的区别</h5><div class="table-container">
+<h4 id="1-4-6-分支管理"><a href="#1-4-6-分支管理" class="headerlink" title="1.4.6 分支管理"></a>1.4.6 分支管理</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch # 列出本地分支</span><br><span class="line">git branch -r # 列出远端分支</span><br><span class="line">git branch -r # 列出本地及远端分支</span><br><span class="line">git branch -b [branch_name] # 新建分支</span><br><span class="line">git branch -d [branch_name] # 删除分支</span><br><span class="line">git branch -D [branch_name] # 强制删除分支</span><br><span class="line">git checkout [branch_name] # 切换分支</span><br><span class="line">git checkout -f [branch_name] # 强制切换分支</span><br><span class="line">git pull origin [remote_branch]:[local_branch] # 更新分支(一般远程与本地分支相同，可以省略local_branch)</span><br><span class="line">git merge [source_branch_name] [destination_branch_name] # 合并分支</span><br></pre></td></tr></table></figure>
+<h5 id="git-branch-与-git-checkout-b新建分支的区别"><a href="#git-branch-与-git-checkout-b新建分支的区别" class="headerlink" title="git branch 与 git checkout -b新建分支的区别"></a>git branch 与 git checkout -b新建分支的区别</h5><p>新建的分支是继承了原来的所有内容的　　</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -8848,6 +8849,27 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 </tbody>
 </table>
 </div>
+<h5 id="merge与rebase的区别"><a href="#merge与rebase的区别" class="headerlink" title="merge与rebase的区别"></a>merge与rebase的区别</h5><p><a href="https://blog.csdn.net/qq_41549632/article/details/122929470">参考</a>  </p>
+<p>merge不会破坏原有的commit节点信息,记录了真实的commit情况;rebase会合并之前的commit历史.  </p>
+<p>因此<font face="宋体" color="red">不要在公共分支上使用rebase</font>  </p>
+<h6 id="merge示意"><a href="#merge示意" class="headerlink" title="merge示意"></a>merge示意</h6><p>如果合并的时候遇到冲突，仅需要修改后重新commit  </p>
+<p>优点: 记录了真实的commit情况，包括每个分支的详情<br>缺点: 因为每次merge会自动产生一个merge commit，所以在使用一些git 的GUI tools，特别是commit比较频繁时，看到分支很杂乱  </p>
+<ul>
+<li>在feature分支上开发新特性  </li>
+</ul>
+<p><img src="/2022/04/22/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7%E6%BC%94%E7%BB%83/2022-04-25-10-31-04.png" alt>  </p>
+<ul>
+<li>执行merge命令  </li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout feature</span><br><span class="line">git merge master</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者</span></span><br><span class="line">git merge master feature</span><br></pre></td></tr></table></figure>
+<ul>
+<li>合并后,会在目的分支生成新的commit,也即merge commit.  </li>
+</ul>
+<p><img src="/2022/04/22/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7%E6%BC%94%E7%BB%83/2022-04-25-10-35-47.png" alt>  </p>
+<h6 id="rebase示意"><a href="#rebase示意" class="headerlink" title="rebase示意"></a>rebase示意</h6><p>遇到冲突,需要先修改冲突部分,然后<code>git add</code>,然后<code>git rebase --continue</code>  </p>
+<p>优点: 得到更简洁的项目历史，去掉了merge commit<br>缺点：如果合并出现代码问题不容易定位,因为破坏了之前commit的历史  </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout feature</span><br><span class="line">git rebase master</span><br></pre></td></tr></table></figure>
+<p><img src="/2022/04/22/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7%E6%BC%94%E7%BB%83/2022-04-25-10-38-50.png" alt>  </p>
 <h4 id="1-4-7-撤销操作-谨慎使用"><a href="#1-4-7-撤销操作-谨慎使用" class="headerlink" title="1.4.7 撤销操作(谨慎使用)"></a>1.4.7 撤销操作(谨慎使用)</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git reset [commit_id] # 强制回退到历史节点</span><br><span class="line">git checkout . # 回退本地所有修改而未提交的文件内容</span><br><span class="line">git checkout -- [file_name] # 回退某个文件的修改未提交的内容</span><br></pre></td></tr></table></figure>
 <h2 id="2-IDEA"><a href="#2-IDEA" class="headerlink" title="2 IDEA"></a>2 IDEA</h2><div class="table-container">
 <table>
