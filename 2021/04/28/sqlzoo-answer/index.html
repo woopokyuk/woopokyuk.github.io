@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|EB Garamond:300,300italic,400,400italic,700,700italic|Source Code Pro:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MySQL," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SELECT from WORLD Tutorial12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273-- 1SELECT name, continent, populatio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sqlzoo_answer">
+<meta property="og:url" content="https://woopokyuk.github.io/2021/04/28/sqlzoo-answer/index.html">
+<meta property="og:site_name" content="WooPokyuk&#39;s Blog">
+<meta property="og:description" content="SELECT from WORLD Tutorial12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273-- 1SELECT name, continent, populatio">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/21379182/1619504994125-260f8261-1c27-4bf0-8dd0-ee1bd28e2c8e.png#clientId=u2c884a7d-6cd4-4&amp;from=paste&amp;height=143&amp;id=u5c6a59ae&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=143&amp;originWidth=142&amp;originalType=binary&amp;size=3805&amp;status=done&amp;style=none&amp;taskId=ue728751d-f0f9-4b69-8b98-49e4d9c999f&amp;width=142">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/21379182/1619505161474-33676d6e-742b-47eb-892a-832d97b3f7fe.png#clientId=u2c884a7d-6cd4-4&amp;from=paste&amp;height=104&amp;id=ube7aa48f&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=127&amp;originWidth=180&amp;originalType=binary&amp;size=3954&amp;status=done&amp;style=none&amp;taskId=u58db8a5c-2dbd-44bd-8c6e-485123b0faa&amp;width=148">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/21379182/1619506728542-f87aacb5-17e2-43fd-bf8e-cb5fa5871f64.png#clientId=u2c884a7d-6cd4-4&amp;from=paste&amp;height=103&amp;id=u279d253b&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=159&amp;originWidth=334&amp;originalType=binary&amp;size=8159&amp;status=done&amp;style=none&amp;taskId=uf7497108-df62-458d-9374-e81ead5f87d&amp;width=216">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/21379182/1619517054267-6ae0690b-5ce6-4573-ad0b-54c16305fbb6.png#clientId=u69b6848c-be30-4&amp;from=paste&amp;height=60&amp;id=ua3b1caa7&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=120&amp;originWidth=1207&amp;originalType=binary&amp;size=29859&amp;status=done&amp;style=none&amp;taskId=u32326f38-20a6-4139-93c8-fc3ee1711d8&amp;width=603.5">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/21379182/1619526331929-da44a355-e217-4c68-9ea8-b0113e815121.png#clientId=u146ec951-45d7-4&amp;from=paste&amp;height=68&amp;id=u009d8be8&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=88&amp;originWidth=235&amp;originalType=binary&amp;size=3572&amp;status=done&amp;style=none&amp;taskId=ubaa1e1ae-0f60-487a-8395-209158ccd6e&amp;width=180.5">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/21379182/1619526590892-ac6bdec0-7845-4d38-94bd-a2ed8adc6b31.png#clientId=u146ec951-45d7-4&amp;from=paste&amp;height=106&amp;id=ua65a461a&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=120&amp;originWidth=261&amp;originalType=binary&amp;size=4510&amp;status=done&amp;style=none&amp;taskId=u121b786c-c45a-4a86-84db-69b5fb75916&amp;width=229.5">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/21379182/1619529817902-e4860772-0dd5-422d-958b-ab1e1242aee0.png#clientId=u146ec951-45d7-4&amp;from=paste&amp;height=151&amp;id=u72a81a13&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=199&amp;originWidth=275&amp;originalType=binary&amp;size=9159&amp;status=done&amp;style=none&amp;taskId=u901b7013-fbae-48e9-8775-2c47e2ee1c9&amp;width=208.5">
+<meta property="article:published_time" content="2021-04-28T07:12:50.000Z">
+<meta property="article:modified_time" content="2022-05-04T08:05:55.768Z">
+<meta property="article:author" content="WooPokyuk">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/png/21379182/1619504994125-260f8261-1c27-4bf0-8dd0-ee1bd28e2c8e.png#clientId=u2c884a7d-6cd4-4&amp;from=paste&amp;height=143&amp;id=u5c6a59ae&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=143&amp;originWidth=142&amp;originalType=binary&amp;size=3805&amp;status=done&amp;style=none&amp;taskId=ue728751d-f0f9-4b69-8b98-49e4d9c999f&amp;width=142">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woopokyuk.github.io/2021/04/28/sqlzoo-answer/"/>
+
+
+
+
+
+  <title>sqlzoo_answer | WooPokyuk's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WooPokyuk's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woopokyuk.github.io/2021/04/28/sqlzoo-answer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WooPokyuk's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">sqlzoo_answer</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-28T15:12:50+08:00">
+                2021-04-28
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-05-04T16:05:55+08:00">
+                2022-05-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="SELECT-from-WORLD-Tutorial"><a href="#SELECT-from-WORLD-Tutorial" class="headerlink" title="SELECT from WORLD Tutorial"></a>SELECT from WORLD Tutorial</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 1</span></span><br><span class="line"><span class="keyword">SELECT</span> name, continent, population <span class="keyword">FROM</span> world;</span><br><span class="line"></span><br><span class="line"><span class="comment">--2</span></span><br><span class="line"><span class="keyword">SELECT</span> name <span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> population<span class="operator">&gt;</span><span class="number">200000000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--3</span></span><br><span class="line"><span class="keyword">SELECT</span> name, GDP<span class="operator">/</span>population</span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> population<span class="operator">&gt;</span><span class="number">200000000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--4</span></span><br><span class="line"><span class="keyword">SELECT</span> name, population<span class="operator">/</span><span class="number">1000000</span></span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> continent<span class="operator">=</span><span class="string">&#x27;South America&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--5</span></span><br><span class="line"><span class="keyword">SELECT</span> name, population</span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> name <span class="keyword">IN</span> (<span class="string">&#x27;France&#x27;</span>, <span class="string">&#x27;Germany&#x27;</span>, <span class="string">&#x27;Italy&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">--6</span></span><br><span class="line"><span class="keyword">SELECT</span> name</span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> name <span class="keyword">LIKE</span> <span class="string">&#x27;%United%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--7</span></span><br><span class="line"><span class="keyword">SELECT</span> name,population,area</span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> area<span class="operator">&gt;</span><span class="number">3000000</span> <span class="keyword">or</span> population<span class="operator">&gt;</span><span class="number">250000000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--8</span></span><br><span class="line"><span class="keyword">SELECT</span> name,population,area</span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> (name <span class="keyword">NOT</span> <span class="keyword">IN</span> (<span class="string">&#x27;USA&#x27;</span>, <span class="string">&#x27;India&#x27;</span>, <span class="string">&#x27;China&#x27;</span>)) </span><br><span class="line">  <span class="keyword">AND</span> ((area<span class="operator">&gt;</span><span class="number">3000000</span> <span class="keyword">AND</span> population<span class="operator">&lt;=</span><span class="number">250000000</span>) </span><br><span class="line">  <span class="keyword">OR</span> (area<span class="operator">&lt;=</span><span class="number">3000000</span> <span class="keyword">AND</span> population<span class="operator">&gt;</span><span class="number">250000000</span>));</span><br><span class="line">  </span><br><span class="line"> <span class="comment">--9 小数位</span></span><br><span class="line"><span class="keyword">SELECT</span> name, ROUND(population<span class="operator">/</span><span class="number">1000000</span>, <span class="number">2</span>), ROUND(GDP<span class="operator">/</span><span class="number">1000000000</span>,<span class="number">2</span>)</span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> continent<span class="operator">=</span><span class="string">&#x27;South America&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--10 四舍五入最近的1000（先除以1000，取整，再乘以1000）</span></span><br><span class="line"><span class="keyword">SELECT</span> name,ROUND(GDP<span class="operator">/</span>population<span class="operator">/</span><span class="number">1000</span>,<span class="number">0</span>)<span class="operator">*</span><span class="number">1000</span></span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> GDP<span class="operator">&gt;=</span><span class="number">1000000000000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--11 当州名为Caribbean和Oceania时进行替换</span></span><br><span class="line"><span class="keyword">SELECT</span> name,</span><br><span class="line">       <span class="keyword">CASE</span> <span class="keyword">WHEN</span> continent<span class="operator">=</span><span class="string">&#x27;Caribbean&#x27;</span> <span class="keyword">THEN</span> <span class="string">&#x27;North America&#x27;</span></span><br><span class="line">            <span class="keyword">WHEN</span> continent<span class="operator">=</span><span class="string">&#x27;Oceania&#x27;</span> <span class="keyword">THEN</span> <span class="string">&#x27;Australasia&#x27;</span></span><br><span class="line">            <span class="keyword">ELSE</span> continent <span class="keyword">END</span></span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> name <span class="keyword">LIKE</span> <span class="string">&#x27;N%&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--12</span></span><br><span class="line"><span class="keyword">SELECT</span> name,</span><br><span class="line">  <span class="keyword">CASE</span> <span class="keyword">WHEN</span> continent <span class="keyword">IN</span> (<span class="string">&#x27;Europe&#x27;</span>,<span class="string">&#x27;Asia&#x27;</span>) <span class="keyword">THEN</span> <span class="string">&#x27;Eurasia&#x27;</span></span><br><span class="line">    <span class="keyword">WHEN</span> continent <span class="keyword">IN</span> (<span class="string">&#x27;North America&#x27;</span>,<span class="string">&#x27;South America&#x27;</span>,<span class="string">&#x27;Caribbean&#x27;</span>) <span class="keyword">THEN</span> <span class="string">&#x27;America&#x27;</span></span><br><span class="line">    <span class="keyword">ELSE</span> continent <span class="keyword">END</span></span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> name <span class="keyword">LIKE</span> <span class="string">&#x27;A%&#x27;</span> <span class="keyword">or</span> name <span class="keyword">LIKE</span> <span class="string">&#x27;B%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--13</span></span><br><span class="line"><span class="keyword">SELECT</span> name,continent,</span><br><span class="line">  <span class="keyword">CASE</span> <span class="keyword">WHEN</span> continent<span class="operator">=</span><span class="string">&#x27;Oceania&#x27;</span> <span class="keyword">THEN</span> <span class="string">&#x27;Australasia&#x27;</span></span><br><span class="line">    <span class="keyword">WHEN</span> continent <span class="keyword">IN</span> (<span class="string">&#x27;Eurasia&#x27;</span>,<span class="string">&#x27;Turkey&#x27;</span>) <span class="keyword">THEN</span> <span class="string">&#x27;Europe/Asia&#x27;</span></span><br><span class="line">    <span class="keyword">WHEN</span> continent<span class="operator">=</span><span class="string">&#x27;Caribbean&#x27;</span> <span class="keyword">AND</span> name <span class="keyword">LIKE</span> <span class="string">&#x27;B%&#x27;</span> <span class="keyword">THEN</span> <span class="string">&#x27;North America&#x27;</span></span><br><span class="line">    <span class="keyword">WHEN</span> continent<span class="operator">=</span><span class="string">&#x27;Caribbean&#x27;</span> <span class="keyword">AND</span> name <span class="keyword">NOT</span> <span class="keyword">LIKE</span> <span class="string">&#x27;B%&#x27;</span> <span class="keyword">THEN</span> <span class="string">&#x27;South America&#x27;</span></span><br><span class="line">    <span class="keyword">ELSE</span> continent <span class="keyword">END</span></span><br><span class="line"><span class="keyword">FROM</span> world;</span><br></pre></td></tr></table></figure>
+<h2 id="SELECT-from-Nobel-Tutorial"><a href="#SELECT-from-Nobel-Tutorial" class="headerlink" title="SELECT from Nobel Tutorial"></a>SELECT from Nobel Tutorial</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--1</span></span><br><span class="line"><span class="keyword">SELECT</span> yr, subject, winner</span><br><span class="line"><span class="keyword">FROM</span> nobel</span><br><span class="line"><span class="keyword">WHERE</span> yr <span class="operator">=</span> <span class="number">1950</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--2</span></span><br><span class="line"><span class="keyword">SELECT</span> winner</span><br><span class="line"><span class="keyword">FROM</span> nobel</span><br><span class="line"><span class="keyword">WHERE</span> yr <span class="operator">=</span> <span class="number">1962</span></span><br><span class="line"><span class="keyword">AND</span> subject <span class="operator">=</span> <span class="string">&#x27;Literature&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">--3</span></span><br><span class="line"><span class="keyword">SELECT</span> yr,subject</span><br><span class="line"><span class="keyword">FROM</span> nobel</span><br><span class="line"><span class="keyword">WHERE</span> winner<span class="operator">=</span><span class="string">&#x27;Albert Einstein&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--4</span></span><br><span class="line"><span class="keyword">SELECT</span> winner</span><br><span class="line"><span class="keyword">FROM</span> nobel</span><br><span class="line"><span class="keyword">WHERE</span> subject<span class="operator">=</span><span class="string">&#x27;Peace&#x27;</span> <span class="keyword">AND</span> yr<span class="operator">&gt;=</span><span class="number">2000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--5</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> nobel</span><br><span class="line"><span class="keyword">WHERE</span> subject<span class="operator">=</span><span class="string">&#x27;Literature&#x27;</span> <span class="keyword">AND</span> yr <span class="keyword">BETWEEN</span> <span class="number">1980</span> <span class="keyword">AND</span> <span class="number">1989</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--6</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> nobel</span><br><span class="line"><span class="keyword">WHERE</span> winner <span class="keyword">IN</span> (<span class="string">&#x27;Theodore Roosevelt&#x27;</span>,<span class="string">&#x27;Woodrow Wilson&#x27;</span>,<span class="string">&#x27;Jimmy Carter&#x27;</span>,<span class="string">&#x27;Barack Obama&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">--7</span></span><br><span class="line"><span class="keyword">SELECT</span> winner</span><br><span class="line"><span class="keyword">FROM</span> nobel</span><br><span class="line"><span class="keyword">WHERE</span> winner <span class="keyword">LIKE</span> <span class="string">&#x27;John%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--8</span></span><br><span class="line"><span class="keyword">SELECT</span> yr, subject, winner</span><br><span class="line"><span class="keyword">FROM</span> nobel</span><br><span class="line"><span class="keyword">WHERE</span> (subject<span class="operator">=</span><span class="string">&#x27;Physics&#x27;</span> <span class="keyword">AND</span> yr<span class="operator">=</span><span class="string">&#x27;1980&#x27;</span>)</span><br><span class="line">  <span class="keyword">OR</span> (subject<span class="operator">=</span><span class="string">&#x27;Chemistry&#x27;</span> <span class="keyword">AND</span> yr<span class="operator">=</span><span class="string">&#x27;1984&#x27;</span>); </span><br><span class="line">  </span><br><span class="line"><span class="comment">--9</span></span><br><span class="line"><span class="keyword">SELECT</span> yr, subject, winner</span><br><span class="line"><span class="keyword">FROM</span> nobel</span><br><span class="line"><span class="keyword">WHERE</span> yr<span class="operator">=</span><span class="number">1980</span> <span class="keyword">AND</span> subject <span class="keyword">NOT</span> <span class="keyword">IN</span> (<span class="string">&#x27;Chemistry&#x27;</span>,<span class="string">&#x27;Medicine&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">--10</span></span><br><span class="line"><span class="keyword">SELECT</span> yr,subject,winner</span><br><span class="line"><span class="keyword">FROM</span> nobel</span><br><span class="line"><span class="keyword">WHERE</span> (subject<span class="operator">=</span><span class="string">&#x27;Medicine&#x27;</span> <span class="keyword">AND</span> yr<span class="operator">&lt;</span><span class="number">1910</span>) <span class="keyword">OR</span> (subject<span class="operator">=</span><span class="string">&#x27;Literature&#x27;</span> <span class="keyword">AND</span> yr<span class="operator">&gt;=</span><span class="number">2004</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">--11 非ASCII码字符</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> nobel</span><br><span class="line"><span class="keyword">WHERE</span> winner<span class="operator">=</span><span class="string">&#x27;PETER GRÜNBERG&#x27;</span>; <span class="comment">-- 直接复制来的名字</span></span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"><span class="comment">--TODO</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--12 用两个单引号代替一个单引号</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> nobel</span><br><span class="line"><span class="keyword">WHERE</span> winner<span class="operator">=</span><span class="string">&#x27;EUGENE O&#x27;&#x27;NEILL&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">--13 降序</span></span><br><span class="line"><span class="keyword">SELECT</span> winner,yr,subject</span><br><span class="line"><span class="keyword">FROM</span> nobel</span><br><span class="line"><span class="keyword">WHERE</span> winner <span class="keyword">LIKE</span> <span class="string">&#x27;Sir%&#x27;</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> yr <span class="keyword">DESC</span>, winner</span><br><span class="line"></span><br><span class="line"><span class="comment">--14 这题核对了网站底部的讲解视频，结果是正确的，但网站不反馈正确</span></span><br><span class="line"><span class="keyword">SELECT</span> winner, subject</span><br><span class="line"><span class="keyword">FROM</span> nobel</span><br><span class="line"><span class="keyword">WHERE</span> yr<span class="operator">=</span><span class="number">1984</span></span><br><span class="line">  <span class="keyword">ORDER</span> <span class="keyword">BY</span> </span><br><span class="line">    <span class="keyword">CASE</span> <span class="keyword">WHEN</span> subject <span class="keyword">IN</span> (<span class="string">&#x27;Chemistry&#x27;</span>,<span class="string">&#x27;Physics&#x27;</span>) <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>,subject,winner</span><br></pre></td></tr></table></figure>
+<h2 id="SELECT-within-SELECT-Tutorial"><a href="#SELECT-within-SELECT-Tutorial" class="headerlink" title="SELECT within SELECT Tutorial"></a>SELECT within SELECT Tutorial</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--1</span></span><br><span class="line"><span class="keyword">SELECT</span> name <span class="keyword">FROM</span> world</span><br><span class="line">  <span class="keyword">WHERE</span> population <span class="operator">&gt;</span></span><br><span class="line">    (<span class="keyword">SELECT</span> population <span class="keyword">FROM</span> world</span><br><span class="line">     <span class="keyword">WHERE</span> name<span class="operator">=</span><span class="string">&#x27;Russia&#x27;</span>)</span><br><span class="line">     </span><br><span class="line"><span class="comment">--2</span></span><br><span class="line"><span class="keyword">SELECT</span> name</span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> continent<span class="operator">=</span><span class="string">&#x27;Europe&#x27;</span> </span><br><span class="line">  <span class="keyword">AND</span> gdp<span class="operator">/</span>population <span class="operator">&gt;</span> </span><br><span class="line">    (<span class="keyword">SELECT</span> gdp<span class="operator">/</span>population <span class="keyword">FROM</span> world</span><br><span class="line">     <span class="keyword">WHERE</span> name<span class="operator">=</span><span class="string">&#x27;United Kingdom&#x27;</span>);</span><br><span class="line">     </span><br><span class="line"><span class="comment">--3</span></span><br><span class="line"><span class="keyword">SELECT</span> name,continent</span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> continent <span class="keyword">IN</span> </span><br><span class="line">  (<span class="keyword">SELECT</span> continent <span class="keyword">FROM</span> world</span><br><span class="line">   <span class="keyword">WHERE</span> name <span class="keyword">IN</span> (<span class="string">&#x27;Argentina&#x27;</span>,<span class="string">&#x27;Australia&#x27;</span>))</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> name;</span><br><span class="line"></span><br><span class="line"><span class="comment">--4</span></span><br><span class="line"><span class="keyword">SELECT</span> name,population</span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> population <span class="operator">&gt;</span></span><br><span class="line">  (<span class="keyword">SELECT</span> population <span class="keyword">FROM</span> world <span class="keyword">WHERE</span> name<span class="operator">=</span><span class="string">&#x27;Canada&#x27;</span>)</span><br><span class="line">   <span class="keyword">AND</span> population <span class="operator">&lt;</span></span><br><span class="line">  (<span class="keyword">SELECT</span> population <span class="keyword">FROM</span> world <span class="keyword">WHERE</span> name<span class="operator">=</span><span class="string">&#x27;Poland&#x27;</span>); </span><br><span class="line">  </span><br><span class="line"><span class="comment">--5 避免浮点型ROUND截取后自动填充，应用CAST将其改为 int 类型再 CONCAT</span></span><br><span class="line"><span class="keyword">SELECT</span> name,</span><br><span class="line">  CONCAT(<span class="built_in">CAST</span> (ROUND(population<span class="operator">*</span><span class="number">100</span><span class="operator">/</span></span><br><span class="line">    (<span class="keyword">SELECT</span> population <span class="keyword">FROM</span> world <span class="keyword">WHERE</span> name<span class="operator">=</span><span class="string">&#x27;Germany&#x27;</span>),<span class="number">0</span>)<span class="keyword">AS</span> <span class="type">int</span>),<span class="string">&#x27;%&#x27;</span>)</span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> continent<span class="operator">=</span><span class="string">&#x27;Europe&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--6 注意GDP大于所有欧洲国家（显然就不包括欧洲国家了）</span></span><br><span class="line"><span class="keyword">SELECT</span> name</span><br><span class="line"><span class="keyword">FROM</span> world </span><br><span class="line"><span class="keyword">WHERE</span> continent<span class="operator">&lt;&gt;</span><span class="string">&#x27;Europe&#x27;</span> <span class="keyword">AND</span> gdp<span class="operator">&gt;=</span><span class="keyword">ALL</span>(<span class="keyword">SELECT</span> gdp</span><br><span class="line">                											<span class="keyword">FROM</span> world</span><br><span class="line"> 											                <span class="keyword">WHERE</span> continent<span class="operator">=</span><span class="string">&#x27;Europe&#x27;</span> <span class="keyword">AND</span> gdp<span class="operator">&gt;</span><span class="number">0</span>);</span><br><span class="line">                                      </span><br><span class="line"><span class="comment">--7 联结表与子查询的结合</span></span><br><span class="line"><span class="keyword">SELECT</span> continent, name, area <span class="keyword">FROM</span> world x</span><br><span class="line">  <span class="keyword">WHERE</span> area<span class="operator">&gt;=</span> <span class="keyword">ALL</span></span><br><span class="line">    (<span class="keyword">SELECT</span> area <span class="keyword">FROM</span> world y</span><br><span class="line">        <span class="keyword">WHERE</span> y.continent<span class="operator">=</span>x.continent</span><br><span class="line">          <span class="keyword">AND</span> area<span class="operator">&gt;</span><span class="number">0</span>)</span><br><span class="line">          </span><br><span class="line"><span class="comment">--8 联结表与子查询</span></span><br><span class="line"><span class="keyword">SELECT</span> continent,name</span><br><span class="line"><span class="keyword">FROM</span> world x</span><br><span class="line"><span class="keyword">WHERE</span> name <span class="operator">&lt;=</span> <span class="keyword">ALL</span> </span><br><span class="line">  (<span class="keyword">SELECT</span> name <span class="keyword">FROM</span> world y</span><br><span class="line">     <span class="keyword">WHERE</span> x.continent <span class="operator">=</span> y.continent)</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> name;</span><br><span class="line"></span><br><span class="line"><span class="comment">--9</span></span><br><span class="line"><span class="keyword">SELECT</span> name,continent,population </span><br><span class="line"><span class="keyword">FROM</span> world x</span><br><span class="line"><span class="keyword">WHERE</span> <span class="number">25000000</span><span class="operator">&gt;=</span> <span class="keyword">ALL</span>(</span><br><span class="line">  <span class="keyword">SELECT</span> population <span class="keyword">FROM</span> world y</span><br><span class="line">    <span class="keyword">WHERE</span> x.continent<span class="operator">=</span>y.continent);</span><br><span class="line"></span><br><span class="line"><span class="comment">--10</span></span><br><span class="line"><span class="keyword">SELECT</span> name,continent</span><br><span class="line"><span class="keyword">FROM</span> world x</span><br><span class="line"><span class="keyword">WHERE</span> population <span class="operator">&gt;</span> <span class="keyword">ALL</span>(</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="number">3</span><span class="operator">*</span>population <span class="keyword">FROM</span> world y</span><br><span class="line">    <span class="keyword">WHERE</span> x.continent<span class="operator">=</span>y.continent <span class="keyword">AND</span> x.population<span class="operator">&lt;&gt;</span>y.population);</span><br></pre></td></tr></table></figure>
+<h2 id="Nested-SELECT-Quiz"><a href="#Nested-SELECT-Quiz" class="headerlink" title="Nested SELECT Quiz"></a>Nested SELECT Quiz</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--1</span></span><br><span class="line"><span class="keyword">SELECT</span> region, name, population <span class="keyword">FROM</span> bbc x <span class="keyword">WHERE</span> population <span class="operator">&lt;=</span> <span class="keyword">ALL</span> (<span class="keyword">SELECT</span> population <span class="keyword">FROM</span> bbc y <span class="keyword">WHERE</span> y.region<span class="operator">=</span>x.region <span class="keyword">AND</span> population<span class="operator">&gt;</span><span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">--2</span></span><br><span class="line"><span class="keyword">SELECT</span> name,region,population <span class="keyword">FROM</span> bbc x <span class="keyword">WHERE</span> <span class="number">50000</span> <span class="operator">&lt;</span> <span class="keyword">ALL</span> (<span class="keyword">SELECT</span> population <span class="keyword">FROM</span> bbc y <span class="keyword">WHERE</span> x.region<span class="operator">=</span>y.region <span class="keyword">AND</span> y.population<span class="operator">&gt;</span><span class="number">0</span>);</span><br><span class="line"> </span><br><span class="line"> <span class="comment">--3</span></span><br><span class="line"><span class="keyword">SELECT</span> name, region <span class="keyword">FROM</span> bbc x</span><br><span class="line"><span class="keyword">WHERE</span> population <span class="operator">&lt;</span> <span class="keyword">ALL</span> (<span class="keyword">SELECT</span> population<span class="operator">/</span><span class="number">3</span> <span class="keyword">FROM</span> bbc y <span class="keyword">WHERE</span> y.region <span class="operator">=</span> x.region <span class="keyword">AND</span> y.name <span class="operator">!=</span> x.name);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>4</li>
+</ul>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn.nlark.com/yuque/0/2021/png/21379182/1619504994125-260f8261-1c27-4bf0-8dd0-ee1bd28e2c8e.png#clientId=u2c884a7d-6cd4-4&amp;from=paste&amp;height=143&amp;id=u5c6a59ae&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=143&amp;originWidth=142&amp;originalType=binary&amp;size=3805&amp;status=done&amp;style=none&amp;taskId=ue728751d-f0f9-4b69-8b98-49e4d9c999f&amp;width=142" alt="image.png"><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--5</span></span><br><span class="line"><span class="keyword">SELECT</span> name <span class="keyword">FROM</span> bbc</span><br><span class="line"><span class="keyword">WHERE</span> gdp <span class="operator">&gt;</span> (<span class="keyword">SELECT</span> <span class="built_in">MAX</span>(gdp) <span class="keyword">FROM</span> bbc <span class="keyword">WHERE</span> region <span class="operator">=</span> <span class="string">&#x27;Africa&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">--6</span></span><br><span class="line"><span class="keyword">SELECT</span> name <span class="keyword">FROM</span> bbc</span><br><span class="line"> <span class="keyword">WHERE</span> population <span class="operator">&lt;</span> (<span class="keyword">SELECT</span> population <span class="keyword">FROM</span> bbc <span class="keyword">WHERE</span> name<span class="operator">=</span><span class="string">&#x27;Russia&#x27;</span>)</span><br><span class="line">   <span class="keyword">AND</span> population <span class="operator">&gt;</span> (<span class="keyword">SELECT</span> population <span class="keyword">FROM</span> bbc <span class="keyword">WHERE</span> name<span class="operator">=</span><span class="string">&#x27;Denmark&#x27;</span>)			</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>7</li>
+</ul>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn.nlark.com/yuque/0/2021/png/21379182/1619505161474-33676d6e-742b-47eb-892a-832d97b3f7fe.png#clientId=u2c884a7d-6cd4-4&amp;from=paste&amp;height=104&amp;id=ube7aa48f&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=127&amp;originWidth=180&amp;originalType=binary&amp;size=3954&amp;status=done&amp;style=none&amp;taskId=u58db8a5c-2dbd-44bd-8c6e-485123b0faa&amp;width=148" alt="image.png"></p>
+<h2 id="SUM-and-COUNT"><a href="#SUM-and-COUNT" class="headerlink" title="SUM and COUNT"></a>SUM and COUNT</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--1</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(population)</span><br><span class="line"><span class="keyword">FROM</span> world;</span><br><span class="line"></span><br><span class="line"><span class="comment">--2</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> continent</span><br><span class="line"><span class="keyword">FROM</span> world;</span><br><span class="line"></span><br><span class="line"><span class="comment">--3</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(GDP)</span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> continent<span class="operator">=</span><span class="string">&#x27;Africa&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--4</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> area<span class="operator">&gt;=</span><span class="number">1000000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--5</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(population)</span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> name <span class="keyword">IN</span> (<span class="string">&#x27;Estonia&#x27;</span>, <span class="string">&#x27;Latvia&#x27;</span>, <span class="string">&#x27;Lithuania&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">--6</span></span><br><span class="line"><span class="keyword">SELECT</span> continent,<span class="built_in">COUNT</span>(name)</span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> continent;</span><br><span class="line"></span><br><span class="line"><span class="comment">--7</span></span><br><span class="line"><span class="keyword">SELECT</span> continent,<span class="built_in">COUNT</span>(name)</span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">WHERE</span> population<span class="operator">&gt;=</span> <span class="number">10000000</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> continent;</span><br><span class="line"></span><br><span class="line"><span class="comment">--8</span></span><br><span class="line"><span class="keyword">SELECT</span> continent</span><br><span class="line"><span class="keyword">FROM</span> world</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> continent</span><br><span class="line"><span class="keyword">HAVING</span> <span class="built_in">SUM</span>(population)<span class="operator">&gt;=</span><span class="number">100000000</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="SUM-and-COUNT-QUIZ"><a href="#SUM-and-COUNT-QUIZ" class="headerlink" title="SUM and COUNT QUIZ"></a>SUM and COUNT QUIZ</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--1</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(population) <span class="keyword">FROM</span> bbc <span class="keyword">WHERE</span> region <span class="operator">=</span> <span class="string">&#x27;Europe&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--2</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(name) <span class="keyword">FROM</span> bbc <span class="keyword">WHERE</span> population <span class="operator">&lt;</span> <span class="number">150000</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--3</span></span><br><span class="line"><span class="built_in">AVG</span>(), <span class="built_in">COUNT</span>(), <span class="built_in">MAX</span>(), <span class="built_in">MIN</span>(), <span class="built_in">SUM</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">--4</span></span><br><span class="line"><span class="keyword">No</span> <span class="keyword">result</span> due <span class="keyword">to</span> invalid use <span class="keyword">of</span> the <span class="keyword">WHERE</span> <span class="keyword">function</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--5</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">AVG</span>(population) <span class="keyword">FROM</span> bbc <span class="keyword">WHERE</span> name <span class="keyword">IN</span> (<span class="string">&#x27;Poland&#x27;</span>, <span class="string">&#x27;Germany&#x27;</span>, <span class="string">&#x27;Denmark&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">--6</span></span><br><span class="line"><span class="keyword">SELECT</span> region, <span class="built_in">SUM</span>(population)<span class="operator">/</span><span class="built_in">SUM</span>(area) <span class="keyword">AS</span> density <span class="keyword">FROM</span> bbc <span class="keyword">GROUP</span> <span class="keyword">BY</span> region</span><br><span class="line"></span><br><span class="line"><span class="comment">--7</span></span><br><span class="line"><span class="keyword">SELECT</span> name, population<span class="operator">/</span>area <span class="keyword">AS</span> density <span class="keyword">FROM</span> bbc <span class="keyword">WHERE</span> population <span class="operator">=</span> (<span class="keyword">SELECT</span> <span class="built_in">MAX</span>(population) <span class="keyword">FROM</span> bbc)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>8</li>
+</ul>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn.nlark.com/yuque/0/2021/png/21379182/1619506728542-f87aacb5-17e2-43fd-bf8e-cb5fa5871f64.png#clientId=u2c884a7d-6cd4-4&amp;from=paste&amp;height=103&amp;id=u279d253b&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=159&amp;originWidth=334&amp;originalType=binary&amp;size=8159&amp;status=done&amp;style=none&amp;taskId=uf7497108-df62-458d-9374-e81ead5f87d&amp;width=216" alt="image.png"></p>
+<h2 id="The-JOIN-operation"><a href="#The-JOIN-operation" class="headerlink" title="The JOIN operation"></a>The JOIN operation</h2><ul>
+<li><p><strong>JOIN 的说明</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line">  <span class="keyword">FROM</span> game <span class="keyword">JOIN</span> goal <span class="keyword">ON</span> (id<span class="operator">=</span>matchid)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>语句 FROM 表示合并 game 和 goal 两个表的数据。 </li>
+<li>ON 表示如何找出 game 中每一列应该配对 goal 中的哪一列 （game 的 id 需要配对 goal 的matchid），就是ON (game.id=goal.matchid)</li>
+</ul>
+</li>
+<li><strong>GROUP BY 的说明</strong> （参考 MySQL 必知必会 P84）</li>
+</ul>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn.nlark.com/yuque/0/2021/png/21379182/1619517054267-6ae0690b-5ce6-4573-ad0b-54c16305fbb6.png#clientId=u69b6848c-be30-4&amp;from=paste&amp;height=60&amp;id=ua3b1caa7&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=120&amp;originWidth=1207&amp;originalType=binary&amp;size=29859&amp;status=done&amp;style=none&amp;taskId=u32326f38-20a6-4139-93c8-fc3ee1711d8&amp;width=603.5" alt="image.png"></p>
+<ul>
+<li>第11题<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--1</span></span><br><span class="line"><span class="keyword">SELECT</span> matchid,player</span><br><span class="line"><span class="keyword">FROM</span> goal </span><br><span class="line"><span class="keyword">WHERE</span> teamid<span class="operator">=</span><span class="string">&#x27;GER&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--2</span></span><br><span class="line"><span class="keyword">SELECT</span> id,stadium,team1,team2</span><br><span class="line"><span class="keyword">FROM</span> game</span><br><span class="line"><span class="keyword">WHERE</span> id<span class="operator">=</span><span class="number">1012</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--3</span></span><br><span class="line"><span class="keyword">SELECT</span> player,teamid,stadium,mdate</span><br><span class="line"><span class="keyword">FROM</span> game <span class="keyword">JOIN</span> goal <span class="keyword">ON</span> (id<span class="operator">=</span>matchid)</span><br><span class="line"><span class="keyword">WHERE</span> teamid<span class="operator">=</span><span class="string">&#x27;GER&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--4</span></span><br><span class="line"><span class="keyword">SELECT</span> team1,team2,player</span><br><span class="line"><span class="keyword">FROM</span> game <span class="keyword">JOIN</span> goal <span class="keyword">ON</span> (id<span class="operator">=</span>matchid)</span><br><span class="line"><span class="keyword">WHERE</span> player <span class="keyword">LIKE</span> <span class="string">&#x27;Mario%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--5</span></span><br><span class="line"><span class="keyword">SELECT</span> player, teamid, coach, gtime</span><br><span class="line"><span class="keyword">FROM</span> goal <span class="keyword">JOIN</span> eteam <span class="keyword">ON</span> (teamid<span class="operator">=</span>id)</span><br><span class="line"><span class="keyword">WHERE</span> gtime<span class="operator">&lt;=</span><span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--6</span></span><br><span class="line"><span class="keyword">SELECT</span> mdate,teamname</span><br><span class="line"><span class="keyword">FROM</span> game <span class="keyword">JOIN</span> eteam <span class="keyword">ON</span> (team1<span class="operator">=</span>eteam.id)</span><br><span class="line"><span class="keyword">WHERE</span> coach<span class="operator">=</span><span class="string">&#x27;Fernando Santos&#x27;</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> mdate, teamname;</span><br><span class="line"></span><br><span class="line"><span class="comment">--7</span></span><br><span class="line"><span class="keyword">SELECT</span> player</span><br><span class="line"><span class="keyword">FROM</span> game <span class="keyword">JOIN</span> goal <span class="keyword">ON</span> (id<span class="operator">=</span>matchid)</span><br><span class="line"><span class="keyword">WHERE</span> stadium <span class="operator">=</span> <span class="string">&#x27;National Stadium, Warsaw&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--8 注意 player 是不重复的</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> player</span><br><span class="line"><span class="keyword">FROM</span> game <span class="keyword">JOIN</span> goal <span class="keyword">ON</span> (id<span class="operator">=</span>matchid) </span><br><span class="line"><span class="keyword">WHERE</span> (team1<span class="operator">=</span><span class="string">&#x27;GER&#x27;</span> <span class="keyword">OR</span> team2<span class="operator">=</span><span class="string">&#x27;GER&#x27;</span>) <span class="keyword">AND</span> teamid<span class="operator">&lt;&gt;</span><span class="string">&#x27;GER&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--9</span></span><br><span class="line"><span class="keyword">SELECT</span> teamname, <span class="built_in">COUNT</span>(player)</span><br><span class="line"><span class="keyword">FROM</span> eteam <span class="keyword">JOIN</span> goal <span class="keyword">ON</span> (id<span class="operator">=</span>teamid)</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> teamname;</span><br><span class="line"></span><br><span class="line"><span class="comment">--10</span></span><br><span class="line"><span class="keyword">SELECT</span> stadium,<span class="built_in">COUNT</span>(teamid)</span><br><span class="line"><span class="keyword">FROM</span> game <span class="keyword">JOIN</span> goal <span class="keyword">ON</span> id<span class="operator">=</span>matchid</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> stadium;</span><br><span class="line"></span><br><span class="line"><span class="comment">--11 这里要以 matchid,mdate 为分组，少一个都不行</span></span><br><span class="line"><span class="keyword">SELECT</span> matchid, mdate, <span class="built_in">COUNT</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">FROM</span> game <span class="keyword">JOIN</span> goal <span class="keyword">ON</span> matchid <span class="operator">=</span> id </span><br><span class="line"><span class="keyword">WHERE</span> (team1 <span class="operator">=</span> <span class="string">&#x27;POL&#x27;</span> <span class="keyword">OR</span> team2 <span class="operator">=</span> <span class="string">&#x27;POL&#x27;</span>)</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> matchid,mdate;</span><br><span class="line"></span><br><span class="line"><span class="comment">--12</span></span><br><span class="line"><span class="keyword">SELECT</span> matchid, mdate, <span class="built_in">COUNT</span>(gtime)</span><br><span class="line"><span class="keyword">FROM</span> goal <span class="keyword">JOIN</span> game <span class="keyword">ON</span> matchid<span class="operator">=</span>id</span><br><span class="line"><span class="keyword">WHERE</span> teamid<span class="operator">=</span><span class="string">&#x27;GER&#x27;</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> matchid,mdate;</span><br><span class="line"></span><br><span class="line"><span class="comment">--13 CASE WHEN THEN ELSE END</span></span><br><span class="line"><span class="keyword">SELECT</span> mdate,team1,</span><br><span class="line">  <span class="built_in">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> teamid<span class="operator">=</span>team1 <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> score1,</span><br><span class="line">  team2,</span><br><span class="line">  <span class="built_in">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> teamid<span class="operator">=</span>team2 <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> score2</span><br><span class="line"><span class="keyword">FROM</span> game <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> goal <span class="keyword">ON</span> matchid <span class="operator">=</span> id</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> mdate,matchid,team1,team2;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>第 13 题，如果不用 SUM 统计 CASE 总和的化，得到的列中行值不是 0 就是 1；另外，需要 LEFT JOIN，因为仅仅 JOIN 的话，如果有某行全为 0（没有进球），则该行就不会显示了。LEFT JOIN 无论如何都会显示，不进球就全给 0 值（或NULL）</p>
+<h2 id="JOIN-Quiz"><a href="#JOIN-Quiz" class="headerlink" title="JOIN Quiz"></a>JOIN Quiz</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--1</span></span><br><span class="line">game  <span class="keyword">JOIN</span> goal <span class="keyword">ON</span> (id<span class="operator">=</span>matchid)</span><br><span class="line"></span><br><span class="line"><span class="comment">--2</span></span><br><span class="line"> matchid, teamid, player, gtime, id, teamname, coach</span><br><span class="line"> </span><br><span class="line"> <span class="comment">--3</span></span><br><span class="line"> <span class="keyword">SELECT</span> player, teamid, <span class="built_in">COUNT</span>(<span class="operator">*</span>)</span><br><span class="line">  <span class="keyword">FROM</span> game <span class="keyword">JOIN</span> goal <span class="keyword">ON</span> matchid <span class="operator">=</span> id</span><br><span class="line"> <span class="keyword">WHERE</span> (team1 <span class="operator">=</span> &quot;GRE&quot; <span class="keyword">OR</span> team2 <span class="operator">=</span> &quot;GRE&quot;)</span><br><span class="line">   <span class="keyword">AND</span> teamid <span class="operator">!=</span> <span class="string">&#x27;GRE&#x27;</span></span><br><span class="line"> <span class="keyword">GROUP</span> <span class="keyword">BY</span> player, teamid</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>4</p>
+</li>
+</ul>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn.nlark.com/yuque/0/2021/png/21379182/1619526331929-da44a355-e217-4c68-9ea8-b0113e815121.png#clientId=u146ec951-45d7-4&amp;from=paste&amp;height=68&amp;id=u009d8be8&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=88&amp;originWidth=235&amp;originalType=binary&amp;size=3572&amp;status=done&amp;style=none&amp;taskId=ubaa1e1ae-0f60-487a-8395-209158ccd6e&amp;width=180.5" alt="image.png"><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--5</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> player, teamid </span><br><span class="line"><span class="keyword">FROM</span> game <span class="keyword">JOIN</span> goal <span class="keyword">ON</span> matchid <span class="operator">=</span> id </span><br><span class="line"><span class="keyword">WHERE</span> stadium <span class="operator">=</span> <span class="string">&#x27;National Stadium, Warsaw&#x27;</span> </span><br><span class="line">  <span class="keyword">AND</span> (team1 <span class="operator">=</span> <span class="string">&#x27;POL&#x27;</span> <span class="keyword">OR</span> team2 <span class="operator">=</span> <span class="string">&#x27;POL&#x27;</span>)</span><br><span class="line">  <span class="keyword">AND</span> teamid <span class="operator">!=</span> <span class="string">&#x27;POL&#x27;</span></span><br><span class="line">  </span><br><span class="line"><span class="comment">--6</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> player, teamid, gtime</span><br><span class="line">  <span class="keyword">FROM</span> game <span class="keyword">JOIN</span> goal <span class="keyword">ON</span> matchid <span class="operator">=</span> id</span><br><span class="line"> <span class="keyword">WHERE</span> stadium <span class="operator">=</span> <span class="string">&#x27;Stadion Miejski (Wroclaw)&#x27;</span></span><br><span class="line">   <span class="keyword">AND</span> (( teamid <span class="operator">=</span> team2 <span class="keyword">AND</span> team1 <span class="operator">!=</span> <span class="string">&#x27;ITA&#x27;</span>) <span class="keyword">OR</span> ( teamid <span class="operator">=</span> team1 <span class="keyword">AND</span> team2 <span class="operator">!=</span> <span class="string">&#x27;ITA&#x27;</span>))</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>7</li>
+</ul>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn.nlark.com/yuque/0/2021/png/21379182/1619526590892-ac6bdec0-7845-4d38-94bd-a2ed8adc6b31.png#clientId=u146ec951-45d7-4&amp;from=paste&amp;height=106&amp;id=ua65a461a&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=120&amp;originWidth=261&amp;originalType=binary&amp;size=4510&amp;status=done&amp;style=none&amp;taskId=u121b786c-c45a-4a86-84db-69b5fb75916&amp;width=229.5" alt="image.png"></p>
+<h2 id="Using-Null"><a href="#Using-Null" class="headerlink" title="Using Null"></a>Using Null</h2><ul>
+<li>第四题，JOIN 前后换序，结果是不一样的 <a target="_blank" rel="noopener" href="https://www.w3school.com.cn/sql/sql_join.asp">参考</a><ul>
+<li>LEFT JOIN 先匹配左表</li>
+<li>RIGHT JOIN 先匹配右表</li>
+</ul>
+</li>
+<li><p>第五题，COALESCE 说明</p>
+<ul>
+<li><code>COALESCE(x,y,z)</code> 返回括号内参数的第一个非空值<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--1</span></span><br><span class="line"><span class="keyword">SELECT</span> name</span><br><span class="line"><span class="keyword">FROM</span> teacher</span><br><span class="line"><span class="keyword">WHERE</span> dept <span class="keyword">is</span> <span class="keyword">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--2</span></span><br><span class="line"><span class="keyword">SELECT</span> teacher.name, dept.name</span><br><span class="line"> <span class="keyword">FROM</span> teacher <span class="keyword">JOIN</span> dept</span><br><span class="line">           <span class="keyword">ON</span> (teacher.dept<span class="operator">=</span>dept.id)</span><br><span class="line">           </span><br><span class="line"><span class="comment">--3</span></span><br><span class="line"><span class="keyword">SELECT</span> teacher.name, dept.name</span><br><span class="line"><span class="keyword">FROM</span> teacher <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> dept </span><br><span class="line">  <span class="keyword">ON</span> (teacher.dept<span class="operator">=</span>dept.id);</span><br><span class="line"></span><br><span class="line"><span class="comment">--4 </span></span><br><span class="line"><span class="keyword">SELECT</span> teacher.name,dept.name</span><br><span class="line"><span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> teacher </span><br><span class="line">  <span class="keyword">ON</span> (teacher.dept<span class="operator">=</span>dept.id);</span><br><span class="line">或者</span><br><span class="line"><span class="keyword">SELECT</span> teacher.name,dept.name</span><br><span class="line"><span class="keyword">FROM</span> teacher <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> dept </span><br><span class="line">  <span class="keyword">ON</span> (teacher.dept<span class="operator">=</span>dept.id);</span><br><span class="line">  </span><br><span class="line"><span class="comment">--5 COALESCE</span></span><br><span class="line"><span class="keyword">SELECT</span> name,<span class="built_in">COALESCE</span>(mobile,<span class="string">&#x27;07986 444 2266&#x27;</span>)</span><br><span class="line"><span class="keyword">FROM</span> teacher;</span><br><span class="line"></span><br><span class="line"><span class="comment">--6</span></span><br><span class="line"><span class="keyword">SELECT</span> teacher.name,<span class="built_in">COALESCE</span>(dept.name,<span class="string">&#x27;None&#x27;</span>)</span><br><span class="line"><span class="keyword">FROM</span> teacher <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> dept</span><br><span class="line">  <span class="keyword">ON</span> teacher.dept<span class="operator">=</span>dept.id;</span><br><span class="line">  </span><br><span class="line"><span class="comment">--7</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(name), <span class="built_in">COUNT</span>(mobile)</span><br><span class="line"><span class="keyword">FROM</span> teacher;</span><br><span class="line"></span><br><span class="line"><span class="comment">--8</span></span><br><span class="line"><span class="keyword">SELECT</span> dept.name, <span class="built_in">COUNT</span>(teacher.name)</span><br><span class="line"><span class="keyword">FROM</span> teacher <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> dept <span class="keyword">ON</span> teacher.dept<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> dept.name;</span><br><span class="line"></span><br><span class="line"><span class="comment">--9</span></span><br><span class="line"><span class="keyword">SELECT</span> name,<span class="keyword">CASE</span> <span class="keyword">WHEN</span> dept <span class="keyword">IN</span> (<span class="number">1</span>,<span class="number">2</span>) <span class="keyword">THEN</span> <span class="string">&#x27;Sci&#x27;</span></span><br><span class="line">  <span class="keyword">ELSE</span> <span class="string">&#x27;Art&#x27;</span> <span class="keyword">END</span></span><br><span class="line"><span class="keyword">FROM</span> teacher;</span><br><span class="line"></span><br><span class="line"><span class="comment">--10</span></span><br><span class="line"><span class="keyword">SELECT</span> name,</span><br><span class="line">  <span class="keyword">CASE</span> <span class="keyword">WHEN</span> dept <span class="keyword">IN</span> (<span class="number">1</span>,<span class="number">2</span>) <span class="keyword">THEN</span> <span class="string">&#x27;Sci&#x27;</span></span><br><span class="line">    <span class="keyword">WHEN</span> dept<span class="operator">=</span><span class="number">3</span> <span class="keyword">THEN</span> <span class="string">&#x27;Art&#x27;</span></span><br><span class="line">    <span class="keyword">ELSE</span> <span class="string">&#x27;None&#x27;</span> <span class="keyword">END</span></span><br><span class="line"><span class="keyword">FROM</span> teacher;</span><br></pre></td></tr></table></figure>
+<h2 id="Using-Null-Quiz"><a href="#Using-Null-Quiz" class="headerlink" title="Using Null Quiz"></a>Using Null Quiz</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--1</span></span><br><span class="line"><span class="keyword">SELECT</span> teacher.name, dept.name <span class="keyword">FROM</span> teacher <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> dept <span class="keyword">ON</span> (teacher.dept <span class="operator">=</span> dept.id)</span><br><span class="line"></span><br><span class="line"><span class="comment">--2</span></span><br><span class="line"><span class="keyword">SELECT</span> dept.name <span class="keyword">FROM</span> teacher <span class="keyword">JOIN</span> dept <span class="keyword">ON</span> (dept.id <span class="operator">=</span> teacher.dept) <span class="keyword">WHERE</span> teacher.name <span class="operator">=</span> <span class="string">&#x27;Cutflower&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--3</span></span><br><span class="line"><span class="keyword">SELECT</span> dept.name, <span class="built_in">COUNT</span>(teacher.name) <span class="keyword">FROM</span> teacher <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> dept <span class="keyword">ON</span> dept.id <span class="operator">=</span> teacher.dept <span class="keyword">GROUP</span> <span class="keyword">BY</span> dept.name</span><br><span class="line"></span><br><span class="line"><span class="comment">--4</span></span><br><span class="line">display <span class="number">0</span> <span class="keyword">in</span> <span class="keyword">result</span> <span class="keyword">column</span> <span class="keyword">for</span> <span class="keyword">all</span> teachers <span class="keyword">without</span> department</span><br><span class="line"></span><br><span class="line"><span class="comment">--5</span></span><br><span class="line"><span class="string">&#x27;four&#x27;</span> <span class="keyword">for</span> Throd		</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>6</p>
+</li>
+</ul>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn.nlark.com/yuque/0/2021/png/21379182/1619529817902-e4860772-0dd5-422d-958b-ab1e1242aee0.png#clientId=u146ec951-45d7-4&amp;from=paste&amp;height=151&amp;id=u72a81a13&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=199&amp;originWidth=275&amp;originalType=binary&amp;size=9159&amp;status=done&amp;style=none&amp;taskId=u901b7013-fbae-48e9-8775-2c47e2ee1c9&amp;width=208.5" alt="image.png"></p>
+<h2 id="Self-join"><a href="#Self-join" class="headerlink" title="Self join"></a>Self join</h2><ul>
+<li>MySQL 必知必会 P107</li>
+<li><p>自联结：相当于一张表当两张用 <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1695474">参考</a></p>
+<ul>
+<li>帮助理解的 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/employees-earning-more-than-their-managers/">Leetcode 题 181. 超过经理收入的员工</a><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Write your MySQL query statement below</span><br><span class="line"><span class="keyword">SELECT</span> a.Name <span class="keyword">AS</span> Employee</span><br><span class="line"><span class="keyword">FROM</span> Employee a <span class="keyword">JOIN</span> Employee b <span class="keyword">ON</span> a.ManagerId<span class="operator">=</span>b.Id</span><br><span class="line"><span class="keyword">WHERE</span> a.Salary <span class="operator">&gt;</span> b.Salary</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>需回顾 6-10</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--1</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">FROM</span> stops;</span><br><span class="line"></span><br><span class="line"><span class="comment">--2</span></span><br><span class="line"><span class="keyword">SELECT</span> id</span><br><span class="line"><span class="keyword">FROM</span> stops</span><br><span class="line"><span class="keyword">WHERE</span> name<span class="operator">=</span><span class="string">&#x27;Craiglockhart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--3</span></span><br><span class="line"><span class="keyword">SELECT</span> id,name</span><br><span class="line"><span class="keyword">FROM</span> stops <span class="keyword">JOIN</span> route <span class="keyword">ON</span> id<span class="operator">=</span>stop</span><br><span class="line"><span class="keyword">WHERE</span> num<span class="operator">=</span><span class="string">&#x27;4&#x27;</span> <span class="keyword">AND</span> company<span class="operator">=</span><span class="string">&#x27;LRT&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--4</span></span><br><span class="line"><span class="keyword">SELECT</span> company, num, <span class="built_in">COUNT</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">FROM</span> route <span class="keyword">WHERE</span> stop<span class="operator">=</span><span class="number">149</span> <span class="keyword">OR</span> stop<span class="operator">=</span><span class="number">53</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> company, num</span><br><span class="line"><span class="keyword">HAVING</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>)<span class="operator">=</span><span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--5</span></span><br><span class="line"><span class="keyword">SELECT</span> a.company, a.num, a.stop, b.stop</span><br><span class="line"><span class="keyword">FROM</span> route a <span class="keyword">JOIN</span> route b <span class="keyword">ON</span></span><br><span class="line">  (a.company<span class="operator">=</span>b.company <span class="keyword">AND</span> a.num<span class="operator">=</span>b.num)</span><br><span class="line"><span class="keyword">WHERE</span> a.stop<span class="operator">=</span><span class="number">53</span> <span class="keyword">AND</span> b.stop<span class="operator">=</span><span class="number">149</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--6</span></span><br><span class="line"><span class="keyword">SELECT</span> a.company, a.num, stopa.name, stopb.name</span><br><span class="line"><span class="keyword">FROM</span> route a <span class="keyword">JOIN</span> route b <span class="keyword">ON</span></span><br><span class="line">  (a.company<span class="operator">=</span>b.company <span class="keyword">AND</span> a.num<span class="operator">=</span>b.num)</span><br><span class="line">  <span class="keyword">JOIN</span> stops stopa <span class="keyword">ON</span> (a.stop<span class="operator">=</span>stopa.id)</span><br><span class="line">  <span class="keyword">JOIN</span> stops stopb <span class="keyword">ON</span> (b.stop<span class="operator">=</span>stopb.id)</span><br><span class="line"><span class="keyword">WHERE</span> stopa.name<span class="operator">=</span><span class="string">&#x27;Craiglockhart&#x27;</span> <span class="keyword">AND</span> stopb.name<span class="operator">=</span><span class="string">&#x27;London Road&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--7</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> a.company,a.num</span><br><span class="line"><span class="keyword">FROM</span> route a <span class="keyword">JOIN</span> route b <span class="keyword">ON</span> (a.company<span class="operator">=</span>b.company <span class="keyword">AND</span> a.num<span class="operator">=</span>b.num)</span><br><span class="line"><span class="keyword">WHERE</span> a.stop<span class="operator">=</span><span class="number">115</span> <span class="keyword">AND</span> b.stop<span class="operator">=</span><span class="number">137</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--8 修改 6 的代码</span></span><br><span class="line"><span class="keyword">SELECT</span> a.company, a.num</span><br><span class="line"><span class="keyword">FROM</span> route a <span class="keyword">JOIN</span> route b <span class="keyword">ON</span></span><br><span class="line">  (a.company<span class="operator">=</span>b.company <span class="keyword">AND</span> a.num<span class="operator">=</span>b.num)</span><br><span class="line">  <span class="keyword">JOIN</span> stops stopa <span class="keyword">ON</span> a.stop<span class="operator">=</span>stopa.id</span><br><span class="line">  <span class="keyword">JOIN</span> stops stopb <span class="keyword">ON</span> b.stop<span class="operator">=</span>stopb.id</span><br><span class="line"><span class="keyword">WHERE</span> stopa.name<span class="operator">=</span><span class="string">&#x27;Craiglockhart&#x27;</span><span class="keyword">and</span> stopb.name <span class="operator">=</span><span class="string">&#x27;Tollcross&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--9</span></span><br><span class="line"><span class="keyword">select</span> d.name,a.company,a.num</span><br><span class="line"><span class="keyword">from</span> route a <span class="keyword">join</span> route b</span><br><span class="line"><span class="keyword">on</span> a.num <span class="operator">=</span>b.num <span class="keyword">and</span> a.company <span class="operator">=</span> b.company</span><br><span class="line"><span class="keyword">join</span> stops c <span class="keyword">on</span> (a.stop <span class="operator">=</span> c.id)</span><br><span class="line"><span class="keyword">join</span> stops d <span class="keyword">on</span> (b.stop <span class="operator">=</span> d.id)</span><br><span class="line"><span class="keyword">where</span> c.name <span class="operator">=</span><span class="string">&#x27;Craiglockhart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--10</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> x.num,x.company,name,y.num,y.company</span><br><span class="line"><span class="keyword">from</span>(<span class="keyword">select</span> a.num,a.company,b.stop</span><br><span class="line"><span class="keyword">from</span> route a</span><br><span class="line"><span class="keyword">join</span> route b</span><br><span class="line"><span class="keyword">on</span> a.num <span class="operator">=</span> b.num <span class="keyword">and</span> a.company <span class="operator">=</span> b.company</span><br><span class="line"><span class="keyword">and</span> a.stop <span class="operator">!=</span> b.stop</span><br><span class="line"><span class="keyword">where</span> a.stop <span class="operator">=</span> (<span class="keyword">select</span> id <span class="keyword">from</span> stops <span class="keyword">where</span> name <span class="operator">=</span><span class="string">&#x27;Craiglockhart&#x27;</span>)) <span class="keyword">as</span> x</span><br><span class="line"><span class="keyword">join</span> (<span class="keyword">select</span> c.num,c.company,c.stop</span><br><span class="line"><span class="keyword">from</span> route c</span><br><span class="line"><span class="keyword">join</span> route d </span><br><span class="line"><span class="keyword">on</span> c.num <span class="operator">=</span> d.num <span class="keyword">and</span> c.company <span class="operator">=</span> d.company</span><br><span class="line"><span class="keyword">and</span> c.stop <span class="operator">!=</span> d.stop</span><br><span class="line"><span class="keyword">where</span> d.stop <span class="operator">=</span>(<span class="keyword">select</span> id <span class="keyword">from</span> stops <span class="keyword">where</span> name <span class="operator">=</span> <span class="string">&#x27;Lochend&#x27;</span>))<span class="keyword">as</span> y</span><br><span class="line"><span class="keyword">on</span> x.stop <span class="operator">=</span> y.stop</span><br><span class="line"><span class="keyword">join</span> stops <span class="keyword">on</span> x.stop <span class="operator">=</span> stops.id</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> x.num,stops.name,y.num</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+      <div>
+    
+        <br />
+        <br />
+        <div style="text-align:center;color: #ccc;font-size:14px;">----------- 本文结束 -----------</div>
+        <br />
+        <br />
+        <br />
+        <br />
+    
+</div>
+      
+    </div>
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/14/BuuojRe/" rel="next" title="14道Buuoj Re记录">
+                <i class="fa fa-chevron-left"></i> 14道Buuoj Re记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/05/09/Ref/" rel="prev" title="Ref">
+                Ref <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <a href="/">
+                <img class="site-author-image" itemprop="image"
+                    src="/images/logo.jpeg"
+                    alt="" />
+              </a>
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li class="recent_posts_li">
+                    <a href="/2022/04/22/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7%E6%BC%94%E7%BB%83/" title="编程工具演练" target="_blank">编程工具演练</a>
+                  </li>
+                
+                  <li class="recent_posts_li">
+                    <a href="/2022/04/21/Java%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8CCMD%E5%91%BD%E4%BB%A4/" title="Java代码执行CMD命令" target="_blank">Java代码执行CMD命令</a>
+                  </li>
+                
+                  <li class="recent_posts_li">
+                    <a href="/2022/04/11/%E6%96%87%E7%AB%A0%E5%9B%BE%E8%A1%A8%E9%A2%98%E6%B3%A8%E7%9A%84%E7%AB%A0%E8%8A%82%E7%BC%96%E5%8F%B7%E6%B1%89%E5%AD%97%E6%94%B9%E6%88%90%E6%95%B0%E5%AD%97/" title="文章图表题注的章节编号汉字改成数字" target="_blank">文章图表题注的章节编号汉字改成数字</a>
+                  </li>
+                
+                  <li class="recent_posts_li">
+                    <a href="/2022/04/06/%E5%86%B3%E7%AD%96%E6%A0%91%E5%B0%8F%E8%AE%B0/" title="决策树小记" target="_blank">决策树小记</a>
+                  </li>
+                
+                  <li class="recent_posts_li">
+                    <a href="/2022/04/05/maven%E9%97%AE%E9%A2%98%E5%B0%8F%E7%BB%93/" title="maven问题小结" target="_blank">maven问题小结</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SELECT-from-WORLD-Tutorial"><span class="nav-text">SELECT from WORLD Tutorial</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SELECT-from-Nobel-Tutorial"><span class="nav-text">SELECT from Nobel Tutorial</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SELECT-within-SELECT-Tutorial"><span class="nav-text">SELECT within SELECT Tutorial</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nested-SELECT-Quiz"><span class="nav-text">Nested SELECT Quiz</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SUM-and-COUNT"><span class="nav-text">SUM and COUNT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SUM-and-COUNT-QUIZ"><span class="nav-text">SUM and COUNT QUIZ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-JOIN-operation"><span class="nav-text">The JOIN operation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JOIN-Quiz"><span class="nav-text">JOIN Quiz</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-Null"><span class="nav-text">Using Null</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-Null-Quiz"><span class="nav-text">Using Null Quiz</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Self-join"><span class="nav-text">Self join</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WooPokyuk</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+<!-- 代码块包裹面板=mac面板+代码块全选复制按钮 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/highlight-wrap.js?v=5.1.4"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>
