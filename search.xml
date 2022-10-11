@@ -9501,4 +9501,98 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>无干扰模型</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Java编程知识小结</title>
+    <url>/2022/10/10/Java%E7%BC%96%E7%A8%8B%E7%9F%A5%E8%AF%86%E4%B8%8E%E5%BA%94%E7%94%A8/</url>
+    <content><![CDATA[<hr>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">arrList = <span class="keyword">new</span> ArrayList&lt;&gt;(Array.asList())</span><br><span class="line">    </span><br><span class="line">arrList = Array.asList()</span><br></pre></td></tr></table></figure>
+<p>两者的区别是什么？</p>
+<p>后者在执行<code>arrList.add(1)</code>时会报错。原因：Array.asList()只会返回<strong>固定大小</strong>的列表，不能进行添加删除操作（但是可以修改原数组的数据）。</p>
+<hr>
+<p>ArrayList是1.5倍扩容</p>
+<p>Vector是2倍扩容</p>
+<hr>
+<p>Vector是线程安全的，每个方法都加了syn关键字，频繁加锁可能导致性能降低。</p>
+<hr>
+<p>Map相关的特性：</p>
+<ul>
+<li><p>HashMap——随机顺序迭代</p>
+</li>
+<li><p>LinkedHashMap——按插入顺序迭代</p>
+</li>
+<li><p>TreeMap——按键值的比较顺序迭代</p>
+</li>
+</ul>
+<h2 id="JDK工具"><a href="#JDK工具" class="headerlink" title="JDK工具"></a>JDK工具</h2><hr>
+<ul>
+<li>可以<strong>检查死锁</strong>的工具有哪些？</li>
+<li>jconsole；jstack</li>
+</ul>
+<hr>
+<ul>
+<li>可以<strong>检查内存泄露</strong>的工具有哪些？</li>
+<li>jmap；jhat</li>
+</ul>
+<hr>
+<ul>
+<li>排查<strong>CPU占满的原因</strong>，应该使用什么工具？</li>
+<li><code>top -Hd pid</code>可以找到最占用CPU的线程。然后通过jstack查找该线程所处的堆栈，确定问题发生的位置。</li>
+</ul>
+<p>（其中<code>-H</code>是线程开关，使用<code>-H</code>可以获取所有的单独的线程信息。<code>-d</code>可以设置延时）</p>
+<hr>
+<h3 id="jconsole"><a href="#jconsole" class="headerlink" title="jconsole"></a>jconsole</h3><ul>
+<li>路径</li>
+</ul>
+<p>该工具可以在jdk安装目录的bin下找到，如<code>D:\Program Files\Java\jdk1.8.0_261\bin</code></p>
+<ul>
+<li>使用方法如下：</li>
+</ul>
+<p><img src="/2022/10/10/Java%E7%BC%96%E7%A8%8B%E7%9F%A5%E8%AF%86%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221011174341998.png" alt="image-20221011174341998"></p>
+<h3 id="jstack——查看JAVA进程的堆栈情况，可确认死锁、IO等待、死循环等问题"><a href="#jstack——查看JAVA进程的堆栈情况，可确认死锁、IO等待、死循环等问题" class="headerlink" title="jstack——查看JAVA进程的堆栈情况，可确认死锁、IO等待、死循环等问题"></a>jstack——查看JAVA进程的堆栈情况，可确认死锁、IO等待、死循环等问题</h3><ul>
+<li>用法</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">jstack.exe pid</span><br></pre></td></tr></table></figure>
+<ul>
+<li>示例</li>
+</ul>
+<p><img src="/2022/10/10/Java%E7%BC%96%E7%A8%8B%E7%9F%A5%E8%AF%86%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221011175504386.png" alt="image-20221011175504386"></p>
+<h3 id="jmap——生成进程的内存堆快照"><a href="#jmap——生成进程的内存堆快照" class="headerlink" title="jmap——生成进程的内存堆快照"></a>jmap——生成进程的内存堆快照</h3><ul>
+<li>用法</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># 打印堆快照</span><br><span class="line">jmap -dump:file=./dumpfile.dump pid</span><br><span class="line"></span><br><span class="line"># 查看类的占用情况</span><br><span class="line">jmap -histo:live pid</span><br></pre></td></tr></table></figure>
+<ul>
+<li>示例</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"><span class="function">D:\<span class="title">Program</span> <span class="title">Files</span>\<span class="title">Java</span>\<span class="title">jdk1</span>.8.0<span class="title">_261</span>\<span class="title">bin</span>&gt;<span class="title">jmap</span> -<span class="title">dump:file</span>=./<span class="title">dumpfile.dump</span> 332</span></span><br><span class="line"><span class="function"><span class="title">Dumping</span> <span class="title">heap</span> <span class="title">to</span> <span class="title">D</span>:\<span class="title">Program</span> <span class="title">Files</span>\<span class="title">Java</span>\<span class="title">jdk1</span>.8.0<span class="title">_261</span>\<span class="title">bin</span>\<span class="title">dumpfile.dump</span> ...</span></span><br><span class="line"><span class="function"><span class="title">Heap</span> <span class="title">dump</span> <span class="title">file</span> <span class="title">created</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">D</span>:\<span class="title">Program</span> <span class="title">Files</span>\<span class="title">Java</span>\<span class="title">jdk1</span>.8.0<span class="title">_261</span>\<span class="title">bin</span>&gt;<span class="title">jmap</span> -<span class="title">histo:live</span> 332</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"> <span class="title">num</span>     #<span class="title">instances</span>         #<span class="title">bytes</span>  <span class="title">class</span> <span class="title">name</span></span></span><br><span class="line"><span class="function">----------------------------------------------</span></span><br><span class="line"><span class="function">   1:          4019        6387176  [<span class="title">I</span></span></span><br><span class="line"><span class="function">   2:         30375        2106904  [<span class="title">C</span></span></span><br><span class="line"><span class="function">   3:         29579         709896  <span class="title">java.lang.String</span></span></span><br><span class="line"><span class="function">   4:          4318         490496  <span class="title">java.lang.Class</span></span></span><br><span class="line"><span class="function">   5:           571         347416  [<span class="title">B</span></span></span><br><span class="line"><span class="function">   6:         10083         322656  <span class="title">java.util.HashMap</span>$<span class="title">Node</span></span></span><br><span class="line"><span class="function">   7:          5806         293440  [<span class="title">Ljava.lang.Object</span>;</span></span><br><span class="line"><span class="function">   8:          2825         248600  <span class="title">java.lang.reflect.Method</span></span></span><br><span class="line"><span class="function">   9:           504         214856  [<span class="title">J</span></span></span><br><span class="line"><span class="function">  10:          8865         212760  <span class="title">sun.font.TrueTypeFont</span>$<span class="title">DirectoryEntry</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="jhat——解析jmap生成的快照"><a href="#jhat——解析jmap生成的快照" class="headerlink" title="jhat——解析jmap生成的快照"></a>jhat——解析jmap生成的快照</h3><ul>
+<li>用法</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># -J&lt;flag&gt;表示将&lt;flag&gt;传递给运行时系统；-Xmx表示最大堆</span><br><span class="line">jhat -J-Xmx515M dumpfile.dump</span><br></pre></td></tr></table></figure>
+<ul>
+<li>示例</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"><span class="function">D:\<span class="title">Program</span> <span class="title">Files</span>\<span class="title">Java</span>\<span class="title">jdk1</span>.8.0<span class="title">_261</span>\<span class="title">bin</span>&gt;<span class="title">jhat</span> -<span class="title">J</span>-<span class="title">Xmx515M</span> <span class="title">dumpfile.dump</span></span></span><br><span class="line"><span class="function"><span class="title">Reading</span> <span class="title">from</span> <span class="title">dumpfile.dump</span>...</span></span><br><span class="line"><span class="function"><span class="title">Dump</span> <span class="title">file</span> <span class="title">created</span> <span class="title">Tue</span> <span class="title">Oct</span> 11 18:09:23 <span class="title">CST</span> 2022</span></span><br><span class="line"><span class="function"><span class="title">Snapshot</span> <span class="title">read</span>, <span class="title">resolving</span>...</span></span><br><span class="line"><span class="function"><span class="title">Resolving</span> 426791 <span class="title">objects</span>...</span></span><br><span class="line"><span class="function"><span class="title">Chasing</span> <span class="title">references</span>, <span class="title">expect</span> 85 <span class="title">dots</span>.....................................................................................</span></span><br><span class="line"><span class="function"><span class="title">Eliminating</span> <span class="title">duplicate</span> <span class="title">references</span>.....................................................................................</span></span><br><span class="line"><span class="function"><span class="title">Snapshot</span> <span class="title">resolved</span>.</span></span><br><span class="line"><span class="function"><span class="title">Started</span> <span class="title">HTTP</span> <span class="title">server</span> <span class="title">on</span> <span class="title">port</span> 7000</span></span><br><span class="line"><span class="function"><span class="title">Server</span> <span class="title">is</span> <span class="title">ready</span>.</span></span><br></pre></td></tr></table></figure>
+<p>访问<a href="http://localhost:7000/，有">http://localhost:7000/，有</a></p>
+<p><img src="/2022/10/10/Java%E7%BC%96%E7%A8%8B%E7%9F%A5%E8%AF%86%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221011181448971.png" alt="image-20221011181448971"></p>
+<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><h4 id="jstat——查看进程中内存使用情况"><a href="#jstat——查看进程中内存使用情况" class="headerlink" title="jstat——查看进程中内存使用情况"></a>jstat——查看进程中内存使用情况</h4><ul>
+<li>用法</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># 统计加载了多少类，占用了多少空间</span><br><span class="line">jstat -class pid</span><br><span class="line"></span><br><span class="line"># 统计编译了多少文件</span><br><span class="line">jstat -compiler pid</span><br><span class="line"></span><br><span class="line"># 每隔<span class="number">2</span>秒，打印一次对应进程的内存使用信息</span><br><span class="line">jstat -gcutil pid <span class="number">2000</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>示例</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"><span class="function">D:\<span class="title">Program</span> <span class="title">Files</span>\<span class="title">Java</span>\<span class="title">jdk1</span>.8.0<span class="title">_261</span>\<span class="title">bin</span>&gt;<span class="title">jstat</span> -<span class="title">class</span> 332</span></span><br><span class="line"><span class="function"><span class="title">Loaded</span>  <span class="title">Bytes</span>  <span class="title">Unloaded</span>  <span class="title">Bytes</span>     <span class="title">Time</span></span></span><br><span class="line"><span class="function">  3931  8079.8        0     0.0       1.54</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">D</span>:\<span class="title">Program</span> <span class="title">Files</span>\<span class="title">Java</span>\<span class="title">jdk1</span>.8.0<span class="title">_261</span>\<span class="title">bin</span>&gt;<span class="title">jstat</span> -<span class="title">compiler</span> 332</span></span><br><span class="line"><span class="function"><span class="title">Compiled</span> <span class="title">Failed</span> <span class="title">Invalid</span>   <span class="title">Time</span>   <span class="title">FailedType</span> <span class="title">FailedMethod</span></span></span><br><span class="line"><span class="function">    4139      1       0    10.13          1 <span class="title">sun</span>/<span class="title">font</span>/<span class="title">TrueTypeFont</span> <span class="title">initAllNames</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">D</span>:\<span class="title">Program</span> <span class="title">Files</span>\<span class="title">Java</span>\<span class="title">jdk1</span>.8.0<span class="title">_261</span>\<span class="title">bin</span>&gt;<span class="title">jstat</span> -<span class="title">gcutil</span> 332 2000</span></span><br><span class="line"><span class="function">  <span class="title">S0</span>     <span class="title">S1</span>     <span class="title">E</span>      <span class="title">O</span>      <span class="title">M</span>     <span class="title">CCS</span>    <span class="title">YGC</span>     <span class="title">YGCT</span>    <span class="title">FGC</span>    <span class="title">FGCT</span>     <span class="title">GCT</span></span></span><br><span class="line"><span class="function">  0.00  23.65  86.87  60.52  96.91  93.81     11    0.044     2    0.100    0.144</span></span><br><span class="line"><span class="function">  0.00  23.65  86.87  60.52  96.91  93.81     11    0.044     2    0.100    0.144</span></span><br><span class="line"><span class="function"> 33.10   0.00   1.93  60.56  96.97  94.13     12    0.048     2    0.100    0.148</span></span><br><span class="line"><span class="function"> 33.10   0.00   1.97  60.56  96.97  94.13     12    0.048     2    0.100    0.148</span></span><br><span class="line"><span class="function"> 33.10   0.00  13.87  60.56  96.97  94.13     12    0.048     2    0.100    0.148</span></span><br><span class="line"><span class="function"> 33.10   0.00  13.87  60.56  96.97  94.13     12    0.048     2    0.100    0.148</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>如果E和O也即新生代和老年代内存区一直是满的，则很有可能引发OMM风险（内存溢出）。</p>
+<h4 id="jdb——对core文件和正在运行的JAVA进程进行实时调试，类似gdb"><a href="#jdb——对core文件和正在运行的JAVA进程进行实时调试，类似gdb" class="headerlink" title="jdb——对core文件和正在运行的JAVA进程进行实时调试，类似gdb"></a>jdb——对core文件和正在运行的JAVA进程进行实时调试，类似gdb</h4><ul>
+<li>用法</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
 </search>
