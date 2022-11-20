@@ -9587,12 +9587,87 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
 <li>用法</li>
 </ul>
 <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
+<h2 id="Java编译优化"><a href="#Java编译优化" class="headerlink" title="Java编译优化"></a>Java编译优化</h2>]]></content>
       <categories>
         <category>编程</category>
       </categories>
       <tags>
         <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据结构与算法之美</title>
+    <url>/2022/10/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/</url>
+    <content><![CDATA[<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>排序算法</th>
+<th>时间复杂度</th>
+<th>是否基于比较</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>冒泡、插入、选择</td>
+<td>$O(n^2)$</td>
+<td>√</td>
+</tr>
+<tr>
+<td>快排、归并</td>
+<td>$O(nlogn)$</td>
+<td>√</td>
+</tr>
+<tr>
+<td>桶、计数、基数</td>
+<td>$O(n)$</td>
+<td>×</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="冒泡、插入、选择"><a href="#冒泡、插入、选择" class="headerlink" title="冒泡、插入、选择"></a>冒泡、插入、选择</h3><ul>
+<li><p><strong>原地排序</strong></p>
+<p>特指空间复杂度为 $O(1)$ 的排序算法</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>什么是排序算法的<strong>稳定性</strong>？</li>
+<li>稳定：排序遇到相同元素时，不改变前后顺序。（发生变化就是不稳定的）</li>
+</ul>
+<hr>
+<h4 id="冒泡"><a href="#冒泡" class="headerlink" title="冒泡"></a>冒泡</h4><p>冒泡只操作相邻的两个数据。如果不满足大小要求就互换。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>算法与数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Go语言基础</title>
+    <url>/2022/11/20/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><h3 id="for与for-each"><a href="#for与for-each" class="headerlink" title="for与for-each"></a>for与for-each</h3><ul>
+<li>for</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> num = <span class="number">10</span></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; num; i++ &#123;</span><br><span class="line">		fmt.Println(i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>for-each</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> s = <span class="string">&quot;12345&quot;</span></span><br><span class="line">    <span class="comment">// _为索引，因为用不到，但range需要，因此使用临时变量</span></span><br><span class="line">	<span class="keyword">for</span> _, i := <span class="keyword">range</span> s &#123;  </span><br><span class="line">		fmt.Println(<span class="keyword">string</span>(i))</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="计算重复行数"><a href="#计算重复行数" class="headerlink" title="计算重复行数"></a>计算重复行数</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;bufio&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	counts := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>)</span><br><span class="line">	input := bufio.NewScanner(os.Stdin)</span><br><span class="line">	<span class="keyword">for</span> input.Scan() &#123;</span><br><span class="line">		counts[input.Text()]++</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> line, n := <span class="keyword">range</span> counts &#123;</span><br><span class="line">		<span class="keyword">if</span> n &gt; <span class="number">1</span> &#123;</span><br><span class="line">			fmt.Printf(<span class="string">&quot;%d\t%s\n\n&quot;</span>, n, line)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="从键盘获取输入"><a href="#从键盘获取输入" class="headerlink" title="从键盘获取输入"></a>从键盘获取输入</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">int</span></span><br><span class="line">	<span class="keyword">var</span> b <span class="keyword">int</span></span><br><span class="line">	_, _ = fmt.Scanln(&amp;a)</span><br><span class="line">	_, _ = fmt.Scanln(&amp;b)</span><br><span class="line">	fmt.Println(a + b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>Go</tag>
       </tags>
   </entry>
 </search>
