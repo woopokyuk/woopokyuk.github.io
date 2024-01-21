@@ -9446,4 +9446,17 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>Go</tag>
       </tags>
   </entry>
+  <entry>
+    <title>关键架构需求</title>
+    <url>/2024/01/21/%E5%85%B3%E9%94%AE%E6%9E%B6%E6%9E%84%E9%9C%80%E6%B1%82/</url>
+    <content><![CDATA[<p><img src="/2024/01/21/%E5%85%B3%E9%94%AE%E6%9E%B6%E6%9E%84%E9%9C%80%E6%B1%82/image-20240121211833253.png" alt="image-20240121211833253"></p>
+]]></content>
+      <categories>
+        <category>架构设计</category>
+      </categories>
+      <tags>
+        <tag>设计</tag>
+        <tag>架构</tag>
+      </tags>
+  </entry>
 </search>
