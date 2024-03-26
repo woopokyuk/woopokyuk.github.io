@@ -9503,4 +9503,54 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>编码</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Java并发编程</title>
+    <url>/2024/03/26/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="JVM关闭"><a href="#JVM关闭" class="headerlink" title="JVM关闭"></a>JVM关闭</h2><h3 id="shutdownHook"><a href="#shutdownHook" class="headerlink" title="shutdownHook"></a>shutdownHook</h3><p>JVM（Java Virtual Machine）的Shutdown Hook 是一种特殊的后台线程，它允许开发人员在JVM即将关闭前执行特定的清理或资源释放任务。当Java应用程序因以下情况之一需要终止时：</p>
+<ul>
+<li>正常退出：比如所有的非守护线程都已经终止，或者System.exit()方法被调用指示JVM退出。</li>
+<li>外部中断：操作系统发送了终止信号到Java进程，如通过kill命令或用户按下Ctrl+C。</li>
+<li>系统崩溃：虽然不常见且无法保证，但在某些情况下，即使系统遭遇严重错误导致JVM崩溃前，也可能尝试执行已注册的Shutdown Hooks。</li>
+</ul>
+<h4 id="shutdownHook注意事项"><a href="#shutdownHook注意事项" class="headerlink" title="shutdownHook注意事项"></a>shutdownHook注意事项</h4><p>使用JVM的Shutdown Hook时，有几个重要的注意事项：</p>
+<ol>
+<li><p><strong>执行不确定性</strong>：</p>
+<ul>
+<li><strong>执行顺序不确定</strong>：JVM在关闭时会启动所有注册的Shutdown Hook线程，但这些线程之间的执行顺序是不确定的，即JVM不保证按照注册的顺序执行各个Hook。</li>
+<li><strong>并发执行</strong>：所有Hook可能并行执行，这意味着不同Hook中的代码可能交错运行，所以Hook内部的逻辑应设计成线程安全的。</li>
+</ul>
+</li>
+<li><p><strong>无法保证一定会执行</strong>：</p>
+<ul>
+<li><strong>强制退出</strong>：如果JVM收到像SIGKILL这样的立即终止信号，或者调用了<code>Runtime.halt()</code>方法，那么Shutdown Hook可能不会有机会被执行。</li>
+<li><strong>系统级问题</strong>：在系统崩溃、电源故障或硬件问题等极端情况下，JVM可能来不及或无法执行任何关闭钩子。</li>
+</ul>
+</li>
+<li><p><strong>执行时间限制</strong>：</p>
+<ul>
+<li>Shutdown Hook应该尽快完成其清理工作，因为长时间运行可能导致整个关闭过程延迟，甚至可能因为阻塞而被操作系统强制终止。</li>
+</ul>
+</li>
+<li><p><strong>生命周期管理</strong>：</p>
+<ul>
+<li><strong>添加与移除</strong>：在JVM关闭序列已经开始后，不能再添加新的Shutdown Hook，也不能取消已经注册的Hook。</li>
+<li><strong>守护进程</strong>：在JVM关闭时，守护线程并不会因为Shutdown Hook的执行而自动停止，需要在Hook中显式地处理这些线程的终止。</li>
+</ul>
+</li>
+<li><p><strong>资源释放</strong>：</p>
+<ul>
+<li>使用Shutdown Hook来释放诸如文件句柄、数据库连接、网络套接字等关键资源是很常见的做法，但不应依赖此机制作为唯一的数据一致性保障手段，尤其是在涉及事务性操作时，应尽量在业务逻辑层就做好资源的正确管理和异常处理。</li>
+</ul>
+</li>
+</ol>
+<p>Shutdown Hook是一种方便的工具，但它不是一种可靠的服务终止机制，对于需要高度一致性和保证执行的应用场景，应配合其他策略共同使用，如应用容器管理的生命周期回调、事务管理机制或更高级别的服务治理框架等。</p>
+]]></content>
+      <categories>
+        <category>CS</category>
+      </categories>
+      <tags>
+        <tag>并发</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
 </search>
