@@ -125,7 +125,7 @@
 <meta property="og:description" content="JVM关闭shutdownHookJVM（Java Virtual Machine）的Shutdown Hook 是一种特殊的后台线程，它允许开发人员在JVM即将关闭前执行特定的清理或资源释放任务。当Java应用程序因以下情况之一需要终止时：  正常退出：比如所有的非守护线程都已经终止，或者System.exit()方法被调用指示JVM退出。 外部中断：操作系统发送了终止信号到Java进程，如通过">
 <meta property="og:locale">
 <meta property="article:published_time" content="2024-03-26T15:36:56.000Z">
-<meta property="article:modified_time" content="2024-03-26T15:43:47.981Z">
+<meta property="article:modified_time" content="2024-03-26T15:52:23.520Z">
 <meta property="article:author" content="WooPokyuk">
 <meta property="article:tag" content="并发">
 <meta property="article:tag" content="多线程">
@@ -371,7 +371,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-03-26T23:43:47+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2024-03-26T23:52:23+08:00">
                 2024-03-26
               </time>
             
@@ -426,7 +426,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  729
+                  1.9k
                 </span>
               
 
@@ -442,7 +442,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  6
                 </span>
               
             </div>
@@ -501,6 +501,77 @@
 </li>
 </ol>
 <p>Shutdown Hook是一种方便的工具，但它不是一种可靠的服务终止机制，对于需要高度一致性和保证执行的应用场景，应配合其他策略共同使用，如应用容器管理的生命周期回调、事务管理机制或更高级别的服务治理框架等。</p>
+<hr>
+<blockquote>
+<p>为什么在Shutdown Hook的上下文中，一般希望尽可能快且干净地完成资源清理工作，以便JVM能尽快结束运行。JVM如果没有尽快结束有什么风险？</p>
+</blockquote>
+<p>在Shutdown Hook的上下文中，之所以希望尽快且干净地完成资源清理工作，以便JVM能尽快结束运行，原因主要有以下几点：</p>
+<ol>
+<li><p><strong>资源占用</strong>：</p>
+<ul>
+<li>JVM进程如果迟迟未能结束，将会继续占用系统资源（如内存、CPU、文件句柄、网络连接等）。特别是当系统处于低资源环境或者是正在进行维护、重启、更新等操作时，资源的有效释放显得尤为重要。</li>
+</ul>
+</li>
+<li><p><strong>进程僵死</strong>：</p>
+<ul>
+<li><strong>若JVM在关闭时卡在某个耗时很久的清理任务上，可能导致进程成为所谓的”僵死进程”</strong>，这种状态下的进程无法被正常结束，通常需要通过更强力的手段（如发送SIGKILL信号）来强制终止，而这有可能导致数据损坏或其他不可预测的问题。</li>
+</ul>
+</li>
+<li><p><strong>系统响应</strong>：</p>
+<ul>
+<li>在一些场景下，如服务器集群或云环境中，管理员可能希望服务在接收到关闭指令后迅速终止并释放资源，以便快速部署新的服务版本或进行系统维护。</li>
+</ul>
+</li>
+<li><p><strong>数据完整性与一致性</strong>：</p>
+<ul>
+<li>虽然Shutdown Hook主要用于资源清理，但如果执行时间过长，可能导致部分清理操作无法按时完成，进而影响数据的完整性和一致性。例如，若数据库连接在关闭前未能及时提交事务或回滚，可能会造成数据丢失或脏数据。</li>
+</ul>
+</li>
+<li><p><strong>用户体验</strong>：</p>
+<ul>
+<li>对于交互式应用而言，如果关闭过程过于缓慢，会影响用户的体验，特别是在操作系统关机或注销用户的过程中，用户可能因为应用程序未能及时关闭而被迫等待更长时间。</li>
+</ul>
+</li>
+<li><p><strong>外部依赖与协调</strong>：</p>
+<ul>
+<li>如果应用程序与其他系统存在紧密的集成，如分布式系统中的节点相互协作，那么一个节点的关闭速度直接影响到整个系统的协调和稳定性。</li>
+</ul>
+</li>
+</ol>
+<p>综上所述，确保JVM能在短时间内干净地关闭，不仅有利于保持系统资源的有效利用和维护操作的顺利进行，也有助于保证数据的一致性以及提升系统的整体可靠性。</p>
+<hr>
+<blockquote>
+<p>若JVM在关闭时卡在某个耗时很久的清理任务上，可能导致进程成为所谓的”僵死进程”。这个时间大约多久，受什么影响</p>
+</blockquote>
+<p>JVM在关闭时是否会成为“僵死进程”，并不在于具体耗时多久，而是看操作系统对进程终止的处理方式以及进程自身的响应。通常，操作系统会给予进程一定的时间去完成正常的关闭流程，包括执行Shutdown Hooks。这个时间并没有严格的定义，因为它受到多种因素的影响：</p>
+<ol>
+<li><p><strong>操作系统配置</strong>：</p>
+<ul>
+<li>不同的操作系统有不同的默认等待策略，例如Linux系统下，针对不同的终止信号（如SIGTERM、SIGINT），系统默认等待进程自行结束的时间长度不同。</li>
+</ul>
+</li>
+<li><p><strong>JVM关闭行为</strong>：</p>
+<ul>
+<li>JVM在接收到退出请求后，会先尝试执行所有注册的Shutdown Hook，然后才会真正退出。在此期间，如果Hook中的某个任务一直阻塞，会导致JVM整体关闭时间延长。</li>
+</ul>
+</li>
+<li><p><strong>应用程序设计</strong>：</p>
+<ul>
+<li>应用程序如何响应关闭请求，以及Shutdown Hook中执行的任务耗时程度，直接影响到JVM关闭所需的时间。</li>
+</ul>
+</li>
+<li><p><strong>资源状况</strong>：</p>
+<ul>
+<li>当系统资源紧张时，操作系统可能不会给予进程很长的关闭窗口期。</li>
+</ul>
+</li>
+<li><p><strong>人为干预</strong>：</p>
+<ul>
+<li>用户或系统管理员可以决定是否耐心等待进程自行结束，或者采取更激进的方式如发送SIGKILL信号强制结束进程，此时进程无条件立刻终止，不再执行任何清理逻辑。</li>
+</ul>
+</li>
+</ol>
+<p>总之，“僵死进程”更多是指进程无法响应正常的终止请求，而不是指某一个确切的时间阈值。为了避免JVM在关闭时陷入僵死状态，开发人员应当确保Shutdown Hook中的清理逻辑高效、不阻塞，并在必要时采用异步或限时策略来完成清理工作。</p>
 
       
     </div>
