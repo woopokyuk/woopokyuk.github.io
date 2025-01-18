@@ -9655,4 +9655,60 @@ ed-1=x*\phi(n)</script><p>如果我们已知p,q的位数，那就大概知道n�
         <tag>Java</tag>
       </tags>
   </entry>
+  <entry>
+    <title>ASM</title>
+    <url>/2025/01/18/ASM/</url>
+    <content><![CDATA[<h2 id="ASM简介"><a href="#ASM简介" class="headerlink" title="ASM简介"></a>ASM简介</h2><h2 id="ASM核心概念"><a href="#ASM核心概念" class="headerlink" title="ASM核心概念"></a>ASM核心概念</h2><h2 id="ASM组件"><a href="#ASM组件" class="headerlink" title="ASM组件"></a>ASM组件</h2><h2 id="ClassVisitor"><a href="#ClassVisitor" class="headerlink" title="ClassVisitor"></a>ClassVisitor</h2><h2 id="MethodVisitor"><a href="#MethodVisitor" class="headerlink" title="MethodVisitor"></a>MethodVisitor</h2><h2 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h2><ul>
+<li><a href="https://asm.ow2.io/developer-guide.html">ASM官方开发者指南</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Java</tag>
+        <tag>ASM</tag>
+        <tag>开源</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ASM开发者指南</title>
+    <url>/2025/01/18/ASM%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97/</url>
+    <content><![CDATA[<h3 id="ASM-开发者指南"><a href="#ASM-开发者指南" class="headerlink" title="ASM 开发者指南"></a>ASM 开发者指南</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>ASM 是一个用于处理 Java 字节码的工具集，主要用于修改或生成现有的 <code>.class</code> 文件。这份总结基于 <a href="https://asm.ow2.io/developer-guide.html">ASM 官方开发者指南</a>，旨在为初学者提供指导。</p>
+<h4 id="获取与构建源代码"><a href="#获取与构建源代码" class="headerlink" title="获取与构建源代码"></a>获取与构建源代码</h4><ul>
+<li><strong>获取源代码</strong>：你可以通过 Git 命令 <code>git clone https://gitlab.ow2.org/asm/asm.git</code> 来下载 ASM 源代码，或者从 <a href="https://gitlab.ow2.org/asm/asm">GitLab</a> 下载仓库的快照。</li>
+<li><strong>构建项目</strong>：<ul>
+<li>构建整个项目：在主目录下运行 <code>gradle/gradlew build</code>。</li>
+<li>构建单个项目（例如 <code>asm-tree</code>）：使用命令 <code>gradle/gradlew :asm-tree:build</code>。这会编译代码、运行单元测试，并执行其他检查以确保代码格式正确、向后兼容之前的 ASM 版本且完全被单元测试覆盖。</li>
+</ul>
+</li>
+</ul>
+<h4 id="测试与性能评估"><a href="#测试与性能评估" class="headerlink" title="测试与性能评估"></a>测试与性能评估</h4><ul>
+<li><strong>运行测试</strong>：<ul>
+<li>运行所有项目的测试：在主目录下运行 <code>gradle/gradlew test</code>。</li>
+<li>运行特定项目的测试（如 <code>asm-util</code>）：使用命令 <code>gradle/gradlew :asm-util:test</code>。</li>
+</ul>
+</li>
+<li><strong>生成测试覆盖率报告</strong>：使用命令 <code>gradle/gradlew jacocoTestReport</code> 可以生成测试覆盖率报告，结果位于每个项目的 <code>build/reports/jacoco</code> 目录中。</li>
+</ul>
+<h4 id="生成分发版"><a href="#生成分发版" class="headerlink" title="生成分发版"></a>生成分发版</h4><ul>
+<li>使用命令 <code>gradle/gradlew uploadArchives</code> 可以生成包含编译制品、Javadoc 和源代码 jar、POM 文件及数字签名的二进制分发版。生成的结果将存放在 <code>/tmp/myRepo</code> 目录下。</li>
+</ul>
+<h4 id="ASM-代码组织结构"><a href="#ASM-代码组织结构" class="headerlink" title="ASM 代码组织结构"></a>ASM 代码组织结构</h4><p>ASM 被组织成多个包，以下是其中几个关键包的简要介绍：</p>
+<ul>
+<li><strong>org.objectweb.asm</strong>：核心包，定义了 ASM 访问者 API 并提供了 <code>ClassReader</code> 和 <code>ClassWriter</code> 类来读写编译后的 Java 类。</li>
+<li><strong>org.objectweb.asm.signature</strong>：提供读写泛型签名的 API，独立于核心包但作为补充。</li>
+<li><strong>org.objectweb.asm.tree</strong>：提供了一个类似于 DOM 的 API，基于核心包提供的 SAX 式 API，适用于实现复杂的类转换。</li>
+<li><strong>org.objectweb.asm.commons</strong>：基于核心和树形包提供了一些有用的类适配器。</li>
+</ul>
+<h4 id="核心算法与数据结构"><a href="#核心算法与数据结构" class="headerlink" title="核心算法与数据结构"></a>核心算法与数据结构</h4><ul>
+<li><strong>ClassReader</strong>：用于解析字节码并将其转化为可操作的数据结构。</li>
+<li><strong>ClassWriter</strong>：用于生成新的字节码文件。</li>
+<li><strong>控制流图与基本块</strong>：ASM 使用控制流图分解方法，其中每个节点代表一个基本块，边表示跳转指令连接的基本块。</li>
+<li><strong>堆栈映射帧计算</strong>：ASM 实现了一个两步过程来计算每个基本块的输入帧和输出帧，从而确定方法的最大堆栈大小和堆栈映射帧。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Java</tag>
+        <tag>ASM</tag>
+        <tag>开源</tag>
+      </tags>
+  </entry>
 </search>
